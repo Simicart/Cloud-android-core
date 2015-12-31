@@ -1,0 +1,14 @@
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+facebook/bin/
+facebookSDK/build/
+library/build/
+devsmartAndroid/build/
+wheel/build/
+facebookSDK/
+facebook/build/
