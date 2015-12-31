@@ -140,7 +140,7 @@ public class MainActivity extends FragmentActivity {
 
     private void  testCommitPush()
     {
-        
+        // test
     }
 
     private void autoGetQtyNotSignin(){
