@@ -138,10 +138,6 @@ public class MainActivity extends FragmentActivity {
         controller.onStart();
     }
 
-   private void newMethodForTest()
-   {
-// edit for nhatvm 2
-   }
 
     private void autoGetQtyNotSignin(){
         AutoGetQtyNotSignInController controller = new AutoGetQtyNotSignInController();
