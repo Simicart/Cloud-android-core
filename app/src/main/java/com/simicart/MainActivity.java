@@ -138,10 +138,10 @@ public class MainActivity extends FragmentActivity {
         controller.onStart();
     }
 
-    private void  testCommitPush()
-    {
-        // test
-    }
+   private void newMethodForTest()
+   {
+
+   }
 
     private void autoGetQtyNotSignin(){
         AutoGetQtyNotSignInController controller = new AutoGetQtyNotSignInController();
