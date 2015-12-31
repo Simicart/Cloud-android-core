@@ -140,7 +140,7 @@ public class MainActivity extends FragmentActivity {
 
    private void newMethodForTest()
    {
-
+// edit for nhatvm 2
    }
 
     private void autoGetQtyNotSignin(){
