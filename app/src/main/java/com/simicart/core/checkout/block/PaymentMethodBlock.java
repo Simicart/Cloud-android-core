@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -90,6 +91,7 @@ public class PaymentMethodBlock extends SimiBlock implements
 
 	@Override
 	public void setPaymentMethods(ArrayList<PaymentMethod> paymentMethods) {
+		Log.e("PaymentMethodBlock", "++" + paymentMethods.size());
 		ll_payment.removeAllViews();
 		lisCheckBoxs = new ArrayList<ImageView>();
 		listContent = new ArrayList<TextView>();

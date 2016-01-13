@@ -37,7 +37,6 @@ public class ForgotPasswordController extends SimiController {
 
             @Override
             public void onClick(View v) {
-
                 onSend();
             }
         };
@@ -54,42 +53,42 @@ public class ForgotPasswordController extends SimiController {
 
             return;
         }
-        String pass = mDelegate.getNewPass();
-        if (null == pass || pass.equals("")) {
-            SimiManager.getIntance().showNotify(null,
-                    Config.getInstance().getText("Please enter your new password."),
-                    Config.getInstance().getText("OK"));
+//        String pass = mDelegate.getNewPass();
+//        if (null == pass || pass.equals("")) {
+//            SimiManager.getIntance().showNotify(null,
+//                    Config.getInstance().getText("Please enter your new password."),
+//                    Config.getInstance().getText("OK"));
+//
+//            return;
+//        }
+//        String confirmPass = mDelegate.getConfirmPass();
+//        if (null == confirmPass || confirmPass.equals("")) {
+//            SimiManager.getIntance().showNotify(null,
+//                    Config.getInstance().getText("Please confirm your password"),
+//                    Config.getInstance().getText("OK"));
+//
+//            return;
+//        }
+//        if (!confirmPass.equals(pass)) {
+//            SimiManager.getIntance().showNotify(null,
+//                    Config.getInstance().getText("Please confirm password not match with password"),
+//                    Config.getInstance().getText("OK"));
+//
+//            return;
+//        }
 
-            return;
-        }
-        String confirmPass = mDelegate.getConfirmPass();
-        if (null == confirmPass || confirmPass.equals("")) {
-            SimiManager.getIntance().showNotify(null,
-                    Config.getInstance().getText("Please confirm your password"),
-                    Config.getInstance().getText("OK"));
+        resetToken(email);
 
-            return;
-        }
-        if (!confirmPass.equals(pass)) {
-            SimiManager.getIntance().showNotify(null,
-                    Config.getInstance().getText("Please confirm password not match with password"),
-                    Config.getInstance().getText("OK"));
-
-            return;
-        }
-
-        mDelegate.showLoading();
-        resetToken(email, pass);
-
-        mDelegate.dismissLoading();
     }
 
-    public String resetToken(final String email, final String pass) {
+    public String resetToken(final String email) {
+        mDelegate.showLoading();
         String token = "";
         final ForgotPasswordModel model = new ForgotPasswordModel();
         model.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
+                mDelegate.dismissLoading();
                 if(error != null){
                     mDelegate.showNotify(error.getMessage());
                 }
@@ -97,8 +96,11 @@ public class ForgotPasswordController extends SimiController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                resetToken = model.getResetToken();
-                resetPassword(email, pass);
+                mDelegate.dismissLoading();
+                if(!model.getMessage().equals("")){
+                    mDelegate.showNotify(model.getMessage());
+                }
+//                resetPassword(email, pass);
             }
         });
         model.addDataExtendURL("forget-password");

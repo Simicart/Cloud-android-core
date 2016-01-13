@@ -192,7 +192,7 @@ public class Utils {
             builderDecimal.append("#");
         }
 
-        String patern = "###" + charSepthousand + "###" + charSepDecimal + builderDecimal.toString();
+        String patern =  "###" + charSepDecimal + builderDecimal.toString();
         DecimalFormat format = new DecimalFormat(patern);
         return format.format(price);
     }

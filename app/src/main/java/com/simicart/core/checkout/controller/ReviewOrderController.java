@@ -617,6 +617,15 @@ public class ReviewOrderController extends SimiController implements
                             event2.dispatchEvent(
                                     "com.simicart.paymentmethod.placeorder",
                                     _CheckoutData2);
+//                            if(paymentmethod.getName().equals("paypal")) {
+//                                event2.dispatchEvent(
+//                                        "com.simicart.paymentmethod.placeorder",
+//                                        _CheckoutData2);
+//                            } else if(paymentmethod.getName().equals("braintree")) {
+//                                event2.dispatchEvent(
+//                                        "com.simicart.paymentmethod.braintreeplaceorder",
+//                                        _CheckoutData2);
+//                            }
                             // end event
                             break;
                     }

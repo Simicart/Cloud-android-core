@@ -93,7 +93,8 @@ public class NotificationController {
 			 "Device is already registered on GCM, check server.");
 			 if (GCMRegistrar.isRegisteredOnServer(mContext)) {
 				 // Skips registration.
-				 Log.e(getClass().getName(), "The device is registered On Server");
+				 Log.e(getClass().getName(),
+				 "The device is registered On Server");
 			 } else {
 				Log.e(getClass().getName(), "Try to register again");
 				// Try to register again, but not in the UI thread.
