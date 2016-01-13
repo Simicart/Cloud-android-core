@@ -191,6 +191,7 @@ public abstract class GCMBaseIntentService extends IntentService {
 
 	@Override
 	public final void onHandleIntent(Intent intent) {
+		Log.e(TAG, "onHandleIntent");
 		try {
 			Context context = getApplicationContext();
 			String action = intent.getAction();

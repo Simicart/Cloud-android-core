@@ -180,13 +180,14 @@ public class SplashController {
     }
 
     private void getThemeAndPaypal(){
-        EventListener.setEvent("simi_paypalmobile");
         if(Config.getInstance().getConfigTheme().toLowerCase().equals(MATRIX_THEME)){
             EventListener.setEvent("simi_themeone");
         }
         if(Config.getInstance().getConfigTheme().toLowerCase().equals(ZARA_THEME)){
             EventListener.setEvent("simi_ztheme");
         }
+        EventListener.setEvent("simi_paypalmobile");
+        EventListener.setEvent("simi_fblogin");
     }
 
     private void setConfig(SimiEntity entity) throws JSONException {
