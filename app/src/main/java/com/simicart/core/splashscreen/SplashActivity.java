@@ -25,7 +25,7 @@ public class SplashActivity extends Activity implements SplashDelegate {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// Frank comment 1
+		// Frank comment 2
 
 //		Thread.setDefaultUncaughtExceptionHandler(new UnCaughtException(this));
 		Context context = this;
