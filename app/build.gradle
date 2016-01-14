@@ -5,8 +5,8 @@ android {
     buildToolsVersion '23.0.1'
     defaultConfig {
         applicationId "com.magestore.simicart"
-        minSdkVersion 14
-        targetSdkVersion 19
+        minSdkVersion 15
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
@@ -64,4 +64,5 @@ dependencies {
 //    compile 'com.google.android.gms:play-services-identity:8.3.0'
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
     compile 'com.paypal.sdk:paypal-android-sdk:2.12.4'
+    compile 'com.facebook.android:facebook-android-sdk:4.7.0'
 }
