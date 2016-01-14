@@ -9,6 +9,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +50,8 @@ import com.simicart.core.shortcutbadger.ShortcutBadgeException;
 import com.simicart.core.shortcutbadger.ShortcutBadger;
 import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 

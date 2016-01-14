@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 public class ForgotPasswordModel extends SimiModel {
 
-	private String resetToken = "";
+	private String message = "";
 
 	@Override
 	protected void setUrlAction() {
@@ -32,18 +32,18 @@ public class ForgotPasswordModel extends SimiModel {
 		if(mJSONResult.has("customer")){
 			try {
 				JSONObject customerObj = mJSONResult.getJSONObject("customer");
-				setResetToken(customerObj.getString("reset_token"));
+				setMessage(customerObj.getString("message"));
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public String getResetToken() {
-		return resetToken;
+	public String getMessage() {
+		return message;
 	}
 
-	public void setResetToken(String resetToken) {
-		this.resetToken = resetToken;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

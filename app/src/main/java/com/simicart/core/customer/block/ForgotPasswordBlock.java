@@ -47,6 +47,7 @@ public class ForgotPasswordBlock extends SimiBlock implements
 
 		lable_newPass = (TextView) mView.findViewById(Rconfig
 				.getInstance().id("lable_newPass"));
+		lable_newPass.setVisibility(View.GONE);
 		lable_newPass.setTextColor(Color.GRAY);
 		lable_newPass.setText(Config.getInstance().getText("ENTER YOUR NEW PASSWORD")
 				.toUpperCase()
@@ -54,6 +55,7 @@ public class ForgotPasswordBlock extends SimiBlock implements
 
 		lable_confirmPass = (TextView) mView.findViewById(Rconfig
 				.getInstance().id("lable_confirmPass"));
+		lable_confirmPass.setVisibility(View.GONE);
 		lable_confirmPass.setTextColor(Color.GRAY);
 		lable_confirmPass.setText(Config.getInstance().getText("CONFIRM YOUR NEW PASSWORD")
 				.toUpperCase()
@@ -79,6 +81,7 @@ public class ForgotPasswordBlock extends SimiBlock implements
 		// New Pass Field
 		edt_newPass = (EditText) mView.findViewById(Rconfig.getInstance().id(
 				"et_new_pass"));
+		edt_newPass.setVisibility(View.GONE);
 		edt_newPass.setHint(Config.getInstance().getText("New Password"));
 
 		lable_newPass.setTextColor(Config.getInstance().getContent_color());
@@ -88,6 +91,7 @@ public class ForgotPasswordBlock extends SimiBlock implements
 		// Confirm Pass Field
 		edt_confirmPass = (EditText) mView.findViewById(Rconfig.getInstance().id(
 				"et_confirm_pass"));
+		edt_confirmPass.setVisibility(View.GONE);
 		edt_confirmPass.setHint(Config.getInstance().getText("Confirm Password"));
 
 		lable_confirmPass.setTextColor(Config.getInstance().getContent_color());
@@ -111,7 +115,7 @@ public class ForgotPasswordBlock extends SimiBlock implements
 	}
 
 	public void showNotify(String message) {
-		SimiManager.getIntance().showNotify(message);
+		SimiManager.getIntance().showNotify(null, message, "Ok");
 	}
 
 }
