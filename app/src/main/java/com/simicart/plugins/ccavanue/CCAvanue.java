@@ -26,6 +26,8 @@ public class CCAvanue {
     }
 
     public void callCCAvanueServer(PaymentMethod paymentMethod, OrderEntity order){
+
+
         Intent intent = new Intent(this.context, InitialActivity.class);
         this.context.startActivity(intent);
     }
