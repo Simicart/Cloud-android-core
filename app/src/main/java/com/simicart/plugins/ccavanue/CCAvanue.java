@@ -20,6 +20,7 @@ public class CCAvanue {
         this.context = MainActivity.context;
         Log.e("CCAvanue", "CCAvanue" + method);
         if (method.equals("callCCAvanueServer")) {
+            Log.e("CCAVANUE", "METHOD");
             this.callCCAvanueServer(checkoutData.getPaymentMethod(),
                     checkoutData.getOder());
         }
