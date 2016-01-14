@@ -12,3 +12,5 @@ devsmartAndroid/build/
 wheel/build/
 facebookSDK/
 facebook/build/
+**/build
+*.iml
