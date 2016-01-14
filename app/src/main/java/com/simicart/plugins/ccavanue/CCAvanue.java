@@ -28,6 +28,7 @@ public class CCAvanue {
     public void callCCAvanueServer(PaymentMethod paymentMethod, OrderEntity order){
 
         //DONG + trunk local Frank
+        //Online
         Intent intent = new Intent(this.context, InitialActivity.class);
         this.context.startActivity(intent);
     }
