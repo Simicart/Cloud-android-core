@@ -10,11 +10,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -25,18 +23,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EncodingUtils;
-
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import com.google.android.youtube.player.internal.m;
 import com.simicart.MainActivity;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.model.collection.SimiCollection;
@@ -75,6 +65,9 @@ public class WebViewActivity extends Activity implements Communicator {
     Intent mainIntent;
     String html, encVal;
     int MyDeviceAPI;
+    private String vResponse;
+    private String mechantID;
+    private String accessCode;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -89,8 +82,6 @@ public class WebViewActivity extends Activity implements Communicator {
         webSettings.setJavaScriptEnabled(true);
 
         MyDeviceAPI = Build.VERSION.SDK_INT;
-        // Calling async task to get display content
-//        new RenderView().execute();
         requestGetRSA();
     }
 
@@ -103,13 +94,17 @@ public class WebViewActivity extends Activity implements Communicator {
         model.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-
+                if(error != null){
+                    changeView(error.getMessage());
+                }
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
                 try {
-                    String vResponse = model.getRsaKey();
+                    vResponse = model.getRsaKey();
+                    mechantID = model.getMerchanID();
+                    accessCode = model.getAccessCode();
                     System.out.println(vResponse);
                     if (!ServiceUtility.chkNull(vResponse).equals("")
                             && ServiceUtility.chkNull(vResponse).toString().indexOf("ERROR") == -1) {
@@ -145,11 +140,6 @@ public class WebViewActivity extends Activity implements Communicator {
                                 status = "Transaction Error!";
                                 updatePayment("0", status);
                             }
-                            //Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
-
-//                            Intent intent = new Intent(getApplicationContext(), StatusActivity.class);
-//                            intent.putExtra("transStatus", status);
-//                            startActivity(intent);
                         } catch (Exception e) {
                             e.printStackTrace();
                             Log.v("Logs", "-------------- Error : " + e);
@@ -157,8 +147,6 @@ public class WebViewActivity extends Activity implements Communicator {
                     }
                 }
 
-                //final WebView webview = (WebView) findViewById(R.id.webView);
-                //myBrowser.getSettings().setJavaScriptEnabled(true);
                 myBrowser.addJavascriptInterface(new MyJavaScriptInterface(), "HTMLOUT");
                 myBrowser.setWebViewClient(new WebViewClient() {
                     @Override
@@ -194,11 +182,11 @@ public class WebViewActivity extends Activity implements Communicator {
 
             /* An instance of this class will be registered as a JavaScript interface */
                 StringBuffer params = new StringBuffer();
-                params.append(ServiceUtility.addToPostParams(AvenuesParams.ACCESS_CODE, mainIntent.getStringExtra(AvenuesParams.ACCESS_CODE)));
-                params.append(ServiceUtility.addToPostParams(AvenuesParams.MERCHANT_ID, mainIntent.getStringExtra(AvenuesParams.MERCHANT_ID)));
+                params.append(ServiceUtility.addToPostParams(AvenuesParams.ACCESS_CODE, accessCode));
+                params.append(ServiceUtility.addToPostParams(AvenuesParams.MERCHANT_ID, mechantID));
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.ORDER_ID, mainIntent.getStringExtra(AvenuesParams.ORDER_ID)));
-                params.append(ServiceUtility.addToPostParams(AvenuesParams.REDIRECT_URL, mainIntent.getStringExtra(AvenuesParams.REDIRECT_URL)));
-                params.append(ServiceUtility.addToPostParams(AvenuesParams.CANCEL_URL, mainIntent.getStringExtra(AvenuesParams.CANCEL_URL)));
+//                params.append(ServiceUtility.addToPostParams(AvenuesParams.REDIRECT_URL, mainIntent.getStringExtra(AvenuesParams.REDIRECT_URL)));
+//                params.append(ServiceUtility.addToPostParams(AvenuesParams.CANCEL_URL, mainIntent.getStringExtra(AvenuesParams.CANCEL_URL)));
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.ENC_VAL, URLEncoder.encode(encVal)));
 
                 String vPostParams = params.substring(0, params.length() - 1);
