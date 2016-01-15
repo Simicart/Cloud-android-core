@@ -185,8 +185,8 @@ public class WebViewActivity extends Activity implements Communicator {
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.ACCESS_CODE, accessCode));
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.MERCHANT_ID, mechantID));
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.ORDER_ID, mainIntent.getStringExtra(AvenuesParams.ORDER_ID)));
-//                params.append(ServiceUtility.addToPostParams(AvenuesParams.REDIRECT_URL, mainIntent.getStringExtra(AvenuesParams.REDIRECT_URL)));
-//                params.append(ServiceUtility.addToPostParams(AvenuesParams.CANCEL_URL, mainIntent.getStringExtra(AvenuesParams.CANCEL_URL)));
+                params.append(ServiceUtility.addToPostParams(AvenuesParams.REDIRECT_URL, ""));
+                params.append(ServiceUtility.addToPostParams(AvenuesParams.CANCEL_URL, ""));
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.ENC_VAL, URLEncoder.encode(encVal)));
 
                 String vPostParams = params.substring(0, params.length() - 1);
