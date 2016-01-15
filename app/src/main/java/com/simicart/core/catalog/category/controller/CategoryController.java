@@ -62,6 +62,7 @@ public class CategoryController extends SimiController {
         }else{
             mModel.addFilterDataParameter("status","1");
         }
+        mModel.addDataParameter("order","position");
         mModel.request();
 
     }
