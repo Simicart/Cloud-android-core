@@ -37,6 +37,7 @@ public class BannerController extends SimiController {
         };
         mModel = new BannerModel();
         mModel.setDelegate(delegate);
+        mModel.addDataParameter("order","position");
         mModel.request();
     }
 
