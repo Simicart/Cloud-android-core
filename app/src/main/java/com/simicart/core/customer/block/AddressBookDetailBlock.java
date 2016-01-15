@@ -424,7 +424,7 @@ public class AddressBookDetailBlock extends SimiBlock implements
 	private void createButtonSave() {
 		bt_save.setTextColor(Color.WHITE);
 		bt_save.setText(Config.getInstance().getText("Save"));
-		bt_save.setBackgroundColor(Config.getInstance().getColorMain());
+		bt_save.setBackgroundColor(Config.getInstance().getKey_color());
 		bt_save.setTextSize(Constants.SIZE_TEXT_BUTTON);
 	}
 

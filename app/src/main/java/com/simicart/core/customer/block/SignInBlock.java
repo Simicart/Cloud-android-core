@@ -126,7 +126,7 @@ public class SignInBlock extends SimiBlock implements SignInDelegate {
 			edt_Email.setText(DataLocal.getEmailRemember());
 			edt_Password.setText(DataLocal.getPasswordRemember());
 			btn_SignIn.setTextColor(Color.WHITE);
-			btn_SignIn.setBackgroundColor(Config.getInstance().getColorMain());
+			btn_SignIn.setBackgroundColor(Config.getInstance().getKey_color());
 		} else {
 			if (mEmail != null && !mEmail.equals("")) {
 				edt_Email.setText(mEmail);

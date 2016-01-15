@@ -52,26 +52,17 @@ public class ProductDetailPriceView {
     public ProductDetailPriceView(ProductEntity product) {
         mProductEntity = product;
         mContext = SimiManager.getIntance().getCurrentContext();
-        checkHasTax();
+        hasTaxProduct = Config.getInstance().isTaxShop();
         String type_product = product.getType();
         if (type_product.equals("bundle")) {
             isBundleProduct = true;
         }
     }
 
-    public View getView()
-    {
+    public View getView() {
         return ll_price;
     }
 
-    protected void checkHasTax() {
-        ConfigEntity configEntity = DataLocal.mConfig;
-        TaxConfigEntity taxConfig = configEntity.getTaxConfig();
-        if (null != taxConfig) {
-            hasTaxProduct = taxConfig.isTaxShop();
-        }
-
-    }
 
     public View createView() {
         LayoutInflater inflater = LayoutInflater.from(mContext);
@@ -251,7 +242,7 @@ public class ProductDetailPriceView {
         float taxPrice = entity.getTaxPrice();
         float taxSalePrice = entity.getSaleTaxPrice();
 
-        Log.e("ProductDetailPriceView ","Price For Bundle " + price + " : " + salePrice + " : " + taxPrice + " : " + taxSalePrice);
+        Log.e("ProductDetailPriceView ", "Price For Bundle " + price + " : " + salePrice + " : " + taxPrice + " : " + taxSalePrice);
 
         int price_type = mProductEntity.getSalePriceType();
         if (price_type == DYNAMIC) {

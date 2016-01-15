@@ -1,5 +1,6 @@
 package com.simicart.core.material;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -29,7 +30,7 @@ public abstract class Button extends CustomView {
 	OnClickListener onClickListener;
 	boolean clickAfterRipple = true;
 	int backgroundColor = com.simicart.core.config.Config.getInstance()
-			.getColorMain();
+			.getKey_color();
 	TextView textButton;
 
 	public Button(Context context, AttributeSet attrs) {
@@ -100,6 +101,7 @@ public abstract class Button extends CustomView {
 		return true;
 	}
 
+	@SuppressLint("MissingSuperCall")
 	@Override
 	protected void onFocusChanged(boolean gainFocus, int direction,
 			Rect previouslyFocusedRect) {

@@ -42,7 +42,7 @@ public class CreditCardController extends SimiController {
 
 				case MotionEvent.ACTION_CANCEL: {
 					GradientDrawable gdDefault = new GradientDrawable();
-					gdDefault.setColor(Config.getInstance().getColorMain());
+					gdDefault.setColor(Config.getInstance().getKey_color());
 					gdDefault.setCornerRadius(15);
 					v.setBackgroundDrawable(gdDefault);
 					break;

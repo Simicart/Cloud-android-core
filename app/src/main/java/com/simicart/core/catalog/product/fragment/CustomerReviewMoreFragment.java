@@ -39,7 +39,7 @@ public class CustomerReviewMoreFragment extends SimiFragment {
 		ratingBar.setRating(Float.parseFloat(mCustomerReview.getRate()));
 		LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
 		stars.getDrawable(2).setColorFilter(
-				Config.getInstance().getColorMain(), PorterDuff.Mode.SRC_ATOP);
+				Config.getInstance().getKey_color(), PorterDuff.Mode.SRC_ATOP);
 
 		TextView title = (TextView) convertView.findViewById(Rconfig
 				.getInstance().id("tv_reviewTitle"));

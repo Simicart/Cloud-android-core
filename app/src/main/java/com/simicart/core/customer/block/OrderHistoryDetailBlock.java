@@ -91,7 +91,7 @@ public class OrderHistoryDetailBlock extends SimiBlock implements
 		bt_reorder.setTextColor(Color.WHITE);
 		bt_reorder.setText(Config.getInstance().getText("Reorder"));
 		bt_reorder.setTextSize(16);
-		bt_reorder.setBackgroundColor(Config.getInstance().getColorMain());
+		bt_reorder.setBackgroundColor(Config.getInstance().getKey_color());
 
 		if (null != orderHisDetail) {
 			TextView tv_date = (TextView) mView.findViewById(Rconfig
