@@ -114,7 +114,6 @@ public class HomeZThemeBlock extends SimiBlock implements HomeZThemeDelegate {
 	}
 
 	protected void showCategoriesView(ArrayList<CategoryZTheme> categories) {
-		Log.e("abcd", "++" + categories.size());
 		adapter = new HomeZThemeAdapter(mContext, categories);
 		lv_category.setAdapter(adapter);
 	}
