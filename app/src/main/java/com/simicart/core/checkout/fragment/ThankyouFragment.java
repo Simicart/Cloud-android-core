@@ -104,7 +104,7 @@ public class ThankyouFragment extends SimiFragment implements OnKeyListener{
 				"CONTINUE SHOPPING"));
 		btn_continue_shopping.setTextColor(Color.parseColor("#ffffff"));
 		btn_continue_shopping.setBackgroundColor(Config.getInstance()
-				.getColorMain());
+				.getKey_color());
 		imageView = (ImageView) rootView.findViewById(Rconfig
 				.getInstance().id("img_order"));
 		Utils.changeColorImageview(SimiManager.getIntance().getCurrentContext(), imageView, "ic_extend");

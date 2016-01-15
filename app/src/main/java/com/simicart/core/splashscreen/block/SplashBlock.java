@@ -31,7 +31,7 @@ public class SplashBlock {
 				.getInstance().getId(mContext, "core_splash_screen_tv_demo",
 						"id"));
 		tv_demo.setText(Html.fromHtml(textdemo));
-		tv_demo.setTextColor(Config.getInstance().getColorMain());
+		tv_demo.setTextColor(Config.getInstance().getKey_color());
 		if (Config.getInstance().getDemoEnable().equals("DEMO_ENABLE")
 				|| Config.getInstance().getDemoEnable().toUpperCase()
 						.equals("YES")) {

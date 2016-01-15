@@ -134,7 +134,7 @@ public class ProductDetailParentBlock extends SimiBlock implements
         // indicator
         mIndicator = (CirclePageIndicator) mView.findViewById(Rconfig
                 .getInstance().id("indicator"));
-        mIndicator.setFillColor(Config.getInstance().getColorMain());
+        mIndicator.setFillColor(Config.getInstance().getKey_color());
         if (DataLocal.isTablet) {
             mIndicator.setScaleX(1.5f);
             mIndicator.setScaleY(1.5f);
@@ -190,28 +190,28 @@ public class ProductDetailParentBlock extends SimiBlock implements
             btn_option.setClickable(false);
             btn_option.setVisibility(View.GONE);
             btn_option.setTextSize(Constants.SIZE_TEXT_BUTTON);
-            btn_option.setBackgroundColor(Config.getInstance().getColorMain());
+            btn_option.setBackgroundColor(Config.getInstance().getKey_color());
         } else {
-            bg_button.setColorFilter(Config.getInstance().getColorMain(),
+            bg_button.setColorFilter(Config.getInstance().getKey_color(),
                     PorterDuff.Mode.SRC_ATOP);
             btn_option.setVisibility(View.VISIBLE);
             btn_option.setText(Config.getInstance().getText("Options"));
             btn_option.setTextColor(Color.parseColor("#FFFFFF"));
             btn_option.setClickable(true);
             btn_option.setTextSize(Constants.SIZE_TEXT_BUTTON);
-            btn_option.setBackgroundColor(Config.getInstance().getColorMain());
+            btn_option.setBackgroundColor(Config.getInstance().getKey_color());
         }
     }
 
     protected void showAddToCart() {
         Drawable bg_button = mContext.getResources().getDrawable(
                 Rconfig.getInstance().drawable("core_background_button"));
-        bg_button.setColorFilter(Config.getInstance().getColorMain(),
+        bg_button.setColorFilter(Config.getInstance().getKey_color(),
                 PorterDuff.Mode.SRC_ATOP);
         btn_addtocart.setText(Config.getInstance().getText("Add To Cart"));
         btn_addtocart.setTextColor(Color.parseColor("#FFFFFF"));
         btn_addtocart.setBackgroundColor(Config.getInstance()
-                .getColorMain());
+                .getKey_color());
         btn_addtocart.setTextSize(Constants.SIZE_TEXT_BUTTON);
     }
 
