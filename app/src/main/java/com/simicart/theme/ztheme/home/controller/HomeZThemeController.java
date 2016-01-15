@@ -56,8 +56,6 @@ public class HomeZThemeController extends SimiController {
 				mDelegate.dismissLoading();
 				ArrayList<SimiEntity> entity = mModel.getCollection()
 						.getCollection();
-				Log.e("abc", "++" + entity.size());
-
 				if (null != entity && entity.size() > 0) {
 					for (SimiEntity simiEntity : entity) {
 						//Category category = (Category) simiEntity;
@@ -96,8 +94,6 @@ public class HomeZThemeController extends SimiController {
 //				mDelegate.dismissLoading();
 				ArrayList<SimiEntity> entity = model.getCollection()
 						.getCollection();
-				Log.e("abc", "--" + entity.size());
-
 				if (null != entity && entity.size() > 0) {
 					for (SimiEntity simiEntity : entity) {
 						SpotProductZTheme spot = new SpotProductZTheme();
@@ -129,8 +125,6 @@ public class HomeZThemeController extends SimiController {
 			public void onSuccess(SimiCollection collection) {
 				ArrayList<SimiEntity> entity = model.getCollection()
 						.getCollection();
-				Log.e("Child", "--" + entity.size());
-
 				if (null != entity && entity.size() > 0) {
 					for (SimiEntity simiEntity : entity) {
 						CategoryZTheme cat = new CategoryZTheme();
@@ -155,7 +149,6 @@ public class HomeZThemeController extends SimiController {
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View v,
 					int groupPosition, long id) {
-				Log.e("groupPosition", "++" + groupPosition);
 				switch (((CategoryZTheme)mCategories.get(groupPosition)).getType()) {
 				case CategoryZTheme.TYPE_CAT:
 					if (!mCategories.get(groupPosition).hasChild()) {
@@ -178,7 +171,6 @@ public class HomeZThemeController extends SimiController {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
-				Log.e("groupPosition", "++" + groupPosition + "__" + childPosition);
 				CategoryZTheme categoryZTheme = new CategoryZTheme();
 				categoryZTheme = ((CategoryZTheme) mCategories.get(groupPosition)).getmCategories()
 						.get(childPosition);

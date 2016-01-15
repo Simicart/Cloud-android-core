@@ -13,6 +13,7 @@ import org.json.JSONException;
 public class GetRSAModel extends SimiModel{
     private String rsaKey = "";
     private String merchanID = "";
+    private String accessCode = "";
 
     @Override
     protected void setUrlAction() {
@@ -43,6 +44,13 @@ public class GetRSAModel extends SimiModel{
                     e.printStackTrace();
                 }
             }
+            if(mJSONResult.has("access_code")){
+                try {
+                    accessCode = mJSONResult.getString("access_code");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -60,5 +68,13 @@ public class GetRSAModel extends SimiModel{
 
     public void setMerchanID(String merchanID) {
         this.merchanID = merchanID;
+    }
+
+    public String getAccessCode() {
+        return accessCode;
+    }
+
+    public void setAccessCode(String accessCode) {
+        this.accessCode = accessCode;
     }
 }
