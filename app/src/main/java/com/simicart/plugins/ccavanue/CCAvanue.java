@@ -28,19 +28,21 @@ public class CCAvanue {
     }
 
     public void callCCAvanueServer(PaymentMethod paymentMethod, OrderEntity order){
-        Intent intent = new Intent(this.context, WebViewActivity.class);
-        if (order.getID() != null) {
-            intent.putExtra(AvenuesParams.ORDER_ID, order.getID());
-            Log.e("CCAVANUE", "ORDERID: " + order.getID());
+        if(paymentMethod.getMethodCode().equals("ccavenue")) {
+            Intent intent = new Intent(this.context, WebViewActivity.class);
+            if (order.getID() != null) {
+                intent.putExtra(AvenuesParams.ORDER_ID, order.getID());
+                Log.e("CCAVANUE", "ORDERID: " + order.getID());
+            }
+            if (Config.getInstance().getCurrency_code() != null) {
+                intent.putExtra(AvenuesParams.CURRENCY, Config.getInstance().getCurrency_code());
+                Log.e("CCAVANUE", "CURRENCY: " + Config.getInstance().getCurrency_code());
+            }
+            if (order.getGrandTotal() != null) {
+                intent.putExtra(AvenuesParams.AMOUNT, (order.getGrandTotal() + ""));
+                Log.e("CCAVANUE", "GRANDTOTAL: " + order.getGrandTotal());
+            }
+            this.context.startActivity(intent);
         }
-        if(Config.getInstance().getCurrency_code() != null){
-            intent.putExtra(AvenuesParams.CURRENCY, Config.getInstance().getCurrency_code());
-            Log.e("CCAVANUE", "CURRENCY: " + Config.getInstance().getCurrency_code());
-        }
-        if (order.getGrandTotal() != null) {
-            intent.putExtra(AvenuesParams.AMOUNT, (order.getGrandTotal()+""));
-            Log.e("CCAVANUE", "GRANDTOTAL: " + order.getGrandTotal());
-        }
-        this.context.startActivity(intent);
     }
 }
