@@ -23,6 +23,7 @@ import com.simicart.core.splashscreen.entity.FormatConfigEntity;
 import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 import com.simicart.core.splashscreen.model.AppConfigModel;
 import com.simicart.core.splashscreen.model.CMSPagesModel;
+import com.simicart.core.splashscreen.model.GetIDPluginsModel;
 import com.simicart.core.splashscreen.model.SettingModel;
 import com.simicart.core.store.entity.Stores;
 
@@ -62,6 +63,8 @@ public class SplashController {
         ReadXML readXml = new ReadXML(mContext);
         readXml.read();
 
+        getAvaiablePlugin();
+
 
     }
 
@@ -69,6 +72,22 @@ public class SplashController {
     {
         // http://dev-api.jajahub.com/rest/site-plugins
         // lay ve danh sach id cua plugin enable
+        GetIDPluginsModel idsModel = new GetIDPluginsModel();
+        idsModel.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+
+            }
+        });
+
+        idsModel.request();
+
+
     }
 
     private void getPublicPlugin(String ids)
