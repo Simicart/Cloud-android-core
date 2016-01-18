@@ -109,6 +109,7 @@ public class HomeZThemeController extends SimiController {
 
 			}
 		});
+		model.addDataParameter("order","position");
 		model.request();
 	}
 
