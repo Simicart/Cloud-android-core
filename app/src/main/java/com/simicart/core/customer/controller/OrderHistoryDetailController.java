@@ -88,7 +88,7 @@ public class OrderHistoryDetailController extends SimiController {
 					requestReOrder();
 				}
 				case MotionEvent.ACTION_CANCEL: {
-					changeColorReOrder(Config.getInstance().getColorMain());
+					changeColorReOrder(Config.getInstance().getKey_color());
 					break;
 				}
 				default:

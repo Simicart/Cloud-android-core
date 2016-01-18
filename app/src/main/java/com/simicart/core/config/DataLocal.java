@@ -18,7 +18,7 @@ public class DataLocal {
     public static Context mContext;
     public static SharedPreferences mSharedPre;
     public static boolean isTablet;
-    public static boolean isCloud = false;
+//    public static boolean isCloud = false;
     public static boolean enNotification = true;
     public static final String NAME_REFERENCE = "simicart";
     private static String CATEGORY_ID = "CategoryKey";
@@ -48,7 +48,6 @@ public class DataLocal {
     public static boolean isNewSignIn = false;
     public static String qtyCartAuto = "";
     public static ArrayList<CurrencyEntity> listCurrency;
-    public static ConfigEntity mConfig;
     public static ProfileEntity mCustomer;
 
     public static void init(Context context) {
@@ -123,9 +122,9 @@ public class DataLocal {
         return profileEntity;
     }
 
-    public static String getQuoteCustomerNotSigin(){
+    public static String getQuoteCustomerNotSigin() {
         String quote_customer_not_signin = "";
-        if(mSharedPre != null){
+        if (mSharedPre != null) {
             quote_customer_not_signin = mSharedPre.getString(QUOTE_CUSTOMER_NOT_SIGIN, "");
         }
         return quote_customer_not_signin;
@@ -235,7 +234,7 @@ public class DataLocal {
         editor.commit();
     }
 
-    public static void saveQuoteCustomerNotSignIn(String quote_customer_not_signin){
+    public static void saveQuoteCustomerNotSignIn(String quote_customer_not_signin) {
         SharedPreferences.Editor editor = mSharedPre.edit();
         editor.putString(QUOTE_CUSTOMER_NOT_SIGIN, quote_customer_not_signin);
         editor.commit();
@@ -299,11 +298,5 @@ public class DataLocal {
         listCarts.clear();
     }
 
-    // public static void clearDataLocal() {
-    // SharedPreferences.Editor editor = mSharedPre.edit();
-    // editor.clear();
-    // editor.commit();
-    // listCarts.clear();
-    // }
 
 }

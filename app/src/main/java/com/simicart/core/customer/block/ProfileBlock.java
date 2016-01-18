@@ -108,7 +108,7 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 		btn_save.setTextSize(Constants.SIZE_TEXT_BUTTON);
 		btn_save.setText(Config.getInstance().getText("Save"));
 		btn_save.setTextColor(Color.parseColor("#ffffff"));
-		btn_save.setBackgroundColor(Config.getInstance().getColorMain());
+		btn_save.setBackgroundColor(Config.getInstance().getKey_color());
 
 		// full name
 		edt_fullname = (EditText) mView.findViewById(Rconfig.getInstance().id(

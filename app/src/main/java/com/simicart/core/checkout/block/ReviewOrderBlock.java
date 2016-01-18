@@ -135,7 +135,7 @@ public class ReviewOrderBlock extends SimiBlock implements ReviewOrderDelegate {
 		bt_placenow.setText(Config.getInstance().getText("Place Now"));
 		bt_placenow.setTextColor(Color.WHITE);
 		bt_placenow.setTextSize(Constants.SIZE_TEXT_BUTTON);
-		bt_placenow.setBackgroundColor(Config.getInstance().getColorMain());
+		bt_placenow.setBackgroundColor(Config.getInstance().getKey_color());
 	}
 
 	protected void initAddressView() {

@@ -92,7 +92,7 @@ public class InformationFragment extends SimiFragment {
         title_tab.setBackgroundColor(Color.parseColor(Config.getInstance()
                 .getSection_color()));
         title_tab.setDividerColor(Config.getInstance().getSection_text_color());
-        title_tab.setIndicatorColor(Config.getInstance().getKey_color());
+        title_tab.setIndicatorColor(Config.getInstance().getButton_background());
         title_tab.setIndicatorHeight(5);
         title_tab.setAllCaps(false);
         title_tab.setViewPager(mPager);

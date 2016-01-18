@@ -147,7 +147,7 @@ public class CartListAdapter extends BaseAdapter {
 		// stock
 		LinearLayout ll_stock = (LinearLayout) convertView.findViewById(Rconfig
 				.getInstance().id("ll_stock"));
-		ll_stock.setBackgroundColor(Config.getInstance().getColorMain());
+		ll_stock.setBackgroundColor(Config.getInstance().getKey_color());
 		ll_stock.setVisibility(View.GONE);
 //		TextView txt_out_stock = (TextView) convertView.findViewById(Rconfig
 //				.getInstance().id("txt_out_stock"));

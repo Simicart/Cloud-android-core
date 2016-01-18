@@ -93,7 +93,7 @@ public class CustomerReviewBlock extends SimiBlock implements
 		LayerDrawable starcolor = (LayerDrawable) ratingBar
 				.getProgressDrawable();
 		starcolor.getDrawable(2).setColorFilter(
-				Config.getInstance().getColorMain(), PorterDuff.Mode.SRC_ATOP);
+				Config.getInstance().getKey_color(), PorterDuff.Mode.SRC_ATOP);
 
 		int starQuantity1 = mRatingStar.get(0);
 		int starQuantity2 = mRatingStar.get(1);
@@ -115,7 +115,7 @@ public class CustomerReviewBlock extends SimiBlock implements
 		// set color
 		LayerDrawable process5 = (LayerDrawable) pr5.getProgressDrawable();
 		process5.getDrawable(2).setColorFilter(
-				Config.getInstance().getColorMain(), PorterDuff.Mode.SRC_ATOP);
+				Config.getInstance().getKey_color(), PorterDuff.Mode.SRC_ATOP);
 		TextView tv_starQuantity5 = (TextView) header.findViewById(Rconfig
 				.getInstance().id("tv_quantity5"));
 
@@ -127,7 +127,7 @@ public class CustomerReviewBlock extends SimiBlock implements
 				.getInstance().id("progressBar4"));
 		LayerDrawable process4 = (LayerDrawable) pr4.getProgressDrawable();
 		process4.getDrawable(2).setColorFilter(
-				Config.getInstance().getColorMain(), PorterDuff.Mode.SRC_ATOP);
+				Config.getInstance().getKey_color(), PorterDuff.Mode.SRC_ATOP);
 
 		TextView tv_starQuantity4 = (TextView) header.findViewById(Rconfig
 				.getInstance().id("tv_quantity4"));
@@ -140,7 +140,7 @@ public class CustomerReviewBlock extends SimiBlock implements
 		// set color
 		LayerDrawable process3 = (LayerDrawable) pr3.getProgressDrawable();
 		process3.getDrawable(2).setColorFilter(
-				Config.getInstance().getColorMain(), PorterDuff.Mode.SRC_ATOP);
+				Config.getInstance().getKey_color(), PorterDuff.Mode.SRC_ATOP);
 
 		TextView tv_starQuantity3 = (TextView) header.findViewById(Rconfig
 				.getInstance().id("tv_quantity3"));
@@ -153,7 +153,7 @@ public class CustomerReviewBlock extends SimiBlock implements
 		// set color
 		LayerDrawable process2 = (LayerDrawable) pr2.getProgressDrawable();
 		process2.getDrawable(2).setColorFilter(
-				Config.getInstance().getColorMain(), PorterDuff.Mode.SRC_ATOP);
+				Config.getInstance().getKey_color(), PorterDuff.Mode.SRC_ATOP);
 		TextView tv_quantity2 = (TextView) header.findViewById(Rconfig
 				.getInstance().id("tv_quantity2"));
 		tv_quantity2.setText("" + starQuantity2);
@@ -165,7 +165,7 @@ public class CustomerReviewBlock extends SimiBlock implements
 		// set color
 		LayerDrawable process1 = (LayerDrawable) pr1.getProgressDrawable();
 		process1.getDrawable(2).setColorFilter(
-				Config.getInstance().getColorMain(), PorterDuff.Mode.SRC_ATOP);
+				Config.getInstance().getKey_color(), PorterDuff.Mode.SRC_ATOP);
 		TextView tv_quantity1 = (TextView) header.findViewById(Rconfig
 				.getInstance().id("tv_quantity1"));
 		tv_quantity1.setText("" + starQuantity1);

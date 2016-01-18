@@ -66,7 +66,7 @@ public class ForgotPasswordBlock extends SimiBlock implements
 				"bt_send"));
 		btn_Send.setText(Config.getInstance().getText("Reset my password"));
 		btn_Send.setTextColor(Color.WHITE);
-		btn_Send.setBackgroundColor(Config.getInstance().getColorMain());
+		btn_Send.setBackgroundColor(Config.getInstance().getKey_color());
 		btn_Send.setTextSize(Constants.SIZE_TEXT_BUTTON);
 
 		// Email Field
