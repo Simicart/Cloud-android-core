@@ -21,6 +21,9 @@ public class GetIDPluginsModel extends SimiModel {
     private String plugin_id = "plugin_id";
     private String enable = "enable";
 
+    public String getIDs() {
+        return mIds.toString();
+    }
 
     @Override
     public void addDataBody(String tag, JSONArray value) {
@@ -40,23 +43,17 @@ public class GetIDPluginsModel extends SimiModel {
     @Override
     protected void paserData() {
         super.paserData();
-        if(mJSONResult.has(site_plugins))
-        {
+        if (mJSONResult.has(site_plugins)) {
             try {
                 JSONArray array = mJSONResult.getJSONArray(site_plugins);
-                if(null != array && array.length() > 0)
-                {
-                    for (int i = 0; i < array.length(); i++)
-                    {
+                if (null != array && array.length() > 0) {
+                    for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonPlugins = array.getJSONObject(i);
-                        if(jsonPlugins.has(config))
-                        {
+                        if (jsonPlugins.has(config)) {
                             JSONObject jsonConfig = jsonPlugins.getJSONObject(config);
-                            if(jsonConfig.has(enable))
-                            {
+                            if (jsonConfig.has(enable)) {
                                 String isEnable = jsonConfig.getString(enable);
-                                if(Utils.validateString(isEnable) && isEnable.equals("1"))
-                                {
+                                if (Utils.validateString(isEnable) && isEnable.equals("1")) {
                                     String pluginID = jsonPlugins.getString(plugin_id);
                                     mIds.append(pluginID);
                                     mIds.append(",");
@@ -72,13 +69,11 @@ public class GetIDPluginsModel extends SimiModel {
             }
         }
 
-        if(mIds.length() > 0)
-        {
-            int lastIndex = mIds.length() -1;
+        if (mIds.length() > 0) {
+            int lastIndex = mIds.length() - 1;
             mIds.deleteCharAt(lastIndex);
             Log.e("GetIDPluginsModel ", "LIST ID " + mIds.toString());
         }
-
 
 
     }

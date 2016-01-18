@@ -1,6 +1,7 @@
 package com.simicart.core.splashscreen.controller;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -8,26 +9,18 @@ import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.common.ReadXMLLanguage;
-import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
-import com.simicart.core.event.base.EventListener;
 import com.simicart.core.event.base.ReadXML;
 import com.simicart.core.splashscreen.delegate.SplashDelegate;
 import com.simicart.core.splashscreen.entity.AppConfigEnitity;
-import com.simicart.core.splashscreen.entity.BaseCurrencyEntity;
 import com.simicart.core.splashscreen.entity.CMSPageEntity;
 import com.simicart.core.splashscreen.entity.ConfigEntity;
-import com.simicart.core.splashscreen.entity.CurrencyEntity;
-import com.simicart.core.splashscreen.entity.FormatConfigEntity;
-import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 import com.simicart.core.splashscreen.model.AppConfigModel;
 import com.simicart.core.splashscreen.model.CMSPagesModel;
 import com.simicart.core.splashscreen.model.GetIDPluginsModel;
+import com.simicart.core.splashscreen.model.GetSKUPlugin;
 import com.simicart.core.splashscreen.model.SettingModel;
-import com.simicart.core.store.entity.Stores;
-
-import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,23 +49,16 @@ public class SplashController {
 
     private void initCommon() {
         DataLocal.init(mContext);
-        EventListener.setEvent("simi_developer");
     }
 
     private void getPlugin() {
-        ReadXML readXml = new ReadXML(mContext);
-        readXml.read();
-
         getAvaiablePlugin();
-
-
     }
 
-    private void getAvaiablePlugin()
-    {
+    private void getAvaiablePlugin() {
         // http://dev-api.jajahub.com/rest/site-plugins
         // lay ve danh sach id cua plugin enable
-        GetIDPluginsModel idsModel = new GetIDPluginsModel();
+        final GetIDPluginsModel idsModel = new GetIDPluginsModel();
         idsModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
@@ -81,7 +67,8 @@ public class SplashController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-
+                String ids = idsModel.getIDs();
+                getSKUPlugin(ids);
             }
         });
 
@@ -90,12 +77,35 @@ public class SplashController {
 
     }
 
-    private void getPublicPlugin(String ids)
-    {
+    private void getSKUPlugin(String ids) {
         // http://dev-api.jajahub.com/rest/public_plugins
         // lay sku cua cac plugin enbale
+
+        final GetSKUPlugin skuModel = new GetSKUPlugin();
+        skuModel.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                ArrayList<String> listSKU = skuModel.getListSKU();
+                listSKU.add("simi_developer");
+                readXMLPlugins(listSKU);
+            }
+        });
+
+        skuModel.addDataParameter("ids", ids);
+        skuModel.request();
+
+
     }
 
+    private void readXMLPlugins(ArrayList<String> listSKU) {
+        ReadXML readXml = new ReadXML(mContext, listSKU);
+        readXml.read();
+    }
 
 
     private void getAppConfig() {
@@ -140,7 +150,6 @@ public class SplashController {
             @Override
             public void onSuccess(SimiCollection collection) {
                 SimiEntity entity = collection.getCollection().get(0);
-
                 DataLocal.listCms = ((CMSPageEntity) entity).getPage();
             }
         });
@@ -172,16 +181,14 @@ public class SplashController {
 
 
     private void getThemeAndPaypal() {
-
         String config_theme = Config.getInstance().getConfigTheme().toLowerCase();
-
+        ArrayList<String> ids = new ArrayList<String>();
         if (config_theme.equals(MATRIX_THEME)) {
-            EventListener.setEvent("simi_themeone");
+            ids.add("simi_themeone");
         } else if (config_theme.equals(ZARA_THEME)) {
-            EventListener.setEvent("simi_ztheme");
+            ids.add("simi_ztheme");
         }
-        EventListener.setEvent("simi_paypalmobile");
-        EventListener.setEvent("simi_fblogin");
+        readXMLPlugins(ids);
     }
 
     private void createLanguage() {

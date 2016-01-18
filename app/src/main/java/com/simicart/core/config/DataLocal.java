@@ -18,7 +18,6 @@ public class DataLocal {
     public static Context mContext;
     public static SharedPreferences mSharedPre;
     public static boolean isTablet;
-//    public static boolean isCloud = false;
     public static boolean enNotification = true;
     public static final String NAME_REFERENCE = "simicart";
     private static String CATEGORY_ID = "CategoryKey";
@@ -49,6 +48,7 @@ public class DataLocal {
     public static String qtyCartAuto = "";
     public static ArrayList<CurrencyEntity> listCurrency;
     public static ProfileEntity mCustomer;
+
 
     public static void init(Context context) {
         mContext = context;
