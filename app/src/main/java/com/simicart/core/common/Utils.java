@@ -199,7 +199,7 @@ public class Utils {
 //        String patern = "###" + charSepthousand + "###" + charSepDecimal + builderDecimal.toString();
 
 
-        String patern = "###.###.##";
+        String patern = "###.##";
 
         Log.e("Utils ", "PATERN " + patern);
 
