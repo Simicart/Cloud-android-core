@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import com.simicart.core.checkout.entity.OrderEntity;
 import com.simicart.core.checkout.entity.PaymentMethod;
 import com.simicart.core.checkout.entity.TotalPrice;
+import com.simicart.core.customer.entity.OrderHisDetail;
 
 public class CheckoutData {
 	private String invoice_number;
@@ -16,6 +17,7 @@ public class CheckoutData {
 	private JSONObject JsonPlaceOrder;
 	private boolean isContructed = false;
 	private OrderEntity mOder;
+	private OrderHisDetail mOrderHisDetail;
 
 	public boolean isContructed() {
 		return isContructed;
@@ -109,5 +111,13 @@ public class CheckoutData {
 
 	public void setOder(OrderEntity mOder) {
 		this.mOder = mOder;
+	}
+
+	public OrderHisDetail getOrderHisDetail() {
+		return mOrderHisDetail;
+	}
+
+	public void setOrderHisDetail(OrderHisDetail mOrderHisDetail) {
+		this.mOrderHisDetail = mOrderHisDetail;
 	}
 }
