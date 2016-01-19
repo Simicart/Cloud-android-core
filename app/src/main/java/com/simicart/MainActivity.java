@@ -63,11 +63,11 @@ public class MainActivity extends FragmentActivity {
 
     private SlideMenuFragment mNavigationDrawerFragment;
     public static Activity context;
-        private NotificationController notification;
+    private NotificationController notification;
     public static int state = 0;
 
-    public static boolean mCheckToDetailAfterScan = false;
-    public static int mBackEntryCountDetail = 0;
+//    public static boolean mCheckToDetailAfterScan = false;
+//    public static int mBackEntryCountDetail = 0;
     public static boolean checkBackScan = false;
     //    public static MainActivity instance;
     private int requestCode;
@@ -77,12 +77,9 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.e("MainActivity", "onCreate 001");
         SimiManager.getIntance().setCurrentActivity(this);
         SimiManager.getIntance().setCurrentContext(this);
-//        MultiDex.install(this);
         setContentView(R.layout.core_main_activity);
-        Log.e("MainActivity", "onCreate 002");
         if (DataLocal.isSignInComplete()) {
             autoSignin();
         }else{
@@ -93,7 +90,6 @@ public class MainActivity extends FragmentActivity {
         context = this;
         // checkTheme();
         SimiManager.getIntance().setManager(getSupportFragmentManager());
-        Log.e("MainActivity", "onCreate 003");
         // dispatch event for sent google analytic
 //        CacheActivity cacheActivity = new CacheActivity();
 //        cacheActivity.setActivity(this);
@@ -107,7 +103,6 @@ public class MainActivity extends FragmentActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        Log.e("MainActivity","onCreate 003");
 
         mNavigationDrawerFragment = (SlideMenuFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
@@ -115,8 +110,6 @@ public class MainActivity extends FragmentActivity {
         mNavigationDrawerFragment.setup(R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 //        changeFont();
-
-        Log.e("MainActivity","onCreate 004");
 
 //        String qtyCart = DataLocal.qtyCartAuto;
 //        if (Utils.validateString(qtyCart)) {
@@ -130,13 +123,12 @@ public class MainActivity extends FragmentActivity {
 
          recieveNotification();
 
-        Log.e("MainActivity","onCreate 005");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         FragmentMenuTop fragment = FragmentMenuTop
                 .newInstance(mNavigationDrawerFragment);
         ft.replace(Rconfig.getInstance().id("menu_top"), fragment);
         ft.commit();
-        Log.e("MainActivity", "onCreate 006");
+
     }
 
     private void autoSignin() {
@@ -215,7 +207,6 @@ public class MainActivity extends FragmentActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                 Toast.makeText(this, "Add", Toast.LENGTH_SHORT).show();
                  notification.openNotificationSetting(this);
                 return true;
             // case R.id.notification:
