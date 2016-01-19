@@ -67,7 +67,6 @@ public class SplashActivity extends Activity implements SplashDelegate {
 
 	@Override
 	public void creatMain() {
-		Log.e("SplashActivity","createMain");
 		SimiManager.getIntance().toMainActivity();
 	}
 
