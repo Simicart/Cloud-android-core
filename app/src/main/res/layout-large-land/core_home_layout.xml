@@ -43,32 +43,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"></LinearLayout>
-                <!--Best Sellers-->
-                <LinearLayout
-                    android:id="@+id/ll_best_seller"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"></LinearLayout>
-                <!--Newly Updated-->
-                <LinearLayout
-                    android:id="@+id/ll_newly_updated"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"></LinearLayout>
-                <!--Recently Added -->
-                <LinearLayout
-                    android:id="@+id/ll_recently_added"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"></LinearLayout>
 
-                <!-- Feature-->
-                <LinearLayout
-                    android:id="@+id/ll_feature"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"></LinearLayout>
+                    android:layout_height="wrap_content">
 
+                    <LinearLayout
+                        android:id="@+id/ll_spot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"></LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressbarSpot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:indeterminateDrawable="@drawable/progressbar_indeterminate" />
+                </RelativeLayout>
             </LinearLayout>
         </com.simicart.core.style.CustomScrollView>
 
@@ -117,5 +109,19 @@
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+        <ProgressBar
+            android:id="@+id/progressbarHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateDrawable="@drawable/progressbar_indeterminate" />
+    </RelativeLayout>
 
 </RelativeLayout>

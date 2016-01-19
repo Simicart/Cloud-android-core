@@ -20,6 +20,7 @@ public class SpotProductModel extends SimiModel {
 
 
     private String spot_products = "spot-products";
+    private int mTotalSport = -1;
 
     @Override
     protected void setUrlAction() {
@@ -35,6 +36,7 @@ public class SpotProductModel extends SimiModel {
     protected void paserData() {
         super.paserData();
         if (mJSONResult.has(spot_products)) {
+            mTotalSport = mTotal;
             JSONArray array = null;
             try {
                 array = mJSONResult.getJSONArray(spot_products);
@@ -57,5 +59,9 @@ public class SpotProductModel extends SimiModel {
                 collection.setCollection(spots);
             }
         }
+    }
+
+    public int getTotalSport() {
+        return mTotalSport;
     }
 }

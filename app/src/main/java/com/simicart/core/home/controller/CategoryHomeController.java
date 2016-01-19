@@ -30,8 +30,7 @@ public class CategoryHomeController extends SimiController {
 
     @Override
     public void onStart() {
-        // request this
-        // mDelegate.showLoading();
+        mDelegate.showLoadingHome();
         ModelDelegate delegate = new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
@@ -42,6 +41,7 @@ public class CategoryHomeController extends SimiController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoadingHome();
                 mDelegate.updateView(mModel.getCollection());
             }
         };
