@@ -39,7 +39,7 @@ public class AutoSignInController extends SimiController {
                 @Override
                 public void onFail(SimiError error) {
                     DataLocal.saveSignInState(false);
-                    if(error != null) {
+                    if (error != null) {
                         SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                     }
                 }
@@ -80,15 +80,9 @@ public class AutoSignInController extends SimiController {
                     }
                 }
             });
-            JSONObject obj = null;
-            try {
-                obj = new JSONObject();
-                obj.put(Constants.USER_EMAIL, email);
-                obj.put(Constants.USER_PASSWORD, password);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            model.setJSONBody(obj);
+            model.addDataBody(Constants.USER_EMAIL, email);
+            model.addDataBody(Constants.USER_PASSWORD, password);
+
             model.addDataExtendURL("login");
             model.request();
         } else {
@@ -103,7 +97,7 @@ public class AutoSignInController extends SimiController {
         quoteModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -153,7 +147,7 @@ public class AutoSignInController extends SimiController {
         mergeQuoteModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -181,7 +175,7 @@ public class AutoSignInController extends SimiController {
         updateCustomerToQuoteModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
