@@ -34,6 +34,7 @@ public class MyAccountFragment extends SimiFragment {
 		mController.onStart();
 
 		mBlock.setProfileClick(mController.getClickProfile());
+		mBlock.setChangePassClick(mController.getClickChangePass());
 		mBlock.setAddressBookClick(mController.getClickAddress());
 		mBlock.setOrderHistory(mController.getClickOrderHistory());
 		mBlock.setSignOutClick(mController.getClickSignOut());

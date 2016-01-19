@@ -20,6 +20,8 @@ public class MyAccountBlock extends SimiBlock {
 	protected TextView lable_myAccount;
 	protected LayoutRipple rlt_profile;
 	protected TextView lb_profile;
+	protected LayoutRipple rlt_changePass;
+	protected TextView lb_changePass;
 	protected LayoutRipple rlt_addressBook;
 	protected TextView lb_addressBook;
 	protected LayoutRipple rlt_orderHistory;
@@ -29,6 +31,10 @@ public class MyAccountBlock extends SimiBlock {
 
 	public void setProfileClick(OnClickListener click) {
 		rlt_profile.setOnClickListener(click);
+	}
+
+	public void setChangePassClick(OnClickListener click){
+		rlt_changePass.setOnClickListener(click);
 	}
 
 	public void setAddressBookClick(OnClickListener click) {
@@ -55,6 +61,13 @@ public class MyAccountBlock extends SimiBlock {
 				"lb_profile"));
 		lb_profile.setText(Config.getInstance().getText("Profile"));
 		lb_profile.setTextColor(Config.getInstance().getContent_color());
+
+		rlt_changePass = (LayoutRipple) mView.findViewById(Rconfig.getInstance()
+				.id("rl_changePass"));
+		lb_changePass = (TextView) mView.findViewById(Rconfig.getInstance().id(
+				"lb_changePass"));
+		lb_changePass.setText(Config.getInstance().getText("Change Password"));
+		lb_changePass.setTextColor(Config.getInstance().getContent_color());
 
 		rlt_addressBook = (LayoutRipple) mView.findViewById(Rconfig
 				.getInstance().id("rl_addressBook"));
@@ -83,6 +96,8 @@ public class MyAccountBlock extends SimiBlock {
 
 		ImageView im_extend_profile = (ImageView) mView.findViewById(Rconfig
 				.getInstance().id("im_extend_profile"));
+		ImageView im_extend_changePass = (ImageView) mView.findViewById(Rconfig
+				.getInstance().id("im_extend_changePass"));
 		ImageView im_extend_orderhis = (ImageView) mView.findViewById(Rconfig
 				.getInstance().id("im_extend_orderhis"));
 		ImageView im_extend_address = (ImageView) mView.findViewById(Rconfig
@@ -92,6 +107,7 @@ public class MyAccountBlock extends SimiBlock {
 		icon.setColorFilter(Config.getInstance().getContent_color(),
 				PorterDuff.Mode.SRC_ATOP);
 		im_extend_profile.setImageDrawable(icon);
+		im_extend_changePass.setImageDrawable(icon);
 		im_extend_orderhis.setImageDrawable(icon);
 		im_extend_address.setImageDrawable(icon);
 
@@ -102,6 +118,14 @@ public class MyAccountBlock extends SimiBlock {
 		ic_acc_profile.setColorFilter(Config.getInstance().getContent_color(),
 				PorterDuff.Mode.SRC_ATOP);
 		im_profile.setImageDrawable(ic_acc_profile);
+
+		ImageView im_changePass = (ImageView) mView.findViewById(Rconfig
+				.getInstance().id("im_changePass"));
+		Drawable ic_changePass = mContext.getResources().getDrawable(
+				Rconfig.getInstance().drawable("ic_change_pass"));
+		ic_changePass.setColorFilter(Config.getInstance().getContent_color(),
+				PorterDuff.Mode.SRC_ATOP);
+		im_changePass.setImageDrawable(ic_changePass);
 
 		ImageView im_addressbook = (ImageView) mView.findViewById(Rconfig
 				.getInstance().id("im_addressbook"));
@@ -129,6 +153,7 @@ public class MyAccountBlock extends SimiBlock {
 
 		View v_profile = (View) mView.findViewById(Rconfig.getInstance().id(
 				"v_profile"));
+		View v_changePass = (View) mView.findViewById(Rconfig.getInstance().id("v_changePass"));
 		View v_address = (View) mView.findViewById(Rconfig.getInstance().id(
 				"v_address"));
 		View v_orderhis = (View) mView.findViewById(Rconfig.getInstance().id(
@@ -136,12 +161,14 @@ public class MyAccountBlock extends SimiBlock {
 		View v_signout = (View) mView.findViewById(Rconfig.getInstance().id(
 				"v_signout"));
 		v_profile.setBackgroundColor(Config.getInstance().getLine_color());
+		v_changePass.setBackgroundColor(Config.getInstance().getLine_color());
 		v_address.setBackgroundColor(Config.getInstance().getLine_color());
 		v_orderhis.setBackgroundColor(Config.getInstance().getLine_color());
 		v_signout.setBackgroundColor(Config.getInstance().getLine_color());
 
 		if (DataLocal.isLanguageRTL) {
 			lb_profile.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+			lb_changePass.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 			lb_addressBook.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 			lb_orderHistory.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 			lb_logout.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);

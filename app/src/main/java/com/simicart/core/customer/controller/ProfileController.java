@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -21,7 +20,6 @@ import com.simicart.core.customer.entity.ProfileEntity;
 import com.simicart.core.customer.model.ChangePassModel;
 import com.simicart.core.customer.model.EditProfileModel;
 import com.simicart.core.customer.model.ProfileModel;
-import com.simicart.core.slidemenu.fragment.PhoneSlideMenuFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -246,8 +244,6 @@ public class ProfileController extends SimiController {
 						profile.getNewPass());
 				DataLocal.saveEmailPassRemember(profile.getEmail(),
 						profile.getNewPass());
-//				SimiManager.getIntance().showNotify("SUCCESS", Config.getInstance().getText("Profile updated."),
-//						"OK");
 			}
 		});
 		model.addDataExtendURL("change-password");

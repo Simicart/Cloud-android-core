@@ -137,6 +137,7 @@
                 android:inputType="textAutoComplete" />
 
             <RelativeLayout
+                android:id="@+id/rl_current_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -165,6 +166,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_new_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
@@ -192,6 +194,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_confirm_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"

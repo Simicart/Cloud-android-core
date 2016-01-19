@@ -17,6 +17,7 @@ import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.fragment.AddressBookFragment;
+import com.simicart.core.customer.fragment.ChangePasswordFragment;
 import com.simicart.core.customer.fragment.OrderHistoryFragment;
 import com.simicart.core.customer.fragment.ProfileFragment;
 import com.simicart.core.event.controller.EventController;
@@ -24,6 +25,7 @@ import com.simicart.core.home.fragment.HomeFragment;
 
 public class MyAccountController extends SimiController {
 	OnClickListener mClickProfile;
+	OnClickListener mClickChangePass;
 	OnClickListener mClickAddress;
 	OnClickListener mClickOrderHistory;
 	OnClickListener mClickSignOut;
@@ -36,6 +38,10 @@ public class MyAccountController extends SimiController {
 
 	public OnClickListener getClickProfile() {
 		return mClickProfile;
+	}
+
+	public OnClickListener getClickChangePass() {
+		return mClickChangePass;
 	}
 
 	public OnClickListener getClickAddress() {
@@ -63,6 +69,19 @@ public class MyAccountController extends SimiController {
 					SimiManager.getIntance().replacePopupFragment(fragment);
 				} else {
 					ProfileFragment fragment = ProfileFragment.newInstance();
+					SimiManager.getIntance().replaceFragment(fragment);
+				}
+			}
+		};
+
+		mClickChangePass = new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if(DataLocal.isTablet){
+					ChangePasswordFragment fragment = ChangePasswordFragment.newInstance();
+					SimiManager.getIntance().replacePopupFragment(fragment);
+				}else{
+					ChangePasswordFragment fragment = ChangePasswordFragment.newInstance();
 					SimiManager.getIntance().replaceFragment(fragment);
 				}
 			}

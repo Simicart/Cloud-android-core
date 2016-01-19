@@ -65,6 +65,9 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 	private String mDay = "";
 	private String mMonth = "";
 	private String mYear = "";
+	protected RelativeLayout rl_current_pass;
+	protected RelativeLayout rl_new_pass;
+	protected RelativeLayout rl_confirm_pass;
 
 	private LayoutRipple layout_date_ofbirt;
 
@@ -107,7 +110,7 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 				.id("bt_save"));
 		btn_save.setTextSize(Constants.SIZE_TEXT_BUTTON);
 		btn_save.setText(Config.getInstance().getText("Save"));
-		btn_save.setTextColor(Color.parseColor("#ffffff"));
+		btn_save.setTextColor(Config.getInstance().getButton_text_color());
 		btn_save.setBackgroundColor(Config.getInstance().getKey_color());
 
 		// full name
@@ -119,6 +122,13 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 		edt_email = (EditText) mView.findViewById(Rconfig.getInstance().id(
 				"et_email"));
 		edt_email.setHint(Config.getInstance().getText("Email") + "(*)");
+
+		rl_current_pass = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id("rl_current_pass"));
+		rl_current_pass.setVisibility(View.GONE);
+		rl_new_pass = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id("rl_new_pass"));
+		rl_new_pass.setVisibility(View.GONE);
+		rl_confirm_pass = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id("rl_confirm_pass"));
+		rl_confirm_pass.setVisibility(View.GONE);
 
 		// current password
 		edt_currentPass = (EditText) mView.findViewById(Rconfig.getInstance()
