@@ -64,7 +64,6 @@ public class AppConfigEnitity extends SimiEntity{
                         mLogo.parse();
                     } catch (JSONException e) {
                         mLogo = null;
-                        Log.e("AppConfigEntity", "Logo:" + e.getMessage());
                     }
                 }
             }
@@ -78,7 +77,6 @@ public class AppConfigEnitity extends SimiEntity{
                         mIcon.parse();
                     } catch (JSONException e) {
                         mIcon = null;
-                        Log.e("AppConfigEntity", "Icon:" + e.getMessage());
                     }
                 }
             }
@@ -92,7 +90,6 @@ public class AppConfigEnitity extends SimiEntity{
                         mSpashScreen.parse();
                     } catch (JSONException e) {
                         mSpashScreen = null;
-                        Log.e("AppConfigEntity", "SpashScreen:" + e.getMessage());
                     }
                 }
             }
