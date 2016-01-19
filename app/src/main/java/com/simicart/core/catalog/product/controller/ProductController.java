@@ -295,7 +295,7 @@ public class ProductController extends SimiController implements OptionProductDe
             builder.append(s_price);
             builder.append(symbol);
         }
-        return builder.toString();
+        return builder.toString().trim();
     }
 
     protected void addToCartWithQuote(String quote, JSONObject data) {
