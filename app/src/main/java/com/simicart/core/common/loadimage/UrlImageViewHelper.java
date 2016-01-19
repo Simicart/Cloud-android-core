@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -15,8 +16,13 @@ import android.os.Build;
 import android.os.Looper;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.WindowManager;
 import android.widget.ImageView;
+
+import com.simicart.core.base.manager.SimiManager;
+import com.simicart.core.common.Utils;
+
 import org.apache.http.NameValuePair;
 
 import java.io.*;
@@ -108,7 +114,14 @@ public final class UrlImageViewHelper {
             stream = new BufferedInputStream(new FileInputStream(filename), 8192);
             final Bitmap bitmap = BitmapFactory.decodeStream(stream, null, o);
             clog(String.format("Loaded bitmap (%dx%d).", bitmap.getWidth(), bitmap.getHeight()));
-            return bitmap;
+            Display display = SimiManager.getIntance().getCurrentActivity()
+                    .getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int w = (size.x * 4) / 5;
+            int h = (size.y * 4) / 5;
+            Bitmap bitmapScale = Utils.scaleToFill(bitmap, w, h);
+            return bitmapScale;
         } catch (final IOException e) {
             return null;
         } finally {
@@ -599,7 +612,8 @@ public final class UrlImageViewHelper {
             @Override
             public void run() {
                 assert (Looper.myLooper().equals(Looper.getMainLooper()));
-                Bitmap bitmap = loader.result;
+
+		        Bitmap bitmap = loader.result;
                 Drawable usableResult = null;
                 if (bitmap != null) {
                     usableResult = new ZombieDrawable(url, mResources, bitmap);
