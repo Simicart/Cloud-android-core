@@ -65,6 +65,7 @@ public class Config {
     private String charSepThousand;
     private String symbol = "";
     private boolean isLeft;
+    private boolean hasSpace;
     private int mTheme = 0; // 0 : default, 1 : matrix , 2 ztheme
     private static Config instance;
 
@@ -121,15 +122,30 @@ public class Config {
         return isLeft;
     }
 
+    public void setHasSpace(boolean has_space) {
+        hasSpace = has_space;
+    }
+
+    public boolean hasSpace() {
+        return hasSpace;
+    }
 
     public String getPrice(float price) {
         String s_price = Utils.formatPrice(price, numberDecimal, charSepDecimal, charSepThousand);
         StringBuilder builder = new StringBuilder();
         if (isLeft) {
             builder.append(symbol);
+            if(hasSpace)
+            {
+                builder.append(" ");
+            }
             builder.append(s_price);
         } else {
             builder.append(s_price);
+            if(hasSpace)
+            {
+                builder.append(" ");
+            }
             builder.append(symbol);
         }
         return builder.toString();
@@ -452,8 +468,6 @@ public class Config {
     }
 
 
-
-
     public int getColorSplash() {
         return Color.parseColor(mColorSplashScreen);
     }
@@ -485,24 +499,6 @@ public class Config {
         return translater;
     }
 
-
-    public String getPrice(String price, String symbol) {
-        DecimalFormat df = new DecimalFormat("#,##0.00");
-        if (price == null || price.equals("null")) {
-            price = "0";
-        }
-        float pricef = Float.parseFloat(price);
-        price = df.format(pricef);
-        if (mCurrencyPosition.equals("before")) {
-            if ((null == symbol) || (symbol.equals("null"))
-                    && null != mCurrencyCode && !mCurrencyCode.equals("null")) {
-                return mCurrencyCode + price;
-            } else {
-                return symbol + price;
-            }
-        }
-        return price + " " + symbol;
-    }
 
 
     public String getCurrencyPosition() {
@@ -570,11 +566,22 @@ public class Config {
         instance.setCharSepThousand(charSepThousand);
 
         boolean isLeft = false;
+        boolean has_space = false;
         String currencyPosition = currency.getCurrencyPosition();
-        if (Utils.validateString(currencyPosition) && currencyPosition.toUpperCase().equals("left")) {
-            isLeft = true;
+        if (Utils.validateString(currencyPosition)) {
+            currencyPosition = currencyPosition.toUpperCase();
+            if (currencyPosition.contains("left")) {
+                isLeft = true;
+            }
+
+            if (currencyPosition.contains("space")) {
+                has_space = true;
+            }
+
+
         }
         instance.setisLeft(isLeft);
+        instance.setHasSpace(has_space);
 
         BaseCurrencyEntity baseCurrency = currency.getBaseCurrency();
         String symbol = baseCurrency.getSymbol();
