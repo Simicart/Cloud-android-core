@@ -27,7 +27,6 @@ public class AppConfigModel extends SimiModel{
     protected void paserData() {
         super.paserData();
         if(mJSONResult != null){
-            Log.e("AppConfigModel", mJSONResult.toString());
             if(mJSONResult.has("app-configs")){
                 try {
                     JSONArray appConfigArr = mJSONResult.getJSONArray("app-configs");

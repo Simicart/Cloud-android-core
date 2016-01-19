@@ -18,7 +18,7 @@ import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 
 @SuppressLint("DefaultLocale")
 public class Config {
-    private String mBaseUrl = "https://dev-api.jajahub.com/rest";
+    private String mBaseUrl = "https://dev-api.jajahub.com/rest/";
     private String mSecretKey = "ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0";
     private String key_color = "#3498DB";
     private String top_menu_icon_color = "#FFFFFF";
@@ -451,9 +451,7 @@ public class Config {
         mBaseUrl = base_url;
     }
 
-    public String getBannersUrl() {
-        return getConnectorUrl() + "config/get_banner";
-    }
+
 
 
     public int getColorSplash() {

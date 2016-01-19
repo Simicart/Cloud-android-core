@@ -49,6 +49,7 @@ public class SplashController {
 
     private void initCommon() {
         DataLocal.init(mContext);
+        validateBaseURL();
     }
 
     private void getPlugin() {
@@ -201,6 +202,19 @@ public class SplashController {
             Map<String, String> languages = new HashMap<String, String>();
             Config.getInstance().setLanguages(languages);
         }
+    }
+
+    private void validateBaseURL() {
+        String base_url = Config.getInstance().getBaseUrl();
+        int last_index = base_url.length() - 1;
+        char lastChar = base_url.charAt(last_index);
+        if (lastChar == '/') {
+            base_url = base_url.substring(0, last_index);
+            Log.e("SplashController ", "BASE URL " + base_url);
+        }
+        Config.getInstance().setBase_url(base_url);
+
+
     }
 
 }
