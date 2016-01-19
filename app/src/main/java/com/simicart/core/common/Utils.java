@@ -9,6 +9,7 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -196,15 +197,18 @@ public class Utils {
             builderDecimal.append("#");
         }
 
-//        String patern = "###" + charSepthousand + "###" + charSepDecimal + builderDecimal.toString();
-
+      //  String patern = "###" + charSepthousand + "###" + charSepDecimal + builderDecimal.toString();
 
         String patern = "###.##";
 
         Log.e("Utils ", "PATERN " + patern);
 
-        DecimalFormat format = new DecimalFormat(patern);
-        return format.format((double) price);
+        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
+        decimalFormat.applyPattern(patern);
+        return decimalFormat.format(price);
+
+//        DecimalFormat format = new DecimalFormat(patern);
+//        return format.format((double) price);
     }
 
     @SuppressLint("SimpleDateFormat")
