@@ -273,6 +273,7 @@ public class SpotProductController extends SimiController {
     @Override
     public void onResume() {
         if (listSportProduct != null && listSportProduct.size() > 0) {
+            mDelegate.dismissLoadingSpot();
             mDelegate.createViewSport(listSportProduct.size());
             for (int i = 0; i < listSportProduct.size(); i++) {
                 SpotProductEntity spotProductEntity = listSportProduct.get(i);

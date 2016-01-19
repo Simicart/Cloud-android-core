@@ -53,6 +53,7 @@ public class CategoryHomeController extends SimiController {
     @Override
     public void onResume() {
         mDelegate.updateView(mModel.getCollection());
+        mDelegate.dismissLoadingHome();
     }
 
 }
