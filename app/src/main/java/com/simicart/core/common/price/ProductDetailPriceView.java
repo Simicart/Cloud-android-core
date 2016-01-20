@@ -72,12 +72,20 @@ public class ProductDetailPriceView {
         if (hasTaxProduct) {
             mPriceTax = mProductEntity.getPriceIncludeTax();
             mSalePriceTax = mProductEntity.getPriceSaleIncludeTax();
+            Log.e("ProductDetailPriveView ", " Create View " + " Price Tax " + mPriceTax + " Sale Price Tax " + mSalePriceTax);
             createPriceWithTax();
         } else {
             mPrice = mProductEntity.getPrice();
             mSalePrice = mProductEntity.getSalePrice();
+
+            Log.e("ProductDetailPriveView ", " Create View " + "Price " + mPrice + " Sale Price ");
+
             createPriceWithoutTax();
         }
+
+        Log.e("ProductDetailPriveView ", " Create View " + "Price " + mPrice + " Sale Price " + mSalePrice + " Price Tax " + mPriceTax + " Sale Price Tax " + mSalePriceTax);
+
+
         return ll_price;
     }
 
@@ -93,7 +101,7 @@ public class ProductDetailPriceView {
                 tv_first.setVisibility(View.GONE);
             }
         } else {
-            if (mSalePrice == -1) {
+            if (mSalePrice < 0) {
                 tv_second.setVisibility(View.GONE);
                 if (mPrice >= 0) {
                     String content_price = getPrice(mPrice);
@@ -102,16 +110,17 @@ public class ProductDetailPriceView {
                     tv_first.setVisibility(View.GONE);
                 }
             } else {
-                if (mSalePrice >= 0) {
-                    String content_salePrice = getPrice(mSalePrice);
-                    tv_second.setText(content_salePrice);
-                } else {
-                    tv_second.setVisibility(View.GONE);
-                }
+
+                String content_salePrice = getPrice(mSalePrice);
+
+                Log.e("ProductDetailPriceView ", "---> Create Price Without Tax 001" + content_salePrice);
+                tv_second.setText(content_salePrice);
+
 
                 if (mPrice >= 0) {
                     tv_first.setPaintFlags(tv_first.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     String content_price = getPrice(mPrice);
+                    Log.e("ProductDetailPriceView ", "---> Create Price Without Tax 002" + content_price);
                     tv_first.setText(content_price);
                 } else {
                     tv_first.setVisibility(View.GONE);
@@ -126,7 +135,10 @@ public class ProductDetailPriceView {
         Log.e("Product Detail Price View ", "Price Tax " + mPriceTax + " Sale Price Tax " + mSalePriceTax);
 
         if (mPriceTax == mSalePriceTax) {
-            if (mPriceTax == -1) {
+            if (mPriceTax < 0) {
+                Log.e("Product Detail Price View ", "createPriceWithTax CALL  createPriceWithoutTax");
+                mPrice = mProductEntity.getPrice();
+                mSalePrice = mProductEntity.getSalePrice();
                 createPriceWithoutTax();
             } else {
                 tv_second.setVisibility(View.GONE);
@@ -138,8 +150,7 @@ public class ProductDetailPriceView {
                 }
             }
         } else {
-
-            if (mSalePriceTax == -1) {
+            if (mSalePriceTax < 0) {
                 tv_second.setVisibility(View.GONE);
                 if (mPriceTax >= 0) {
                     String content_priceTax = getPrice(mPriceTax);

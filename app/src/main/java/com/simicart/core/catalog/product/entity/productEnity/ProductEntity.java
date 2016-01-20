@@ -174,6 +174,9 @@ public class ProductEntity extends SimiEntity {
 
             if (mJSON.has(price)) {
                 String priceValue = getData(price);
+
+                Log.e("Product Entity ","===> PRICE " + priceValue);
+
                 if (Utils.validateString(priceValue)) {
                     mPrice = Float.parseFloat(priceValue);
                 }
