@@ -39,7 +39,7 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.util.LruCache;
+//import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -55,7 +55,7 @@ import com.simicart.core.config.Rconfig;
 
 public class DrawableManager {
 
-	protected static LruCache<String, Bitmap> mMemoryCache;
+//	protected static LruCache<String, Bitmap> mMemoryCache;
 	protected static DiskLruCache mDiskLruCache;
 	protected static Object mDiskCackeLock = new Object();
 	protected static boolean mDiskCacheStarting = true;
@@ -65,22 +65,22 @@ public class DrawableManager {
 
 	public static void init() {
 		if (!isInitial) {
-			if (null == mMemoryCache) {
-				final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
-				final int cacheSize = maxMemory / 8;
-				mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
-					@Override
-					protected int sizeOf(String key, Bitmap bitmap) {
-						return bitmap.getByteCount() / 1024;
-					}
-				};
-			}
-			File cacheDir = getDiskCacheDir();
-
-			InitDiskCacheTask task = (new DrawableManager()).new InitDiskCacheTask();
-			task.execute(cacheDir);
-
-			isInitial = true;
+//			if (null == mMemoryCache) {
+//				final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+//				final int cacheSize = maxMemory / 8;
+//				mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+//					@Override
+//					protected int sizeOf(String key, Bitmap bitmap) {
+//						return bitmap.getByteCount() / 1024;
+//					}
+//				};
+//			}
+//			File cacheDir = getDiskCacheDir();
+//
+//			InitDiskCacheTask task = (new DrawableManager()).new InitDiskCacheTask();
+//			task.execute(cacheDir);
+//
+//			isInitial = true;
 		}
 	}
 
