@@ -18,8 +18,10 @@ import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 
 @SuppressLint("DefaultLocale")
 public class Config {
-    private String mBaseUrl = "https://dev-api.jajahub.com/rest/";
-    private String mSecretKey = "ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0";
+    private String mBaseUrl = "https://api.jajahub.com/rest/";
+    private String mSecretKey = "05ac78758255ed2ac15e98e65fbe2c4b90c0594bb9b1f8d1bddb05f7e6e4db4e";
+    // key site live : c843176d88b6e9a21f848482044503ea7ae82e85, api.jajahub.com/rest/
+    // key zara: ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0, dev-api.jajahub.com/rest/
     private String key_color = "#3498DB";
     private String top_menu_icon_color = "#FFFFFF";
     private String button_background = "#0277BD";

@@ -262,15 +262,8 @@ public class ProductDetailParentBlock extends SimiBlock implements
         if (null != view) {
             OptionFragment fragment = OptionFragment.newInstance(view,
                     onDoneOption);
-
-            //SimiManager.getIntance().addFragment(fragment);
-
-
             FragmentTransaction frt = SimiManager.getIntance().getManager()
                     .beginTransaction();
-//            frt.setcustomanimations(
-//                    rconfig.getinstance().getid("abc_fade_in", "anim"), rconfig
-//                            .getinstance().getid("abc_fade_out", "anim"));
             frt.add(Rconfig.getInstance().id("container"), fragment);
             frt.addToBackStack(null);
             frt.commit();
