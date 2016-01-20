@@ -131,10 +131,10 @@ public class WebViewActivity extends Activity implements Communicator {
                                 status = "Transaction Declined!";
                                 updatePayment("2", status);
                             } else if (html.indexOf("Success") != -1) {
-                                status = "Transaction Successful!";
+                                status = "Thank you for your purchase!";
                                 updatePayment("1", status);
                             } else if (html.indexOf("Aborted") != -1) {
-                                status = "Transaction Cancelled!";
+                                status = "Your order has been canceled";
                                 updatePayment("2", status);
                             } else {
                                 status = "Transaction Error!";
@@ -793,5 +793,10 @@ public class WebViewActivity extends Activity implements Communicator {
             Toast.makeText(getApplicationContext(), "Action not available for this Payment Option !", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        changeView("Your order has been canceled");
     }
 }

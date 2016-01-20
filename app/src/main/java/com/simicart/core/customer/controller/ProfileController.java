@@ -267,6 +267,7 @@ public class ProfileController extends SimiController {
 		mModel.setDelegate(new ModelDelegate() {
 			@Override
 			public void onFail(SimiError error) {
+				mDelegate.dismissLoading();
 				if(error != null) {
 					SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
 				}
