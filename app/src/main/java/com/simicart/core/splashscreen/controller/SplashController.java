@@ -19,7 +19,7 @@ import com.simicart.core.splashscreen.entity.ConfigEntity;
 import com.simicart.core.splashscreen.model.AppConfigModel;
 import com.simicart.core.splashscreen.model.CMSPagesModel;
 import com.simicart.core.splashscreen.model.GetIDPluginsModel;
-import com.simicart.core.splashscreen.model.GetSKUPlugin;
+import com.simicart.core.splashscreen.model.GetSKUPluginModel;
 import com.simicart.core.splashscreen.model.SettingModel;
 
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public class SplashController {
         // http://dev-api.jajahub.com/rest/public_plugins
         // lay sku cua cac plugin enbale
 
-        final GetSKUPlugin skuModel = new GetSKUPlugin();
+        final GetSKUPluginModel skuModel = new GetSKUPluginModel();
         skuModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 /**
  * Created by MSI on 18/01/2016.
  */
-public class GetSKUPlugin extends SimiModel {
+public class GetSKUPluginModel extends SimiModel {
 
     private ArrayList<String> mSKU;
     private String public_plugins = "public_plugins";
@@ -27,7 +27,7 @@ public class GetSKUPlugin extends SimiModel {
 
     @Override
     protected void setUrlAction() {
-        addDataExtendURL("public_plugins");
+        addDataExtendURL("public-plugins");
 
     }
 
@@ -52,7 +52,7 @@ public class GetSKUPlugin extends SimiModel {
                         if(jsonPlugin.has(sku))
                         {
                             String sku_plugin = jsonPlugin.getString(sku);
-                            Log.e("GetSKUPlugin ", "SKU " + sku_plugin);
+                            Log.e("GetSKUPluginModel ", "SKU " + sku_plugin);
                             mSKU.add(sku_plugin);
                         }
                     }
