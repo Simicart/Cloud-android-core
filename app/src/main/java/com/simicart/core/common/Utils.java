@@ -3,9 +3,13 @@ package com.simicart.core.common;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
+import java.text.FieldPosition;
+import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -184,17 +188,27 @@ public class Utils {
 
     }
 
-    public static String formatPrice(float price,int numberOfDecimals,String charSepDecimal,String charSepthousand )
-    {
+    public static String formatPrice(float price, int numberOfDecimals, String charSepDecimal, String charSepthousand) {
+
+        Log.e("Utils formatPrice ", "Price " + price + "number Of Decimals " + numberOfDecimals + "char Sep Decimal " + charSepDecimal + "charSepthousand " + charSepthousand);
+
         StringBuilder builderDecimal = new StringBuilder();
-        for(int i=0; i < numberOfDecimals;i++)
-        {
+        for (int i = 0; i < numberOfDecimals; i++) {
             builderDecimal.append("#");
         }
 
-        String patern =  "###" + charSepDecimal + builderDecimal.toString();
-        DecimalFormat format = new DecimalFormat(patern);
-        return format.format(price);
+      //  String patern = "###" + charSepthousand + "###" + charSepDecimal + builderDecimal.toString();
+
+        String patern = "###.##";
+
+        Log.e("Utils ", "PATERN " + patern);
+
+        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
+        decimalFormat.applyPattern(patern);
+        return decimalFormat.format(price);
+
+//        DecimalFormat format = new DecimalFormat(patern);
+//        return format.format((double) price);
     }
 
     @SuppressLint("SimpleDateFormat")

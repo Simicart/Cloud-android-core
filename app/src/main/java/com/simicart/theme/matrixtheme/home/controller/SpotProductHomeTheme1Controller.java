@@ -36,6 +36,7 @@ public class SpotProductHomeTheme1Controller extends SimiController {
 
 			}
 		});
+		mModel.addDataParameter("order","position");
 		mModel.request();
 	}
 

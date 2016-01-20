@@ -1,5 +1,7 @@
 package com.simicart.core.banner.model;
 
+import android.util.Log;
+
 import com.simicart.core.banner.entity.BannerEntity;
 import com.simicart.core.base.model.SimiModel;
 import com.simicart.core.base.model.entity.SimiEntity;
@@ -31,6 +33,7 @@ public class BannerModel extends SimiModel {
     protected void paserData() {
         super.paserData();
         if (mJSONResult.has(banner)) {
+            Log.e("BannerModel", mJSONResult.toString());
             JSONArray array = null;
             try {
                 array = mJSONResult.getJSONArray(banner);

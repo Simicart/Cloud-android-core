@@ -112,7 +112,6 @@ public class SimiModel {
 
     public SimiCollection getCollection() {
         if (collection == null) {
-            Log.e("SimiModel", "getCollection NULL");
             return new SimiCollection();
         }
         return this.collection;
@@ -241,7 +240,6 @@ public class SimiModel {
             isSetURLAction = true;
             setUrlAction();
         }
-        Log.e("SimiModel ", "URL Action FIRST " + url_action);
         //  setUrlAction();
         if (!isProcessURLAction) {
             isProcessURLAction = true;
@@ -250,7 +248,6 @@ public class SimiModel {
 
         setShowNotifi();
         setTypeMethod();
-        Log.e("SimiModel ", "URL Action " + url_action);
         mRequest = new SimiJSONRequest(url_action, mDelegate);
         mRequest.setPriority(mCurrentPriority);
         mRequest.setShowNotify(isShowNotify);

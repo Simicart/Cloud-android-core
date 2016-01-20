@@ -34,14 +34,12 @@ public class ProductDetailModel extends SimiModel {
         super.paserData();
         if (mJSONResult.has("product")) {
             try {
-                Log.e("ProductDetailModel", "parserData 001");
                 JSONObject json = mJSONResult.getJSONObject("product");
                 ProductEntity productEntity = new ProductEntity();
                 productEntity.setJSONObject(json);
                 productEntity.parse();
                 ArrayList<SimiEntity> entities = new ArrayList<SimiEntity>();
                 entities.add(productEntity);
-                Log.e("ProductDetailModel", "parserData 002");
                 collection.setCollection(entities);
             } catch (JSONException e) {
                 Log.e("ProductDetailModel", "parse Exception " + e.getMessage());

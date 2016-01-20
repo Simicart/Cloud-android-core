@@ -76,9 +76,8 @@ public class HomeFragment extends SimiFragment {
             mBannerController.onResume();
         }
         // init category
-        LinearLayout ll_category = (LinearLayout) rootView.findViewById(Rconfig
-                .getInstance().id("ll_category"));
-        mCategoryHomeBlock = new CategoryHomeBlock(ll_category, context);
+        mCategoryHomeBlock = new CategoryHomeBlock(rootView, context);
+        mCategoryHomeBlock.initView();
         if (mCategoryHomeController == null) {
             mCategoryHomeController = new CategoryHomeController();
             mCategoryHomeController.setDelegate(mCategoryHomeBlock);
@@ -89,8 +88,6 @@ public class HomeFragment extends SimiFragment {
         }
 
         // init spotproduct
-//        LinearLayout ll_spotproduct = (LinearLayout) rootView
-//                .findViewById(Rconfig.getInstance().id("ll_spotproduct"));
         mProductListBlock = new SpotProductBlock(rootView, context);
         if (null == mSpotProductController) {
             mSpotProductController = new SpotProductController();

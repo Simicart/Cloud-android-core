@@ -82,6 +82,7 @@ public class ReviewOrderController extends SimiController implements
     protected String couponCode = "";
     protected OnClickListener onRemoveCoupon;
     private boolean checkCouponCode = false;
+    private boolean checkRequiedShipping = true;
 
     public void setAfterControll(int controll) {
         mAfterControll = controll;
@@ -205,6 +206,7 @@ public class ReviewOrderController extends SimiController implements
             @Override
             public void onSuccess(SimiCollection collection) {
                 if (collection != null && collection.getCollection().size() > 0) {
+                    checkRequiedShipping = true;
                     ArrayList<SimiEntity> entity = collection.getCollection();
                     if (entity != null && entity.size() > 0) {
                         ArrayList<ShippingMethod> shippingMethodsArr = new ArrayList<ShippingMethod>();
@@ -227,6 +229,8 @@ public class ReviewOrderController extends SimiController implements
                     }
 
                     mDelegate.setShipingAddress(mShippingAddress);
+                }else{
+                    checkRequiedShipping = false;
                 }
             }
         });
@@ -477,6 +481,7 @@ public class ReviewOrderController extends SimiController implements
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissDialogLoading();
+                SimiManager.getIntance().showNotify(null, "Couponcode was removed", "Ok");
                 checkCouponCode = false;
                 mDelegate.removeTextCouponCode();
                 if(collection != null && collection.getCollection().size() > 0){
@@ -512,8 +517,9 @@ public class ReviewOrderController extends SimiController implements
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                checkCouponCode = true;
                 mDelegate.dismissDialogLoading();
+                SimiManager.getIntance().showNotify(null, "Couponcode was applied", "Ok");
+                checkCouponCode = true;
                 if(collection != null && collection.getCollection().size() > 0){
                     QuoteEntity quoteEntity = (QuoteEntity) collection.getCollection().get(0);
                     mDelegate.setTotalPrice(quoteEntity);
@@ -617,15 +623,6 @@ public class ReviewOrderController extends SimiController implements
                             event2.dispatchEvent(
                                     "com.simicart.paymentmethod.placeorder",
                                     _CheckoutData2);
-//                            if(paymentmethod.getName().equals("paypal")) {
-//                                event2.dispatchEvent(
-//                                        "com.simicart.paymentmethod.placeorder",
-//                                        _CheckoutData2);
-//                            } else if(paymentmethod.getName().equals("braintree")) {
-//                                event2.dispatchEvent(
-//                                        "com.simicart.paymentmethod.braintreeplaceorder",
-//                                        _CheckoutData2);
-//                            }
                             // end event
                             break;
                     }
@@ -672,13 +669,15 @@ public class ReviewOrderController extends SimiController implements
             return false;
         }
 
-        if (mShippingmethod != null && mShippingmethod.size() > 0) {
-            if (!isCheckShippingMethod()) {
-                Utils.expand(mDelegate.getLayoutShipping());
-                mDelegate.scrollCenter();
-                SimiManager.getIntance().showNotify(null,
-                        "Please specify shipping method", "Ok");
-                return false;
+        if(checkRequiedShipping){
+            if (mShippingmethod != null && mShippingmethod.size() > 0) {
+                if (!isCheckShippingMethod()) {
+                    Utils.expand(mDelegate.getLayoutShipping());
+                    mDelegate.scrollCenter();
+                    SimiManager.getIntance().showNotify(null,
+                            "Please specify shipping method", "Ok");
+                    return false;
+                }
             }
         }
 

@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.simicart.core.catalog.category.entity.Category;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
+import com.simicart.core.config.Rconfig;
 import com.simicart.core.home.adapter.HomeCategoryAdapter;
 import com.simicart.core.home.controller.CategoryHomeListener;
 import com.simicart.core.home.delegate.CategoryHomeDelegate;
@@ -29,10 +31,18 @@ public class CategoryHomeBlock extends SimiBlock implements
 
     private View mView;
     private CategoryHomeListener categoryHomeListener;
+    private RelativeLayout rl_home;
+    private LinearLayout ll_category;
 
     public CategoryHomeBlock(View view, Context context) {
         super(view, context);
         this.mView = view;
+    }
+
+    @Override
+    public void initView() {
+        ll_category = (LinearLayout) mView.findViewById(Rconfig.getInstance().id("ll_category"));
+        rl_home = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id("rl_home"));
     }
 
     @Override
@@ -73,7 +83,6 @@ public class CategoryHomeBlock extends SimiBlock implements
 
 
     public void showCategorys(ArrayList<Category> listCategory) {
-        LinearLayout ll_category = (LinearLayout) mView;
         // name
         RelativeLayout.LayoutParams title_lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -136,5 +145,15 @@ public class CategoryHomeBlock extends SimiBlock implements
 
         YoYo.with(Techniques.Shake).duration(2000).playOn(listview_category);
 
+    }
+
+    @Override
+    public void showLoadingHome() {
+        rl_home.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void dismissLoadingHome() {
+        rl_home.setVisibility(View.GONE);
     }
 }

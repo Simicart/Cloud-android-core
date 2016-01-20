@@ -8,16 +8,20 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 
 import com.simicart.core.common.Utils;
+import com.simicart.core.splashscreen.entity.AppConfigEnitity;
 import com.simicart.core.splashscreen.entity.BaseCurrencyEntity;
 import com.simicart.core.splashscreen.entity.ConfigEntity;
 import com.simicart.core.splashscreen.entity.CurrencyEntity;
 import com.simicart.core.splashscreen.entity.FormatConfigEntity;
+import com.simicart.core.splashscreen.entity.TaxConfigEntity;
+import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 
 @SuppressLint("DefaultLocale")
 public class Config {
-    private String mThemeColor = "#3498DB";
-    private String mBaseUrl = "https://dev-api.jajahub.com/rest";
-    private String mSecretKey = "ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0";
+    private String mBaseUrl = "https://api.jajahub.com/rest/";
+    private String mSecretKey = "05ac78758255ed2ac15e98e65fbe2c4b90c0594bb9b1f8d1bddb05f7e6e4db4e";
+    // key site live : c843176d88b6e9a21f848482044503ea7ae82e85, api.jajahub.com/rest/
+    // key zara: ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0, dev-api.jajahub.com/rest/
     private String key_color = "#3498DB";
     private String top_menu_icon_color = "#FFFFFF";
     private String button_background = "#0277BD";
@@ -41,15 +45,43 @@ public class Config {
     private String search_text_color = "#8b8b8b";
     private String search_icon_color = "#8b8b8b";
     private String config_theme = "default";
-
-    // Quote
+    private String mCurrencyCode;
+    private String mDemoEnable = "DEMO_ENABLE11";
+    private String mSenderID = "";
+    private String mColorSplashScreen = "#FFFFFF";
+    private String mFontCustom = "fonts/ProximaNovaLight.ttf";
+    private String mDefaulList = "0";
+    private String mStoreName;
+    private String mLocaleIdentifier;
+    private String mCookie = "";
+    private int mGuestCheckout = 1;
+    private int mEnableAgreements = 0;
+    private boolean isShowZeroPrice = true;
+    private boolean isShowLinkAllProduct = false;
+    private boolean isReloadPaymentMethod = false;
+    private String mCurrencyPosition = "before";
+    private Map<String, String> mLanguages;
     private String quoteCustomerSignIn = "";
+    private int numberDecimal;
+    private String charSepDecimal;
+    private String charSepThousand;
+    private String symbol = "";
+    private boolean isLeft;
+    private boolean hasSpace;
+    private int mTheme = 0; // 0 : default, 1 : matrix , 2 ztheme
+    private static Config instance;
 
-    int numberDecimal;
-    String charSepDecimal;
-    String charSepThousand;
-    String symbol = "";
-    boolean isLeft;
+    private Config() {
+        mLanguages = new HashMap<String, String>();
+    }
+
+    public static Config getInstance() {
+        if (null == instance) {
+            instance = new Config();
+        }
+
+        return instance;
+    }
 
 
     public void setNumberDecimal(int number) {
@@ -92,15 +124,30 @@ public class Config {
         return isLeft;
     }
 
+    public void setHasSpace(boolean has_space) {
+        hasSpace = has_space;
+    }
 
-    public  String getPrice(float price) {
+    public boolean hasSpace() {
+        return hasSpace;
+    }
+
+    public String getPrice(float price) {
         String s_price = Utils.formatPrice(price, numberDecimal, charSepDecimal, charSepThousand);
         StringBuilder builder = new StringBuilder();
         if (isLeft) {
             builder.append(symbol);
+            if(hasSpace)
+            {
+                builder.append(" ");
+            }
             builder.append(s_price);
         } else {
             builder.append(s_price);
+            if(hasSpace)
+            {
+                builder.append(" ");
+            }
             builder.append(symbol);
         }
         return builder.toString();
@@ -140,11 +187,7 @@ public class Config {
     }
 
     public int getButton_background() {
-        if (DataLocal.isCloud) {
-            return Color.parseColor(button_background);
-        } else {
-            return Color.parseColor(key_color);
-        }
+        return Color.parseColor(button_background);
     }
 
     public void setButton_background(String button_background) {
@@ -273,11 +316,7 @@ public class Config {
     }
 
     public int getOut_stock_background() {
-        if (DataLocal.isCloud) {
-            return Color.parseColor(out_stock_background);
-        } else {
-            return Color.parseColor(key_color);
-        }
+        return Color.parseColor(out_stock_background);
     }
 
     public void setOut_stock_background(String out_stock_background) {
@@ -306,52 +345,6 @@ public class Config {
 
     public void setSearch_icon_color(String search_icon_color) {
         this.search_icon_color = search_icon_color;
-    }
-
-    private String mDemoEnable = "DEMO_ENABLE11";
-    private String mSenderID = "";
-    private String mColorPrice = "#F31A1A";
-    private String mColorIconMenu = "#FFFFFF";
-    private String mColorMenuTop = "#FFFFFF";
-    private String mColorSplashScreen = "#FFFFFF";
-    // private String mFontCustom = "fonts/atmostsphere.ttf";
-    private String mFontCustom = "fonts/ProximaNovaLight.ttf";
-
-    private String mCountryName;
-    private String mCountryCode;
-    private String mCurrencySymbol;
-    private String mCurrencyCode;
-    private String mDefaulList = "0";
-
-    private int mStoreID;
-    private String mStoreName;
-    private String mLocaleIdentifier;
-    private String mUseStore;
-    private String mCookie = "";
-
-    private int mGuestCheckout = 1;
-    private int mEnableAgreements = 0;
-
-    private boolean isShowZeroPrice = true;
-    private boolean isShowLinkAllProduct = false;
-    private boolean isReloadPaymentMethod = false;
-    private String mCurrencyPosition = "before";
-    private Map<String, String> mLanguages;
-
-    private int mTheme = 0; // 0 : default, 1 : matrix , 2 ztheme
-
-    private static Config instance;
-
-    private Config() {
-        mLanguages = new HashMap<String, String>();
-    }
-
-    public static Config getInstance() {
-        if (null == instance) {
-            instance = new Config();
-        }
-
-        return instance;
     }
 
     public String getDefaultList() {
@@ -410,13 +403,6 @@ public class Config {
         mSecretKey = secret_key;
     }
 
-    public String getUse_store() {
-        return mUseStore;
-    }
-
-    public void setUse_store(String use_store) {
-        mUseStore = use_store;
-    }
 
     public void setLanguages(Map<String, String> languages) {
         try {
@@ -463,22 +449,6 @@ public class Config {
         mEnableAgreements = enable_agreements;
     }
 
-    public int getStore_id() {
-        return mStoreID;
-    }
-
-    public void setStore_id(int store_id) {
-        mStoreID = store_id;
-    }
-
-    public void setCurrency_symbol(String currency_symbol) {
-        mCurrencySymbol = currency_symbol;
-    }
-
-    public String getmCurrencySymbol() {
-        return mCurrencySymbol;
-    }
-
     public String getCurrency_code() {
         return mCurrencyCode;
     }
@@ -491,14 +461,6 @@ public class Config {
         return mBaseUrl + "connector/";
     }
 
-    public void setBaseUrl() {
-//        int lenght = mBaseUrl.length();
-//        char last = mBaseUrl.charAt(lenght - 1);
-//        if (last != '/') {
-//            mBaseUrl += "/";
-//        }
-    }
-
     public String getBaseUrl() {
         return mBaseUrl;
     }
@@ -507,38 +469,15 @@ public class Config {
         mBaseUrl = base_url;
     }
 
-    public String getBannersUrl() {
-        return getConnectorUrl() + "config/get_banner";
-    }
-
-    public void setColorMain(String color) {
-        mThemeColor = color;
-    }
-
-    public int getColorMain() {
-        return Color.parseColor(mThemeColor);
-    }
-
-    public int getColorMenu() {
-        return Color.parseColor(mColorIconMenu);
-    }
-
-    public int getColorMenuTop() {
-        return Color.parseColor(mColorMenuTop);
-    }
 
     public int getColorSplash() {
         return Color.parseColor(mColorSplashScreen);
     }
 
-    public int getColorPrice() {
-        return Color.parseColor(mColorPrice);
-    }
+//    public int getColorPrice() {
+//        return Color.parseColor(mColorPrice);
+//    }
 
-    public int getColorSort() {
-        String cbase = mThemeColor.substring(1);
-        return Color.parseColor("#A8" + cbase);
-    }
 
     public String getFontCustom() {
         return mFontCustom;
@@ -562,81 +501,7 @@ public class Config {
         return translater;
     }
 
-    public String getWidthImage() {
-        return "500";
-    }
 
-    public String getHeightImage() {
-        return "500";
-    }
-
-//    public String getPrice(String price) {
-//        DecimalFormat df = new DecimalFormat("#,##0.00");
-//        if (price == null || price.equals("null")) {
-//            price = "0";
-//        }
-//        float pricef = Float.parseFloat(price);
-//        price = df.format(pricef);
-//        if (mCurrencyPosition.equals("left")) {
-//            if ((null == mCurrencySymbol) || (mCurrencySymbol.equals("null"))
-//                    && null != mCurrencyCode && !mCurrencyCode.equals("null")) {
-//                return mCurrencyCode + price;
-//            } else {
-//                return mCurrencySymbol + price;
-//            }
-//        }
-//        return price + " " + mCurrencySymbol;
-//    }
-
-    public String getPrice(String price, String symbol) {
-        DecimalFormat df = new DecimalFormat("#,##0.00");
-        if (price == null || price.equals("null")) {
-            price = "0";
-        }
-        float pricef = Float.parseFloat(price);
-        price = df.format(pricef);
-        if (mCurrencyPosition.equals("before")) {
-            if ((null == symbol) || (symbol.equals("null"))
-                    && null != mCurrencyCode && !mCurrencyCode.equals("null")) {
-                return mCurrencyCode + price;
-            } else {
-                return symbol + price;
-            }
-        }
-        return price + " " + symbol;
-    }
-
-    public String getCountryName() {
-        return mCountryName;
-    }
-
-    public void setCountryName(String mCountryName) {
-        this.mCountryName = mCountryName;
-    }
-
-    public String getCurrencyCode() {
-        return mCurrencyCode;
-    }
-
-    public void setCurrencyCode(String mCurrencyCode) {
-        this.mCurrencyCode = mCurrencyCode;
-    }
-
-    public String getStoreName() {
-        return mStoreName;
-    }
-
-    public void setStoreName(String mStoreName) {
-        this.mStoreName = mStoreName;
-    }
-
-    public String getCountryCode() {
-        return mCountryCode;
-    }
-
-    public void setCountryCode(String mCountryCode) {
-        this.mCountryCode = mCountryCode;
-    }
 
     public String getCurrencyPosition() {
         return mCurrencyPosition;
@@ -661,4 +526,111 @@ public class Config {
     public void setQuoteCustomerSignIn(String quoteCustomerSignIn) {
         this.quoteCustomerSignIn = quoteCustomerSignIn;
     }
+
+    private boolean isTaxShop;
+    private boolean isTaxCart;
+
+    public void setTaxShop(boolean is_tax_shop) {
+        isTaxShop = is_tax_shop;
+    }
+
+    public boolean isTaxShop() {
+        return isTaxShop;
+    }
+
+    public void setTaxCart(boolean is_tax_cart) {
+        isTaxCart = is_tax_cart;
+    }
+
+    public boolean isTaxCart() {
+        return isTaxCart;
+    }
+
+
+    public void parseConfigSetting(ConfigEntity configEntity) {
+        FormatConfigEntity formatEntity = configEntity.getFormatOption();
+        CurrencyEntity currency = formatEntity.getCurrency();
+
+        instance.setCurrency_code(currency.getBaseCurrency().getCode());
+        instance.setStore_name(configEntity.getGeneral().getStoreName());
+        instance.setCurrencyPosition(currency.getCurrencyPosition());
+
+
+        String numberOfDecimal = currency.getNumberOfDecimals();
+        int numberDecimal = Integer.parseInt(numberOfDecimal);
+        instance.setNumberDecimal(numberDecimal);
+
+        String charSepDecimal = currency.getDecimalSeparator();
+        instance.setCharSepDecimal(charSepDecimal);
+
+
+        String charSepThousand = currency.getThousandSeparator();
+        instance.setCharSepThousand(charSepThousand);
+
+        boolean isLeft = false;
+        boolean has_space = false;
+        String currencyPosition = currency.getCurrencyPosition();
+        if (Utils.validateString(currencyPosition)) {
+            currencyPosition = currencyPosition.toUpperCase();
+            if (currencyPosition.contains("left")) {
+                isLeft = true;
+            }
+
+            if (currencyPosition.contains("space")) {
+                has_space = true;
+            }
+
+
+        }
+        instance.setisLeft(isLeft);
+        instance.setHasSpace(has_space);
+
+        BaseCurrencyEntity baseCurrency = currency.getBaseCurrency();
+        String symbol = baseCurrency.getSymbol();
+        instance.setSymbol(symbol);
+
+        instance.setSenderId(configEntity.getmSenderID());
+
+        TaxConfigEntity taxConfig = configEntity.getTaxConfig();
+        if (null != taxConfig) {
+            instance.setTaxShop(taxConfig.isTaxShop());
+            instance.setTaxCart(taxConfig.isTaxCart());
+        }
+
+    }
+
+    public void parseAppConfig(AppConfigEnitity appConfig) {
+        instance.setConfigTheme(appConfig.getLayout());
+        String locale = appConfig.getLocale();
+        if (Utils.validateString(locale)) {
+            instance.setLocale_identifier(locale);
+        }
+
+        ThemeConfigEntity themeConfig = appConfig.getThemeConfig();
+        parseThemeConfig(themeConfig);
+    }
+
+
+    public void parseThemeConfig(ThemeConfigEntity themeConfig) {
+        instance.setKey_color(themeConfig.getKeyColor());
+        instance.setTop_menu_icon_color(themeConfig.getTopMenuIconColor());
+        instance.setButton_background(themeConfig.getButtonBackground());
+        instance.setButton_text_color(themeConfig.getButtonTextColor());
+        instance.setMenu_background(themeConfig.getMenuBackground());
+        instance.setMenu_text_color(themeConfig.getMenuTextColor());
+        instance.setMenu_line_color(themeConfig.getMenuLineColor());
+        instance.setMenu_icon_color(themeConfig.getMenuIconColor());
+        instance.setApp_backrground(themeConfig.getAppBackground());
+        instance.setContent_color(themeConfig.getContentColor());
+        instance.setLine_color(themeConfig.getLineColor());
+        instance.setImage_boder_color(themeConfig.getImageBorderColor());
+        instance.setIcon_color(themeConfig.getIconColor());
+        instance.setSection_color(themeConfig.getSectionColor());
+        instance.setPrice_color(themeConfig.getPriceColor());
+        instance.setSpecial_price_color(themeConfig.getSpecialPriceColor());
+        instance.setSearch_box_background(themeConfig.getSearchBoxBackground());
+        instance.setSearch_text_color(themeConfig.getSearchTextColor());
+    }
+
+
 }

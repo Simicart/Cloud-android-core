@@ -61,4 +61,9 @@
     <string name="minVersion">minVersion</string>
     <string name="isLaunchableActivity">isLaunchableActivity</string>
 
+    <string-array name="selectAction">
+        <item>Resend OTP</item>
+        <item>Enter OTP Manually</item>
+    </string-array>
+
 </resources>

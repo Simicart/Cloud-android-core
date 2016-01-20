@@ -221,13 +221,13 @@ public class PaymentMethodBlock extends SimiBlock implements
 						Drawable icon_checked = mContext.getResources()
 								.getDrawable(mIDIconChecked);
 						icon_checked.setColorFilter(Config.getInstance()
-								.getColorMain(), PorterDuff.Mode.SRC_ATOP);
+								.getKey_color(), PorterDuff.Mode.SRC_ATOP);
 						checkBox.setImageDrawable(icon_checked);
 					} else {
 						Drawable icon_nomal = mContext.getResources()
 								.getDrawable(mIDIconNormal);
 						icon_nomal.setColorFilter(Config.getInstance()
-								.getColorMain(), PorterDuff.Mode.SRC_ATOP);
+								.getKey_color(), PorterDuff.Mode.SRC_ATOP);
 						checkBox.setImageDrawable(icon_nomal);
 					}
 				}

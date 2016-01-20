@@ -1,7 +1,6 @@
 package com.simicart.core.home.controller;
 
 import android.util.Log;
-
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -14,7 +13,6 @@ import com.simicart.core.common.Utils;
 import com.simicart.core.home.delegate.SpotProductDelegate;
 import com.simicart.core.home.entity.SpotProductEntity;
 import com.simicart.core.home.model.SpotProductModel;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,14 +25,13 @@ public class SpotProductController extends SimiController {
     protected ArrayList<ProductEntity> mNewlyUpdated;
     protected ArrayList<ProductEntity> mRecentlyAdded;
     protected ArrayList<ProductEntity> mFeature;
-    protected int spotLoadedCount;
+    protected ArrayList<SpotProductEntity> listSportProduct;
 
     public SpotProductController() {
         mBestSellers = new ArrayList<ProductEntity>();
         mNewlyUpdated = new ArrayList<ProductEntity>();
         mRecentlyAdded = new ArrayList<ProductEntity>();
         mFeature = new ArrayList<ProductEntity>();
-        spotLoadedCount = 0;
     }
 
     public void setDelegate(SpotProductDelegate delegate) {
@@ -43,30 +40,68 @@ public class SpotProductController extends SimiController {
 
     @Override
     public void onStart() {
-        mDelegate.showLoading();
-        requestBestSeller();
-        requestNewlyUpdated();
-        requestRecentlyAdded();
-        requestFeature();
+        mDelegate.showLoadingSpot();
+        requestGetAllSport();
     }
 
-    private void requestBestSeller() {
-        ProductDetailModel bs_model = new ProductDetailModel();
-        bs_model.setDelegate(new ModelDelegate() {
+    protected void requestGetAllSport() {
+        final SpotProductModel spAllModel = new SpotProductModel();
+        spAllModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                mDelegate.dismissLoading();
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                spotLoadedCount++;
-                Log.e("SpotLoadedCount", "++" + spotLoadedCount);
-                if(spotLoadedCount == 4) {
-                    mDelegate.dismissLoading();
+                mDelegate.createViewSport(spAllModel.getTotalSport());
+                if (collection != null && collection.getCollection().size() > 0) {
+                    ArrayList<SimiEntity> entity = collection.getCollection();
+                    listSportProduct = new ArrayList<SpotProductEntity>();
+                    if (null != entity && entity.size() > 0) {
+                        int i = 0;
+                        for (SimiEntity simiEntity : entity) {
+                            i++;
+                            SpotProductEntity spotProductEntity = new SpotProductEntity();
+                            spotProductEntity = (SpotProductEntity) simiEntity;
+                            if (spotProductEntity.getType().equals("1")) {
+                                requestBestSeller(spotProductEntity.getName(), i);
+                            } else if (spotProductEntity.getType().equals("2")) {
+                                requestNewlyUpdated(spotProductEntity.getName(), i);
+                            } else if (spotProductEntity.getType().equals("3")) {
+                                requestRecentlyAdded(spotProductEntity.getName(), i);
+                            } else if (spotProductEntity.getType().equals("4")) {
+                                String ids = arrayToString(spotProductEntity.getProducts());
+                                if (Utils.validateString(ids)) {
+                                    getFeature(ids, spotProductEntity.getName(), i);
+                                }
+                            }
+                            listSportProduct.add(spotProductEntity);
+                        }
+                    }
                 }
+            }
+        });
+        spAllModel.addDataParameter("order", "position");
+        spAllModel.request();
+    }
+
+    private void requestBestSeller(final String title, final int postion) {
+        ProductDetailModel bs_model = new ProductDetailModel();
+        bs_model.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+                if (error != null) {
+                    SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
+                }
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoadingSpot();
                 JSONObject jsResult = collection.getJSON();
                 if (jsResult.has("products")) {
                     try {
@@ -84,7 +119,7 @@ public class SpotProductController extends SimiController {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    mDelegate.onShowBestSeller(mBestSellers);
+                    mDelegate.onShowBestSeller(postion, title, mBestSellers);
                 }
 
             }
@@ -95,23 +130,19 @@ public class SpotProductController extends SimiController {
         bs_model.request();
     }
 
-    private void requestNewlyUpdated() {
+    private void requestNewlyUpdated(final String title, final int postion) {
         ProductDetailModel nl_model = new ProductDetailModel();
         nl_model.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                spotLoadedCount++;
-                Log.e("SpotLoadedCount", "++" + spotLoadedCount);
-                if(spotLoadedCount == 4) {
-                    mDelegate.dismissLoading();
-                }
+                mDelegate.dismissLoadingSpot();
                 JSONObject jsResult = collection.getJSON();
                 if (jsResult.has("products")) {
                     try {
@@ -129,7 +160,7 @@ public class SpotProductController extends SimiController {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    mDelegate.onShowNewlyUpdated(mNewlyUpdated);
+                    mDelegate.onShowNewlyUpdated(postion, title, mNewlyUpdated);
                 }
             }
         });
@@ -140,23 +171,19 @@ public class SpotProductController extends SimiController {
         nl_model.request();
     }
 
-    protected void requestRecentlyAdded() {
+    protected void requestRecentlyAdded(final String title, final int postion) {
         ProductDetailModel ra_model = new ProductDetailModel();
         ra_model.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                spotLoadedCount++;
-                Log.e("SpotLoadedCount", "++" + spotLoadedCount);
-                if(spotLoadedCount == 4) {
-                    mDelegate.dismissLoading();
-                }
+                mDelegate.dismissLoadingSpot();
                 JSONObject jsResult = collection.getJSON();
                 if (jsResult.has("products")) {
                     try {
@@ -174,7 +201,7 @@ public class SpotProductController extends SimiController {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    mDelegate.onShowRecentlyAdded(mRecentlyAdded);
+                    mDelegate.onShowRecentlyAdded(postion, title, mRecentlyAdded);
                 }
             }
         });
@@ -185,63 +212,12 @@ public class SpotProductController extends SimiController {
         ra_model.request();
     }
 
-
-    protected void requestFeature() {
-        requestSpotProduct();
-    }
-
-    protected void requestSpotProduct() {
-        SpotProductModel spModel = new SpotProductModel();
-        spModel.setDelegate(new ModelDelegate() {
-            @Override
-            public void onFail(SimiError error) {
-                if(error != null) {
-                    SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
-                }
-            }
-
-            @Override
-            public void onSuccess(SimiCollection collection) {
-                spotLoadedCount++;
-                Log.e("SpotLoadedCount", "++" + spotLoadedCount);
-                if(spotLoadedCount == 4) {
-                    mDelegate.dismissLoading();
-                }
-                ArrayList<SimiEntity> entities = collection.getCollection();
-                String ids = getIDS(entities);
-                if (Utils.validateString(ids)) {
-                    Log.e("SpotProductController", "IDS " + ids);
-                    getFeature(ids);
-                }
-            }
-        });
-
-        spModel.request();
-    }
-
-    protected String getIDS(ArrayList<SimiEntity> entities) {
-        if (null != entities && entities.size() > 0) {
-            for (int i = 0; i < entities.size(); i++) {
-                SpotProductEntity spotProductEntity = (SpotProductEntity) entities.get(i);
-                if (spotProductEntity.getType().equals("4")) {
-                    Log.e("SpotproductController", "getIDs 001");
-                    ArrayList<String> products = spotProductEntity.getProducts();
-                    return arrayToString(products);
-                }
-            }
-        }
-
-        return null;
-    }
-
     protected String arrayToString(ArrayList<String> array) {
-        Log.e("SpotProductController", "arrToString");
         StringBuilder builder = new StringBuilder();
         boolean isFirst = true;
         if (null != array && array.size() > 0) {
             for (int i = 0; i < array.size(); i++) {
                 String id = array.get(i);
-                Log.e("SpotProductController", "arrToString " + id);
                 if (isFirst) {
                     builder.append(id);
                     isFirst = false;
@@ -254,16 +230,19 @@ public class SpotProductController extends SimiController {
         return builder.toString();
     }
 
-    protected void getFeature(String ids) {
+    protected void getFeature(String ids, final String title, final int postion) {
         ProductDetailModel fModel = new ProductDetailModel();
         fModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-
+                if (error != null) {
+                    SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
+                }
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoadingSpot();
                 JSONObject jsResult = collection.getJSON();
                 if (jsResult.has("products")) {
                     try {
@@ -281,7 +260,7 @@ public class SpotProductController extends SimiController {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    mDelegate.onShowFeature(mFeature);
+                    mDelegate.onShowFeature(postion, title, mFeature);
                 }
             }
         });
@@ -293,9 +272,21 @@ public class SpotProductController extends SimiController {
 
     @Override
     public void onResume() {
-        mDelegate.onShowBestSeller(mBestSellers);
-        mDelegate.onShowNewlyUpdated(mNewlyUpdated);
-        mDelegate.onShowRecentlyAdded(mRecentlyAdded);
-        mDelegate.onShowFeature(mFeature);
+        if (listSportProduct != null && listSportProduct.size() > 0) {
+            mDelegate.dismissLoadingSpot();
+            mDelegate.createViewSport(listSportProduct.size());
+            for (int i = 0; i < listSportProduct.size(); i++) {
+                SpotProductEntity spotProductEntity = listSportProduct.get(i);
+                if (spotProductEntity.getType().equals("1")) {
+                    mDelegate.onShowBestSeller(i, spotProductEntity.getName(), mBestSellers);
+                } else if (spotProductEntity.getType().equals("2")) {
+                    mDelegate.onShowNewlyUpdated(i, spotProductEntity.getName(), mNewlyUpdated);
+                } else if (spotProductEntity.getType().equals("3")) {
+                    mDelegate.onShowRecentlyAdded(i, spotProductEntity.getName(), mRecentlyAdded);
+                } else if (spotProductEntity.getType().equals("4")) {
+                    mDelegate.onShowFeature(i, spotProductEntity.getName(), mFeature);
+                }
+            }
+        }
     }
 }

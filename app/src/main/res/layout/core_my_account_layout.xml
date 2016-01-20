@@ -9,8 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <!-- android:background="@drawable/bottom_line_border" -->
-
         <ImageView
             android:id="@+id/im_profile"
             android:layout_width="30dp"
@@ -41,6 +39,45 @@
 
     <View
         android:id="@+id/v_profile"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E8E8E8" />
+
+    <com.simicart.core.material.LayoutRipple
+        android:id="@+id/rl_changePass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/im_changePass"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_margin="20dp"
+            android:src="@drawable/ic_change_pass" />
+
+        <TextView
+            android:id="@+id/lb_changePass"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="40dp"
+            android:layout_toRightOf="@+id/im_changePass"
+            android:gravity="center_vertical"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/im_extend_changePass"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_extend" />
+    </com.simicart.core.material.LayoutRipple>
+
+    <View
+        android:id="@+id/v_changePass"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="#E8E8E8" />

@@ -188,6 +188,12 @@
         <activity android:name="com.paypal.android.sdk.payments.FuturePaymentConsentActivity" />
         <activity android:name="com.paypal.android.sdk.payments.FuturePaymentInfoActivity" />
 
+        <activity
+            android:name="com.simicart.plugins.ccavanue.activity.WebViewActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name" >
+        </activity>
+
         <receiver
             android:name="com.simicart.core.notification.GCMReceiver"
             android:permission="com.google.android.c2dm.permission.SEND">

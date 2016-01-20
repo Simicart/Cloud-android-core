@@ -85,7 +85,7 @@ public class SignInController extends SimiController {
                 String email = mDelegate.getEmail();
                 String password = mDelegate.getPassword();
                 if (email.length() != 0 && password.length() >= 6) {
-                    changeColorSignIn(Config.getInstance().getColorMain());
+                    changeColorSignIn(Config.getInstance().getKey_color());
                 } else {
                     changeColorSignIn(Color.GRAY);
                 }
@@ -108,7 +108,7 @@ public class SignInController extends SimiController {
                 String email = mDelegate.getEmail();
                 String password = mDelegate.getPassword();
                 if (email.length() != 0 && password.length() >= 6) {
-                    changeColorSignIn(Config.getInstance().getColorMain());
+                    changeColorSignIn(Config.getInstance().getKey_color());
                 } else {
                     changeColorSignIn(Color.GRAY);
                 }

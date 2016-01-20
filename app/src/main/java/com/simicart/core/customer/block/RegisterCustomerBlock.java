@@ -134,7 +134,7 @@ public class RegisterCustomerBlock extends SimiBlock implements
 				.getInstance().id("bt_register"));
 		btn_register.setText(Config.getInstance().getText("Register"));
 		btn_register.setTextColor(Color.WHITE);
-		btn_register.setBackgroundColor(Config.getInstance().getColorMain());
+		btn_register.setBackgroundColor(Config.getInstance().getKey_color());
 		btn_register.setTextSize(Constants.SIZE_TEXT_BUTTON);
 		// GradientDrawable gdDefault = new GradientDrawable();
 		// gdDefault.setColor(Config.getInstance().getColorMain());

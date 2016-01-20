@@ -7,11 +7,17 @@ import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 
 public interface SpotProductDelegate extends SimiDelegate {
 
-    public void onShowBestSeller(ArrayList<ProductEntity> bestSellers);
+    public void onShowBestSeller(int postion, String title, ArrayList<ProductEntity> bestSellers);
 
-    public void onShowNewlyUpdated(ArrayList<ProductEntity> newlyUpdated);
+    public void onShowNewlyUpdated(int postion, String title, ArrayList<ProductEntity> newlyUpdated);
 
-    public void onShowRecentlyAdded(ArrayList<ProductEntity> recentlyAdded);
+    public void onShowRecentlyAdded(int postion, String title, ArrayList<ProductEntity> recentlyAdded);
 
-    public void onShowFeature(ArrayList<ProductEntity> feature);
+    public void onShowFeature(int postion, String title, ArrayList<ProductEntity> feature);
+
+    public void createViewSport(int rowView);
+
+    public void showLoadingSpot();
+
+    public void dismissLoadingSpot();
 }

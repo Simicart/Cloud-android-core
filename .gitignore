@@ -14,3 +14,4 @@ facebookSDK/
 facebook/build/
 **/build
 *.iml
+/.idea

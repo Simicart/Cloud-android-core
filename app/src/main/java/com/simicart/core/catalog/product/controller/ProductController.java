@@ -75,21 +75,21 @@ public class ProductController extends SimiController implements OptionProductDe
     @Override
     public void onStart() {
         mDelegate.showLoading();
-        ModelDelegate delegate = new ModelDelegate() {
-            @Override
-            public void onFail(SimiError error) {
-
-            }
-
-            @Override
-            public void onSuccess(SimiCollection collection) {
-
-            }
-        };
-        mModel = new ProductModel();
-        mModel.addDataBody("product_id", mID);
-        mModel.setDelegate(delegate);
-        mModel.request();
+//        ModelDelegate delegate = new ModelDelegate() {
+//            @Override
+//            public void onFail(SimiError error) {
+//
+//            }
+//
+//            @Override
+//            public void onSuccess(SimiCollection collection) {
+//
+//            }
+//        };
+//        mModel = new ProductModel();
+//        mModel.addDataBody("product_id", mID);
+//        mModel.setDelegate(delegate);
+//        mModel.request();
 
         mListenerAddToCart = new OnTouchListener() {
 
@@ -110,7 +110,7 @@ public class ProductController extends SimiController implements OptionProductDe
                     case MotionEvent.ACTION_CANCEL: {
 
                         GradientDrawable gdDefault = new GradientDrawable();
-                        gdDefault.setColor(Config.getInstance().getColorMain());
+                        gdDefault.setColor(Config.getInstance().getKey_color());
                         gdDefault.setCornerRadius(15);
                         v.setBackgroundDrawable(gdDefault);
                         break;
@@ -233,7 +233,7 @@ public class ProductController extends SimiController implements OptionProductDe
         String session_id = Utils.md5(sToday);
 
         String currency_template = getCurrencyTemplate();
-        String symbol = Config.getInstance().getmCurrencySymbol();
+        String symbol = Config.getInstance().getSymbol();
 
 
         createQuoteModel.addDataBody("session_id", session_id);
@@ -279,24 +279,13 @@ public class ProductController extends SimiController implements OptionProductDe
     }
 
     protected String getCurrencyTemplate() {
-        ConfigEntity configEntity = DataLocal.mConfig;
-        FormatConfigEntity formatEntity = configEntity.getFormatOption();
-        CurrencyEntity currency = formatEntity.getCurrency();
-        String numberOfDecimal = currency.getNumberOfDecimals();
-        int numberDecimal = Integer.parseInt(numberOfDecimal);
 
-        String charSepDecimal = currency.getDecimalSeparator();
-        String charSepThousand = currency.getThousandSeparator();
-
-        String currencyPosition = currency.getCurrencyPosition();
-        boolean isLeft = false;
-        if (Utils.validateString(currencyPosition) && currencyPosition.toUpperCase().equals("left")) {
-            isLeft = true;
-        }
-
-        BaseCurrencyEntity baseCurrency = currency.getBaseCurrency();
-        String symbol = baseCurrency.getSymbol();
-
+        Config config = Config.getInstance();
+        String charSepDecimal = config.getCharSepDecimal();
+        String charSepThousand = config.getCharSepThousand();
+        int numberDecimal = config.getNumberDecimal();
+        boolean isLeft = config.isLeft();
+        String symbol = config.getSymbol();
         String s_price = Utils.formatPrice((float) 1000.00, numberDecimal, charSepDecimal, charSepThousand);
         StringBuilder builder = new StringBuilder();
         if (isLeft) {
@@ -306,7 +295,7 @@ public class ProductController extends SimiController implements OptionProductDe
             builder.append(s_price);
             builder.append(symbol);
         }
-        return builder.toString();
+        return builder.toString().trim();
     }
 
     protected void addToCartWithQuote(String quote, JSONObject data) {

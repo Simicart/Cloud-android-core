@@ -1,0 +1,9 @@
+<events>
+    <event>
+        <name>com.simicart.paymentmethod.placeorder</name>        	     
+	    <package>com.simicart.plugins.ccavanue</package>
+	    <class>CCAvanue</class>
+	    <method>callCCAvanueServer</method>
+	    <sku>simi_developer</sku>
+    </event>                                     
+</events>
