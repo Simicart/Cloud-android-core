@@ -233,7 +233,7 @@ public class CategoryHomeTheme1Block extends SimiBlock implements
 					RelativeLayout.LayoutParams.MATCH_PARENT,
 					RelativeLayout.LayoutParams.MATCH_PARENT);
 			imageView.setLayoutParams(lp);
-			if (urlImages.get(0) == null) {
+			if (urlImages == null) {
 				imageView.setImageResource(Rconfig.getInstance().drawable(
 						"default_logo"));
 			} else {
@@ -316,7 +316,7 @@ public class CategoryHomeTheme1Block extends SimiBlock implements
 					RelativeLayout.LayoutParams.MATCH_PARENT,
 					RelativeLayout.LayoutParams.MATCH_PARENT);
 			imageView.setLayoutParams(lp);
-			if (urlImages.get(0) == null) {
+			if (urlImages == null) {
 				imageView.setImageResource(Rconfig.getInstance().drawable(
 						"default_logo"));
 			} else {
@@ -399,7 +399,7 @@ public class CategoryHomeTheme1Block extends SimiBlock implements
 					RelativeLayout.LayoutParams.MATCH_PARENT,
 					RelativeLayout.LayoutParams.MATCH_PARENT);
 			imageView.setLayoutParams(lp);
-			if (urlImages.get(0) == null) {
+			if (urlImages == null) {
 				imageView.setImageResource(Rconfig.getInstance().drawable(
 						"default_logo"));
 			} else {
