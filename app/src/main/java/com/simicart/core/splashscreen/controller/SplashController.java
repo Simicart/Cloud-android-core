@@ -173,6 +173,7 @@ public class SplashController {
                 SimiEntity entity = collection.getCollection().get(0);
                 ConfigEntity configEntity = (ConfigEntity) entity;
                 Config.getInstance().parseConfigSetting(configEntity);
+                createLanguage();
                 mDelegate.creatMain();
             }
         });

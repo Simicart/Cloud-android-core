@@ -1,19 +1,17 @@
 package com.simicart.core.setting.fragment;
 
 import java.util.ArrayList;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.setting.block.ListViewIndexableBlock;
 import com.simicart.core.setting.controller.ListLanguageController;
-import com.simicart.core.store.entity.Stores;
+import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
 
 public class ListLanguageFragment extends SimiFragment {
 	protected ListViewIndexableBlock mBlock;
@@ -31,14 +29,14 @@ public class ListLanguageFragment extends SimiFragment {
 
 	public static ListLanguageFragment newInstance() {
 		ListLanguageFragment fragment = new ListLanguageFragment();
-		fragment.setListLanguage(DataLocal.listStores);
+		fragment.setListLanguage(DataLocal.listLocale);
 		return fragment;
 	}
 
-	public void setListLanguage(ArrayList<Stores> listStores) {
+	public void setListLanguage(ArrayList<LocaleConfigEntity> listLocale) {
 		ArrayList<String> _list = new ArrayList<>();
-		for (Stores stores : listStores) {
-			_list.add(stores.getStoreName());
+		for (LocaleConfigEntity locale : listLocale) {
+			_list.add(locale.getName());
 		}
 		this.mList = _list;
 	}

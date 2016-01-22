@@ -23,7 +23,10 @@ import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.material.LayoutRipple;
 import com.simicart.core.setting.entity.CurrencyEntity;
+import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
 import com.simicart.core.store.entity.Stores;
+
+import java.util.ArrayList;
 
 public class SettingAppFragment extends SimiFragment {
 
@@ -38,7 +41,7 @@ public class SettingAppFragment extends SimiFragment {
 	protected TextView tv_locator;
 	protected LayoutRipple rl_locator;
 	protected String currency;
-	protected String language;
+	protected String language = "";
 	protected Context mContext;
 
 	public static SettingAppFragment newInstance() {
@@ -66,16 +69,19 @@ public class SettingAppFragment extends SimiFragment {
 		tv_language.setTextColor(Config.getInstance().getContent_color());
 		tv_language_selected = (TextView) rootView.findViewById(Rconfig
 				.getInstance().id("tv_language_selected"));
-		language = "";
-		for (Stores stores : DataLocal.listStores) {
-			if (stores.getStoreID().equals(DataLocal.getStoreID())) {
-				language = stores.getStoreName();
+		ArrayList<LocaleConfigEntity> localeArr = DataLocal.listLocale;
+		if(localeArr != null && localeArr.size() > 0) {
+			for (int i = 0; i < localeArr.size(); i++) {
+				if (DataLocal.getLocale().equals(localeArr.get(i).getCode())) {
+					language = localeArr.get(i).getName();
+				} else {
+					language = localeArr.get(0).getName();
+				}
 			}
 		}
 		tv_language_selected.setText(language);
 		rl_language = (LayoutRipple) rootView.findViewById(Rconfig
 				.getInstance().id("rl_language"));
-		rl_language.setVisibility(View.GONE);
 		tv_currency = (TextView) rootView.findViewById(Rconfig.getInstance()
 				.id("tv_currency"));
 		tv_currency.setText(Config.getInstance().getText("Currency"));

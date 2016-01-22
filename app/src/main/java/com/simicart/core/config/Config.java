@@ -1,6 +1,7 @@
 package com.simicart.core.config;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import com.simicart.core.splashscreen.entity.BaseCurrencyEntity;
 import com.simicart.core.splashscreen.entity.ConfigEntity;
 import com.simicart.core.splashscreen.entity.CurrencyEntity;
 import com.simicart.core.splashscreen.entity.FormatConfigEntity;
+import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
 import com.simicart.core.splashscreen.entity.TaxConfigEntity;
 import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 
@@ -137,15 +139,13 @@ public class Config {
         StringBuilder builder = new StringBuilder();
         if (isLeft) {
             builder.append(symbol);
-            if(hasSpace)
-            {
+            if (hasSpace) {
                 builder.append(" ");
             }
             builder.append(s_price);
         } else {
             builder.append(s_price);
-            if(hasSpace)
-            {
+            if (hasSpace) {
                 builder.append(" ");
             }
             builder.append(symbol);
@@ -502,7 +502,6 @@ public class Config {
     }
 
 
-
     public String getCurrencyPosition() {
         return mCurrencyPosition;
     }
@@ -597,15 +596,35 @@ public class Config {
             instance.setTaxCart(taxConfig.isTaxCart());
         }
 
+        ArrayList<LocaleConfigEntity> listLocale = configEntity.getGeneral().getLocaleApp();
+        if (listLocale != null && listLocale.size() > 0) {
+            DataLocal.listLocale = listLocale;
+            if (DataLocal.getLocale().equals("")) {
+                String locale = listLocale.get(0).getCode();
+                if (Utils.validateString(locale)) {
+                    instance.setLocale_identifier(locale);
+                }
+            } else {
+                boolean checkLocale = false;
+                for (int i = 0; i < listLocale.size(); i++) {
+                    if (listLocale.get(i).getCode().equals(DataLocal.getLocale())) {
+                        checkLocale = true;
+                    }
+                }
+                if (checkLocale) {
+                    instance.setLocale_identifier(DataLocal.getLocale());
+                } else {
+                    String locale = listLocale.get(0).getCode();
+                    if (Utils.validateString(locale)) {
+                        instance.setLocale_identifier(locale);
+                    }
+                }
+            }
+        }
     }
 
     public void parseAppConfig(AppConfigEnitity appConfig) {
         instance.setConfigTheme(appConfig.getLayout());
-        String locale = appConfig.getLocale();
-        if (Utils.validateString(locale)) {
-            instance.setLocale_identifier(locale);
-        }
-
         ThemeConfigEntity themeConfig = appConfig.getThemeConfig();
         parseThemeConfig(themeConfig);
     }
@@ -631,6 +650,5 @@ public class Config {
         instance.setSearch_box_background(themeConfig.getSearchBoxBackground());
         instance.setSearch_text_color(themeConfig.getSearchTextColor());
     }
-
 
 }

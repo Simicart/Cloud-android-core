@@ -1,6 +1,13 @@
 package com.simicart.core.splashscreen.entity;
 
+import android.util.Log;
+
 import com.simicart.core.base.model.entity.SimiEntity;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
 
 /**
  * Created by MSI on 02/12/2015.
@@ -13,6 +20,7 @@ public class GeneralConfigEntity extends SimiEntity {
     protected String mEmail;
     protected String mPhone;
     protected String mLocale;
+    protected ArrayList<LocaleConfigEntity> mLocaleApp;
 
     private String store_name = "store_name";
     private String website_url = "website_url";
@@ -21,6 +29,7 @@ public class GeneralConfigEntity extends SimiEntity {
     private String email = "email";
     private String phone = "phone";
     private String locale = "locale";
+    private String locale_app = "locale_app";
 
     @Override
     public void parse() {
@@ -51,6 +60,24 @@ public class GeneralConfigEntity extends SimiEntity {
 
             if (mJSON.has(locale)) {
                 mLocale = getData(locale);
+            }
+
+            if(mJSON.has(locale_app)){
+                try {
+                    JSONArray locateAr = mJSON.getJSONArray("locale_app");
+                    if (null != locateAr && locateAr.length() > 0) {
+                        mLocaleApp = new ArrayList<LocaleConfigEntity>();
+                        for (int i = 0; i < locateAr.length(); i++){
+                            LocaleConfigEntity localeConfigEntity = new LocaleConfigEntity();
+                            localeConfigEntity.setJSONObject(locateAr.getJSONObject(i));
+                            localeConfigEntity.parse();
+                            mLocaleApp.add(localeConfigEntity);
+                        }
+                    }
+                } catch (JSONException e) {
+                    mLocaleApp = null;
+                    Log.e("GeneralConfigEntity", "LocaleApp: " + e.getMessage());
+                }
             }
         }
     }
@@ -109,5 +136,13 @@ public class GeneralConfigEntity extends SimiEntity {
 
     public void setLocale(String locale) {
         this.mLocale = locale;
+    }
+
+    public ArrayList<LocaleConfigEntity> getLocaleApp() {
+        return mLocaleApp;
+    }
+
+    public void setLocaleApp(ArrayList<LocaleConfigEntity> mLocaleApp) {
+        this.mLocaleApp = mLocaleApp;
     }
 }
