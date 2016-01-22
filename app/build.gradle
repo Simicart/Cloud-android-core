@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile project(':devsmartAndroid')
     compile project(':wheel')
     compile files('libs/httpcore-4.0.1.jar')
@@ -51,6 +51,6 @@ dependencies {
     compile 'com.paypal.sdk:paypal-android-sdk:2.12.4'
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
     compile 'com.google.android.gms:play-services-wallet:8.3.0'
-    compile project(':braintreelibrary')
     compile 'com.squareup.retrofit:retrofit:1.9.0'
+    compile project(':braintreelibrary')
 }
