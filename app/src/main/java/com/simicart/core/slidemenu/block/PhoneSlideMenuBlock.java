@@ -118,4 +118,9 @@ public class PhoneSlideMenuBlock implements SlideMenuDelegate {
 		tv_acc.setText(name);
 	}
 
+	@Override
+	public void notifiChangeAdapter() {
+		mAdapter.notifyDataSetChanged();
+	}
+
 }

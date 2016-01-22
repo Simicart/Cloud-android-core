@@ -138,6 +138,12 @@ public class SimiManager {
         }
     }
 
+    public void notifiChangeAdapterSlideMenu(){
+        if (null != mSlideMenuController) {
+            mSlideMenuController.notifiChangeAdapterSlideMenu();
+        }
+    }
+
     public void setChildFragment(FragmentManager childFragment) {
         mChildFragmentManager = childFragment;
     }

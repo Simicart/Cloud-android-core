@@ -12,4 +12,6 @@ public interface SlideMenuDelegate {
 	public void setAdapter(ArrayList<ItemNavigation> items);
 
 	public void setUpdateSignIn(String name);
+
+	public void notifiChangeAdapter();
 }

@@ -413,6 +413,12 @@ public class Config {
         }
     }
 
+    public void clearLanguages(){
+        if(mLanguages != null){
+            mLanguages.clear();
+        }
+    }
+
     public String getSenderId() {
         return mSenderID;
     }

@@ -51,10 +51,13 @@ public class ListLanguageController extends SimiController {
 		for (LocaleConfigEntity locale : DataLocal.listLocale) {
 			if (language.equals(locale.getName())) {
 				if (!id.equals(locale.getCode())) {
-					DataLocal.listCms.clear();
-					UtilsEvent.itemsList.clear();
 					DataLocal.saveLocale(locale.getCode());
-					SimiManager.getIntance().changeStoreView();
+					Config.getInstance().setLocale_identifier(locale.getCode());
+					Config.getInstance().clearLanguages();
+					createLanguage();
+					SimiManager.getIntance().notifiChangeAdapterSlideMenu();
+					SimiManager.getIntance().onUpdateItemSignIn();
+					SimiManager.getIntance().backToHomeFragment();
 				}
 			}
 		}
@@ -66,5 +69,17 @@ public class ListLanguageController extends SimiController {
 
 	public void setListLanguage(ArrayList<String> list_lag) {
 		this.list_lag = list_lag;
+	}
+
+	private void createLanguage() {
+		try {
+			ReadXMLLanguage readlanguage = new ReadXMLLanguage(MainActivity.context);
+			readlanguage.parseXML(Config.getInstance().getLocale_identifier()
+					+ "/localize.xml");
+			Config.getInstance().setLanguages(readlanguage.getLanguages());
+		} catch (Exception e) {
+			Map<String, String> languages = new HashMap<String, String>();
+			Config.getInstance().setLanguages(languages);
+		}
 	}
 }

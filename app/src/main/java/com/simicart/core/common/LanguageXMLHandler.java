@@ -8,6 +8,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 
 public class LanguageXMLHandler extends DefaultHandler {
 
@@ -53,6 +54,7 @@ public class LanguageXMLHandler extends DefaultHandler {
 			key = (String) currentValue.toLowerCase().trim();
 		} else if (localName.equalsIgnoreCase("value")) {
 			value = (String) currentValue.trim();
+			Log.e("LanguageXMLHandle","Value: " + value);
 		} else if (localName.equalsIgnoreCase(TAG_ITEM)) {
 			languages.put(key, value);
 		}

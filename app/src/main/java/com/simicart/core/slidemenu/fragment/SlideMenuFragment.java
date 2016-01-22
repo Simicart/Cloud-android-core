@@ -145,14 +145,14 @@ public class SlideMenuFragment extends SimiFragment implements
         categoryFragment.setSlideMenu(this);
         simiFragments.add(categoryFragment);
 
-        TabSlideMenuAdapter adapter = new TabSlideMenuAdapter(
-                getChildFragmentManager(), simiFragments);
-        mPager = (ViewPager) rootView.findViewById(Rconfig.getInstance().id(
-                "pager"));
-        mPager.setAdapter(adapter);
-
         PagerSlidingTabStrip title_tab = (PagerSlidingTabStrip) rootView
                 .findViewById(Rconfig.getInstance().id("pager_title_strip"));
+        mPager = (ViewPager) rootView.findViewById(Rconfig.getInstance().id(
+                "pager"));
+        TabSlideMenuAdapter adapter = new TabSlideMenuAdapter(
+                getChildFragmentManager(), simiFragments, mPager, title_tab);
+        mPager.setAdapter(adapter);
+
         title_tab.setTextColor(Config.getInstance().getMenu_text_color());
         // title_tab.setTextSize(20);
         title_tab.setBackgroundColor(Config.getInstance().getMenu_background());

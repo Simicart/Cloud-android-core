@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,10 +33,12 @@ import com.simicart.core.event.slidemenu.EventSlideMenu;
 import com.simicart.core.event.slidemenu.SlideMenuData;
 import com.simicart.core.home.fragment.HomeFragment;
 import com.simicart.core.setting.fragment.SettingAppFragment;
+import com.simicart.core.slidemenu.adapter.TabSlideMenuAdapter;
 import com.simicart.core.slidemenu.delegate.CloseSlideMenuDelegate;
 import com.simicart.core.slidemenu.delegate.SlideMenuDelegate;
 import com.simicart.core.slidemenu.entity.ItemNavigation;
 import com.simicart.core.slidemenu.entity.ItemNavigation.TypeItem;
+import com.simicart.core.style.PagerSlidingTabStrip;
 
 public class PhoneSlideMenuController {
 
@@ -52,6 +56,31 @@ public class PhoneSlideMenuController {
     protected int DEFAULT_POSITION = 0;
     protected CloseSlideMenuDelegate mCloseDelegate;
     private boolean check_keyboard_first;
+    protected TabSlideMenuAdapter tabSlideMenuAdapter;
+    protected ViewPager mViewPager;
+    protected ArrayList<SimiFragment> mListFragment;
+    protected FragmentManager fmanager;
+    PagerSlidingTabStrip titletab;
+
+    public void setTabSlideMenuAdapter(TabSlideMenuAdapter tabSlideMenuAdapter) {
+        this.tabSlideMenuAdapter = tabSlideMenuAdapter;
+    }
+
+    public void setViewPager(ViewPager mViewPager) {
+        this.mViewPager = mViewPager;
+    }
+
+    public void setListFragment(ArrayList<SimiFragment> mListFragment) {
+        this.mListFragment = mListFragment;
+    }
+
+    public void setFmanager(FragmentManager fmanager) {
+        this.fmanager = fmanager;
+    }
+
+    public void setTitletab(PagerSlidingTabStrip titletab) {
+        this.titletab = titletab;
+    }
 
     public void setCloseDelegate(CloseSlideMenuDelegate delegate) {
         mCloseDelegate = delegate;
@@ -493,6 +522,17 @@ public class PhoneSlideMenuController {
         }
         mDelegate.setUpdateSignIn(name);
         mDelegate.setAdapter(mItems);
+    }
+
+    public void notifiChangeAdapterSlideMenu(){
+        if(DataLocal.isTablet){
+            if(mViewPager != null) {
+                TabSlideMenuAdapter tabSlideMenuAdapter = new TabSlideMenuAdapter(fmanager, mListFragment);
+                mViewPager.setAdapter(tabSlideMenuAdapter);
+                titletab.setViewPager(mViewPager);
+            }
+        }
+        mDelegate.notifiChangeAdapter();
     }
 
 }

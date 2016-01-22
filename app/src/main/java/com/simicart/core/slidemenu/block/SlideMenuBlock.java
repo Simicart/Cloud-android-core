@@ -31,4 +31,9 @@ public class SlideMenuBlock implements SlideMenuDelegate {
 
 	}
 
+	@Override
+	public void notifiChangeAdapter() {
+
+	}
+
 }
