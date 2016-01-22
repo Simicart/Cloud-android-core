@@ -232,16 +232,17 @@ public class ProductController extends SimiController implements OptionProductDe
         String sToday = today.toString();
         String session_id = Utils.md5(sToday);
 
-        String currency_template = getCurrencyTemplate();
-        String symbol = Config.getInstance().getSymbol();
+//        String currency_template = getCurrencyTemplate();
+        String currency_template = Config.getInstance().getPrice(1000.00f);
+        String currency_code = Config.getInstance().getCurrency_code();
 
 
         createQuoteModel.addDataBody("session_id", session_id);
         createQuoteModel.addDataBody("orig_order_id", "0");
         createQuoteModel.addDataBody("currency_template", currency_template);
-        createQuoteModel.addDataBody("quote_currency_code", symbol);
-        createQuoteModel.addDataBody("base_currency_code", symbol);
-        createQuoteModel.addDataBody("store_currency_code", symbol);
+        createQuoteModel.addDataBody("quote_currency_code", currency_code);
+        createQuoteModel.addDataBody("base_currency_code", currency_code);
+        createQuoteModel.addDataBody("store_currency_code", currency_code);
 
         createQuoteModel.request();
     }
@@ -278,25 +279,25 @@ public class ProductController extends SimiController implements OptionProductDe
 
     }
 
-    protected String getCurrencyTemplate() {
-
-        Config config = Config.getInstance();
-        String charSepDecimal = config.getCharSepDecimal();
-        String charSepThousand = config.getCharSepThousand();
-        int numberDecimal = config.getNumberDecimal();
-        boolean isLeft = config.isLeft();
-        String symbol = config.getSymbol();
-        String s_price = Utils.formatPrice((float) 1000.00, numberDecimal, charSepDecimal, charSepThousand);
-        StringBuilder builder = new StringBuilder();
-        if (isLeft) {
-            builder.append(symbol);
-            builder.append(s_price);
-        } else {
-            builder.append(s_price);
-            builder.append(symbol);
-        }
-        return builder.toString().trim();
-    }
+//    protected String getCurrencyTemplate() {
+//
+//        Config config = Config.getInstance();
+//        String charSepDecimal = config.getCharSepDecimal();
+//        String charSepThousand = config.getCharSepThousand();
+//        int numberDecimal = config.getNumberDecimal();
+//        boolean isLeft = config.isLeft();
+//        String symbol = config.getSymbol();
+//        String s_price = Utils.formatPrice((float) 1000.00, numberDecimal, charSepDecimal, charSepThousand);
+//        StringBuilder builder = new StringBuilder();
+//        if (isLeft) {
+//            builder.append(symbol);
+//            builder.append(s_price);
+//        } else {
+//            builder.append(s_price);
+//            builder.append(symbol);
+//        }
+//        return builder.toString().trim();
+//    }
 
     protected void addToCartWithQuote(String quote, JSONObject data) {
 

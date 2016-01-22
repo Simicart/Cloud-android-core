@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.util.Log;
 
 import com.simicart.core.common.Utils;
 import com.simicart.core.splashscreen.entity.AppConfigEnitity;
@@ -456,11 +457,13 @@ public class Config {
     }
 
     public String getCurrency_code() {
+        Log.e("CONFIG  ","------> GET CURRENCY CODE " + mCurrencyCode);
         return mCurrencyCode;
     }
 
     public void setCurrency_code(String currency_code) {
         mCurrencyCode = currency_code;
+        Log.e("CONFIG  ","------> SET CURRENCY CODE " + mCurrencyCode);
     }
 
     public String getConnectorUrl() {
@@ -480,9 +483,6 @@ public class Config {
         return Color.parseColor(mColorSplashScreen);
     }
 
-//    public int getColorPrice() {
-//        return Color.parseColor(mColorPrice);
-//    }
 
 
     public String getFontCustom() {
@@ -555,6 +555,8 @@ public class Config {
     public void parseConfigSetting(ConfigEntity configEntity) {
         FormatConfigEntity formatEntity = configEntity.getFormatOption();
         CurrencyEntity currency = formatEntity.getCurrency();
+
+        Log.e("CONFIG ", "-------> CODE " + currency.getBaseCurrency().getCode());
 
         instance.setCurrency_code(currency.getBaseCurrency().getCode());
         instance.setStore_name(configEntity.getGeneral().getStoreName());

@@ -52,7 +52,6 @@ public class BrainTreeSimicart extends Activity {
 		setContentView(rootView, new LayoutParams(
 				LinearLayout.LayoutParams.MATCH_PARENT,
 				LinearLayout.LayoutParams.MATCH_PARENT));
-		Log.e("BrainTreeSimicart", "onCreate");
 
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -61,6 +60,45 @@ public class BrainTreeSimicart extends Activity {
 		}
 		mDelegate = new SimiBlock(rootView, MainActivity.context);
 		getAuthorization();
+	}
+
+	public void getAuthorization() {
+		BraintreeGetTokenModel model = new BraintreeGetTokenModel();
+		mDelegate.showLoading();
+		model.setDelegate(new ModelDelegate() {
+			@Override
+			public void onFail(SimiError error) {
+				if (error != null) {
+					mDelegate.dismissLoading();
+					SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
+				}
+			}
+
+			@Override
+			public void onSuccess(SimiCollection collection) {
+				mDelegate.dismissLoading();
+				SimiEntity entity = collection.getCollection().get(0);
+				token = ((TokenEntity) entity).getToken();
+				Log.e("BrainTreeSimiCart", "++" + token);
+				setup();
+				onBuyPressed();
+			}
+		});
+		model.request();
+	}
+
+	private void setup() {
+		try {
+			String authorization;
+			if (Settings.useTokenizationKey(this)) {
+				authorization = Settings.getEnvironmentTokenizationKey(this);
+			} else {
+				authorization = token;
+			}
+			mBraintreeFragment = BraintreeFragment.newInstance(this, authorization);
+		} catch (InvalidArgumentException e) {
+			//showDialog(e.getMessage());
+		}
 	}
 	
 	public void onBuyPressed() {
@@ -106,44 +144,9 @@ public class BrainTreeSimicart extends Activity {
 		}
 	}
 
-	private void setup() {
-		try {
-			String authorization;
-			if (Settings.useTokenizationKey(this)) {
-				authorization = Settings.getEnvironmentTokenizationKey(this);
-			} else {
-				authorization = token;
-			}
-			mBraintreeFragment = BraintreeFragment.newInstance(this, authorization);
-		} catch (InvalidArgumentException e) {
-			//showDialog(e.getMessage());
-		}
-	}
 
-	public void getAuthorization() {
-		BraintreeGetTokenModel model = new BraintreeGetTokenModel();
-		mDelegate.showLoading();
-		model.setDelegate(new ModelDelegate() {
-			@Override
-			public void onFail(SimiError error) {
-				if (error != null) {
-					mDelegate.dismissLoading();
-					SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
-				}
-			}
 
-			@Override
-			public void onSuccess(SimiCollection collection) {
-				mDelegate.dismissLoading();
-				SimiEntity entity = collection.getCollection().get(0);
-				token = ((TokenEntity) entity).getToken();
-				Log.e("BrainTreeSimiCart", "++" + token);
-				setup();
-				onBuyPressed();
-			}
-		});
-		model.request();
-	}
+
 	
 	@SuppressLint("NewApi")
 	public void requestUpdateBrainTree(String nonce,
