@@ -156,15 +156,15 @@
         <!--android:name="com.ipay.IpayAcitivityR"-->
         <!--android:configChanges="orientation|screenSize" />-->
         <!--<activity-->
-            <!--android:name="com.simicart.plugins.youtube.activity.YoutubePlayerActivity"-->
-            <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-            <!--android:theme="@style/BlackNoTitleBarTheme">-->
-            <!--<meta-data-->
-                <!--android:name="@string/minVersion"-->
-                <!--android:value="8" />-->
-            <!--<meta-data-->
-                <!--android:name="@string/isLaunchableActivity"-->
-                <!--android:value="true" />-->
+        <!--android:name="com.simicart.plugins.youtube.activity.YoutubePlayerActivity"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:theme="@style/BlackNoTitleBarTheme">-->
+        <!--<meta-data-->
+        <!--android:name="@string/minVersion"-->
+        <!--android:value="8" />-->
+        <!--<meta-data-->
+        <!--android:name="@string/isLaunchableActivity"-->
+        <!--android:value="true" />-->
         <!--</activity>-->
         <activity
             android:name="com.simicart.plugins.paypal.PaypalSimicart"
@@ -228,17 +228,20 @@
 
         <!-- Used for Google Play Store Campaign Measurement -->
         <!--<receiver-->
-            <!--android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"-->
-            <!--android:exported="true">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
-            <!--</intent-filter>-->
+        <!--android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"-->
+        <!--android:exported="true">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
+        <!--</intent-filter>-->
         <!--</receiver>-->
 
         <!--<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />-->
 
         <!--&lt;!&ndash; Download product plugin &ndash;&gt;-->
         <!--<service android:name="com.simicart.plugins.download.common.DownloadService" />-->
+
+        <activity android:name="com.simicart.plugins.braintree.BrainTreeSimicart" />
+
     </application>
 
 </manifest>

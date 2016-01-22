@@ -63,7 +63,6 @@ public class SimiRequestQueue {
 
     public SimiRequestQueue(int size) {
         mDispatchers = new SimiNetworkDispatcher[size];
-        // SimiHttpClientStack httpClientStack = new SimiHttpClientStack();
 
         SimiUrlStack urlStack = new SimiUrlStack();
         mNetwork = new SimiBasicNetwork(urlStack);
