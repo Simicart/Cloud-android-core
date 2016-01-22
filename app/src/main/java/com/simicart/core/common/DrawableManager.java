@@ -1,13 +1,10 @@
 package com.simicart.core.common;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.KeyStore;
@@ -28,10 +25,7 @@ import org.apache.http.protocol.HTTP;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -46,10 +40,8 @@ import android.widget.TextView;
 
 import com.simicart.MainActivity;
 import com.simicart.core.base.manager.SimiManager;
-import com.simicart.core.base.network.request.MySSLSocketFactory;
 import com.simicart.core.common.loadimage.UrlImageViewCallback;
 import com.simicart.core.common.loadimage.UrlImageViewHelper;
-import com.simicart.core.common.universalimageloader.core.ImageLoader;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 
@@ -262,34 +254,6 @@ public class DrawableManager {
 
 	}
 
-	public static DefaultHttpClient getNewHttpClient() {
-		DefaultHttpClient httpClient = null;
-		try {
-			if (httpClient == null) {
-				KeyStore trustStore = KeyStore.getInstance(KeyStore
-						.getDefaultType());
-				trustStore.load(null, null);
-				SSLSocketFactory sf = new MySSLSocketFactory(trustStore);
-				sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-				HttpParams params = new BasicHttpParams();
-				HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-				HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
-				SchemeRegistry registry = new SchemeRegistry();
-				registry.register(new Scheme("http", PlainSocketFactory
-						.getSocketFactory(), 80));
-				registry.register(new Scheme("https", sf, 443));
-				ClientConnectionManager ccm = new ThreadSafeClientConnManager(
-						params, registry);
-				httpClient = new DefaultHttpClient(ccm, params);
-			}
-			return httpClient;
 
-		} catch (Exception e) {
-			if (httpClient == null) {
-				httpClient = new DefaultHttpClient();
-			}
-			return httpClient;
-		}
-	}
 
 }
