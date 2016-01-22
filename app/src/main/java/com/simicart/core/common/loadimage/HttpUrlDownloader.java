@@ -13,14 +13,13 @@ import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.apache.http.protocol.HTTP;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import com.simicart.core.base.network.request.MySSLSocketFactory;
+
 import com.simicart.core.config.Config;
 
 public class HttpUrlDownloader implements UrlDownloader {
@@ -89,33 +88,5 @@ public class HttpUrlDownloader implements UrlDownloader {
         return url.startsWith("http");
     }
     
-    public static DefaultHttpClient getNewHttpClient() {
-		DefaultHttpClient httpClient = null;
-		try {
-			if (httpClient == null) {
-				KeyStore trustStore = KeyStore.getInstance(KeyStore
-						.getDefaultType());
-				trustStore.load(null, null);
-				SSLSocketFactory sf = new MySSLSocketFactory(trustStore);
-				sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
-				HttpParams params = new BasicHttpParams();
-				HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-				HttpProtocolParams.setContentCharset(params, HTTP.UTF_8);
-				SchemeRegistry registry = new SchemeRegistry();
-				registry.register(new Scheme("http", PlainSocketFactory
-						.getSocketFactory(), 80));
-				registry.register(new Scheme("https", sf, 443));
-				ClientConnectionManager ccm = new ThreadSafeClientConnManager(
-						params, registry);
-				httpClient = new DefaultHttpClient(ccm, params);
-			}
-			return httpClient;
 
-		} catch (Exception e) {
-			if (httpClient == null) {
-				httpClient = new DefaultHttpClient();
-			}
-			return httpClient;
-		}
-	}
 }
