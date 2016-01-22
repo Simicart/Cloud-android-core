@@ -605,7 +605,8 @@ public class Config {
         ArrayList<LocaleConfigEntity> listLocale = configEntity.getGeneral().getLocaleApp();
         if (listLocale != null && listLocale.size() > 0) {
             DataLocal.listLocale = listLocale;
-            if (DataLocal.getLocale().equals("")) {
+            String preLocale = DataLocal.getLocale();
+            if (preLocale.equals("")) {
                 String locale = listLocale.get(0).getCode();
                 if (Utils.validateString(locale)) {
                     instance.setLocale_identifier(locale);
@@ -613,12 +614,12 @@ public class Config {
             } else {
                 boolean checkLocale = false;
                 for (int i = 0; i < listLocale.size(); i++) {
-                    if (listLocale.get(i).getCode().equals(DataLocal.getLocale())) {
+                    if (listLocale.get(i).getCode().equals(preLocale)) {
                         checkLocale = true;
                     }
                 }
                 if (checkLocale) {
-                    instance.setLocale_identifier(DataLocal.getLocale());
+                    instance.setLocale_identifier(preLocale);
                 } else {
                     String locale = listLocale.get(0).getCode();
                     if (Utils.validateString(locale)) {
