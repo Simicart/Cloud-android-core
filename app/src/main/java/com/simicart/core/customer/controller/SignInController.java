@@ -486,6 +486,7 @@ public class SignInController extends SimiController {
     protected void onCreateAccount() {
         RegisterCustomerFragment fragment = RegisterCustomerFragment
                 .newInstance();
+        fragment.setIsCheckout(isCheckout);
         SimiManager.getIntance().replacePopupFragment(fragment);
     }
 
