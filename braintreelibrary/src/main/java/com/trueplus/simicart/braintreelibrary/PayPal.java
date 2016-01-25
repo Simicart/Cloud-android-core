@@ -96,24 +96,22 @@ public class PayPal {
      * used if enabled, otherwise the Future Payment flow will be used.
      *
      * @param fragment A {@link BraintreeFragment} used to process the request.
-     * @param additionalScopes A {@link List} of additional scopes. Ex: {@link
+     * @param additionalScopes A {@link java.util.List} of additional scopes. Ex: {@link
      * #SCOPE_ADDRESS}. Acceptable scopes are defined in {@link PayPal}.
      */
     public static void authorizeAccount(final BraintreeFragment fragment,
-            final List<String> additionalScopes) {
+                                        final List<String> additionalScopes) {
         //fragment.sendAnalyticsEvent("paypal.selected");
 
         fragment.waitForConfiguration(new ConfigurationListener() {
             @Override
             public void onConfigurationFetched(Configuration configuration) {
                 if (!configuration.isPayPalEnabled()) {
-                    Log.e("Paypal", "PayPal is not enabled");
                     fragment.postCallback(new ConfigurationException("PayPal is not enabled"));
                     return;
                 }
 
                 if (configuration.getPayPal().shouldUseBillingAgreement()) {
-                    Log.e("Paypal", "request billing agreement");
                     requestBillingAgreement(fragment, new PayPalRequest());
                     return;
                 }
@@ -123,7 +121,6 @@ public class PayPal {
                         fragment.getAuthorization().toString());
 
                 if (additionalScopes != null) {
-                    Log.e("Paypal", "additional scopes are null");
                     for (String scope : additionalScopes) {
                         ((AuthorizationRequest) sPendingRequest).withScopeValue(scope);
                     }
@@ -180,11 +177,10 @@ public class PayPal {
      *        PayPal will perform a Single Payment.
      */
     private static void requestOneTimePayment(final BraintreeFragment fragment,
-            final PayPalRequest request, final boolean isBillingAgreement) {
+                                              final PayPalRequest request, final boolean isBillingAgreement) {
         final HttpResponseCallback callback = new HttpResponseCallback() {
             @Override
             public void success(String responseBody) {
-                Log.e("Paypal", "request one time payment success");
                 final PayPalPaymentResource paypalPaymentResource;
                 try {
                     paypalPaymentResource = PayPalPaymentResource.fromJson(responseBody);
@@ -210,7 +206,6 @@ public class PayPal {
 
             @Override
             public void failure(Exception e) {
-                Log.e("Paypal", "request one time payment failed");
                 fragment.postCallback(e);
             }
         };
@@ -243,7 +238,7 @@ public class PayPal {
      * @param callback A callback on the http request.
      */
     private static void createPaymentResource(BraintreeFragment fragment,
-            PayPalRequest request, boolean isBillingAgreement, HttpResponseCallback callback)
+                                              PayPalRequest request, boolean isBillingAgreement, HttpResponseCallback callback)
             throws JSONException, ErrorWithResponse, BraintreeException {
         CheckoutRequest checkoutRequest = getCheckoutRequest(null, fragment.getApplicationContext(),
                 fragment.getConfiguration().getPayPal());
@@ -307,21 +302,21 @@ public class PayPal {
     private static void startPayPal(BraintreeFragment fragment, Intent intent) {
         if (intent != null && intent.getComponent() != null &&
                 intent.getComponent().getClassName().equals(PayPalOneTouchActivity.class.getName())) {
-            //sendAnalyticsForPayPal(fragment, true, RequestTarget.wallet);
+            sendAnalyticsForPayPal(fragment, true, RequestTarget.wallet);
 
             fragment.startActivityForResult(intent, PAYPAL_REQUEST_CODE);
         } else if (intent != null) {
-            //sendAnalyticsForPayPal(fragment, true, RequestTarget.browser);
+            sendAnalyticsForPayPal(fragment, true, RequestTarget.browser);
 
             intent.putExtra(BraintreeBrowserSwitchActivity.EXTRA_BROWSER_SWITCH, true);
             fragment.startActivity(intent);
         } else {
-            //sendAnalyticsForPayPal(fragment, false, null);
+            sendAnalyticsForPayPal(fragment, false, null);
         }
     }
 
     private static void sendAnalyticsForPayPal(BraintreeFragment fragment, boolean success,
-            RequestTarget target) {
+                                               RequestTarget target) {
         String eventFragment = "";
         if (isCheckoutRequest()) {
             if (!success) {
@@ -451,7 +446,7 @@ public class PayPal {
      * @param eventFragment A {@link String} describing the result.
      */
     private static void sendAnalyticsEventForSwitchResult(BraintreeFragment fragment,
-            boolean isAppSwitch, String eventFragment) {
+                                                          boolean isAppSwitch, String eventFragment) {
         String authorizationType =
                 isCheckoutRequest() ? "paypal-single-payment" : "paypal-future-payments";
         String switchType = isAppSwitch ? "appswitch" : "webswitch";
@@ -461,7 +456,7 @@ public class PayPal {
 
     @VisibleForTesting
     static CheckoutRequest getCheckoutRequest(String redirectUrl,
-            Context context, PayPalConfiguration configuration) {
+                                              Context context, PayPalConfiguration configuration) {
         CheckoutRequest request = populateRequestData(new CheckoutRequest(), context, configuration)
                 .approvalURL(redirectUrl);
 
@@ -474,7 +469,7 @@ public class PayPal {
 
     @VisibleForTesting
     static BillingAgreementRequest getBillingAgreementRequest(String redirectUrl,
-            Context context, PayPalConfiguration configuration) {
+                                                              Context context, PayPalConfiguration configuration) {
         BillingAgreementRequest request = populateRequestData(new BillingAgreementRequest(),
                 context, configuration)
                 .approvalURL(redirectUrl);
@@ -488,7 +483,7 @@ public class PayPal {
 
     @VisibleForTesting
     static AuthorizationRequest getAuthorizationRequest(Context context,
-            PayPalConfiguration configuration, String tokenizationKey) {
+                                                        PayPalConfiguration configuration, String tokenizationKey) {
         return populateRequestData(new AuthorizationRequest(context), context, configuration)
                 .privacyUrl(configuration.getPrivacyUrl())
                 .userAgreementUrl(configuration.getUserAgreementUrl())
@@ -498,7 +493,7 @@ public class PayPal {
     }
 
     private static <T extends Request> T populateRequestData(T request, Context context,
-            PayPalConfiguration configuration) {
+                                                             PayPalConfiguration configuration) {
         String environment;
         switch (configuration.getEnvironment()) {
             case "live":
