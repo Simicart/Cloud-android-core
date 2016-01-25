@@ -7,6 +7,7 @@ import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.util.Log;
 
 import com.simicart.core.common.Utils;
 import com.simicart.core.splashscreen.entity.AppConfigEnitity;
@@ -456,11 +457,13 @@ public class Config {
     }
 
     public String getCurrency_code() {
+        Log.e("CONFIG  ","------> GET CURRENCY CODE " + mCurrencyCode);
         return mCurrencyCode;
     }
 
     public void setCurrency_code(String currency_code) {
         mCurrencyCode = currency_code;
+        Log.e("CONFIG  ","------> SET CURRENCY CODE " + mCurrencyCode);
     }
 
     public String getConnectorUrl() {
@@ -480,9 +483,6 @@ public class Config {
         return Color.parseColor(mColorSplashScreen);
     }
 
-//    public int getColorPrice() {
-//        return Color.parseColor(mColorPrice);
-//    }
 
 
     public String getFontCustom() {
@@ -556,6 +556,8 @@ public class Config {
         FormatConfigEntity formatEntity = configEntity.getFormatOption();
         CurrencyEntity currency = formatEntity.getCurrency();
 
+        Log.e("CONFIG ", "-------> CODE " + currency.getBaseCurrency().getCode());
+
         instance.setCurrency_code(currency.getBaseCurrency().getCode());
         instance.setStore_name(configEntity.getGeneral().getStoreName());
         instance.setCurrencyPosition(currency.getCurrencyPosition());
@@ -605,7 +607,8 @@ public class Config {
         ArrayList<LocaleConfigEntity> listLocale = configEntity.getGeneral().getLocaleApp();
         if (listLocale != null && listLocale.size() > 0) {
             DataLocal.listLocale = listLocale;
-            if (DataLocal.getLocale().equals("")) {
+            String preLocale = DataLocal.getLocale();
+            if (preLocale.equals("")) {
                 String locale = listLocale.get(0).getCode();
                 if (Utils.validateString(locale)) {
                     instance.setLocale_identifier(locale);
@@ -613,12 +616,12 @@ public class Config {
             } else {
                 boolean checkLocale = false;
                 for (int i = 0; i < listLocale.size(); i++) {
-                    if (listLocale.get(i).getCode().equals(DataLocal.getLocale())) {
+                    if (listLocale.get(i).getCode().equals(preLocale)) {
                         checkLocale = true;
                     }
                 }
                 if (checkLocale) {
-                    instance.setLocale_identifier(DataLocal.getLocale());
+                    instance.setLocale_identifier(preLocale);
                 } else {
                     String locale = listLocale.get(0).getCode();
                     if (Utils.validateString(locale)) {

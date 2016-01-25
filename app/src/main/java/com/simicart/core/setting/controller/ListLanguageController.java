@@ -51,8 +51,9 @@ public class ListLanguageController extends SimiController {
 		for (LocaleConfigEntity locale : DataLocal.listLocale) {
 			if (language.equals(locale.getName())) {
 				if (!id.equals(locale.getCode())) {
-					DataLocal.saveLocale(locale.getCode());
-					Config.getInstance().setLocale_identifier(locale.getCode());
+					String codeLocale = locale.getCode();
+					DataLocal.saveLocale(codeLocale);
+					Config.getInstance().setLocale_identifier(codeLocale);
 					Config.getInstance().clearLanguages();
 					createLanguage();
 					SimiManager.getIntance().notifiChangeAdapterSlideMenu();
