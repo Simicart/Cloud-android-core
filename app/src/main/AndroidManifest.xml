@@ -144,17 +144,17 @@
             android:name="com.facebook.FacebookActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <!--<activity-->
-        <!--android:name="com.simicart.plugins.ipay.IpaySimiCart"-->
-        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
-        <!--android:label="@string/app_name"-->
-        <!--android:windowSoftInputMode="stateHidden|adjustResize"></activity>-->
-        <!--<activity-->
-        <!--android:name="com.ipay.IpayAcitivity"-->
-        <!--android:configChanges="orientation|screenSize" />-->
-        <!--<activity-->
-        <!--android:name="com.ipay.IpayAcitivityR"-->
-        <!--android:configChanges="orientation|screenSize" />-->
+        <activity
+        android:name="com.simicart.plugins.ipay.IpaySimiCart"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:label="@string/app_name"
+        android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+        <activity
+        android:name="com.ipay.IpayAcitivity"
+        android:configChanges="orientation|screenSize" />
+        <activity
+        android:name="com.ipay.IpayAcitivityR"
+        android:configChanges="orientation|screenSize" />
         <!--<activity-->
         <!--android:name="com.simicart.plugins.youtube.activity.YoutubePlayerActivity"-->
         <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
