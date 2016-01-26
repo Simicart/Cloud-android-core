@@ -17,7 +17,7 @@ public class CheckoutData {
 	private JSONObject JsonPlaceOrder;
 	private boolean isContructed = false;
 	private OrderEntity mOder;
-	private OrderHisDetail mOrderHisDetail;
+	private OrderHisDetail mOderHisDetail;
 
 	public boolean isContructed() {
 		return isContructed;
@@ -113,11 +113,11 @@ public class CheckoutData {
 		this.mOder = mOder;
 	}
 
-	public OrderHisDetail getOrderHisDetail() {
-		return mOrderHisDetail;
+	public OrderHisDetail getmOderHisDetail() {
+		return mOderHisDetail;
 	}
 
-	public void setOrderHisDetail(OrderHisDetail mOrderHisDetail) {
-		this.mOrderHisDetail = mOrderHisDetail;
+	public void setmOderHisDetail(OrderHisDetail mOderHisDetail) {
+		this.mOderHisDetail = mOderHisDetail;
 	}
 }

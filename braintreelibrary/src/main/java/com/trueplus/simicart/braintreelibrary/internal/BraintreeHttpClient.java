@@ -66,13 +66,11 @@ public class BraintreeHttpClient {
     public BraintreeHttpClient(Authorization authorization) {
         mAuthorization = authorization;
 
-
         try {
             mTLSSocketFactory = new TLSSocketFactory();
         } catch (BraintreeSSLException e) {
-            e.printStackTrace();
+            mSSLException = e;
         }
-
     }
 
     public static String getUserAgent() {
@@ -168,7 +166,7 @@ public class BraintreeHttpClient {
                                         ((ClientToken) mAuthorization).getAuthorizationFingerprint())
                                 .toString();
                     } else {
-                       payload = data;
+                        payload = data;
                     }
 
                     if (path.startsWith("http")) {
@@ -212,6 +210,7 @@ public class BraintreeHttpClient {
 
         if (mAuthorization instanceof TokenizationKey) {
             connection.setRequestProperty("Client-Key", mAuthorization.toString());
+            Log.e("Client-Key", "++" + mAuthorization.toString());
         }
 
         connection.setConnectTimeout(mConnectTimeout);
