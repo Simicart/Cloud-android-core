@@ -3,6 +3,7 @@ package com.simicart.core.adapter;
 import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Paint;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,10 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.view.ViewGroup.LayoutParams;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.common.DrawableManager;
-import com.simicart.core.common.price.CategoryDetailPriceView;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
@@ -26,10 +26,11 @@ import com.simicart.core.event.block.EventBlock;
 @SuppressLint("ViewHolder")
 public class ProductBaseAdapter extends BaseAdapter {
 
-
     protected ArrayList<ProductEntity> mProductList;
     protected Context mContext;
     protected boolean isHome;
+    private float mPrice;
+    private float mSalePrice;
 
     public ProductBaseAdapter(Context context, ArrayList<ProductEntity> ProductList) {
         this.mContext = context;
@@ -79,6 +80,8 @@ public class ProductBaseAdapter extends BaseAdapter {
                     .getInstance().id("layout_price"));
             holder.img_avartar = (ImageView) convertView.findViewById(Rconfig
                     .getInstance().id("product_list_image"));
+            holder.tv_first = (TextView) convertView.findViewById(Rconfig.getInstance().id("tv_fist_price"));
+            holder.tv_second = (TextView) convertView.findViewById(Rconfig.getInstance().id("tv_second_price"));
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -106,16 +109,7 @@ public class ProductBaseAdapter extends BaseAdapter {
         }
 
         // price
-        CategoryDetailPriceView viewPrice = new CategoryDetailPriceView(product);
-        viewPrice.setShowOnePrice(true);
-        View view = viewPrice.createView();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        if (null != view) {
-            holder.ll_price.removeAllViewsInLayout();
-            holder.ll_price.addView(view, params);
-        }
-
+        createPriceWithoutTax(holder, product);
 
         // image
         if (product.getID().equals("fake")) {
@@ -155,6 +149,35 @@ public class ProductBaseAdapter extends BaseAdapter {
         TextView tv_name;
         LinearLayout layoutStock;
         LinearLayout ll_price;
+        TextView tv_first;
+        TextView tv_second;
+    }
+
+    protected void createPriceWithoutTax(ViewHolder holder, ProductEntity product) {
+        holder.tv_first.setVisibility(View.VISIBLE);
+        holder.tv_second.setVisibility(View.VISIBLE);
+
+        mPrice = product.getPrice();
+        mSalePrice = product.getSalePrice();
+        if (mPrice == mSalePrice) {
+            holder.tv_second.setVisibility(View.GONE);
+            String sPrice = getPrice(mPrice);
+            if (Utils.validateString(sPrice)) {
+                holder.tv_first.setText(sPrice);
+            }
+        } else {
+            if (mSalePrice == 0) {
+                holder.tv_second.setVisibility(View.GONE);
+                holder.tv_first.setText(getPrice(mPrice));
+            } else {
+                holder.tv_first.setText(getPrice(mSalePrice));
+                holder.tv_second.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    protected String getPrice(float price) {
+        return Config.getInstance().getPrice(price);
     }
 
 }
