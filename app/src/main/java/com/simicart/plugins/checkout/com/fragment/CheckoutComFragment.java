@@ -1,14 +1,20 @@
 package com.simicart.plugins.checkout.com.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.simicart.core.base.fragment.SimiFragment;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.entity.OrderEntity;
+import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.controller.SignInController;
 import com.simicart.core.customer.entity.OrderHisDetail;
@@ -73,8 +79,49 @@ public class CheckoutComFragment extends SimiFragment {
 
         checkoutComBlock.setOnCheckoutButtonClicked(checkoutComController.getOnButtonCheckoutClick());
 
+        v.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        showDialog();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         return v;
     }
 
+    private void showDialog() {
+        new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
+                .setMessage(
+                        Config.getInstance()
+                                .getText(
+                                        "Are you sure that you want to cancel the order?"))
+                .setPositiveButton(Config.getInstance().getText("Yes"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+//                                requestCancelOrder();
+//                                if(!mPayment.getMessageCancel().equals("")){
+//                                    showToastMessage(mPayment.getMessageCancel());
+//                                }else{
+//                                    showToastMessage("Your order has been canceled!");
+//                                }
+                                SimiManager.getIntance().backToHomeFragment();
+                            }
+                        })
+                .setNegativeButton(Config.getInstance().getText("No"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // do nothing
+                            }
+                        }).show();
+
+    }
 
 }

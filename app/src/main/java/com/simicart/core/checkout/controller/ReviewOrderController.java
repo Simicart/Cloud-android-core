@@ -597,6 +597,7 @@ public class ReviewOrderController extends SimiController implements
                     int showtype = paymentmethod.getShow_type();
                     switch (showtype) {
                         case 1:
+                            Log.e("ReviewOrderController", "case 1");
                             fragment.setMessage(Config.getInstance().getText("Thank you for your purchase!"));
                             fragment.setInvoice_number(String.valueOf(orderEntity.getSeqNo()));
                             OrderHisDetail orderHisDetail = new OrderHisDetail();
@@ -613,6 +614,7 @@ public class ReviewOrderController extends SimiController implements
                             break;
                         case  2:
                             // event call paypal server.
+                            Log.e("ReviewOrderController", "case 2");
                             CheckoutData _CheckoutData2 = new CheckoutData();
                             _CheckoutData2
                                     .setInvoice_number(((PlaceOrderModel) mModel)
@@ -623,6 +625,22 @@ public class ReviewOrderController extends SimiController implements
                             event2.dispatchEvent(
                                     "com.simicart.paymentmethod.placeorder",
                                     _CheckoutData2);
+                            // end event
+                            break;
+                        case 3:
+                            // update for payment showtype = 3
+                            Log.e("ReviewOrderController", "case 3");
+                            CheckoutData _CheckoutData3 = new CheckoutData();
+                            _CheckoutData3.setPaymentMethod(paymentmethod);
+                            _CheckoutData3
+                                    .setInvoice_number(((PlaceOrderModel) mModel)
+                                            .getInvoiceNumber());
+                            _CheckoutData3.setOder(orderEntity);
+                            _CheckoutData3.setPaymentMethod(paymentmethod);
+                            EventCheckout event3 = new EventCheckout();
+                            event3.dispatchEvent(
+                                    "com.simicart.after.placeorder.webview",
+                                    _CheckoutData3);
                             // end event
                             break;
                     }
