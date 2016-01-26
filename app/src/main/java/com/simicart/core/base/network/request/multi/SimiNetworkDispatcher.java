@@ -22,11 +22,14 @@ public class SimiNetworkDispatcher extends Thread {
 
     protected SimiExecutorDelivery mDelivery;
 
+    protected SimiNetworkCacheL1 mCache;
+
     public SimiNetworkDispatcher(BlockingQueue<SimiRequest> queue,
-                                 SimiNetwork network, SimiExecutorDelivery delivery) {
+                                 SimiNetwork network, SimiExecutorDelivery delivery,SimiNetworkCacheL1 cache) {
         mQueue = queue;
         mNetwork = network;
         mDelivery = delivery;
+        mCache = cache;
     }
 
     public void quit() {
@@ -77,6 +80,13 @@ public class SimiNetworkDispatcher extends Thread {
                 mDelivery.postResponse(request, response);
                 return;
             }
+
+            if (request.isShouldCache()) {
+                String url_cache = request.getCacheKey();
+                response.parse();
+                mCache.put(url_cache, response.getDataJSON());
+            }
+
 			SimiManager.getIntance().getRequestQueue().getNetworkQueue()
 					.remove(request);
             mDelivery.postResponse(request, response);

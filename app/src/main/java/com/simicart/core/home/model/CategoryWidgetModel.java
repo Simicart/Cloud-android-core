@@ -60,4 +60,9 @@ public class CategoryWidgetModel extends SimiModel {
         }
 
     }
+
+    @Override
+    public void setShouldCache() {
+        mShouldCache = true;
+    }
 }

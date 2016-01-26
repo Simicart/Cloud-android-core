@@ -47,5 +47,10 @@ public class ProductDetailModel extends SimiModel {
 
         }
     }
+
+    @Override
+    public void setShouldCache() {
+        mShouldCache = true;
+    }
 }
 

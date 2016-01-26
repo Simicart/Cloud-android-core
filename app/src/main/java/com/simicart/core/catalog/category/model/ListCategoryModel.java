@@ -73,5 +73,8 @@ public class ListCategoryModel extends SimiModel {
 			}
 		}
 	}
-
+	@Override
+	public void setShouldCache() {
+		mShouldCache = true;
+	}
 }
