@@ -45,7 +45,7 @@ public class IpaySimiCart extends Activity {
 			String merchant_key = "";
 			String merchant_code = "";
 			if (is_sandbox) {
-				amount = extras.getString("EXTRA_AMOUNT");
+				amount = "1.00";
 				currentcy = "MYR";
 				country = "MY";
 				product_des = "TEST";
@@ -72,7 +72,7 @@ public class IpaySimiCart extends Activity {
 			IpayPayment payment = new IpayPayment();
 			payment.setMerchantKey(merchant_key);
 			payment.setMerchantCode(merchant_code);
-			payment.setPaymentId(invoice);
+			payment.setPaymentId("");
 			payment.setCurrency(currentcy);
 			payment.setRefNo(invoice);
 			payment.setAmount(amount);

@@ -18,7 +18,7 @@ public class IpayEntity extends SimiEntity{
     private String merchant_key = "merchant_key";
     private String title = "title";
     private String is_sandbox = "enable";
-    private String country_id = "country_id";
+    private String country_id = "merchant_country";
     private String url = "backend_post_url";
 
     @Override
