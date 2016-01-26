@@ -33,6 +33,10 @@ public class CoreResponse {
         return mJSON;
     }
 
+    public void setDataJSON(JSONObject json) {
+        mJSON = json;
+    }
+
     public boolean parse() {
 
         if (null == mData) {

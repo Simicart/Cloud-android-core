@@ -45,6 +45,7 @@ public class SimiModel {
     protected int mTypeMethod;
     protected boolean isSetURLAction = false;
     protected boolean isProcessURLAction = false;
+    protected boolean mShouldCache;
 
     /* The number of all results that match the critical */
     protected int mTotal;
@@ -231,7 +232,27 @@ public class SimiModel {
      */
     public void request() {
         this.initRequest();
-        SimiManager.getIntance().getRequestQueue().add(mRequest);
+        String class_name = this.getClass().getName();
+
+        String cache_key = class_name + url_action;
+        JSONObject body = mRequest.getBody();
+        if (null != body) {
+            String post_body = body.toString();
+            if (Utils.validateString(post_body)) {
+                cache_key = cache_key + post_body;
+            }
+        }
+        mRequest.setCacheKey(cache_key);
+        if (mShouldCache) {
+            boolean isRefreshCart = SimiManager.getIntance().isRereshCart();
+            if (cache_key.contains("CartModel/quotes") && isRefreshCart) {
+                refreshRequest();
+            } else {
+                getDataFromCache();
+            }
+        } else {
+            SimiManager.getIntance().getRequestQueue().add(mRequest);
+        }
     }
 
     private void initRequest() {
@@ -248,14 +269,34 @@ public class SimiModel {
 
         setShowNotifi();
         setTypeMethod();
+        setShouldCache();
         mRequest = new SimiJSONRequest(url_action, mDelegate);
         mRequest.setPriority(mCurrentPriority);
         mRequest.setShowNotify(isShowNotify);
+        mRequest.setShouldCache(mShouldCache);
         mRequest.setDataBody(mDataBody);
         mRequest.setDataExtendURL(mDataExtendURL);
         mRequest.setDataParameter(mDataParameter);
         mRequest.setJsonBody(mJSONBody);
         mRequest.setTypeMethod(mTypeMethod);
+    }
+
+    private void getDataFromCache() {
+        JSONObject json = SimiManager.getIntance().getRequestQueue()
+                .getDataFromCacheL1(mRequest);
+        if (null != json) {
+            CoreResponse coreResponse = new CoreResponse();
+            Log.e("SimiModel  DATA FROM CACHE ", json.toString());
+            coreResponse.setData(json.toString());
+            coreResponse.parse();
+            mDelegate.callBack(coreResponse, true);
+        } else {
+            SimiManager.getIntance().getRequestQueue().add(mRequest);
+        }
+    }
+
+    public void refreshRequest() {
+        SimiManager.getIntance().getRequestQueue().add(mRequest);
     }
 
 
@@ -421,6 +462,14 @@ public class SimiModel {
             return array;
         }
         return null;
+    }
+
+    public void setShouldCache() {
+        mShouldCache = false;
+    }
+
+    public boolean isShouldCache() {
+        return mShouldCache;
     }
 
 
