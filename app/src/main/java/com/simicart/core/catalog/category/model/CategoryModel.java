@@ -47,4 +47,9 @@ public class CategoryModel extends SimiModel {
             }
         }
     }
+
+    @Override
+    public void setShouldCache() {
+        mShouldCache = true;
+    }
 }

@@ -15,6 +15,7 @@ import org.json.JSONObject;
 
 import com.simicart.core.base.delegate.NetWorkDelegate;
 import com.simicart.core.base.helper.SimiHelper;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.network.response.CoreResponse;
 
 public class SimiRequest implements Comparable<SimiRequest> {
@@ -54,6 +55,8 @@ public class SimiRequest implements Comparable<SimiRequest> {
     protected Priority mCurrentPriority = Priority.NORMAL;
     protected boolean isShowNotify = true;
     protected HashMap<String, String> mDataParameter;
+    protected boolean mShouldCache;
+    protected String mCacheKey;
 
     public HashMap<String, String> getDataParameter() {
         return mDataParameter;
@@ -105,9 +108,6 @@ public class SimiRequest implements Comparable<SimiRequest> {
 
     public JSONObject getBody() {
         if (null != mJsonBody) {
-
-            Log.e("SimiRequest ", "get JSON " + mJsonBody.toString());
-
             return mJsonBody;
         }
 
@@ -154,6 +154,22 @@ public class SimiRequest implements Comparable<SimiRequest> {
 
     public void finish() {
 
+    }
+
+    public void setShouldCache(boolean shouldCache) {
+        mShouldCache = shouldCache;
+    }
+
+    public boolean isShouldCache() {
+        return mShouldCache;
+    }
+
+    public String getCacheKey() {
+        return mCacheKey;
+    }
+
+    public void setCacheKey(String key) {
+        mCacheKey = key;
     }
 
     public boolean isCancel() {
