@@ -560,6 +560,14 @@ public class ReviewOrderController extends SimiController implements
 
     protected void requestPlaceOrder(final PaymentMethod paymentmethod) {
 
+        CheckoutData data_klarna = new CheckoutData();
+        data_klarna.setPaymentMethod(paymentmethod);
+        EventCheckout event3 = new EventCheckout();
+        event3.dispatchEvent("com.simicart.before.placeorder", data_klarna);
+        if (data_klarna.isContructed()) {
+            return;
+        }
+
         mDelegate.showLoading();
         mModel = new PlaceOrderModel();
         mModel.setDelegate(new ModelDelegate() {
