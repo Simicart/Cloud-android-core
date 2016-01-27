@@ -31,4 +31,9 @@ public class CategoryHomeModel extends SimiModel{
 		url_action = Constants.GET_CATEGORY_HOME;
 	}
 
+
+	@Override
+	public void setShouldCache() {
+		mShouldCache = true;
+	}
 }

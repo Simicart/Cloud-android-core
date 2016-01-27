@@ -9,7 +9,6 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true
     }
 
     compileOptions {
@@ -53,5 +52,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-wallet:8.3.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile project(':braintreelibrary')
+    compile files('libs/vtd-xml_light-2-12.jar')
+    compile files('libs/ipay88_androidv7.jar')
     compile project(':checkoutkit')
 }

@@ -56,4 +56,6 @@ public class CategoryHomeController extends SimiController {
         mDelegate.dismissLoadingHome();
     }
 
+
+
 }

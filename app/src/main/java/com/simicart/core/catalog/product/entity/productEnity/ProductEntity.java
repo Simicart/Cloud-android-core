@@ -1,7 +1,5 @@
 package com.simicart.core.catalog.product.entity.productEnity;
 
-import android.util.Log;
-
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.catalog.product.options.customoption.Custom.entity.CustomOptionEntity;
 import com.simicart.core.catalog.product.entity.Attributes;
@@ -130,17 +128,14 @@ public class ProductEntity extends SimiEntity {
         if (mJSON != null) {
 
             if (mJSON.has(images)) {
-                Log.e("ProductEntity", "Images");
                 mImages = new ArrayList<String>();
                 try {
                     JSONArray array = mJSON.getJSONArray(images);
-                    Log.e("ProductEntity", "Image Array" + array.toString());
                     if (null != array && array.length() > 0) {
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject json = array.getJSONObject(i);
                             if (json.has("url")) {
                                 String url = json.getString("url");
-                                Log.e("ProductEntity", "url " + url);
                                 if (Utils.validateString(url)) {
                                     mImages.add(url);
                                 }
@@ -148,7 +143,6 @@ public class ProductEntity extends SimiEntity {
                         }
                     }
                 } catch (JSONException e) {
-                    Log.e("ProductEntity", "JSONException " + e.getMessage());
                 }
             }
 
@@ -174,9 +168,6 @@ public class ProductEntity extends SimiEntity {
 
             if (mJSON.has(price)) {
                 String priceValue = getData(price);
-
-                Log.e("Product Entity ","===> PRICE " + priceValue);
-
                 if (Utils.validateString(priceValue)) {
                     mPrice = Float.parseFloat(priceValue);
                 }
@@ -337,8 +328,6 @@ public class ProductEntity extends SimiEntity {
                     }
                 } catch (JSONException e) {
                     mAttibutes = null;
-                    Log.e("ProductEntity", e.getMessage());
-
                 }
 
             }
