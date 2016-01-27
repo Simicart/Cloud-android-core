@@ -33,7 +33,6 @@ public class CartModel extends SimiModel {
 	protected void paserData() {
 		super.paserData();
 		if(mJSONResult != null){
-			Log.e("CartModel", mJSONResult.toString());
 			if(mJSONResult.has("quote")){
 				try {
 					JSONObject quoteArr = mJSONResult.getJSONObject("quote");
@@ -52,4 +51,9 @@ public class CartModel extends SimiModel {
 		return mTotalPrice;
 	}
 
+
+	@Override
+	public void setShouldCache() {
+		mShouldCache = true;
+	}
 }

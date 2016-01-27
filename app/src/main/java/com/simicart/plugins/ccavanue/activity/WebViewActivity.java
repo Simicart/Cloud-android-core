@@ -136,7 +136,7 @@ public class WebViewActivity extends Activity implements Communicator {
                                 status = "Thank you for your purchase!";
                                 updatePayment("1", status);
                             } else if (html.indexOf("Aborted") != -1) {
-                                status = "Your order has been canceled";
+                                status = "Your order has been canceled!";
                                 updatePayment("2", status);
                             } else if (html.indexOf("Error") != -1){
                                 status = "Transaction Error!";

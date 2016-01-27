@@ -46,29 +46,18 @@ public class SimiManager {
     private PhoneSlideMenuController mSlideMenuController;
     private MenuTopController mMenuTopController;
     private FragmentManager mChildFragmentManager;
-
+    protected boolean isRefreshCart = true;
     protected SimiRequestQueue mRequestQueue;
     protected Boolean isShowedNotify = false;
-
-    // private final int THEME_DEFAULT = 0;
-    // private final int THEME_MATRIX = 1;
-    // private final int THEME_ZTHEME = 2;
+    protected int mQtyCartPrevious;
 
     public SimiRequestQueue getRequestQueue() {
         return mRequestQueue;
     }
 
     private SimiManager() {
-        try {
-            Log.e("SimiManager", "contructor 001");
-            mRequestQueue = new SimiRequestQueue();
-        } catch (Exception e) {
-            Log.e("SimiManager", "contructor " + e.getMessage());
-        }
-        Log.e("SimiManager", "contructor 002");
+        mRequestQueue = new SimiRequestQueue();
         mRequestQueue.start();
-        Log.e("SimiManager", "contructor 003");
-
     }
 
     public static SimiManager getIntance() {
@@ -125,8 +114,28 @@ public class SimiManager {
     }
 
     public void onUpdateCartQty(String qty) {
+        int i_qty = 0;
+        try {
+            qty = qty.trim();
+            i_qty = Integer.parseInt(qty);
+
+        } catch (Exception e) {
+        }
+
+        if (mQtyCartPrevious != i_qty) {
+            mQtyCartPrevious = i_qty;
+            isRefreshCart = true;
+        } else {
+            isRefreshCart = false;
+        }
         mMenuTopController.updateCartQty(qty);
     }
+
+    public boolean isRereshCart()
+    {
+        return isRefreshCart;
+    }
+
 
     public void showCartLayout(boolean show) {
         mMenuTopController.showCartLayout(show);
@@ -138,7 +147,7 @@ public class SimiManager {
         }
     }
 
-    public void notifiChangeAdapterSlideMenu(){
+    public void notifiChangeAdapterSlideMenu() {
         if (null != mSlideMenuController) {
             mSlideMenuController.notifiChangeAdapterSlideMenu();
         }
@@ -153,19 +162,15 @@ public class SimiManager {
     }
 
     public void toMainActivity() {
-        Log.e("SimiManger","toMainActivity 001");
         Intent i = new Intent(mCurrentActivity,
                 MainActivity.class);
-        Log.e("SimiManger","toMainActivity 002");
 
         Bundle extras = mCurrentActivity.getIntent().getExtras();
         if (extras != null) {
             i.putExtras(extras);
         }
-        Log.e("SimiManger","toMainActivity 003");
         mCurrentActivity.startActivity(i);
         mCurrentActivity.finish();
-        Log.e("SimiManger", "toMainActivity 004");
     }
 
     public void changeStoreView() {

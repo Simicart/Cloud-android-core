@@ -267,7 +267,6 @@ public class ProductController extends SimiController implements OptionProductDe
         ProfileEntity customer = DataLocal.mCustomer;
         if (null != customer) {
             JSONObject json = customer.toParam();
-            Log.e("Product Controller ", "DATA ---> " + json.toString());
             if (null != json) {
                 updateQuote.setJSONBody(json);
             }
@@ -279,25 +278,6 @@ public class ProductController extends SimiController implements OptionProductDe
 
     }
 
-//    protected String getCurrencyTemplate() {
-//
-//        Config config = Config.getInstance();
-//        String charSepDecimal = config.getCharSepDecimal();
-//        String charSepThousand = config.getCharSepThousand();
-//        int numberDecimal = config.getNumberDecimal();
-//        boolean isLeft = config.isLeft();
-//        String symbol = config.getSymbol();
-//        String s_price = Utils.formatPrice((float) 1000.00, numberDecimal, charSepDecimal, charSepThousand);
-//        StringBuilder builder = new StringBuilder();
-//        if (isLeft) {
-//            builder.append(symbol);
-//            builder.append(s_price);
-//        } else {
-//            builder.append(s_price);
-//            builder.append(symbol);
-//        }
-//        return builder.toString().trim();
-//    }
 
     protected void addToCartWithQuote(String quote, JSONObject data) {
 
@@ -323,7 +303,6 @@ public class ProductController extends SimiController implements OptionProductDe
             }
         });
         addToCartModel.addDataExtendURL(quote, "items");
-        Log.e("ProductController", "addToCartWithQuote " + data.toString());
         addToCartModel.setJSONBody(data);
 
         addToCartModel.request();
@@ -353,7 +332,6 @@ public class ProductController extends SimiController implements OptionProductDe
 
         View view = priceView.updatePriceWithItemGroup(entity, isAdd);
         if (null != view) {
-            Log.e("ProductController ", "updatePriceItemGroup");
             mDelegate.onUpdatePriceView(view);
         }
     }

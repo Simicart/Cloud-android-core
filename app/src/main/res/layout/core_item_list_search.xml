@@ -5,13 +5,13 @@
     android:layout_height="match_parent"
     android:layout_marginBottom="10dp"
     android:layout_marginTop="10dp"
-    android:background="@drawable/item_listview_style" >
+    android:background="@drawable/item_listview_style">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="20dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <RelativeLayout
             android:id="@+id/rel_product_list"
@@ -19,7 +19,7 @@
             android:layout_height="110dp"
             android:paddingBottom="12dp"
             android:paddingRight="24dp"
-            android:paddingTop="12dp" >
+            android:paddingTop="12dp">
 
             <ImageView
                 android:id="@+id/iv_productItemImage"
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:orientation="vertical"
-                android:rotation="-50" >
+                android:rotation="-50">
 
                 <LinearLayout
                     android:id="@+id/layout_stock"
@@ -45,7 +45,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginTop="75dp"
                     android:background="#915c83"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/txt_out_stock"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingLeft="5dp" >
+            android:paddingLeft="5dp">
 
             <TextView
                 android:id="@+id/tv_productItemName"
@@ -84,23 +84,35 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/tv_productItemName"
                 android:layout_marginTop="5dp"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_exclTax"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:gravity="left"
-                    android:textSize="14sp" />
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-                <TextView
-                    android:id="@+id/tv_inclTax"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="left"
-                    android:textColor="#ab452f"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tv_fist_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="$500,00.22"
+                        android:textColor="@android:color/holo_red_light" />
+
+                    <TextView
+                        android:id="@+id/tv_second_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:singleLine="true"
+                        android:text="$500,00.22"
+                        android:textColor="@android:color/holo_red_light" />
+                </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

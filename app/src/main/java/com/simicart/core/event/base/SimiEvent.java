@@ -71,7 +71,6 @@ public class SimiEvent {
         for (int i = 0; i < itemsList.size(); i++) {
             ItemMaster item = itemsList.get(i);
             String name_event = item.getName();
-            Log.e("SimiEvent ", "NAME EVENT " + name_event + " EVENT NAME " + eventName);
             if (eventName.equals(name_event)) {
                 items.add(item);
             }
