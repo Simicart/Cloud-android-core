@@ -3,6 +3,7 @@ package com.simicart.core.home.entity;
 import android.util.Log;
 
 import com.simicart.core.base.model.entity.SimiEntity;
+import com.simicart.core.common.Utils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -84,6 +85,13 @@ public class SpotProductEntity extends SimiEntity {
         // parse position
         if (mJSON.has(position)) {
             mPosition = getData(position);
+        }
+
+        if (mJSON.has(status)) {
+            String statusValue = getData(status);
+            if (Utils.validateString(statusValue) && statusValue.equals("1")) {
+                mStatus = true;
+            }
         }
 
         // parse products

@@ -48,7 +48,9 @@ public class SpotProductModel extends SimiModel {
                             SpotProductEntity entity = new SpotProductEntity();
                             entity.setJSONObject(json);
                             entity.parse();
-                            spots.add(entity);
+                            if (entity.isStatus()) {
+                                spots.add(entity);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -58,7 +60,21 @@ public class SpotProductModel extends SimiModel {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            if (null != array && array.length() > 0) {
+                ArrayList<SimiEntity> spots = new ArrayList<SimiEntity>();
+                for (int i = 0; i < array.length(); i++) {
+                    try {
+                        JSONObject json = array.getJSONObject(i);
+                        SpotProductEntity entity = new SpotProductEntity();
+                        entity.setJSONObject(json);
+                        entity.parse();
+                        spots.add(entity);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                collection.setCollection(spots);
+            }
         }
     }
 
