@@ -9,6 +9,8 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.magestore.simicart.R;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.common.Utils;
 import com.simicart.core.splashscreen.entity.AppConfigEnitity;
 import com.simicart.core.splashscreen.entity.BaseCurrencyEntity;
@@ -551,6 +553,14 @@ public class Config {
         return isTaxCart;
     }
 
+    public boolean isRTLLanguage(String locale) {
+        String[] rtl = SimiManager.getIntance().getCurrentContext().getResources().getStringArray(R.array.rtl);
+        for(int i=0;i<rtl.length;i++) {
+            if(locale.equals(rtl[i]))
+                return true;
+        }
+        return false;
+    }
 
     public void parseConfigSetting(ConfigEntity configEntity) {
         FormatConfigEntity formatEntity = configEntity.getFormatOption();
@@ -612,6 +622,11 @@ public class Config {
                 String locale = listLocale.get(0).getCode();
                 if (Utils.validateString(locale)) {
                     instance.setLocale_identifier(locale);
+                    Log.e("Config", "++" + locale);
+                    if(isRTLLanguage(locale) == true) {
+                        Log.e("Config", "is RTL language");
+                        DataLocal.isLanguageRTL = true;
+                    }
                 }
             } else {
                 boolean checkLocale = false;

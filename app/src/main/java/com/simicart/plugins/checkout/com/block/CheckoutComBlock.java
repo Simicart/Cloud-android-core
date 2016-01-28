@@ -58,12 +58,12 @@ public class CheckoutComBlock extends SimiBlock implements CheckoutComDelegate {
         tv_cvv.setText(Config.getInstance().getText("CVV"));
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(mContext,
-                R.array.months, android.R.layout.simple_spinner_item);
+                Rconfig.getInstance().getId(mContext, "months", "array"), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinMonth.setAdapter(adapter);
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(mContext,
-                R.array.years, android.R.layout.simple_spinner_item);
+                Rconfig.getInstance().getId(mContext, "years", "array"), android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinYear.setAdapter(adapter2);
     }
