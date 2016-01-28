@@ -69,13 +69,13 @@ public class SettingAppFragment extends SimiFragment {
 		tv_language.setTextColor(Config.getInstance().getContent_color());
 		tv_language_selected = (TextView) rootView.findViewById(Rconfig
 				.getInstance().id("tv_language_selected"));
+		boolean checkLanguage = false;
 		ArrayList<LocaleConfigEntity> localeArr = DataLocal.listLocale;
 		if(localeArr != null && localeArr.size() > 0) {
+			language = localeArr.get(0).getName();
 			for (int i = 0; i < localeArr.size(); i++) {
 				if (DataLocal.getLocale().equals(localeArr.get(i).getCode())) {
 					language = localeArr.get(i).getName();
-				} else {
-					language = localeArr.get(0).getName();
 				}
 			}
 		}
