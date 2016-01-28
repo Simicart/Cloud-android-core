@@ -35,6 +35,7 @@ public class CategoryHomeTheme1Controller extends SimiController {
 				mDelegate.updateView(mModel.getCollection());
 			}
 		});
+		mModel.addDataParameter("order", "position");
 		mModel.request();
 	}
 

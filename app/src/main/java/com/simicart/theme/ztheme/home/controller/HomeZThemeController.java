@@ -62,9 +62,9 @@ public class HomeZThemeController extends SimiController {
 						CategoryZTheme cat = new CategoryZTheme();
 						cat.setJSONObject(simiEntity.getJSONObject());
 						cat.parse();
-						if(cat == null)
+						if (cat == null)
 							Log.e("abc", "null");
-						if(cat.hasChild()) {
+						if (cat.hasChild()) {
 							mListChild = new ArrayList<CategoryZTheme>();
 							getGroupChild(cat);
 							cat.setmCategories(mListChild);
@@ -77,6 +77,7 @@ public class HomeZThemeController extends SimiController {
 				getSpotProduct();
 			}
 		});
+		mModel.addDataParameter("order", "position");
 		mModel.request();
 	}
 

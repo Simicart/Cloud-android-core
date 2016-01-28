@@ -46,6 +46,7 @@ public class CategoryHomeController extends SimiController {
             }
         };
         mModel = new CategoryWidgetModel();
+        mModel.addDataParameter("order", "position");
         mModel.setDelegate(delegate);
         mModel.request();
     }
