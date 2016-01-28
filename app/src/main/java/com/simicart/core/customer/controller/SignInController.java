@@ -236,7 +236,7 @@ public class SignInController extends SimiController {
                 Log.e("SignInController", "Log in fail");
                 mDelegate.dismissLoading();
                 if(error != null)
-                    SimiManager.getIntance().showNotify(null, Config.getInstance().getText("Invalid username or password"), "Ok");
+                    SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
             }
 
             @Override

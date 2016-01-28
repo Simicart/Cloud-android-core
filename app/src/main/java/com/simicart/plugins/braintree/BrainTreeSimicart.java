@@ -79,7 +79,7 @@ public class BrainTreeSimicart extends Activity {
 				SimiEntity entity = collection.getCollection().get(0);
 				token = ((TokenEntity) entity).getToken();
 				Log.e("BrainTreeSimiCart", "++" + token);
-				setup();
+				//setup();
 				onBuyPressed();
 			}
 		});
@@ -129,7 +129,7 @@ public class BrainTreeSimicart extends Activity {
 				Log.e("PaymentMethod", "++" + paymentMethodNonce);
 				if(paymentMethodNonce != null) {
 					try {
-						requestUpdateBrainTree(paymentMethodNonce, total, orderID);
+						requestUpdateBrainTree(paymentMethodNonce, orderID);
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -144,8 +144,7 @@ public class BrainTreeSimicart extends Activity {
 	}
 
 	@SuppressLint("NewApi")
-	public void requestUpdateBrainTree(String nonce,
-			String amount, String orderID) throws JSONException {
+	public void requestUpdateBrainTree(String nonce, String orderID) throws JSONException {
 		mDelegate.showLoading();
 		BrainTreeModel mModel = new BrainTreeModel();
 		ModelDelegate delegate = new ModelDelegate() {

@@ -5,6 +5,7 @@ import org.json.JSONException;
 
 import com.simicart.core.base.model.SimiModel;
 import com.simicart.core.base.model.collection.SimiCollection;
+import com.simicart.core.base.network.request.multi.SimiRequest;
 
 public class BrainTreeModel extends SimiModel {
 
@@ -23,5 +24,10 @@ public class BrainTreeModel extends SimiModel {
 	@Override
 	protected void setUrlAction() {
 		url_action = "/braintree/update-braintree-payment";
+	}
+
+	@Override
+	protected void setTypeMethod() {
+		mTypeMethod = SimiRequest.Method.POST;
 	}
 }
