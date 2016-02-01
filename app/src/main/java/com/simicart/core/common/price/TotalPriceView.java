@@ -114,8 +114,8 @@ public class TotalPriceView {
         String price = "<font color='" + "red" + "'>"
                 + s_price + "</font>";
 
-        TextView tb_label = (TextView) showView(s_label);
-        TextView tv_price = (TextView) showView(price);
+        TextView tb_label = (TextView) showViewLabel(s_label);
+        TextView tv_price = (TextView) showViewPrice(price);
 
         tbr_price.addView(tb_label);
 
@@ -125,14 +125,20 @@ public class TotalPriceView {
 
     }
 
+    protected View showViewLabel(String content) {
+        TextView tv_label = new TextView(mContext);
+        tv_label.setGravity(Gravity.RIGHT);
+        tv_label.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+        String title = Html.fromHtml(content) + ": ";
+        tv_label.setText(title);
+        return tv_label;
+    }
 
-    protected View showView(String content) {
+    protected  View showViewPrice(String content){
         TextView tv_price = new TextView(mContext);
         tv_price.setGravity(Gravity.RIGHT);
         tv_price.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
         tv_price.setText(Html.fromHtml(content));
         return tv_price;
     }
-
-
 }
