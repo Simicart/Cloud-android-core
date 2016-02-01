@@ -3,7 +3,9 @@ package com.simicart.core.catalog.product.fragment;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +13,9 @@ import android.view.ViewGroup;
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.catalog.product.block.CustomerReviewBlock;
 import com.simicart.core.catalog.product.controller.CustomerReviewController;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.event.block.CacheBlock;
-import com.simicart.core.event.block.EventBlock;
+import com.simicart.core.event.block.SimiEventBlockEntity;
 
 public class CustomerReviewFragment extends SimiFragment {
 
@@ -46,13 +48,18 @@ public class CustomerReviewFragment extends SimiFragment {
         mBlock = new CustomerReviewBlock(view, context);
 
         // event
-        CacheBlock cacheBlock = new CacheBlock();
-        cacheBlock.setBlock(mBlock);
-        EventBlock event = new EventBlock();
-        event.dispatchEvent(
-                "com.simicart.core.catalog.product.block.CustomerReviewBlock",
-                view, context, cacheBlock);
-        mBlock = (CustomerReviewBlock) cacheBlock.getBlock();
+        Intent intent = new Intent("com.simicart.core.catalog.product.block.CustomerReviewBlock");
+        SimiEventBlockEntity blockEntity = new SimiEventBlockEntity();
+        blockEntity.setBlock(mBlock);
+        blockEntity.setView(view);
+        blockEntity.setContext(context);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ENTITY, blockEntity);
+        intent.putExtra(Constants.DATA, bundle);
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+
+        mBlock = (CustomerReviewBlock) blockEntity.getBlock();
 
         mBlock.initView();
         if (mController == null) {

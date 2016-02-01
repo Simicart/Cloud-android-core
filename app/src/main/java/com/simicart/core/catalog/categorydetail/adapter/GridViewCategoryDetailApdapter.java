@@ -2,7 +2,10 @@ package com.simicart.core.catalog.categorydetail.adapter;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -18,9 +21,10 @@ import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.common.DrawableManager;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.event.block.EventBlock;
+import com.simicart.core.event.block.SimiEventBlockEntity;
 
 public class GridViewCategoryDetailApdapter extends BaseAdapter {
 
@@ -229,10 +233,17 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 
 		RelativeLayout rl_product_list = (RelativeLayout) convertView
 				.findViewById(Rconfig.getInstance().id("rel_product_list"));
+		Intent intent = new Intent("com.simicart.image.product.grid");
+		SimiEventBlockEntity blockEntity = new SimiEventBlockEntity();
+		blockEntity.setView(rl_product_list);
+		blockEntity.setEntity(product);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(Constants.ENTITY,blockEntity);
+		intent.putExtra(Constants.DATA, bundle);
+		LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
 
-		EventBlock eventBlock = new EventBlock();
-		eventBlock.dispatchEvent("com.simicart.image.product.grid",
-				rl_product_list, mListProduct.get(pos));
+
+
 		return convertView;
 	}
 

@@ -28,7 +28,6 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.fragment.MyAccountFragment;
 import com.simicart.core.customer.fragment.OrderHistoryFragment;
 import com.simicart.core.customer.fragment.SignInFragment;
-import com.simicart.core.event.block.EventBlock;
 import com.simicart.core.event.slidemenu.EventSlideMenu;
 import com.simicart.core.event.slidemenu.SlideMenuData;
 import com.simicart.core.home.fragment.HomeFragment;
@@ -330,9 +329,9 @@ public class PhoneSlideMenuController {
             if (!item.isSparator()) {
                 // event click barcode leftmenu
                 String nameItem = item.getName();
-                EventBlock block = new EventBlock();
-                Constants.itemName = nameItem;
-                block.dispatchEvent("com.simicart.leftmenu.slidemenucontroller.onnavigate.clickitem");
+//                EventBlock block = new EventBlock();
+//                Constants.itemName = nameItem;
+//                block.dispatchEvent("com.simicart.leftmenu.slidemenucontroller.onnavigate.clickitem");
                 TypeItem type = item.getType();
                 SimiFragment fragment = null;
                 if (type == TypeItem.NORMAL) {

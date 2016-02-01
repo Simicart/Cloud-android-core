@@ -5,8 +5,12 @@ import java.util.Arrays;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -32,6 +36,7 @@ import com.simicart.core.checkout.entity.QuoteEntity;
 import com.simicart.core.checkout.fragment.AddressBookCheckoutFragment;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.delegate.SignInDelegate;
@@ -40,9 +45,8 @@ import com.simicart.core.customer.fragment.SignInFragment;
 import com.simicart.core.customer.model.GetAllQuoteModel;
 import com.simicart.core.customer.model.MergeQuoteModel;
 import com.simicart.core.customer.model.UpdateCustomerToQuoteModel;
-import com.simicart.core.event.block.CacheBlock;
-import com.simicart.core.event.fragment.CacheFragment;
-import com.simicart.core.event.fragment.EventFragment;
+import com.simicart.core.event.block.SimiEventBlockEntity;
+import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 import com.simicart.core.home.fragment.HomeFragment;
 import com.simicart.core.material.ButtonRectangle;
 
@@ -52,40 +56,60 @@ public class FacebookLogin {
 	private static View mView;
 	private static Activity mActivity;
 	private static SignInFragment mSignInFragment;
-	CacheFragment mCacheFragment;
 	SimiModel mModel;
 	private static CallbackManager callbackManager;
 
-	public FacebookLogin(String method, CacheFragment caheFragment) {
-		this.mCacheFragment = caheFragment;
-		if (method.equals("createFragment")) {
-			mSignInFragment = (SignInFragment) caheFragment.getFragment();
-		}
-		if (method.equals("onActivityResult")) {
-			onActivityResult();
-		}
+	public FacebookLogin()
+	{
+		Context context = SimiManager.getIntance().getCurrentContext();
+
+		// register event: create a fragment
+		IntentFilter fragment_filter = new IntentFilter("com.simicart.core.customer.fragment.SignInFragment");
+		BroadcastReceiver fragment_receiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				Bundle bundle = intent.getBundleExtra(Constants.DATA);
+				SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
+				String method = bundle.getString(Constants.METHOD);
+				if (method.equals("createFragment")) {
+					mSignInFragment = (SignInFragment) entity.getFragment();
+				}
+				else if (method.equals("onActivityResult")) {
+					onActivityResult();
+				}
+
+
+			}
+		};
+		LocalBroadcastManager.getInstance(context).registerReceiver(fragment_receiver,fragment_filter);
+
+		// register event: create block
+		IntentFilter blockFilter = new IntentFilter("com.simicart.core.customer.block.SignInBlock");
+		BroadcastReceiver blockReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+
+
+
+				Bundle bundle = intent.getBundleExtra(Constants.DATA);
+				String method = bundle.getString(Constants.METHOD);
+				SimiEventBlockEntity entity = (SimiEventBlockEntity) bundle.getSerializable(Constants.ENTITY);
+				if(method.equals("createBlock"))
+				{
+					mView = entity.getView();
+					mContext = MainActivity.context;
+					mActivity = (Activity) mContext;
+					addButtonFaceBookLogin();
+				}
+
+			}
+		};
+		LocalBroadcastManager.getInstance(context).registerReceiver(blockReceiver,blockFilter);
+
+
+
 	}
 
-	public FacebookLogin(String method, CacheBlock cacheBlock) {
-		Log.e("FACEBOOK LOGIN", "FACEBOOOK LOGIN" + method);
-		mView = cacheBlock.getView();
-		mContext = MainActivity.context;
-		mActivity = (Activity) mContext;
-		if (method.equals("addButton")) {
-			addButtonFaceBookLogin();
-		}
-
-	}
-
-	public FacebookLogin(String method, MainActivity main) {
-		if (method.equals("onActivityResult")) {
-			onActivityResult(main);
-		}
-	}
-
-	private void onActivityResult(MainActivity main) {
-
-	}
 
 	private void onActivityResult() {
 		if (callbackManager != null) {
@@ -253,13 +277,13 @@ public class FacebookLogin {
 					} else {
 						SimiFragment fragment = HomeFragment.newInstance();
 						// event for wish list
-						CacheFragment cache = new CacheFragment();
-						cache.setFragment(fragment);
-						EventFragment eventFragment = new EventFragment();
-						eventFragment.dispatchEvent(
-								"com.simicart.event.wishlist.afterSignIn",
-								cache);
-						fragment = cache.getFragment();
+						Intent intent = new Intent("com.simicart.event.wishlist.afterSignIn");
+						SimiEventFragmentEntity fragmentEntity = new SimiEventFragmentEntity();
+						fragmentEntity.setFragmetn(fragment);
+						Bundle bundle = new Bundle();
+						bundle.putSerializable(Constants.ENTITY,fragmentEntity);
+						bundle.putString(Constants.METHOD, "afterSignIn");
+						LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
 
 						SimiManager.getIntance().removeDialog();
 						SimiManager.getIntance().replaceFragment(fragment);

@@ -1,13 +1,17 @@
 package com.simicart.core.base.fragment;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 
+import com.simicart.core.base.manager.SimiManager;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
-import com.simicart.core.event.fragment.CacheFragment;
-import com.simicart.core.event.fragment.EventFragment;
+import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 
 public class SimiFragment extends Fragment {
 
@@ -47,12 +51,15 @@ public class SimiFragment extends Fragment {
 
 	public void setScreenName(String name) {
 		this.screenName = name;
-
-		CacheFragment cache = new CacheFragment();
-		cache.setFragment(this);
-		EventFragment event = new EventFragment();
-		event.dispatchEvent(
-				"com.simicart.core.base.fragment.SimiFragment.setName", cache);
+		// dispatch event for Google Analytics
+		Context context = SimiManager.getIntance().getCurrentContext();
+		Intent intent = new Intent("com.simicart.core.base.fragment.SimiFragment.setName");
+		SimiEventFragmentEntity entity = new SimiEventFragmentEntity();
+		entity.setFragmetn(this);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(Constants.ENTITY, entity);
+		intent.putExtra(Constants.DATA, bundle);
+		LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 	}
 
 	@Override

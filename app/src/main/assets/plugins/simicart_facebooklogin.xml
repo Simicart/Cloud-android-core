@@ -6,32 +6,33 @@
 	    <method>createFragment</method>	
 	    <sku>facebook-connect</sku>
     </event>
-    <event>
-        <name>com.simicart.core.customer.fragment.SignInFragment</name>	    
-	    <package>com.simicart.plugins.facebooklogin</package>
-	    <class>FacebookLogin</class>
-	    <method>onActivityResult</method>	
-	    <sku>facebook-connect</sku>
-    </event>
-     <event>
-        <name>com.simicart.core.customer.block.SignInBlock</name>	    
-	    <package>com.simicart.plugins.facebooklogin</package>
-	    <class>FacebookLogin</class>
-	    <method>addButton</method>	
-	    <sku>facebook-connect</sku>
-    </event>
-    <event>
-        <name>com.simicart.MainActivity.onActivityResult</name>	    
-	    <package>com.simicart.plugins.facebooklogin</package>
-	    <class>FacebookLogin</class>
-	    <method>onActivityResult</method>	
-	    <sku>facebook-connect</sku>
-    </event>
-    <event>
-        <name>com.simicart.autoSignIn</name>	    
-	    <package>com.simicart.plugins.facebooklogin</package>
-	    <class>AutoSignInFacebook</class>
-	    <method>autoSignIn</method>	
-	    <sku>facebook-connect</sku>
-    </event>
 </events>
+    <!--<event>-->
+        <!--<name>com.simicart.core.customer.fragment.SignInFragment</name>	    -->
+	    <!--<package>com.simicart.plugins.facebooklogin</package>-->
+	    <!--<class>FacebookLogin</class>-->
+	    <!--<method>onActivityResult</method>	-->
+	    <!--<sku>facebook-connect</sku>-->
+    <!--</event>-->
+     <!--<event>-->
+        <!--<name>com.simicart.core.customer.block.SignInBlock</name>	    -->
+	    <!--<package>com.simicart.plugins.facebooklogin</package>-->
+	    <!--<class>FacebookLogin</class>-->
+	    <!--<method>addButton</method>	-->
+	    <!--<sku>facebook-connect</sku>-->
+    <!--</event>-->
+    <!--<event>-->
+        <!--<name>com.simicart.MainActivity.onActivityResult</name>	    -->
+	    <!--<package>com.simicart.plugins.facebooklogin</package>-->
+	    <!--<class>FacebookLogin</class>-->
+	    <!--<method>onActivityResult</method>	-->
+	    <!--<sku>facebook-connect</sku>-->
+    <!--</event>-->
+    <!--<event>-->
+        <!--<name>com.simicart.autoSignIn</name>	    -->
+	    <!--<package>com.simicart.plugins.facebooklogin</package>-->
+	    <!--<class>AutoSignInFacebook</class>-->
+	    <!--<method>autoSignIn</method>	-->
+	    <!--<sku>facebook-connect</sku>-->
+    <!--</event>-->
+

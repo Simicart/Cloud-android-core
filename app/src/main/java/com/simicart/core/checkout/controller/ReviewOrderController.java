@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -54,6 +57,7 @@ import com.simicart.core.customer.entity.OrderHisDetail;
 import com.simicart.core.customer.fragment.NewAddressBookFragment;
 import com.simicart.core.event.checkout.CheckoutData;
 import com.simicart.core.event.checkout.EventCheckout;
+import com.simicart.core.event.checkout.SimiEventCheckoutEntity;
 import com.simicart.core.notification.NotificationActivity;
 import com.simicart.core.notification.entity.NotificationEntity;
 
@@ -621,18 +625,28 @@ public class ReviewOrderController extends SimiController implements
                             }
                             break;
                         case  2:
-                            // event call paypal server.
-                            Log.e("ReviewOrderController", "case 2");
-                            CheckoutData _CheckoutData2 = new CheckoutData();
-                            _CheckoutData2
-                                    .setInvoice_number(((PlaceOrderModel) mModel)
-                                            .getInvoiceNumber());
-                            _CheckoutData2.setOder(orderEntity);
-                            _CheckoutData2.setPaymentMethod(paymentmethod);
-                            EventCheckout event2 = new EventCheckout();
-                            event2.dispatchEvent(
-                                    "com.simicart.paymentmethod.placeorder",
-                                    _CheckoutData2);
+//                            CheckoutData _CheckoutData2 = new CheckoutData();
+//                            _CheckoutData2
+//                                    .setInvoice_number(((PlaceOrderModel) mModel)
+//                                            .getInvoiceNumber());
+//                            _CheckoutData2.setOder(orderEntity);
+//                            _CheckoutData2.setPaymentMethod(paymentmethod);
+//                            EventCheckout event2 = new EventCheckout();
+//                            event2.dispatchEvent(
+//                                    "com.simicart.paymentmethod.placeorder",
+//                                    _CheckoutData2);
+
+                            Intent intent = new Intent("com.simicart.paymentmethod.placeorder");
+                            Bundle bundle = new Bundle();
+                            SimiEventCheckoutEntity entity = new SimiEventCheckoutEntity();
+                            entity.setInvoiceNumber(((PlaceOrderModel) mModel)
+                                    .getInvoiceNumber());
+                            entity.setOder(orderEntity);
+                            entity.setPaymentMethod(paymentmethod);
+                            bundle.putSerializable(Constants.ENTITY, entity);
+                            intent.putExtra(Constants.DATA, bundle);
+                            Context context = SimiManager.getIntance().getCurrentContext();
+                            LocalBroadcastManager.getInstance(context).sendBroadcastSync(intent);
                             // end event
                             break;
                         case 3:
