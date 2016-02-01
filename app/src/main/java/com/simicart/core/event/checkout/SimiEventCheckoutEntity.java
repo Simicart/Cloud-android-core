@@ -2,6 +2,7 @@ package com.simicart.core.event.checkout;
 
 import com.simicart.core.checkout.entity.OrderEntity;
 import com.simicart.core.checkout.entity.PaymentMethod;
+import com.simicart.core.customer.entity.OrderHisDetail;
 
 import java.io.Serializable;
 
@@ -13,6 +14,15 @@ public class SimiEventCheckoutEntity implements Serializable {
     private String mInvoiceNumber;
     private PaymentMethod mPaymentMethod;
     private OrderEntity mOder;
+    private OrderHisDetail mOrderHisDetail;
+
+    public void setOrderHisDetail(OrderHisDetail orderHis) {
+        mOrderHisDetail = orderHis;
+    }
+
+    public OrderHisDetail getOrderHisDetail() {
+        return mOrderHisDetail;
+    }
 
 
     public String getInvoiceNumber() {

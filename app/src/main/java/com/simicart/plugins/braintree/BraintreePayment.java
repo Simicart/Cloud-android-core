@@ -1,12 +1,10 @@
 package com.simicart.plugins.braintree;
 
 
-import com.simicart.MainActivity;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.entity.OrderEntity;
 import com.simicart.core.checkout.entity.PaymentMethod;
 import com.simicart.core.config.Constants;
-import com.simicart.core.event.checkout.CheckoutData;
 import com.simicart.core.event.checkout.SimiEventCheckoutEntity;
 
 import android.content.BroadcastReceiver;
@@ -15,7 +13,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 
 public class BraintreePayment {
 

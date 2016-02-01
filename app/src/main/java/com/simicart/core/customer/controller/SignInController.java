@@ -43,7 +43,6 @@ import com.simicart.core.customer.model.GetAllQuoteModel;
 import com.simicart.core.customer.model.LogInModel;
 import com.simicart.core.customer.model.MergeQuoteModel;
 import com.simicart.core.customer.model.UpdateCustomerToQuoteModel;
-import com.simicart.core.event.controller.EventController;
 import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 import com.simicart.core.home.fragment.HomeFragment;
 
@@ -287,11 +286,11 @@ public class SignInController extends SimiController {
                 }
 
                 requestGetAllQuote();
-
-                EventController event = new EventController();
-//                event.dispatchEvent(
-//                        "com.simicart.core.customer.controller.SignInController",
-//                        mModel.getJSON().toString());
+                // dispatch event
+                Intent intent = new Intent("com.simicart.core.customer.controller.SignInController");
+                intent.putExtra(Constants.DATA, mModel.getJSON().toString());
+                Context context = SimiManager.getIntance().getCurrentContext();
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
                 if (isCheckout) {
                     SimiFragment fragment = null;

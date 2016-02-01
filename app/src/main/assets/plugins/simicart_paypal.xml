@@ -1,0 +1,12 @@
+
+    <event>
+        <name>com.simicart.plugins.paypal.PayPal</name>
+	    <sku>simi_paypalmobile</sku>
+    </event>
+<!--<event>-->
+<!--<name>com.simicart.edit.paymentlist</name>-->
+<!--<package>com.simicart.plugins.paypal</package>-->
+<!--<class>PayPal</class>-->
+<!--<method>refreshList</method>-->
+<!--<sku>simi_paypalmobile</sku>-->
+<!--</event>-->
