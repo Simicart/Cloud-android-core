@@ -2,7 +2,9 @@ package com.simicart.core.banner.entity;
 
 import android.util.Log;
 
+import com.google.android.youtube.player.internal.s;
 import com.simicart.core.base.model.entity.SimiEntity;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Constants;
 
 import org.json.JSONException;
@@ -16,13 +18,16 @@ public class BannerEntity extends SimiEntity {
     protected String mCategoryName;
     protected String hasChild;
     protected String mProductId;
+    protected boolean enable;
 
     private String type = "type";
     private String product_id = "product_id";
+    private String name = "name";
     private String url = "url";
     private String image = "image";
     private String category_id = "category_id";
     private String has_child = "has_child";
+    private String status = "status";
 
     public String getProductId() {
         return this.mProductId;
@@ -80,17 +85,25 @@ public class BannerEntity extends SimiEntity {
         this.mCategoryId = mCategoryId;
     }
 
+    public boolean isEnable() {
+        return enable;
+    }
+
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
+
     @Override
     public void parse() {
         if (null != mJSON) {
             // parse type of banner
             if (mJSON.has(type)) {
-                type = getData(type);
+                mType = getData(type);
             }
 
             // parse product_id of banner
             if (mJSON.has(product_id)) {
-                product_id = getData(product_id);
+                mProductId = getData(product_id);
             }
 
             // parse url of banner
@@ -100,14 +113,14 @@ public class BannerEntity extends SimiEntity {
 
             // parse image of banner
             if (mJSON.has(image)) {
-                Log.e("BannerEntity","parse image 001");
+                Log.e("BannerEntity", "parse image 001");
                 try {
                     JSONObject js_image = mJSON.getJSONObject(image);
-                    Log.e("BannerEntity","parse image 002 "+ js_image.toString());
+                    Log.e("BannerEntity", "parse image 002 " + js_image.toString());
                     if (js_image.has(url)) {
-                        Log.e("BannerEntity","parse image 003");
+                        Log.e("BannerEntity", "parse image 003");
                         mImagePath = js_image.getString(url);
-                        Log.e("BannerEntity","parse image 004" + mImagePath);
+                        Log.e("BannerEntity", "parse image 004" + mImagePath);
                     }
                 } catch (JSONException e) {
                     Log.e("BannerEntity", e.getMessage());
@@ -116,12 +129,23 @@ public class BannerEntity extends SimiEntity {
 
             // parse category_id of banner
             if (mJSON.has(category_id)) {
-                category_id = getData(category_id);
+                mCategoryId = getData(category_id);
+            }
+
+            if(mJSON.has(name)){
+                mCategoryName = getData(name);
             }
 
             // parse has_child of banner
             if (mJSON.has(has_child)) {
-                has_child = getData(has_child);
+                hasChild = getData(has_child);
+            }
+
+            if (mJSON.has(status)) {
+                String enableValue = getData(status);
+                if(Utils.validateString(enableValue) && enableValue.equals("1")){
+                    enable = true;
+                }
             }
         }
     }

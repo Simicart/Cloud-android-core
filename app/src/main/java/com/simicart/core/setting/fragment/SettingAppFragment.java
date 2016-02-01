@@ -51,7 +51,7 @@ public class SettingAppFragment extends SimiFragment {
 
 	@Override
 	public View onCreateView(final LayoutInflater inflater,
-			ViewGroup container, Bundle savedInstanceState) {
+							 ViewGroup container, Bundle savedInstanceState) {
 		View rootView = null;
 		// if (DataLocal.isLanguageRTL) {
 		// rootView = inflater.inflate(

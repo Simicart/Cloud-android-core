@@ -40,34 +40,30 @@ public class SpotProductModel extends SimiModel {
             JSONArray array = null;
             try {
                 array = mJSONResult.getJSONArray(spot_products);
-                if (null != array && array.length() > 0) {
-                    ArrayList<SimiEntity> spots = new ArrayList<SimiEntity>();
-                    for (int i = 0; i < array.length(); i++) {
-                        try {
-                            JSONObject json = array.getJSONObject(i);
-                            SpotProductEntity entity = new SpotProductEntity();
-                            entity.setJSONObject(json);
-                            entity.parse();
-                            spots.add(entity);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    collection.setCollection(spots);
-                }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
+            if (null != array && array.length() > 0) {
+                ArrayList<SimiEntity> spots = new ArrayList<SimiEntity>();
+                for (int i = 0; i < array.length(); i++) {
+                    try {
+                        JSONObject json = array.getJSONObject(i);
+                        SpotProductEntity entity = new SpotProductEntity();
+                        entity.setJSONObject(json);
+                        entity.parse();
+                        if (entity.isStatus()) {
+                            spots.add(entity);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                collection.setCollection(spots);
+            }
         }
     }
 
     public int getTotalSport() {
         return mTotalSport;
-    }
-
-    @Override
-    public void setShouldCache() {
-        mShouldCache = true;
     }
 }
