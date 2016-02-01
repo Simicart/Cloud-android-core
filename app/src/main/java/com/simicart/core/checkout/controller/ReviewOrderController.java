@@ -1,8 +1,10 @@
 package com.simicart.core.checkout.controller;
 
 import java.util.ArrayList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+
 import com.simicart.MainActivity;
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
@@ -142,7 +145,7 @@ public class ReviewOrderController extends SimiController implements
         setCouponCodeListener();
         setViewProductDetail();
 
-        if(mAfterControll == NewAddressBookFragment.NEW_CUSTOMER || mAfterControll == NewAddressBookFragment.NEW_AS_GUEST){
+        if (mAfterControll == NewAddressBookFragment.NEW_CUSTOMER || mAfterControll == NewAddressBookFragment.NEW_AS_GUEST) {
             requestUpdateShipping();
             requestUpdateBilling();
             requestCheckoutGestNew();
@@ -233,7 +236,7 @@ public class ReviewOrderController extends SimiController implements
                     }
 
                     mDelegate.setShipingAddress(mShippingAddress);
-                }else{
+                } else {
                     checkRequiedShipping = false;
                 }
             }
@@ -314,12 +317,12 @@ public class ReviewOrderController extends SimiController implements
         updateBillingToQuoteModel.request();
     }
 
-    private void requestCheckoutGestNew(){
+    private void requestCheckoutGestNew() {
         CheckOutGuestNewModel checkOutGuestNewModel = new CheckOutGuestNewModel();
         checkOutGuestNewModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null){
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
                     SimiManager.getIntance().backPreviousFragment();
                 }
@@ -327,11 +330,11 @@ public class ReviewOrderController extends SimiController implements
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                if(collection != null && collection.getCollection().size() > 0){
+                if (collection != null && collection.getCollection().size() > 0) {
                     QuoteEntity quoteEntity = (QuoteEntity) collection.getCollection().get(0);
-                    if(quoteEntity.getCustomer() != null){
+                    if (quoteEntity.getCustomer() != null) {
                         DataLocal.saveCustomerID(quoteEntity.getCustomer().getmCustomerID());
-                        DataLocal.saveCustomer(quoteEntity.getCustomer().getmCustomerFirstName(), quoteEntity.getCustomer().getmCustomerLastName(), quoteEntity.getCustomer().getmCustomerEmail(), "",quoteEntity.getCustomer().getmCustomerID());
+                        DataLocal.saveCustomer(quoteEntity.getCustomer().getmCustomerFirstName(), quoteEntity.getCustomer().getmCustomerLastName(), quoteEntity.getCustomer().getmCustomerEmail(), "", quoteEntity.getCustomer().getmCustomerID());
                     }
                 }
             }
@@ -341,7 +344,7 @@ public class ReviewOrderController extends SimiController implements
             checkOutGuestNewModel.addDataExtendURL(DataLocal.getQuoteCustomerNotSigin());
         }
 
-        if(mAfterControll == NewAddressBookFragment.NEW_CUSTOMER){
+        if (mAfterControll == NewAddressBookFragment.NEW_CUSTOMER) {
             checkOutGuestNewModel.addDataExtendURL("customer");
         }
 
@@ -359,7 +362,7 @@ public class ReviewOrderController extends SimiController implements
             checkOutGuestNewModel.addDataBody("address", param);
         }
 
-        if(mAfterControll == NewAddressBookFragment.NEW_CUSTOMER){
+        if (mAfterControll == NewAddressBookFragment.NEW_CUSTOMER) {
             String password = DataLocal.getPassword();
             checkOutGuestNewModel.addDataBody("password", password);
             checkOutGuestNewModel.addDataBody("create_new_customer", "1");
@@ -477,7 +480,7 @@ public class ReviewOrderController extends SimiController implements
             @Override
             public void onFail(SimiError error) {
                 mDelegate.dismissDialogLoading();
-                if(error != null){
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
                 }
             }
@@ -488,7 +491,7 @@ public class ReviewOrderController extends SimiController implements
                 SimiManager.getIntance().showNotify(null, "Couponcode was removed", "Ok");
                 checkCouponCode = false;
                 mDelegate.removeTextCouponCode();
-                if(collection != null && collection.getCollection().size() > 0){
+                if (collection != null && collection.getCollection().size() > 0) {
                     QuoteEntity quoteEntity = (QuoteEntity) collection.getCollection().get(0);
                     mDelegate.setTotalPrice(quoteEntity);
                 }
@@ -514,7 +517,7 @@ public class ReviewOrderController extends SimiController implements
             @Override
             public void onFail(SimiError error) {
                 mDelegate.dismissDialogLoading();
-                if(error != null){
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
                 }
             }
@@ -524,7 +527,7 @@ public class ReviewOrderController extends SimiController implements
                 mDelegate.dismissDialogLoading();
                 SimiManager.getIntance().showNotify(null, "Couponcode was applied", "Ok");
                 checkCouponCode = true;
-                if(collection != null && collection.getCollection().size() > 0){
+                if (collection != null && collection.getCollection().size() > 0) {
                     QuoteEntity quoteEntity = (QuoteEntity) collection.getCollection().get(0);
                     mDelegate.setTotalPrice(quoteEntity);
                 }
@@ -552,11 +555,11 @@ public class ReviewOrderController extends SimiController implements
             public void onClick(View v) {
                 SimiManager.getIntance().hideKeyboard();
                 if (isCompleteRequired()) {
-					PaymentMethod paymentMethod = getPaymentMethod(PaymentMethod
-							.getInstance().getPlacePaymentMethod());
-					if (paymentMethod != null) {
+                    PaymentMethod paymentMethod = getPaymentMethod(PaymentMethod
+                            .getInstance().getPlacePaymentMethod());
+                    if (paymentMethod != null) {
                         requestPlaceOrder(paymentMethod);
-					}
+                    }
                 }
             }
         };
@@ -578,7 +581,7 @@ public class ReviewOrderController extends SimiController implements
             @Override
             public void onFail(SimiError error) {
                 mDelegate.dismissLoading();
-                if(error != null){
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
                 }
             }
@@ -601,7 +604,7 @@ public class ReviewOrderController extends SimiController implements
                     controller.onStart();
                 }
 
-                if(collection != null && collection.getCollection().size() > 0){
+                if (collection != null && collection.getCollection().size() > 0) {
                     OrderEntity orderEntity = (OrderEntity) collection.getCollection().get(0);
                     ThankyouFragment fragment = ThankyouFragment.newInstance();
 
@@ -624,7 +627,7 @@ public class ReviewOrderController extends SimiController implements
                                         fragment);
                             }
                             break;
-                        case  2:
+                        case 2:
 //                            CheckoutData _CheckoutData2 = new CheckoutData();
 //                            _CheckoutData2
 //                                    .setInvoice_number(((PlaceOrderModel) mModel)
@@ -652,14 +655,24 @@ public class ReviewOrderController extends SimiController implements
                         case 3:
                             // update for payment showtype = 3
                             Log.e("ReviewOrderController", "case 3");
-                            CheckoutData _CheckoutData3 = new CheckoutData();
-                            _CheckoutData3.setPaymentMethod(paymentmethod);
-                            _CheckoutData3
-                                    .setInvoice_number(((PlaceOrderModel) mModel)
-                                            .getInvoiceNumber());
-                            _CheckoutData3.setOder(orderEntity);
-                            _CheckoutData3.setPaymentMethod(paymentmethod);
-                            EventCheckout event3 = new EventCheckout();
+                            Intent intent_3 = new Intent("com.simicart.after.placeorder.webview");
+                            Bundle bundle_3 = new Bundle();
+                            SimiEventCheckoutEntity entity_3 = new SimiEventCheckoutEntity();
+                            entity_3.setInvoiceNumber(((PlaceOrderModel) mModel)
+                                    .getInvoiceNumber());
+                            entity_3.setOder(orderEntity);
+                            entity_3.setPaymentMethod(paymentmethod);
+                            bundle_3.putSerializable(Constants.ENTITY, entity_3);
+                            intent_3.putExtra(Constants.DATA, bundle_3);
+                            Context context_3 = SimiManager.getIntance().getCurrentContext();
+                            LocalBroadcastManager.getInstance(context_3).sendBroadcastSync(intent_3);
+//                            CheckoutData _CheckoutData3 = new CheckoutData();
+//                            _CheckoutData3.setPaymentMethod(paymentmethod);
+//                            _CheckoutData3
+//                                    .setInvoice_number(((PlaceOrderModel) mModel)
+//                                            .getInvoiceNumber());
+//                            _CheckoutData3.setOder(orderEntity);
+//                            EventCheckout event3 = new EventCheckout();
 //                            event3.dispatchEvent(
 //                                    "com.simicart.after.placeorder.webview",
 //                                    _CheckoutData3);
@@ -690,9 +703,7 @@ public class ReviewOrderController extends SimiController implements
 
         if (!Config.getInstance().getQuoteCustomerSignIn().equals("")) {
             mModel.addDataExtendURL(Config.getInstance().getQuoteCustomerSignIn() + "?action=createorder");
-        }
-
-        if (!DataLocal.getQuoteCustomerNotSigin().equals("")) {
+        } else if (!DataLocal.getQuoteCustomerNotSigin().equals("")) {
             mModel.addDataExtendURL(DataLocal.getQuoteCustomerNotSigin() + "?action=createorder");
         }
 
@@ -709,7 +720,7 @@ public class ReviewOrderController extends SimiController implements
             return false;
         }
 
-        if(checkRequiedShipping){
+        if (checkRequiedShipping) {
             if (mShippingmethod != null && mShippingmethod.size() > 0) {
                 if (!isCheckShippingMethod()) {
                     Utils.expand(mDelegate.getLayoutShipping());
@@ -946,22 +957,22 @@ public class ReviewOrderController extends SimiController implements
         mDelegate.setInitViewPaymentMethod(paymentName);
     }
 
-    public void setTotalPrice(QuoteEntity quoteEntity){
+    public void setTotalPrice(QuoteEntity quoteEntity) {
         mDelegate.setTotalPrice(quoteEntity);
     }
 
-    public void setActionArrowUp(int type){
-        if(type == 0){
+    public void setActionArrowUp(int type) {
+        if (type == 0) {
             mDelegate.setActionArrowUp(0);
-        }else{
+        } else {
             mDelegate.setActionArrowUp(1);
         }
     }
 
-    public void setActionArrowDown(int type){
-        if(type == 0){
+    public void setActionArrowDown(int type) {
+        if (type == 0) {
             mDelegate.setActionArrowDown(0);
-        }else{
+        } else {
             mDelegate.setActionArrowDown(1);
         }
     }
