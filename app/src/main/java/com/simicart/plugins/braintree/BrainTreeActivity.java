@@ -3,7 +3,6 @@ package com.simicart.plugins.braintree;
 import org.json.JSONException;
 
 import com.google.android.gms.wallet.Cart;
-import com.google.android.gms.wallet.LineItem;
 import com.simicart.MainActivity;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.delegate.ModelDelegate;
@@ -23,8 +22,6 @@ import com.trueplus.simicart.braintreelibrary.exceptions.InvalidArgumentExceptio
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +31,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-public class BrainTreeSimicart extends Activity {
+public class BrainTreeActivity extends Activity {
 	
 	View rootView;
 	public String total = "0.0";
@@ -176,7 +173,7 @@ public class BrainTreeSimicart extends Activity {
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.setDuration(Toast.LENGTH_LONG);
 		toast.show();
-		Intent i = new Intent(BrainTreeSimicart.this, MainActivity.class);
+		Intent i = new Intent(BrainTreeActivity.this, MainActivity.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(i);

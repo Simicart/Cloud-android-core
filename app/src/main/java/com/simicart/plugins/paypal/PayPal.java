@@ -1,7 +1,5 @@
 package com.simicart.plugins.paypal;
 
-import java.util.ArrayList;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
-import com.simicart.MainActivity;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.entity.OrderEntity;
 import com.simicart.core.checkout.entity.PaymentMethod;
@@ -70,7 +67,7 @@ public class PayPal {
 
     public void callPayPalServer(PaymentMethod paymentMethod, OrderEntity order) {
         if (paymentMethod.getMethodCode().equals("paypal")) {
-            Intent intent = new Intent(this.context, PaypalSimicart.class);
+            Intent intent = new Intent(this.context, PaypalActivity.class);
 
             String client_id = paymentMethod.getClientId();
             intent.putExtra("EXTRA_CLIENT_ID", client_id);

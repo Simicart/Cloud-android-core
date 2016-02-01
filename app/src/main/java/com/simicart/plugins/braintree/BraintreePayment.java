@@ -25,7 +25,6 @@ public class BraintreePayment {
         BroadcastReceiver receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-
                 Bundle bundle = intent.getBundleExtra(Constants.DATA);
                 SimiEventCheckoutEntity entity = (SimiEventCheckoutEntity) bundle.getSerializable(Constants.ENTITY);
                 PaymentMethod payment = entity.getPaymentMethod();
@@ -41,7 +40,7 @@ public class BraintreePayment {
     public void callBrainTreeServer(PaymentMethod paymentMethod,
                                     OrderEntity order) {
         if (paymentMethod.getMethodCode().equals("braintree")) {
-            Intent intent = new Intent(this.mContext, BrainTreeSimicart.class);
+            Intent intent = new Intent(this.mContext, BrainTreeActivity.class);
             String totalPrice = "";
             totalPrice = String.valueOf(order.getGrandTotal());
             intent.putExtra("EXTRA_TOTAL_PRICE", totalPrice);
