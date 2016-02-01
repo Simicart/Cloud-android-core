@@ -1,9 +1,5 @@
-<events>
+
     <event>
-        <name>com.simicart.paymentmethod.placeorder</name>        	     
-	    <package>com.simicart.plugins.braintree</package>
-	    <class>BraintreePayment</class>
-	    <method>callBrainTreeServer</method>
+        <fullname>com.simicart.plugins.braintree.BraintreePayment</fullname>
 	    <sku>simi_developer</sku>
-    </event>                                     
-</events>
+    </event>

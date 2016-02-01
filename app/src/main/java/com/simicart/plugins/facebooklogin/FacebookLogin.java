@@ -61,6 +61,9 @@ public class FacebookLogin {
 
 	public FacebookLogin()
 	{
+
+		Log.e("FacebookLogin ","========> CONTRUCTOR");
+
 		Context context = SimiManager.getIntance().getCurrentContext();
 
 		// register event: create a fragment

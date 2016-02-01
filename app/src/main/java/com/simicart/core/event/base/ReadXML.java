@@ -52,7 +52,7 @@ public class ReadXML {
             InputSource inStream = new InputSource(inputStream);
             sp = spf.newSAXParser();
             xr = sp.getXMLReader();
-            ItemXMLHandler myXMLHandler = new ItemXMLHandler(tags, UtilsEvent.itemsList, mListSKU);
+            ItemXMLHandler myXMLHandler = new ItemXMLHandler(mListSKU);
             xr.setContentHandler(myXMLHandler);
             xr.parse(inStream);
         } catch (Exception e) {

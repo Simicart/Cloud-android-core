@@ -18,9 +18,7 @@ import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.customer.delegate.ChooseCountryDelegate;
 import com.simicart.core.customer.entity.MyAddress;
-import com.simicart.core.event.base.UtilsEvent;
 import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
-import com.simicart.core.store.entity.Stores;
 
 public class ListLanguageController extends SimiController {
 	protected OnItemClickListener mClicker;

@@ -660,9 +660,9 @@ public class ReviewOrderController extends SimiController implements
                             _CheckoutData3.setOder(orderEntity);
                             _CheckoutData3.setPaymentMethod(paymentmethod);
                             EventCheckout event3 = new EventCheckout();
-                            event3.dispatchEvent(
-                                    "com.simicart.after.placeorder.webview",
-                                    _CheckoutData3);
+//                            event3.dispatchEvent(
+//                                    "com.simicart.after.placeorder.webview",
+//                                    _CheckoutData3);
                             // end event
                             break;
                     }

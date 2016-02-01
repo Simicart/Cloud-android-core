@@ -88,7 +88,7 @@ public class AutoSignInController extends SimiController {
         } else {
             // event for face book
             EventController event = new EventController();
-            event.dispatchEvent("com.simicart.autoSignIn", typeSignIn);
+//            event.dispatchEvent("com.simicart.autoSignIn", typeSignIn);
         }
     }
 
