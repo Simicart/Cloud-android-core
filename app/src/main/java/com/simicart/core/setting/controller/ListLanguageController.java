@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -18,9 +17,7 @@ import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.customer.delegate.ChooseCountryDelegate;
 import com.simicart.core.customer.entity.MyAddress;
-import com.simicart.core.event.base.UtilsEvent;
 import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
-import com.simicart.core.store.entity.Stores;
 
 public class ListLanguageController extends SimiController {
 	protected OnItemClickListener mClicker;

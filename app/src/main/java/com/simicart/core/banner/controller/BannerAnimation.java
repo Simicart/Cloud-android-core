@@ -85,9 +85,9 @@ public class BannerAnimation {
 					if (lastX == currentX) {
 						// dispatch event for sent google analytic
 						EventController dispacth = new EventController();
-						dispacth.dispatchEvent(
-								"com.simicart.banner.touchEvent",
-								banner_ad.getUrl());
+//						dispacth.dispatchEvent(
+//								"com.simicart.banner.touchEvent",
+//								banner_ad.getUrl());
 						// end dispatch
 						SimiFragment fragment = null;
 						if (banner_ad.getType() != null) {

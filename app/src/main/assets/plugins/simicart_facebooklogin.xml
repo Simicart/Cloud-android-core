@@ -1,12 +1,8 @@
-<events>
+
     <event>
-        <name>com.simicart.core.customer.fragment.SignInFragment</name>	    
-	    <package>com.simicart.plugins.facebooklogin</package>
-	    <class>FacebookLogin</class>
-	    <method>createFragment</method>	
+        <fullname>com.simicart.plugins.facebooklogin.FacebookLogin</fullname>
 	    <sku>facebook-connect</sku>
     </event>
-</events>
     <!--<event>-->
         <!--<name>com.simicart.core.customer.fragment.SignInFragment</name>	    -->
 	    <!--<package>com.simicart.plugins.facebooklogin</package>-->

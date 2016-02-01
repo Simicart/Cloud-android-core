@@ -208,6 +208,7 @@ public class SimiManager {
         return eventFragment(fragment,"createFragment");
     }
     public SimiFragment eventFragment(SimiFragment fragment,String method) {
+
         String nameFragment = fragment.getClass().getName();
         Intent intent = new Intent(nameFragment);
         SimiEventFragmentEntity entity = new SimiEventFragmentEntity();
@@ -223,6 +224,7 @@ public class SimiManager {
         LocalBroadcastManager.getInstance(mCurrentContext).sendBroadcastSync(intent);
         fragment = entity.getFragment();
         return fragment;
+
     }
 
     public void addFragment(SimiFragment fragment) {

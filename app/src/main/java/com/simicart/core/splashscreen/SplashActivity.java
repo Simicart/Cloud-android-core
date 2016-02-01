@@ -53,8 +53,8 @@ public class SplashActivity extends Activity implements SplashDelegate {
 		CacheActivity cacheActivity = new CacheActivity();
 		cacheActivity.setActivity(this);
 		EventActivity dispacth = new EventActivity();
-		dispacth.dispatchEvent("com.simicart.splashscreen.onCreate",
-				cacheActivity);
+//		dispacth.dispatchEvent("com.simicart.splashscreen.onCreate",
+//				cacheActivity);
 		// end dispatch
 
 		// Update badge

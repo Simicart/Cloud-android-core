@@ -1,9 +1,8 @@
 package com.simicart.core.event.controller;
 
 import com.simicart.MainActivity;
-import com.simicart.core.event.base.SimiEvent;
 
-public class EventController extends SimiEvent {
+public class EventController  {
 
 	// event for aotologin
 //	public void dispatchEvent(String eventName, String typeSignIn,
@@ -15,18 +14,18 @@ public class EventController extends SimiEvent {
 //	}
 
 	// event for click banner
-	public void dispatchEvent(String eventName, String banner) {
-		Object[] objects = new Object[1];
-		objects[0] = banner;
-		super.disPatchEvent(eventName, objects, true);
-	}
-
-	// dippatchEvent for MainActivity
-	public void dispatchEvent(String eventName, MainActivity mainActivity) {
-
-		Object[] objects = new Object[1];
-		objects[0] = mainActivity;
-		super.disPatchEvent(eventName, objects, true);
-	}
+//	public void dispatchEvent(String eventName, String banner) {
+//		Object[] objects = new Object[1];
+//		objects[0] = banner;
+//		super.disPatchEvent(eventName, objects, true);
+//	}
+//
+//	// dippatchEvent for MainActivity
+//	public void dispatchEvent(String eventName, MainActivity mainActivity) {
+//
+//		Object[] objects = new Object[1];
+//		objects[0] = mainActivity;
+//		super.disPatchEvent(eventName, objects, true);
+//	}
 
 }

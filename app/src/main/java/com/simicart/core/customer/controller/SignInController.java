@@ -289,9 +289,9 @@ public class SignInController extends SimiController {
                 requestGetAllQuote();
 
                 EventController event = new EventController();
-                event.dispatchEvent(
-                        "com.simicart.core.customer.controller.SignInController",
-                        mModel.getJSON().toString());
+//                event.dispatchEvent(
+//                        "com.simicart.core.customer.controller.SignInController",
+//                        mModel.getJSON().toString());
 
                 if (isCheckout) {
                     SimiFragment fragment = null;

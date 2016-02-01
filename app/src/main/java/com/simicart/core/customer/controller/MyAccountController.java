@@ -125,9 +125,9 @@ public class MyAccountController extends SimiController {
 					showToastSignOut();
 					DataLocal.isNewSignIn = false;
 					EventController event = new EventController();
-					event.dispatchEvent(
-							"com.simicart.core.customer.controller.SignInController",
-							"");
+//					event.dispatchEvent(
+//							"com.simicart.core.customer.controller.SignInController",
+//							"");
 					DataLocal.saveSignInState(false);
 					DataLocal.clearEmailPassowrd();
 					ConfigCheckout.getInstance().setmQty("" + 0);

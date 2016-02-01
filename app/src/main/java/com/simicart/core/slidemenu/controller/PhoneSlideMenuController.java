@@ -201,8 +201,8 @@ public class PhoneSlideMenuController {
             slideMenuData.setItemNavigations(mItemsAccount);
             slideMenuData.setPluginFragment(mPluginFragment);
             EventSlideMenu eventSlideMenu = new EventSlideMenu();
-            eventSlideMenu.dispatchEvent("com.simicart.add.navigation.account",
-                    slideMenuData);
+//            eventSlideMenu.dispatchEvent("com.simicart.add.navigation.account",
+//                    slideMenuData);
 
             int index_category = checkElement(CATEGORY);
             if (DataLocal.isTablet) {
@@ -227,8 +227,8 @@ public class PhoneSlideMenuController {
         slideMenuData.setItemNavigations(mItems);
         slideMenuData.setPluginFragment(mPluginFragment);
         EventSlideMenu eventSlideMenu = new EventSlideMenu();
-        eventSlideMenu.dispatchEvent(
-                "com.simicart.remove.navigation.myaccount", slideMenuData);
+//        eventSlideMenu.dispatchEvent(
+//                "com.simicart.remove.navigation.myaccount", slideMenuData);
     }
 
     public void addHome() {
@@ -282,8 +282,8 @@ public class PhoneSlideMenuController {
         slideMenuData.setItemNavigations(mItems);
         slideMenuData.setPluginFragment(mPluginFragment);
         EventSlideMenu eventSlideMenu = new EventSlideMenu();
-        eventSlideMenu.dispatchEvent("com.simicart.add.navigation.more",
-                slideMenuData);
+//        eventSlideMenu.dispatchEvent("com.simicart.add.navigation.more",
+//                slideMenuData);
 
         // CMS
         addCMS();
