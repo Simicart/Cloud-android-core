@@ -41,16 +41,6 @@ public class BraintreePayment {
 
     }
 
-
-
-//    public BraintreePayment(String method, CheckoutData checkoutData) {
-//        this.context = MainActivity.context;
-//        if (method.equals("callBrainTreeServer")) {
-//            callBrainTreeServer(checkoutData.getPaymentMethod(),
-//                    checkoutData.getOder());
-//        }
-//    }
-
     public void callBrainTreeServer(PaymentMethod paymentMethod,
                                     OrderEntity order) {
         if (paymentMethod.getMethodCode().equals("braintree")) {
