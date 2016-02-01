@@ -1,9 +1,5 @@
-<events>
-    <event>
-        <name>com.simicart.paymentmethod.placeorder</name>
-	    <package>com.simicart.plugins.ipay</package>
-	    <class>Ipay</class>
-	    <method>callIpayServer</method>
-	    <sku>simi_developer</sku>	    	    
-    </event>                                     
-</events>
+<event>
+    <fullname>com.simicart.plugins.ipay.Ipay</fullname>
+    <sku>simi_developer</sku>
+</event>
+

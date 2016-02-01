@@ -1,9 +1,11 @@
 package com.simicart.plugins.ipay;
 
-import org.json.JSONException;
-
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -12,25 +14,39 @@ import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
+import com.simicart.core.checkout.entity.OrderEntity;
+import com.simicart.core.checkout.entity.PaymentMethod;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
-import com.simicart.core.event.checkout.CheckoutData;
+import com.simicart.core.event.checkout.SimiEventCheckoutEntity;
 import com.simicart.plugins.ipay.entity.IpayEntity;
 import com.simicart.plugins.ipay.model.GetIpayConfigModel;
 
 public class Ipay {
 	Context context;
 	
-	public Ipay(String method, CheckoutData checkoutData){
-		this.context = MainActivity.context;
-		if (method.equals("callIpayServer")) {
-			this.callIpayServer(checkoutData);
-		}
+
+	public Ipay()
+	{
+		IntentFilter filter = new IntentFilter("com.simicart.paymentmethod.placeorder");
+		BroadcastReceiver receiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				Bundle bundle = intent.getBundleExtra(Constants.DATA);
+				SimiEventCheckoutEntity entity = (SimiEventCheckoutEntity) bundle.getSerializable(Constants.ENTITY);
+				PaymentMethod payment = entity.getPaymentMethod();
+				OrderEntity order = entity.getOder();
+				callIpayServer(payment,order);
+			}
+		};
+		 context = SimiManager.getIntance().getCurrentContext();
+		LocalBroadcastManager.getInstance(context).registerReceiver(receiver,filter);
 	}
 	
-	public void callIpayServer(final CheckoutData checkoutData){
-		if(checkoutData.getPaymentMethod().getMethodCode().equals("ipay")) {
+	public void callIpayServer(PaymentMethod paymentMethod,final OrderEntity orderEntity){
+		if(paymentMethod.getMethodCode().equals("ipay")) {
 			GetIpayConfigModel model = new GetIpayConfigModel();
 			model.setDelegate(new ModelDelegate() {
 				@Override
@@ -64,8 +80,8 @@ public class Ipay {
 						if (Utils.validateString(entity.getCountry())) {
 							ipay.putExtra("EXTRA_COUNTRY", entity.getCountry());
 						}
-						ipay.putExtra("EXTRA_INVOICE", checkoutData.getOder().getID());
-						ipay.putExtra("EXTRA_AMOUNT", checkoutData.getOder().getGrandTotal());
+						ipay.putExtra("EXTRA_INVOICE", orderEntity.getID());
+						ipay.putExtra("EXTRA_AMOUNT", orderEntity.getGrandTotal());
 						ipay.putExtra("EXTRA_SANDBOX", entity.isSandBox());
 						if (Utils.validateString(entity.getUrl())) {
 							ipay.putExtra("EXTRA_URL", entity.getUrl());
@@ -83,7 +99,7 @@ public class Ipay {
 		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
 				.getText(message), Toast.LENGTH_LONG);
 		toast.setGravity(Gravity.CENTER, 0, 0);
-		toast.setDuration(10000);
+		toast.setDuration(Toast.LENGTH_LONG);
 		toast.show();
 	}
 }

@@ -1,9 +1,5 @@
-<events>    
+
     <event>
-        <name>com.simicart.after.placeorder.webview</name>
-	    <package>com.simicart.plugins.klarna</package>
-	    <class>Klarna</class>
-	    <method>onKlarna</method>
+        <fullname>com.simicart.plugins.klarna.Klarna</fullname>
 	    <sku>simi_developer</sku>	    	    
-    </event>                                     
-</events>
+    </event>
