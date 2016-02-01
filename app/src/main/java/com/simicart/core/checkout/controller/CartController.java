@@ -68,8 +68,9 @@ public class CartController extends SimiController {
 
     @Override
     public void onResume() {
-        mDelegate.updateView(mModel.getCollection());
-        mDelegate.onUpdateTotalPrice(mTotal);
+        request();
+//        mDelegate.updateView(mModel.getCollection());
+//        mDelegate.onUpdateTotalPrice(mTotal);
     }
 
     public void setDelegate(CartDelegate delegate) {

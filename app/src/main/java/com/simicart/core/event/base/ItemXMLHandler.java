@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.simicart.core.common.Utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -65,10 +66,25 @@ public class ItemXMLHandler extends DefaultHandler {
             item.setOrder(currentValue);
         } else if (localName.equalsIgnoreCase(this.tags)) {
             String sku = item.getSku();
-            Log.e("ItemXMLHandler ", "SKU " + sku);
             if (Utils.validateString(sku) && checkSKU(sku)) {
-                Log.e("ItemXMLHandler ", "NAME  " + item.getName());
-                        itemsList.add(item);
+                String packageName = item.getPackageName();
+                String className = item.getClassName();
+                String fullName = packageName + "." + className;
+                try {
+                    Class<?> change = Class.forName(fullName);
+                    change.getConstructor().newInstance();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                //itemsList.add(item);
             }
         }
 

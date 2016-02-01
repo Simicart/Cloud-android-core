@@ -167,7 +167,7 @@ public class CartListenerController implements CartAdapterDelegate {
 			@Override
 			public void onFail(SimiError error) {
 				mBlockDelegate.dismissDialogLoading();
-				if(error != null){
+				if (error != null) {
 					SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
 				}
 			}
@@ -202,6 +202,21 @@ public class CartListenerController implements CartAdapterDelegate {
 		ProductEntity productEntity = mCarts.get(position);
 		String productID = productEntity.getID();
 		mBlockDelegate.showDialogLoading();
+
+		int iqty = 0;
+		try {
+			iqty = Integer.parseInt(qty);
+		}catch (Exception e)
+		{
+
+		}
+
+		int previous = SimiManager.getIntance().getPreQty();
+		if(previous != iqty)
+		{
+			SimiManager.getIntance().setRefreshCart(true);
+		}
+
 
 		final EditCartItemModel model = new EditCartItemModel();
 		model.setDelegate(new ModelDelegate() {

@@ -3,16 +3,19 @@ package com.simicart.core.catalog.product.block;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.event.block.CacheBlock;
-import com.simicart.core.event.block.EventBlock;
+import com.simicart.core.event.block.SimiEventBlockEntity;
 import com.simicart.core.style.material.floatingactionbutton.FloatingActionButton;
 import com.simicart.core.style.material.floatingactionbutton.FloatingActionsMenu;
 
@@ -56,14 +59,19 @@ public class ProductMorePluginBlock extends SimiBlock {
 		for (int i = 0; i < mListButton.size(); i++) {
 			mMultipleActions.addButton(mListButton.get(i));
 		}
-		EventBlock event = new EventBlock();
-		CacheBlock cacheBlock = new CacheBlock();
-		cacheBlock.setBlock(this);
-		cacheBlock.setView(mView);
-		cacheBlock.setContext(mContext);
-		cacheBlock.setSimiEntity(mProduct);
-		event.dispatchEvent(
-				"com.simicart.core.catalog.product.block.ProductMorePluginBlock",
-				cacheBlock);
+
+		Intent intent = new Intent("com.simicart.core.catalog.product.block.ProductMorePluginBlock");
+		SimiEventBlockEntity blockEntity = new SimiEventBlockEntity();
+		blockEntity.setView(mView);
+		blockEntity.setEntity(mProduct);
+		blockEntity.setContext(mContext);
+		blockEntity.setBlock(this);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(Constants.ENTITY, blockEntity);
+		intent.putExtra(Constants.DATA, bundle);
+		LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+
+
+
 	}
 }

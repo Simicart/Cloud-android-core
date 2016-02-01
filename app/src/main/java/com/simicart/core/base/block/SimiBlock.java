@@ -2,7 +2,10 @@ package com.simicart.core.base.block;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +13,9 @@ import android.view.ViewGroup;
 import com.simicart.core.base.delegate.SimiDelegate;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.event.block.CacheBlock;
-import com.simicart.core.event.block.EventBlock;
+import com.simicart.core.event.block.SimiEventBlockEntity;
 
 public class SimiBlock implements SimiDelegate {
 	protected View mView;
@@ -80,13 +83,18 @@ public class SimiBlock implements SimiDelegate {
 	}
 
 	public void event(String name, SimiCollection collection) {
-		CacheBlock cacheBlock = new CacheBlock();
-		cacheBlock.setBlock(this);
-		cacheBlock.setView(mView);
-		cacheBlock.setContext(mContext);
-		cacheBlock.setSimiCollection(collection);
-		EventBlock eventBlock = new EventBlock();
-		eventBlock.dispatchEvent(name, cacheBlock);
+		Intent intent = new Intent(name);
+		Bundle bundle = new Bundle();
+		SimiEventBlockEntity entity = new SimiEventBlockEntity();
+		entity.setBlock(this);
+		entity.setView(mView);
+		entity.setContext(mContext);
+		entity.setSimiCollection(collection);
+		bundle.putSerializable(Constants.ENTITY, entity);
+		bundle.putString(Constants.METHOD, "createBlock");
+		intent.putExtra(Constants.DATA, bundle);
+		LocalBroadcastManager.getInstance(mContext).sendBroadcastSync(intent);
+
 	}
 
 	public View id(String id) {

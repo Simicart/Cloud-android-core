@@ -13,6 +13,8 @@ public class Constants {
 	public static String DATA = "data";
 	public static String STATUS = "status";
 	public static String MESSAGE = "message";
+	public static String ENTITY = "entity";
+	public static String METHOD = "method";
 
 	// tag json category
 	public static String CATEGORY_ID = "category_id";

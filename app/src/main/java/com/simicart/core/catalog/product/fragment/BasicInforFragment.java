@@ -1,6 +1,8 @@
 package com.simicart.core.catalog.product.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,13 +16,12 @@ import android.view.ViewGroup.LayoutParams;
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
-import com.simicart.core.common.price.BasicInfoPriceView;
 import com.simicart.core.common.price.ProductDetailPriceView;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.event.block.CacheBlock;
-import com.simicart.core.event.block.EventBlock;
+import com.simicart.core.event.block.SimiEventBlockEntity;
 
 public class BasicInforFragment extends SimiFragment {
     protected ProductEntity mProduct;
@@ -91,12 +92,15 @@ public class BasicInforFragment extends SimiFragment {
 
         SimiCollection simiCollection = new SimiCollection();
         simiCollection.setJSON(mProduct.getJSONObject());
-        CacheBlock cache = new CacheBlock();
-        cache.setSimiCollection(simiCollection);
-        cache.setView(rootView);
-        EventBlock event = new EventBlock();
-        event.dispatchEvent(
-                "com.simicart.core.catalog.fragment.BasicInforFragment", cache);
+        Intent intent = new Intent("com.simicart.core.catalog.fragment.BasicInforFragment");
+        SimiEventBlockEntity blockEntity = new SimiEventBlockEntity();
+        blockEntity.setSimiCollection(simiCollection);
+        blockEntity.setView(rootView);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ENTITY, blockEntity);
+        intent.putExtra(Constants.DATA, bundle);
+        LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
+
 
         rootView.setBackgroundColor(Config.getInstance().getApp_backrground());
 
