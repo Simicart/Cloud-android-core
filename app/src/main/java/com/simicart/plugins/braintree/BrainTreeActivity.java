@@ -22,6 +22,7 @@ import com.trueplus.simicart.braintreelibrary.exceptions.InvalidArgumentExceptio
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,152 +33,140 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class BrainTreeActivity extends Activity {
-	
-	View rootView;
-	public String total = "0.0";
-	public String orderID = "";
-	public String token = "";
-	private BraintreeFragment mBraintreeFragment;
 
-	SimiDelegate mDelegate;
+    View rootView;
+    public String total = "0.0";
+    public String orderID = "";
+    public String token = "";
+    private BraintreeFragment mBraintreeFragment;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		rootView = new LinearLayout(getApplicationContext());
-		setContentView(rootView, new LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.MATCH_PARENT));
+    SimiDelegate mDelegate;
 
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			total = extras.getString("EXTRA_TOTAL_PRICE");
-			orderID = extras.getString("EXTRA_INVOICE_NUMBER");
-		}
-		mDelegate = new SimiBlock(rootView, MainActivity.context);
-		getAuthorization();
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        rootView = new LinearLayout(this);
+        setContentView(rootView, new LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
 
-	public void getAuthorization() {
-		BraintreeGetTokenModel model = new BraintreeGetTokenModel();
-		mDelegate.showLoading();
-		model.setDelegate(new ModelDelegate() {
-			@Override
-			public void onFail(SimiError error) {
-				if (error != null) {
-					mDelegate.dismissLoading();
-					SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
-				}
-			}
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            total = extras.getString("EXTRA_TOTAL_PRICE");
+            orderID = extras.getString("EXTRA_INVOICE_NUMBER");
+        }
+        mDelegate = new SimiBlock(rootView, this);
+        getAuthorization();
+    }
 
-			@Override
-			public void onSuccess(SimiCollection collection) {
-				mDelegate.dismissLoading();
-				SimiEntity entity = collection.getCollection().get(0);
-				token = ((TokenEntity) entity).getToken();
-				Log.e("BrainTreeSimiCart", "++" + token);
-				//setup();
-				onBuyPressed();
-			}
-		});
-		model.request();
-	}
+    public void getAuthorization() {
+        BraintreeGetTokenModel model = new BraintreeGetTokenModel();
+        mDelegate.showLoading();
+        model.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+                if (error != null) {
+                    mDelegate.dismissLoading();
+                    SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
+                }
+            }
 
-	private void setup() {
-		try {
-			String authorization;
-			if (Settings.useTokenizationKey(this)) {
-				authorization = Settings.getEnvironmentTokenizationKey(this);
-			} else {
-				authorization = token;
-			}
-			mBraintreeFragment = BraintreeFragment.newInstance(this, authorization);
-		} catch (InvalidArgumentException e) {
-			//showDialog(e.getMessage());
-		}
-	}
-	
-	public void onBuyPressed() {
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoading();
+                SimiEntity entity = collection.getCollection().get(0);
+                token = ((TokenEntity) entity).getToken();
+                onBuyPressed();
+            }
+        });
+        model.request();
+    }
 
-			PaymentRequest paymentRequest = new PaymentRequest()
-				.clientToken(token)
-				.androidPayCart(getAndroidPayCart())
-				.primaryDescription("Cart")
-				.secondaryDescription(Config.getInstance().getText("Order ID: ") + orderID)
-				.amount(total + " " + Config.getInstance().getCurrency_code());
 
-			startActivityForResult(paymentRequest.getIntent(this), 123);
-	}
+    public void onBuyPressed() {
 
-	private Cart getAndroidPayCart() {
-		return Cart.newBuilder()
-				.setCurrencyCode(Config.getInstance().getCurrency_code())
-				.setTotalPrice(total)
-				.build();
-	}
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 123) {
-			Log.e("onActivityResult", "++" + resultCode);
-			switch (resultCode) {
-			case RESULT_OK:
-				String paymentMethodNonce = data.getStringExtra(BraintreePaymentActivity.EXTRA_PAYMENT_METHOD_NONCE);
-				Log.e("PaymentMethod", "++" + paymentMethodNonce);
-				if(paymentMethodNonce != null) {
-					try {
-						requestUpdateBrainTree(paymentMethodNonce, orderID);
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-				break;
-			default:
-				changeView(Config.getInstance().getText("FAIL"));
-				break;
-			}
-		}
-	}
+        PaymentRequest paymentRequest = new PaymentRequest()
+                .clientToken(token)
+                .androidPayCart(getAndroidPayCart())
+                .primaryDescription("Cart")
+                .secondaryDescription(Config.getInstance().getText("Order ID: ") + orderID)
+                .amount(total + " " + Config.getInstance().getCurrency_code());
 
-	@SuppressLint("NewApi")
-	public void requestUpdateBrainTree(String nonce, String orderID) throws JSONException {
-		mDelegate.showLoading();
-		BrainTreeModel mModel = new BrainTreeModel();
-		ModelDelegate delegate = new ModelDelegate() {
+        startActivityForResult(paymentRequest.getIntent(this), 123);
+    }
 
-			@Override
-			public void onFail(SimiError error) {
-				mDelegate.dismissLoading();
-				if(error != null){
-					SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
-				}
-			}
+    private Cart getAndroidPayCart() {
+        return Cart.newBuilder()
+                .setCurrencyCode(Config.getInstance().getCurrency_code())
+                .setTotalPrice(total)
+                .build();
+    }
 
-			@Override
-			public void onSuccess(SimiCollection collection) {
-				mDelegate.dismissLoading();
-				changeView(Config.getInstance().getText("SUCCESS"));
-			}
-		};
-		mModel.setDelegate(delegate);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 123) {
+            switch (resultCode) {
+                case RESULT_OK:
+                    String paymentMethodNonce = data.getStringExtra(BraintreePaymentActivity.EXTRA_PAYMENT_METHOD_NONCE);
+                    if (paymentMethodNonce != null) {
+                        try {
+                            requestUpdateBrainTree(paymentMethodNonce, orderID);
+                        } catch (JSONException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                    break;
+                default:
+                    showMessage(Config.getInstance().getText("FAIL"));
+                    backToHome();
+                    break;
+            }
+        }
+    }
 
-		mModel.addDataBody("nonce", nonce);
-		mModel.addDataBody("order_id", orderID);
-		mModel.request();
-	}
-	
-	public void changeView(String message) {
-		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
-				.getText(message), Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER, 0, 0);
-		toast.setDuration(Toast.LENGTH_LONG);
-		toast.show();
-		Intent i = new Intent(BrainTreeActivity.this, MainActivity.class);
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(i);
-		finish();
-	}
+    @SuppressLint("NewApi")
+    public void requestUpdateBrainTree(String nonce, String orderID) throws JSONException {
+        mDelegate.showLoading();
+        BrainTreeModel mModel = new BrainTreeModel();
+        ModelDelegate delegate = new ModelDelegate() {
+
+            @Override
+            public void onFail(SimiError error) {
+                mDelegate.dismissLoading();
+                if (error != null) {
+                    SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
+                }
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoading();
+                showMessage(Config.getInstance().getText("SUCCESS"));
+                backToHome();
+            }
+        };
+        mModel.setDelegate(delegate);
+
+        mModel.addDataBody("nonce", nonce);
+        mModel.addDataBody("order_id", orderID);
+        mModel.request();
+    }
+
+    public void showMessage(String message) {
+        Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
+                .getText(message), Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    public void backToHome() {
+        Intent i = new Intent(BrainTreeActivity.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
+    }
 
 }
