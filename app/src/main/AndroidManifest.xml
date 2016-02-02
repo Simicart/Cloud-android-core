@@ -48,7 +48,8 @@
     <uses-permission
         android:name="android.permission.VIBRATE"
         android:required="false" />
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"
+    <uses-permission
+        android:name="android.permission.GET_ACCOUNTS"
         android:required="false" />
     <uses-permission
         android:name="android.permission.READ_PHONE_STATE"
@@ -91,8 +92,8 @@
         android:name="com.magestore.simicart.permission.C2D_MESSAGE"
         android:protectionLevel="signature"
         android:required="false" />
-    <uses-permission
-        android:name="com.magestore.simicart.permission.C2D_MESSAGE" />
+
+    <uses-permission android:name="com.magestore.simicart.permission.C2D_MESSAGE" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -145,16 +146,16 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-        android:name="com.simicart.plugins.ipay.IpaySimiCart"
-        android:configChanges="keyboardHidden|orientation|screenSize"
-        android:label="@string/app_name"
-        android:windowSoftInputMode="stateHidden|adjustResize"></activity>
+            android:name="com.simicart.plugins.ipay.IpaySimiCart"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity
-        android:name="com.ipay.IpayAcitivity"
-        android:configChanges="orientation|screenSize" />
+            android:name="com.ipay.IpayAcitivity"
+            android:configChanges="orientation|screenSize" />
         <activity
-        android:name="com.ipay.IpayAcitivityR"
-        android:configChanges="orientation|screenSize" />
+            android:name="com.ipay.IpayAcitivityR"
+            android:configChanges="orientation|screenSize" />
         <!--<activity-->
         <!--android:name="com.simicart.plugins.youtube.activity.YoutubePlayerActivity"-->
         <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
@@ -191,8 +192,29 @@
         <activity
             android:name="com.simicart.plugins.ccavanue.activity.WebViewActivity"
             android:configChanges="orientation|screenSize"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
+
+        <!--PayUIndia-->
+        <activity
+            android:name="com.simicart.plugins.payuindia.activity.PayUIndiaActivity"
+            android:configChanges="orientation|screenSize"
+            android:label="@string/app_name"></activity>
+        <activity
+            android:name="com.simicart.plugins.payuindia.activity.PayUBaseActivity"
+            android:configChanges="orientation|keyboard|screenSize"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.simicart.plugins.payuindia.activity.PaymentsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity android:name="com.simicart.plugins.payuindia.activity.PayUEmiActivity" />
+        <activity android:name="com.simicart.plugins.payuindia.activity.PayUCreditDebitCardActivity" />
+        <activity android:name="com.simicart.plugins.payuindia.activity.PayUCashCardActivity" />
+        <activity android:name="com.simicart.plugins.payuindia.activity.PayUNetBankingActivity" />
+        <activity
+            android:name="com.simicart.plugins.payuindia.activity.PayUStoredCardsActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <!--EndPayUIndia-->
 
         <receiver
             android:name="com.simicart.core.notification.GCMReceiver"
