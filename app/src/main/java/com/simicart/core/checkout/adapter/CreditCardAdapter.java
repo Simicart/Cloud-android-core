@@ -27,7 +27,7 @@ public class CreditCardAdapter extends AbstractWheelTextAdapter {
 				NO_RESOURCE);
 		JSONArray cc_types = null;
 		try {
-			cc_types = new JSONArray(mPaymentMethod.getData("cc_types"));
+			cc_types = new JSONArray(mPaymentMethod.getData("card_type"));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -37,9 +37,9 @@ public class CreditCardAdapter extends AbstractWheelTextAdapter {
 			for (int i = 0; i < cc_types.length(); i++) {
 				try {
 					this.cards[i] = cc_types.getJSONObject(i).getString(
-							"cc_name");
+							"title");
 					this.flags[i] = this.getIcon(cc_types.getJSONObject(i)
-							.getString("cc_code"));
+							.getString("code"));
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
@@ -51,19 +51,19 @@ public class CreditCardAdapter extends AbstractWheelTextAdapter {
 	public int getIcon(String code) {
 		int back = Rconfig.getInstance().drawable("card_diners");
 		switch (code) {
-		case "VI":
+		case "visa":
 			back = Rconfig.getInstance().drawable("vi");
 			break;
-		case "AE":
+		case "american_express":
 			back = Rconfig.getInstance().drawable("ae");
 			break;
-		case "MC":
+		case "masterCard":
 			back = Rconfig.getInstance().drawable("mc");
 			break;
 		case "JCB":
 			back = Rconfig.getInstance().drawable("jcb");
 			break;
-		case "DI":
+		case "discover":
 			back = Rconfig.getInstance().drawable("di");
 			break;
 		default:

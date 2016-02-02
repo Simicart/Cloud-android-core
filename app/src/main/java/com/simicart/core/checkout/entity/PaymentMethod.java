@@ -4,6 +4,8 @@ import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Constants;
 
+import org.json.JSONArray;
+
 public class PaymentMethod extends SimiEntity {
 	protected int mshowType = -1;
 	protected String mTitle;

@@ -1,11 +1,15 @@
 package com.simicart.core.config;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.simicart.core.base.manager.SimiManager;
+import com.simicart.core.checkout.entity.CreditcardEntity;
+import com.simicart.core.checkout.entity.ObjectSerializer;
 import com.simicart.core.checkout.entity.QuoteEntity;
 import com.simicart.core.cms.entity.Cms;
 import com.simicart.core.customer.entity.ConfigCustomerAddress;
@@ -49,6 +53,8 @@ public class DataLocal {
     public static ArrayList<CurrencyEntity> listCurrency;
     public static ProfileEntity mCustomer;
     public static ArrayList<LocaleConfigEntity> listLocale;
+    private static String EMAIL_CARD_CREDIT_CARD = "EmailCardCreditCard";
+    private static String SIMI_CREDIT_CARD = "SimiCreditCard";
 
     public static void init(Context context) {
         mContext = context;
@@ -248,6 +254,49 @@ public class DataLocal {
         SharedPreferences.Editor editor = mSharedPre.edit();
         editor.putString(TYPE_SIGNIN, type);
         editor.commit();
+    }
+
+    public static void saveEmailCreditCart(String email) {
+        SharedPreferences.Editor editor = mSharedPre.edit();
+        editor.putString(EMAIL_CARD_CREDIT_CARD, email);
+        editor.commit();
+    }
+
+    public static String getEmailCreditCart() {
+        String email = "";
+        if (DataLocal.isSignInComplete()) {
+            email = mSharedPre.getString(EMAIL_CARD_CREDIT_CARD, "");
+        }
+        return email;
+    }
+
+    public static void saveHashMapCreditCart(
+            HashMap<String, HashMap<String, CreditcardEntity>> hashMap) {
+        SharedPreferences.Editor editor = mSharedPre.edit();
+        try {
+            editor.putString(SIMI_CREDIT_CARD,
+                    ObjectSerializer.serialize(hashMap));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        editor.commit();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static HashMap<String, HashMap<String, CreditcardEntity>> getHashMapCreditCart() {
+        HashMap<String, HashMap<String, CreditcardEntity>> creditCard = null;
+        try {
+            creditCard = (HashMap<String, HashMap<String, CreditcardEntity>>) ObjectSerializer
+                    .deserialize(mSharedPre.getString(
+                            SIMI_CREDIT_CARD,
+                            ObjectSerializer
+                                    .serialize(new HashMap<String, HashMap<String, CreditcardEntity>>())));
+        } catch (ClassNotFoundException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return creditCard;
     }
 
     public static String getTypeSignIn() {
