@@ -92,12 +92,22 @@ public class HomeZThemeAdapter extends BaseExpandableListAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         if (holder.tv_catename != null) {
-            if (mCategories.get(groupPosition).getCategoryName() == null
-                    || mCategories.get(groupPosition).getCategoryName().equals("")) {
-                holder.tv_catename.setVisibility(View.GONE);
+            holder.tv_catename.setVisibility(View.VISIBLE);
+            CategoryZTheme categoryZTheme = mCategories.get(groupPosition);
+            SpotProductZTheme spotProductZTheme = mCategories.get(groupPosition)
+                    .getSpotProductZTheme();
+            if (categoryZTheme.getType() == CategoryZTheme.TYPE_CAT) {
+                if (Utils.validateString(categoryZTheme.getCategoryName())) {
+                    holder.tv_catename.setVisibility(View.GONE);
+                } else {
+                    holder.tv_catename.setText(categoryZTheme.getCategoryName());
+                }
             } else {
-                holder.tv_catename.setText(mCategories.get(groupPosition)
-                        .getCategoryName());
+                if(Utils.validateString(spotProductZTheme.getName())){
+                    holder.tv_catename.setText(spotProductZTheme.getName());
+                }else {
+                    holder.tv_catename.setVisibility(View.GONE);
+                }
             }
         }
         String url = "";
@@ -109,18 +119,18 @@ public class HomeZThemeAdapter extends BaseExpandableListAdapter {
                 url = object.getPhoneImage();
             }
         } else {
-            SpotProductZTheme object = mCategories.get(groupPosition)
+            SpotProductZTheme spotProductZTheme = mCategories.get(groupPosition)
                     .getSpotProductZTheme();
-            url = object.getImage();
+            url = spotProductZTheme.getImage();
         }
         if (Utils.validateString(url)) {
             if (holder.img_category != null) {
                 DrawableManager.fetchDrawableOnThread(url,
                         holder.img_category);
-            }else{
+            } else {
                 holder.img_category.setImageResource(Rconfig.getInstance().drawable("default_logo"));
             }
-        }else{
+        } else {
             holder.img_category.setImageResource(Rconfig.getInstance().drawable("default_logo"));
         }
         return convertView;
