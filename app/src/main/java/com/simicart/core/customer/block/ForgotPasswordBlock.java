@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
+import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.delegate.ForgotPasswordDelegate;
 import com.simicart.core.material.ButtonRectangle;
@@ -72,8 +74,11 @@ public class ForgotPasswordBlock extends SimiBlock implements
 		// Email Field
 		edt_Email = (EditText) mView.findViewById(Rconfig.getInstance().id(
 				"et_email"));
+		if(DataLocal.isLanguageRTL){
+			edt_Email.setGravity(Gravity.RIGHT);
+		}
 		edt_Email.setHint(Config.getInstance().getText("Email"));
-		
+
 		lable_email.setTextColor(Config.getInstance().getContent_color());
 		edt_Email.setTextColor(Config.getInstance().getContent_color());
 		edt_Email.setHintTextColor(Config.getInstance().getHintContent_color());
