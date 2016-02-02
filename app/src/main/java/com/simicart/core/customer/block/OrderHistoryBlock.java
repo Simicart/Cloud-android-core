@@ -30,109 +30,106 @@ import com.simicart.core.customer.entity.OrderHisDetail;
 import com.simicart.core.customer.entity.OrderHistory;
 
 public class OrderHistoryBlock extends SimiBlock implements
-		OrderHistoryDelegate {
+        OrderHistoryDelegate {
 
-	protected ListView listview_order_history;
-	protected OrderHisAdapter mAdapter;
-	protected View mLoadMore;
+    protected ListView listview_order_history;
+    protected OrderHisAdapter mAdapter;
+    protected View mLoadMore;
 
-	public OrderHistoryBlock(View view, Context context) {
-		super(view, context);
-	}
+    public OrderHistoryBlock(View view, Context context) {
+        super(view, context);
+    }
 
-	public void setItemClicker(OnItemClickListener clicker) {
-		listview_order_history.setOnItemClickListener(clicker);
-	}
+    public void setItemClicker(OnItemClickListener clicker) {
+        listview_order_history.setOnItemClickListener(clicker);
+    }
 
-	public void setScrollListener(OnScrollListener listener) {
-		listview_order_history.setOnScrollListener(listener);
-	}
+    public void setScrollListener(OnScrollListener listener) {
+        listview_order_history.setOnScrollListener(listener);
+    }
 
-	protected void showNotifyEmpty() {
-		TextView tv_empty = new TextView(mContext);
-		LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
-				LayoutParams.MATCH_PARENT);
-		params.addRule(RelativeLayout.CENTER_IN_PARENT);
-		tv_empty.setGravity(Gravity.CENTER);
-		tv_empty.setText(Config.getInstance().getText("Order history is empty"));
-		tv_empty.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-		tv_empty.setTextColor(Config.getInstance().getContent_color());
-		((LinearLayout) mView).addView(tv_empty, params);
-	}
+    protected void showNotifyEmpty() {
+        TextView tv_empty = new TextView(mContext);
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        tv_empty.setGravity(Gravity.CENTER);
+        tv_empty.setText(Config.getInstance().getText("Order history is empty"));
+        tv_empty.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        tv_empty.setTextColor(Config.getInstance().getContent_color());
+        ((LinearLayout) mView).addView(tv_empty, params);
+    }
 
-	@Override
-	public void initView() {
-		listview_order_history = (ListView) mView.findViewById(Rconfig
-				.getInstance().id("list_order"));
-		ColorDrawable sage = new ColorDrawable(Config.getInstance()
-				.getLine_color());
-		listview_order_history.setDivider(sage);
-		listview_order_history.setDividerHeight(1);
-	}
+    @Override
+    public void initView() {
+        listview_order_history = (ListView) mView.findViewById(Rconfig
+                .getInstance().id("list_order"));
+        ColorDrawable sage = new ColorDrawable(Config.getInstance()
+                .getLine_color());
+        listview_order_history.setDivider(sage);
+        listview_order_history.setDividerHeight(1);
+    }
 
-	@Override
-	public void drawView(SimiCollection collection) {
+    @Override
+    public void drawView(SimiCollection collection) {
+        OrderHistory entity = (OrderHistory) collection.getCollection().get(0);
+        if (entity != null) {
+            ArrayList<OrderHisDetail> orderHisDetails = new ArrayList<>();
+            orderHisDetails = entity.getmOrders();
+            if (orderHisDetails.size() > 0) {
+                if (null == mAdapter) {
+                    mAdapter = new OrderHisAdapter(mContext, orderHisDetails);
+                    listview_order_history.setAdapter(mAdapter);
+                } else {
+                    mAdapter.setOrderHis(orderHisDetails);
+                    mAdapter.notifyDataSetChanged();
+                }
+            } else {
+                showNotifyEmpty();
+            }
 
-		OrderHistory entity = (OrderHistory)collection.getCollection().get(0);
-		Log.e("OrderHistoryBlock", "++" + entity.toString());
-		if (entity != null) {
-			ArrayList<OrderHisDetail> orderHisDetails = new ArrayList<>();
-			orderHisDetails = entity.getmOrders();
-			Log.e("OrderHistoryBlock", "++" + orderHisDetails.size());
-			if (orderHisDetails.size() > 0) {
-				if (null == mAdapter) {
-					mAdapter = new OrderHisAdapter(mContext, orderHisDetails);
-					listview_order_history.setAdapter(mAdapter);
-				} else {
-					mAdapter.setOrderHis(orderHisDetails);
-					mAdapter.notifyDataSetChanged();
-				}
-			} else {
-				showNotifyEmpty();
-			}
+        } else {
+            showNotifyEmpty();
+        }
+    }
 
-		} else {
-			showNotifyEmpty();
-		}
-	}
+    @SuppressLint("InflateParams")
+    @Override
+    public void addFooterView() {
+        LayoutInflater inflater = (LayoutInflater) listview_order_history
+                .getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLoadMore = inflater.inflate(
+                Rconfig.getInstance().layout("core_loading_list"), null, false);
+        removeFooterView();
+        listview_order_history.post(new Runnable() {
+            @Override
+            public void run() {
+                listview_order_history.addFooterView(mLoadMore);
 
-	@SuppressLint("InflateParams")
-	@Override
-	public void addFooterView() {
-		LayoutInflater inflater = (LayoutInflater) listview_order_history
-				.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mLoadMore = inflater.inflate(
-				Rconfig.getInstance().layout("core_loading_list"), null, false);
-		removeFooterView();
-		listview_order_history.post(new Runnable() {
-			@Override
-			public void run() {
-				listview_order_history.addFooterView(mLoadMore);
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                    int lastViewedPosition = listview_order_history
+                            .getFirstVisiblePosition();
+                    View v = listview_order_history.getChildAt(0);
+                    int topOffset = (v == null) ? 0 : v.getTop();
 
-				if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-					int lastViewedPosition = listview_order_history
-							.getFirstVisiblePosition();
-					View v = listview_order_history.getChildAt(0);
-					int topOffset = (v == null) ? 0 : v.getTop();
+                    listview_order_history.setAdapter(mAdapter);
+                    listview_order_history.setSelectionFromTop(
+                            lastViewedPosition, topOffset);
+                }
+            }
+        });
 
-					listview_order_history.setAdapter(mAdapter);
-					listview_order_history.setSelectionFromTop(
-							lastViewedPosition, topOffset);
-				}
-			}
-		});
+    }
 
-	}
-
-	@Override
-	public void removeFooterView() {
-		listview_order_history.post(new Runnable() {
-			@Override
-			public void run() {
-				while (listview_order_history.getFooterViewsCount() > 0) {
-					listview_order_history.removeFooterView(mLoadMore);
-				}
-			}
-		});
-	}
+    @Override
+    public void removeFooterView() {
+        listview_order_history.post(new Runnable() {
+            @Override
+            public void run() {
+                while (listview_order_history.getFooterViewsCount() > 0) {
+                    listview_order_history.removeFooterView(mLoadMore);
+                }
+            }
+        });
+    }
 }
