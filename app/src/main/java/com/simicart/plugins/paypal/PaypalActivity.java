@@ -6,7 +6,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,17 +32,12 @@ import com.simicart.MainActivity;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.delegate.SimiDelegate;
-import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
-import com.simicart.core.checkout.entity.OrderEntity;
-import com.simicart.core.checkout.fragment.ThankyouFragment;
 import com.simicart.core.config.Config;
-import com.simicart.core.config.DataLocal;
-import com.simicart.core.customer.entity.OrderHisDetail;
 import com.simicart.plugins.paypal.model.PaypalModel;
 
-public class PaypalSimicart extends Activity {
+public class PaypalActivity extends Activity {
 
 	View rootView;
 	public static String CONFIG_CLIENT_ID = "AbwLSxDR0lE1ksdFL7YxfJlQ8VVmFCIbvoiO6adhbjb5vw2bWcJNnWXn";
@@ -103,25 +97,25 @@ public class PaypalSimicart extends Activity {
 		if(payment_action.equals("0")){
 			PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
 			thingToBuy.bnCode(bncode);
-			Intent intent = new Intent(PaypalSimicart.this, PaymentActivity.class);
+			Intent intent = new Intent(PaypalActivity.this, PaymentActivity.class);
 			intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
 			startActivityForResult(intent, REQUEST_CODE_PAYMENT);
 		}else if(payment_action.equals("1")){
 			PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_AUTHORIZE);
 			thingToBuy.bnCode(bncode);
-			Intent intent = new Intent(PaypalSimicart.this, PaymentActivity.class);
+			Intent intent = new Intent(PaypalActivity.this, PaymentActivity.class);
 			intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
 			startActivityForResult(intent, REQUEST_CODE_PAYMENT);
 		}else if(payment_action.equals("2")){
 			PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_ORDER);
 			thingToBuy.bnCode(bncode);
-			Intent intent = new Intent(PaypalSimicart.this, PaymentActivity.class);
+			Intent intent = new Intent(PaypalActivity.this, PaymentActivity.class);
 			intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
 			startActivityForResult(intent, REQUEST_CODE_PAYMENT);
 		}else{
 			PayPalPayment thingToBuy = getThingToBuy(PayPalPayment.PAYMENT_INTENT_SALE);
 			thingToBuy.bnCode(bncode);
-			Intent intent = new Intent(PaypalSimicart.this, PaymentActivity.class);
+			Intent intent = new Intent(PaypalActivity.this, PaymentActivity.class);
 			intent.putExtra(PaymentActivity.EXTRA_PAYMENT, thingToBuy);
 			startActivityForResult(intent, REQUEST_CODE_PAYMENT);
 		}
@@ -153,7 +147,7 @@ public class PaypalSimicart extends Activity {
 			}
 		} else if (resultCode == Activity.RESULT_CANCELED) {
 			requestUpdatePaypalCancel(invoice_number, "2");
-			Intent i = new Intent(PaypalSimicart.this, MainActivity.class);
+			Intent i = new Intent(PaypalActivity.this, MainActivity.class);
 			i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(i);
@@ -327,7 +321,7 @@ public class PaypalSimicart extends Activity {
 		toast.setGravity(Gravity.CENTER, 0, 0);
 		toast.setDuration(10000);
 		toast.show();
-		Intent i = new Intent(PaypalSimicart.this, MainActivity.class);
+		Intent i = new Intent(PaypalActivity.this, MainActivity.class);
 		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(i);
