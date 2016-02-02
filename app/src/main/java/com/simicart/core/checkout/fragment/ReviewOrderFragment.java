@@ -87,14 +87,10 @@ public class ReviewOrderFragment extends SimiFragment {
 		mBlock = new ReviewOrderBlock(view, context);
 		mBlock.initView();
 		
-//		LinearLayout list_shiping = (LinearLayout) view.findViewById(Rconfig
-//				.getInstance().id("ll_shipping"));
 		mShippingBlock = new ShippingBlock(view, context);
 		mShippingBlock.initView();
 		mShippingBlock.setDelegate(mBlock);
 		
-//		LinearLayout list_payment = (LinearLayout) view.findViewById(Rconfig
-//				.getInstance().id("ll_payment"));
 		mPaymentMethodBlock = new PaymentMethodBlock(view, context);
 		mPaymentMethodBlock.initView();
 		mPaymentMethodBlock.setDelegate(mBlock);
