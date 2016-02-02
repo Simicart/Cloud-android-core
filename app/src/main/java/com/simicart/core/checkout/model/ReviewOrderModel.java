@@ -39,14 +39,13 @@ public class ReviewOrderModel extends SimiModel {
 	protected void paserData() {
 		super.paserData();
 		if(mJSONResult != null){
-			Log.e("ReviewOrderModel", mJSONResult.toString());
 			if(mJSONResult.has("quote")){
 				try {
 					JSONObject quoteArr = mJSONResult.getJSONObject("quote");
-					QuoteEntity cart = new QuoteEntity();
-					cart.setJSONObject(quoteArr);
-					cart.parse();
-					collection.addEntity(cart);
+					QuoteEntity quoteEntity = new QuoteEntity();
+					quoteEntity.setJSONObject(quoteArr);
+					quoteEntity.parse();
+					collection.addEntity(quoteEntity);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}

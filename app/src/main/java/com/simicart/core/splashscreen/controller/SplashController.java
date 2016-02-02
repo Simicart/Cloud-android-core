@@ -9,6 +9,7 @@ import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.common.ReadXMLLanguage;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.event.base.ReadXML;
@@ -69,7 +70,9 @@ public class SplashController {
             @Override
             public void onSuccess(SimiCollection collection) {
                 String ids = idsModel.getIDs();
-                getSKUPlugin(ids);
+                if (Utils.validateString(ids)) {
+                    getSKUPlugin(ids);
+                }
             }
         });
 
