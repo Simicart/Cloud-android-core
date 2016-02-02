@@ -28,7 +28,6 @@ public class UpdateShippingToQuoteModel extends SimiModel {
         super.paserData();
         if (mJSONResult != null) {
             if (mJSONResult.has("shipping")) {
-                Log.e("UpdateShppingToQuoteModel", mJSONResult.toString());
                 try {
                     JSONArray shippingArr = mJSONResult.getJSONArray("shipping");
                     if (shippingArr != null && shippingArr.length() > 0) {

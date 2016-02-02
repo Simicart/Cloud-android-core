@@ -264,14 +264,6 @@ public class ReviewOrderBlock extends SimiBlock implements ReviewOrderDelegate {
 		});
 	}
 
-	@Override
-	public void onUpdateAddress(MyAddress address) {
-
-	}
-
-	@Override
-	public void setShipingMethods(ArrayList<ShippingMethod> shippingMethods) {
-	}
 
 	@Override
 	public void setConditions(final ArrayList<Condition> conditions) {
