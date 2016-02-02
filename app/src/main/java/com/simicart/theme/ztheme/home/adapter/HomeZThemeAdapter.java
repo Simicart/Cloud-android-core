@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.simicart.core.catalog.category.entity.Category;
 import com.simicart.core.common.DrawableManager;
 import com.simicart.core.common.Utils;
+import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.theme.ztheme.home.entity.CategoryZTheme;
 import com.simicart.theme.ztheme.home.entity.SpotProductZTheme;
@@ -103,8 +104,12 @@ public class HomeZThemeAdapter extends BaseExpandableListAdapter {
 		}
 		String url = "";
 		if (mCategories.get(groupPosition).getType() == CategoryZTheme.TYPE_CAT) {
-			final Category object = mCategories.get(groupPosition);
-			url = object.getCategoryImage();
+			final CategoryZTheme object = mCategories.get(groupPosition);
+			if(DataLocal.isTablet){
+				url = object.getTabImage();
+			}else {
+				url = object.getPhoneImage();
+			}
 		} else {
 			SpotProductZTheme object = mCategories.get(groupPosition)
 					.getSpotProductZTheme();
