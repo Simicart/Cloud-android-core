@@ -2,21 +2,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
-    <RelativeLayout
+    <com.simicart.core.material.LayoutRipple
         android:id="@+id/rl_language"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_line_border" >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/im_language"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_lang" />
 
         <TextView
@@ -41,7 +40,7 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:id="@+id/ic_language_extend"
+            android:id="@+id/im_language_extend"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
@@ -49,21 +48,26 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_extend"
             android:visibility="gone" />
-    </RelativeLayout>
+    </com.simicart.core.material.LayoutRipple>
 
-    <RelativeLayout
+    <View
+        android:id="@+id/v_language"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E8E8E8" />
+
+    <com.simicart.core.material.LayoutRipple
         android:id="@+id/rl_currency"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_line_border" >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/im_currency"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_currency" />
 
         <TextView
@@ -88,7 +92,7 @@
             android:textSize="16sp" />
 
         <ImageView
-            android:id="@+id/tv_currency_extend"
+            android:id="@+id/im_currency_extend"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
@@ -96,21 +100,27 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_extend"
             android:visibility="gone" />
-    </RelativeLayout>
+    </com.simicart.core.material.LayoutRipple>
+
+    <View
+        android:id="@+id/v_currency"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E8E8E8" />
 
     <RelativeLayout
         android:id="@+id/rl_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_line_border" >
+        android:background="#FFFFFF">
 
         <ImageView
             android:id="@+id/im_notification"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_notification" />
 
         <TextView
@@ -125,8 +135,8 @@
 
         <ToggleButton
             android:id="@+id/tb_notification"
-            android:layout_width="48dp"
-            android:layout_height="26dp"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
@@ -137,19 +147,24 @@
             android:textOn="" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <View
+        android:id="@+id/v_notification"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E8E8E8" />
+
+    <com.simicart.core.material.LayoutRipple
         android:id="@+id/rl_locator"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bottom_line_border" >
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/im_locator"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_location_setting" />
 
         <TextView
@@ -163,7 +178,7 @@
             android:textSize="18sp" />
 
         <ImageView
-            android:id="@+id/ic_locator_extend"
+            android:id="@+id/im_locator_extend"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
@@ -171,6 +186,18 @@
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_extend"
             android:visibility="gone" />
-    </RelativeLayout>
+    </com.simicart.core.material.LayoutRipple>
+
+    <View
+        android:id="@+id/v_locator"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E8E8E8" />
+
+    <View
+        android:id="@+id/v_under"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF" />
 
 </LinearLayout>
