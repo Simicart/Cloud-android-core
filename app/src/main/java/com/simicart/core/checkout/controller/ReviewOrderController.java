@@ -344,6 +344,7 @@ public class ReviewOrderController extends SimiController implements
 
         checkOutGuestNewModel.addDataExtendURL("customer");
 
+
         String email = "";
         if(mShippingAddress != null && !mShippingAddress.getEmail().equals("")){
             email = mShippingAddress.getEmail();
@@ -365,9 +366,10 @@ public class ReviewOrderController extends SimiController implements
             String password = DataLocal.getPassword();
             checkOutGuestNewModel.addDataBody("password", password);
             checkOutGuestNewModel.addDataBody("create_new_customer", "1");
-        } else if(mAfterControll == NewAddressBookFragment.NEW_AS_GUEST){
+        } else if (mAfterControll == NewAddressBookFragment.NEW_AS_GUEST) {
             checkOutGuestNewModel.addDataBody("create_new_customer", "0");
         }
+
 
         checkOutGuestNewModel.request();
     }
