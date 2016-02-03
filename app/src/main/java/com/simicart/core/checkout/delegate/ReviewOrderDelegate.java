@@ -14,9 +14,6 @@ import com.simicart.core.customer.entity.MyAddress;
 
 public interface ReviewOrderDelegate extends SimiDelegate {
 
-	public void onUpdateAddress(MyAddress address);
-
-	public void setShipingMethods(ArrayList<ShippingMethod> shippingMethods);
 
 	public void setConditions(ArrayList<Condition> conditions);
 
