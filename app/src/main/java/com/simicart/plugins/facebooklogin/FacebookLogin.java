@@ -78,8 +78,6 @@ public class FacebookLogin {
                 } else if (method.equals("onActivityResult")) {
                     onActivityResult();
                 }
-
-
             }
         };
         LocalBroadcastManager.getInstance(context).registerReceiver(fragment_receiver, fragment_filter);
@@ -173,35 +171,7 @@ public class FacebookLogin {
                     @Override
                     public void onCompleted(JSONObject object,
                                             GraphResponse response) {
-                        String name = "";
-                        String email = "";
-                        String id = "";
-                        try {
-                            if (object.has("id")) {
-                                id = object.getString("id");
-                            }
-                            if (object.has("name")) {
-                                name = object.getString("name");
-                            }
-                            if (object.has("email")) {
-                                email = object
-                                        .getString("email");
-                            } else {
-                                email = id + "@facebook.com";
-                            }
-                            if (email.length() > 0
-                                    && mSignInFragment != null) {
-                                requestFaceBookSignIn(
-                                        email,
-                                        name,
-                                        mSignInFragment
-                                                .getController()
-                                                .getIsCheckout());
-                            }
-                        } catch (Exception e) {
-                            Log.e("FacebookLogin:",
-                                    "Get Information");
-                        }
+                        processResultLogin(object);
                     }
                 });
         Bundle parameters = new Bundle();
@@ -210,6 +180,41 @@ public class FacebookLogin {
         request.setParameters(parameters);
         request.executeAsync();
     }
+
+    private void processResultLogin(JSONObject json) {
+        String name = "";
+        String email = "";
+        String id = "";
+        try {
+            if (json.has("id")) {
+                id = json.getString("id");
+            }
+            if (json.has("name")) {
+                name = json.getString("name");
+            }
+            if (json.has("email")) {
+                email = json
+                        .getString("email");
+            } else {
+                email = id + "@facebook.com";
+            }
+            if (email.length() > 0
+                    && mSignInFragment != null) {
+
+                boolean isCheckout = mSignInFragment
+                        .getController()
+                        .getIsCheckout();
+                requestFaceBookSignIn(
+                        email,
+                        name,
+                        isCheckout);
+            }
+        } catch (Exception e) {
+            Log.e("FacebookLogin:",
+                    "Get Information");
+        }
+    }
+
 
     private void requestFaceBookSignIn(String facebook_email, String facebook_name,
                                        final boolean checkOut) {
@@ -257,7 +262,6 @@ public class FacebookLogin {
                         lastname = entity.getLastName();
 
                     if (null != name) {
-                        Log.e("FacebookLogin", name + " " + email);
                         DataLocal.saveData(name, email);
                         DataLocal.saveCustomerID(customerID);
                         DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
@@ -320,8 +324,9 @@ public class FacebookLogin {
                         }
 
                         if (listQuote.size() > 0) {
-                            Config.getInstance().setQuoteCustomerSignIn(listQuote.get(0).getID());
-                            SimiManager.getIntance().onUpdateCartQty(String.valueOf(listQuote.get(0).getQty()));
+                            QuoteEntity firstQuote = listQuote.get(0);
+                            Config.getInstance().setQuoteCustomerSignIn(firstQuote.getID());
+                            SimiManager.getIntance().onUpdateCartQty(String.valueOf(firstQuote.getQty()));
                         }
 
                         if (Config.getInstance().getQuoteCustomerSignIn().equals("")) {

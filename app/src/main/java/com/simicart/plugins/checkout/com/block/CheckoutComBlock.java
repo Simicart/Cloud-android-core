@@ -9,7 +9,6 @@ import android.widget.Spinner;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-import com.magestore.simicart.R;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;

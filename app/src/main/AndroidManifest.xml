@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.magestore.simicart">
+    package="com.simicart">
 
     <supports-screens
         android:anyDensity="true"
@@ -89,11 +89,11 @@
         android:required="false" />
 
     <permission
-        android:name="com.magestore.simicart.permission.C2D_MESSAGE"
+        android:name="com.simicart.permission.C2D_MESSAGE"
         android:protectionLevel="signature"
         android:required="false" />
 
-    <uses-permission android:name="com.magestore.simicart.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.simicart.permission.C2D_MESSAGE" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
@@ -226,7 +226,7 @@
                 <!-- Receives the registration id. -->
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
 
-                <category android:name="com.magestore.simicart" />
+                <category android:name="com.simicart" />
             </intent-filter>
         </receiver>
         <!--

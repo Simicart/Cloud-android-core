@@ -19,7 +19,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.magestore.simicart.R;
+import com.simicart.R;
 import com.simicart.MainActivity;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
