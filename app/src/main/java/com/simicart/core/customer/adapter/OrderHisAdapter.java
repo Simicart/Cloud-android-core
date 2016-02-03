@@ -112,9 +112,15 @@ public class OrderHisAdapter extends BaseAdapter {
 				Rconfig.getInstance().drawable("core_bullet"));
 		bullet.setColorFilter(Config.getInstance().getContent_color(),
 				PorterDuff.Mode.SRC_ATOP);
-		item1.setCompoundDrawablesWithIntrinsicBounds(bullet, null, null, null);
-		item2.setCompoundDrawablesWithIntrinsicBounds(bullet, null, null, null);
-		item3.setCompoundDrawablesWithIntrinsicBounds(bullet, null, null, null);
+		if(DataLocal.isLanguageRTL){
+			item1.setCompoundDrawablesWithIntrinsicBounds(null, null, bullet, null);
+			item2.setCompoundDrawablesWithIntrinsicBounds(null, null, bullet, null);
+			item3.setCompoundDrawablesWithIntrinsicBounds(null, null, bullet, null);
+		}else {
+			item1.setCompoundDrawablesWithIntrinsicBounds(bullet, null, null, null);
+			item2.setCompoundDrawablesWithIntrinsicBounds(bullet, null, null, null);
+			item3.setCompoundDrawablesWithIntrinsicBounds(bullet, null, null, null);
+		}
 		item1.setTextColor(Config.getInstance().getContent_color());
 		item2.setTextColor(Config.getInstance().getContent_color());
 		item3.setTextColor(Config.getInstance().getContent_color());

@@ -111,8 +111,7 @@ public class ShippingMethodBlock extends SimiBlock implements ShippingDelegate {
 					incl_tax = null;
 				}
 
-				if (incl_tax == null || incl_tax.equals("")
-						|| incl_tax.equals("null")) {
+				if (incl_tax == null) {
 					tx_price.setText(Config.getInstance().getPrice(price));
 					tx_price.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
 				} else {
@@ -155,9 +154,7 @@ public class ShippingMethodBlock extends SimiBlock implements ShippingDelegate {
 				rl_value.setLayoutParams(lp);
 				rl_shipping.addView(rl_value);
 
-				if (i == (list_shippingMethods.size() - 1)) {
-
-				} else {
+				if (i != (list_shippingMethods.size() - 1)) {
 					rl_value.setBackgroundResource(Rconfig.getInstance()
 							.drawable("bottom_line_border"));
 				}
