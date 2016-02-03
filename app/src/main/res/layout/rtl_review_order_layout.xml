@@ -340,7 +340,7 @@
                         android:id="@+id/shipping_methods"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/ic_expand"
                         android:gravity="right"
@@ -385,7 +385,7 @@
                         android:id="@+id/tv_payment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/ic_expand_payment"
                         android:gravity="right"
@@ -493,7 +493,7 @@
                         android:id="@+id/image_remove_couponcode"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentLeft="true"
                         android:src="@drawable/core_exit" />
 
                     <EditText
@@ -507,7 +507,7 @@
                         android:gravity="right"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:layout_toLeftOf="@+id/image_remove_couponcode"
+                        android:layout_toRightOf="@+id/image_remove_couponcode"
                         android:textSize="15sp" />
 
                 </RelativeLayout>

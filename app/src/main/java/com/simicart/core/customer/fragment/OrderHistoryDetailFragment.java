@@ -59,19 +59,6 @@ public class OrderHistoryDetailFragment extends SimiFragment {
 		mBlock = new OrderHistoryDetailBlock(rootView, context);
 		mBlock.setOrderHisDetail(orderHisDetail);
 		mBlock.initView();
-//		if (null == mController) {
-//			mController = new OrderHistoryDetailController();
-//			mController.setID(mID);
-//			mController.setDelegate(mBlock);
-//			mController.setReOrderDelegate(mBlock);
-//			mController.onStart();
-//		} else {
-//			mController.setDelegate(mBlock);
-//			mController.setReOrderDelegate(mBlock);
-//			mController.onResume();
-//		}
-//		mBlock.setOnTouchReOrder(mController.getReOrderClicker());
 		return rootView;
 	}
-
 }
