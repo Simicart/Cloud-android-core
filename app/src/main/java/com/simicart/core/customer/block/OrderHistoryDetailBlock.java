@@ -261,17 +261,24 @@ public class OrderHistoryDetailBlock extends SimiBlock implements
             TextView p_couponCode = (TextView) mView.findViewById(Rconfig
                     .getInstance().id("p_couponCode"));
             p_couponCode.setTextColor(Config.getInstance().getContent_color());
-            if (orderHisDetail.getmCouponCode() == null
-                    || orderHisDetail.getmCouponCode().equals("")) {
+            if(orderHisDetail.getmCoupon() != null && orderHisDetail.getmCoupon().size() > 0) {
+                String couponCode = orderHisDetail.getmCoupon().get(0);
+                if (Utils.validateString(couponCode)) {
+                    p_couponCode.setText(Config.getInstance()
+                            .getText("Coupon Code")
+                            + ": "
+                            + couponCode);
+                } else {
+                    p_couponCode.setText(Config.getInstance()
+                            .getText("Coupon Code")
+                            + ": "
+                            + Config.getInstance().getText("NONE").toUpperCase());
+                }
+            }else{
                 p_couponCode.setText(Config.getInstance()
                         .getText("Coupon Code")
                         + ": "
                         + Config.getInstance().getText("NONE").toUpperCase());
-            } else {
-                p_couponCode.setText(Config.getInstance()
-                        .getText("Coupon Code")
-                        + ": "
-                        + orderHisDetail.getmCouponCode());
             }
 
             // Fee detail
