@@ -159,9 +159,9 @@ public class CartListenerController implements CartAdapterDelegate {
 	}
 
 	protected void requestDeleteItemCart(int position){
+		mBlockDelegate.showDialogLoading();
 		ProductEntity productEntity = mCarts.get(position);
 		String productID = productEntity.getID();
-		mBlockDelegate.showDialogLoading();
 		DeleteCartItemModel mModelDelete = new DeleteCartItemModel();
 		mModelDelete.setDelegate(new ModelDelegate() {
 			@Override
@@ -199,10 +199,9 @@ public class CartListenerController implements CartAdapterDelegate {
 	}
 
 	protected void editItemCart(final int position, String qty) {
+		mBlockDelegate.showDialogLoading();
 		ProductEntity productEntity = mCarts.get(position);
 		String productID = productEntity.getID();
-		mBlockDelegate.showDialogLoading();
-
 		int iqty = 0;
 		try {
 			iqty = Integer.parseInt(qty);
