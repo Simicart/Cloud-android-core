@@ -90,13 +90,29 @@ public class PayUFragment extends SimiFragment {
 		return rootView;
 	}
 
-	public void showToastMessage(String message) {
-		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
-				.getText(message), Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER, 0, 0);
-		toast.setDuration(Toast.LENGTH_LONG);
-		toast.show();
+	public void getUrlRedirect() {
+		mDelegate.showLoading();
+		final GetUrlModel model = new GetUrlModel();
+		model.setDelegate(new ModelDelegate() {
+			@Override
+			public void onFail(SimiError error) {
+				mDelegate.dismissLoading();
+			}
+
+			@Override
+			public void onSuccess(SimiCollection collection) {
+				mDelegate.dismissLoading();
+				String url = model.getUrl();
+				Log.e("PayUFragment", "++" + url);
+				openWebview(url);
+			}
+		});
+		Log.e("PayUFragment", "++" + orderID);
+		model.addDataBody("order_id", orderID);
+		model.request();
 	}
+
+
 
 	public void openWebview(String url) {
 		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
@@ -140,26 +156,15 @@ public class PayUFragment extends SimiFragment {
 		});
 	}
 
-	public void getUrlRedirect() {
-		mDelegate.showLoading();
-		final GetUrlModel model = new GetUrlModel();
-		model.setDelegate(new ModelDelegate() {
-			@Override
-			public void onFail(SimiError error) {
-				mDelegate.dismissLoading();
-			}
 
-			@Override
-			public void onSuccess(SimiCollection collection) {
-				mDelegate.dismissLoading();
-				String url = model.getUrl();
-				Log.e("PayUFragment", "++" + url);
-				openWebview(url);
-			}
-		});
-		Log.e("PayUFragment", "++" + orderID);
-		model.addDataBody("order_id", orderID);
-		model.request();
+	public void showToastMessage(String message) {
+		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
+				.getText(message), Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.setDuration(Toast.LENGTH_LONG);
+		toast.show();
 	}
+
+
 
 }
