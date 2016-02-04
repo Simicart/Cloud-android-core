@@ -193,7 +193,8 @@ public class PaypalActivity extends Activity {
             @Override
             public void onFail(SimiError error) {
                 if (error != null) {
-                    changeView(error.getMessage());
+                    showMessage(error.getMessage());
+                    changeView();
                 }
             }
 
@@ -216,7 +217,8 @@ public class PaypalActivity extends Activity {
 //						SimiManager.getIntance().replaceFragment(
 //								fragment);
 //					}
-                    changeView("Thank you for your purchase!");
+                    showMessage("Thank you for your purchase!");
+                    changeView();
                 }
             }
 
@@ -225,48 +227,57 @@ public class PaypalActivity extends Activity {
         mModel.addDataExtendURL("update-paypal-payment");
         // get JSON
 
-        JSONObject js_client = jsonObject.getJSONObject("client");
-        String environment = js_client.getString("environment");
-        String product_name = js_client.getString("product_name");
-        String paypal_sdk_version = js_client.getString("paypal_sdk_version");
-        String platform = js_client.getString("platform");
+//        JSONObject js_client = jsonObject.getJSONObject("client");
+//        String environment = js_client.getString("environment");
+//        String product_name = js_client.getString("product_name");
+//        String paypal_sdk_version = js_client.getString("paypal_sdk_version");
+//        String platform = js_client.getString("platform");
+//
+//        String response_type = jsonObject.getString("response_type");
+//
+//        JSONObject js_response = jsonObject.getJSONObject("response");
+//        String id = js_response.getString("id");
+//        String state = js_response.getString("state");
+//        String create_time = js_response.getString("create_time");
+//        String intent = js_response.getString("intent");
+//
+//        // put
+//        List<NameValuePair> param_response_type = new ArrayList<NameValuePair>();
+//        param_response_type.add(new BasicNameValuePair("response_type", ""
+//                + response_type + ""));
+//        JSONObject os_proof = endCode(param_response_type);
+//
+//        List<NameValuePair> o_client = new ArrayList<NameValuePair>();
+//        o_client.add(new BasicNameValuePair("environment", "" + environment
+//                + ""));
+//        o_client.add(new BasicNameValuePair("product_name", "" + product_name
+//                + ""));
+//        o_client.add(new BasicNameValuePair("paypal_sdk_version", ""
+//                + paypal_sdk_version + ""));
+//        o_client.add(new BasicNameValuePair("platform", "" + platform + ""));
+//        JSONObject os_client = endCode(o_client);
+//
+//        List<NameValuePair> o_response = new ArrayList<NameValuePair>();
+//        o_response.add(new BasicNameValuePair("id", "" + id + ""));
+//        o_response.add(new BasicNameValuePair("state", "" + state + ""));
+//        o_response.add(new BasicNameValuePair("create_time", "" + create_time
+//                + ""));
+//        o_response.add(new BasicNameValuePair("intent", "" + intent + ""));
+//        JSONObject os_response = endCode(o_response);
+//
+//        os_proof.put("client", os_client);
+//        os_proof.put("response", os_response);
+        // mModel.addDataBody("proof", os_proof);
 
+
+        JSONObject data = new JSONObject();
         String response_type = jsonObject.getString("response_type");
-
-        JSONObject js_response = jsonObject.getJSONObject("response");
-        String id = js_response.getString("id");
-        String state = js_response.getString("state");
-        String create_time = js_response.getString("create_time");
-        String intent = js_response.getString("intent");
-
-        // put
-        List<NameValuePair> param_response_type = new ArrayList<NameValuePair>();
-        param_response_type.add(new BasicNameValuePair("response_type", ""
-                + response_type + ""));
-        JSONObject os_proof = endCode(param_response_type);
-
-        List<NameValuePair> o_client = new ArrayList<NameValuePair>();
-        o_client.add(new BasicNameValuePair("environment", "" + environment
-                + ""));
-        o_client.add(new BasicNameValuePair("product_name", "" + product_name
-                + ""));
-        o_client.add(new BasicNameValuePair("paypal_sdk_version", ""
-                + paypal_sdk_version + ""));
-        o_client.add(new BasicNameValuePair("platform", "" + platform + ""));
-        JSONObject os_client = endCode(o_client);
-
-        List<NameValuePair> o_response = new ArrayList<NameValuePair>();
-        o_response.add(new BasicNameValuePair("id", "" + id + ""));
-        o_response.add(new BasicNameValuePair("state", "" + state + ""));
-        o_response.add(new BasicNameValuePair("create_time", "" + create_time
-                + ""));
-        o_response.add(new BasicNameValuePair("intent", "" + intent + ""));
-        JSONObject os_response = endCode(o_response);
-
-        os_proof.put("client", os_client);
-        os_proof.put("response", os_response);
-
-        mModel.addDataBody("proof", os_proof);
+        data.put("response_type",response_type);
+        JSONObject dataClient = jsonObject.getJSONObject("client");
+        data.put("client", dataClient);
+        JSONObject dataResponse = jsonObject.getJSONObject("response");
+        data.put("response", dataResponse);
+        mModel.addDataBody("proof", data);
         mModel.addDataBody("order_id", "" + invoice_number + "");
         mModel.addDataBody("payment_status", "" + payment_status + "");
         mModel.request();
@@ -283,14 +294,16 @@ public class PaypalActivity extends Activity {
             @Override
             public void onFail(SimiError error) {
                 if (error != null) {
-                    changeView(error.getMessage());
+                    showMessage(error.getMessage());
+                    changeView();
                 }
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
-                changeView(Config.getInstance().getText("Your order has been canceled"));
+                showMessage("Your order has been canceled");
+                changeView();
             }
         };
         mModel.setDelegate(delegate);
@@ -300,12 +313,16 @@ public class PaypalActivity extends Activity {
         mModel.request();
     }
 
-    public void changeView(String message) {
+    private void showMessage(String message) {
         Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
                 .getText(message), Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
+    }
+
+
+    public void changeView() {
         Intent i = new Intent(PaypalActivity.this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
