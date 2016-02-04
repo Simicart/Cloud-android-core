@@ -60,10 +60,12 @@ public class GeneralConfigEntity extends SimiEntity {
 
             if (mJSON.has(locale)) {
                 mLocale = getData(locale);
+                Log.e("GeneralConfigEntity", mLocale);
             }
 
             if(mJSON.has(locale_app)){
                 try {
+                    Log.e("GeneralConfigEntity", mJSON.getJSONArray("locale_app").toString());
                     JSONArray locateAr = mJSON.getJSONArray("locale_app");
                     if (null != locateAr && locateAr.length() > 0) {
                         mLocaleApp = new ArrayList<LocaleConfigEntity>();

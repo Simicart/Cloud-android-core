@@ -678,6 +678,7 @@ public class ReviewOrderController extends SimiController implements
         int showtype = paymentMethod.getShow_type();
         switch (showtype) {
             case 1:
+                Log.e("ReviewOrderController", "type 1");
                 ThankyouFragment fragment = ThankyouFragment.newInstance();
                 fragment.setMessage(Config.getInstance().getText("Thank you for your purchase!"));
                 fragment.setInvoice_number(String.valueOf(orderEntity.getSeqNo()));
@@ -694,9 +695,11 @@ public class ReviewOrderController extends SimiController implements
                 }
                 break;
             case 2:
-                dispatchEventForPlaceOrder("com.simicart.paymentmethod.placeorder",orderEntity,paymentMethod);
+                Log.e("ReviewOrderController", "type 2");
+                dispatchEventForPlaceOrder("com.simicart.paymentmethod.placeorder", orderEntity, paymentMethod);
                 break;
             case 3:
+                Log.e("ReviewOrderController", "type 3");
                 dispatchEventForPlaceOrder("com.simicart.after.placeorder.webview",orderEntity,paymentMethod);
                 break;
         }
