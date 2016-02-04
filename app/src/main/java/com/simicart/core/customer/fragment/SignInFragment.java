@@ -109,6 +109,6 @@ public class SignInFragment extends SimiFragment {
 		this.resultCode = resultCode;
 		this.data = data;
 
-		SimiManager.getIntance().eventFragment(this);
+		SimiManager.getIntance().eventFragment(this,"onActivityResult");
 	}
 }

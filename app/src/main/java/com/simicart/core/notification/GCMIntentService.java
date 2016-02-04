@@ -30,7 +30,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 
-import com.magestore.simicart.R;
+import com.simicart.R;
 import com.simicart.MainActivity;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
