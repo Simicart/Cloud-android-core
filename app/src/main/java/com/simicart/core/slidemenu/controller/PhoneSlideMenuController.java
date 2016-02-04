@@ -298,7 +298,7 @@ public class PhoneSlideMenuController {
                 if (null != name && !name.equals("null")) {
                     item.setName(name);
                 }
-                String url = cms.getIcon();
+                String url = cms.getIconURL();
                 if (null != url && !url.equals("null")) {
                     item.setUrl(url);
                 }

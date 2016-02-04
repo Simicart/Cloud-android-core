@@ -4,12 +4,17 @@ import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Constants;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Cms extends SimiEntity {
 	String _id;
 	String title;
 	String key;
 	String icon;
 	String content;
+	String iconID;
+	String iconURL;
 	boolean enable;
 	int seq_no;
 	String updated_at;
@@ -32,6 +37,15 @@ public class Cms extends SimiEntity {
 
 			if(mJSON.has("icon")){
 				icon = getData("icon");
+				if(Utils.validateString(icon)){
+					try {
+						JSONObject icon = mJSON.getJSONObject("icon");
+						iconID = icon.getString("_id");
+						iconURL = icon.getString("url");
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
 			}
 
 			if(mJSON.has("content")){
@@ -129,5 +143,21 @@ public class Cms extends SimiEntity {
 
 	public void setEnable(boolean enable) {
 		this.enable = enable;
+	}
+
+	public String getIconID() {
+		return iconID;
+	}
+
+	public void setIconID(String iconID) {
+		this.iconID = iconID;
+	}
+
+	public String getIconURL() {
+		return iconURL;
+	}
+
+	public void setIconURL(String iconURL) {
+		this.iconURL = iconURL;
 	}
 }

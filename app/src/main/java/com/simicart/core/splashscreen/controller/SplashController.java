@@ -153,8 +153,10 @@ public class SplashController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                SimiEntity entity = collection.getCollection().get(0);
-                DataLocal.listCms = ((CMSPageEntity) entity).getPage();
+                if(collection != null && collection.getCollection().size() > 0){
+                    SimiEntity entity = collection.getCollection().get(0);
+                    DataLocal.listCms = ((CMSPageEntity) entity).getPage();
+                }
             }
         });
 
@@ -173,11 +175,13 @@ public class SplashController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                SimiEntity entity = collection.getCollection().get(0);
-                ConfigEntity configEntity = (ConfigEntity) entity;
-                Config.getInstance().parseConfigSetting(configEntity);
-                createLanguage();
-                mDelegate.creatMain();
+                if(collection != null && collection.getCollection().size() > 0) {
+                    SimiEntity entity = collection.getCollection().get(0);
+                    ConfigEntity configEntity = (ConfigEntity) entity;
+                    Config.getInstance().parseConfigSetting(configEntity);
+                    createLanguage();
+                    mDelegate.creatMain();
+                }
             }
         });
 
