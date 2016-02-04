@@ -206,14 +206,16 @@
         <activity
             android:name="com.simicart.plugins.payuindia.activity.PaymentsActivity"
             android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboard|screenSize"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name="com.simicart.plugins.payuindia.activity.PayUEmiActivity" />
-        <activity android:name="com.simicart.plugins.payuindia.activity.PayUCreditDebitCardActivity" />
-        <activity android:name="com.simicart.plugins.payuindia.activity.PayUCashCardActivity" />
-        <activity android:name="com.simicart.plugins.payuindia.activity.PayUNetBankingActivity" />
+        <activity android:name="com.simicart.plugins.payuindia.activity.PayUEmiActivity" android:configChanges="orientation|keyboard|screenSize"/>
+        <activity android:name="com.simicart.plugins.payuindia.activity.PayUCreditDebitCardActivity" android:configChanges="orientation|keyboard|screenSize"/>
+        <activity android:name="com.simicart.plugins.payuindia.activity.PayUCashCardActivity" android:configChanges="orientation|keyboard|screenSize"/>
+        <activity android:name="com.simicart.plugins.payuindia.activity.PayUNetBankingActivity" android:configChanges="orientation|keyboard|screenSize"/>
         <activity
             android:name="com.simicart.plugins.payuindia.activity.PayUStoredCardsActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:configChanges="orientation|keyboard|screenSize"/>
         <!--EndPayUIndia-->
 
         <receiver
