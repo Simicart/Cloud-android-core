@@ -98,8 +98,12 @@ public class ProductBaseAdapter extends BaseAdapter {
         if (isHome) {
             if (DataLocal.isLanguageRTL) {
                 holder.tv_name.setGravity(Gravity.RIGHT);
+                holder.tv_first.setGravity(Gravity.RIGHT);
+                holder.tv_second.setGravity(Gravity.RIGHT);
             } else {
                 holder.tv_name.setGravity(Gravity.LEFT);
+                holder.tv_first.setGravity(Gravity.LEFT);
+                holder.tv_second.setGravity(Gravity.LEFT);
             }
         }
         // price

@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.simicart.MainActivity;
+import com.simicart.R;
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -353,7 +354,7 @@ public class ReviewOrderController extends SimiController implements
 
 
         String email = "";
-        if(mShippingAddress != null && !mShippingAddress.getEmail().equals("")){
+        if (mShippingAddress != null && !mShippingAddress.getEmail().equals("")) {
             email = mShippingAddress.getEmail();
         }
         checkOutGuestNewModel.addDataBody("customer_email", email);
@@ -640,7 +641,7 @@ public class ReviewOrderController extends SimiController implements
 
                 if (collection != null && collection.getCollection().size() > 0) {
                     OrderEntity orderEntity = (OrderEntity) collection.getCollection().get(0);
-                    processResultPlaceOrder(orderEntity,paymentmethod);
+                    processResultPlaceOrder(orderEntity, paymentmethod);
                 }
             }
         });
@@ -673,11 +674,11 @@ public class ReviewOrderController extends SimiController implements
 
     }
 
-    private void processResultPlaceOrder(OrderEntity orderEntity,PaymentMethod paymentMethod)
-    {
+    private void processResultPlaceOrder(OrderEntity orderEntity, PaymentMethod paymentMethod) {
         int showtype = paymentMethod.getShow_type();
         switch (showtype) {
             case 1:
+                Log.e("ReviewOrderController", "type 1");
                 ThankyouFragment fragment = ThankyouFragment.newInstance();
                 fragment.setMessage(Config.getInstance().getText("Thank you for your purchase!"));
                 fragment.setInvoice_number(String.valueOf(orderEntity.getSeqNo()));
@@ -694,7 +695,7 @@ public class ReviewOrderController extends SimiController implements
                 }
                 break;
             case 2:
-                dispatchEventForPlaceOrder("com.simicart.paymentmethod.placeorder",orderEntity,paymentMethod);
+                dispatchEventForPlaceOrder("com.simicart.paymentmethod.placeorder", orderEntity, paymentMethod);
                 break;
             case 3:
                 dispatchEventForPlaceOrder("com.simicart.after.placeorder.webview",orderEntity,paymentMethod);
@@ -702,8 +703,7 @@ public class ReviewOrderController extends SimiController implements
         }
     }
 
-    private void dispatchEventForPlaceOrder(String nameEvent,OrderEntity orderEntity,PaymentMethod paymentMethod)
-    {
+    private void dispatchEventForPlaceOrder(String nameEvent, OrderEntity orderEntity, PaymentMethod paymentMethod) {
         Intent intent = new Intent(nameEvent);
         Bundle bundle = new Bundle();
         SimiEventCheckoutEntity entity = new SimiEventCheckoutEntity();
@@ -722,7 +722,6 @@ public class ReviewOrderController extends SimiController implements
     }
 
 
-
     private void recieveNotification(NotificationEntity notificationData) {
         Intent i = new Intent(MainActivity.context, NotificationActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -730,38 +729,6 @@ public class ReviewOrderController extends SimiController implements
         MainActivity.context.startActivity(i);
     }
 
-//    protected void updateView() {
-//        ReviewOrderModel model = (ReviewOrderModel) mModel;
-//        mConditions = (model.getConditions());
-//        mDelegate.setConditions(model.getConditions());
-//
-//        QuoteEntity quoteEntity = (QuoteEntity) model.getCollection().getCollection().get(0);
-//
-//        mDelegate.setTotalPrice(quoteEntity);
-//        mPaymentMethods = model.getPaymentMethods();
-//        if (mPaymentMethods != null && mPaymentMethods.size() > 0) {
-//            mPaymentMethodDelegate.setPaymentMethods(mPaymentMethods);
-//            mShippingDelegate.setPaymentMethod(mPaymentMethods);
-//        }
-//        mShippingmethod = model.getShippingMethods();
-//        if (mShippingmethod != null && mShippingmethod.size() > 0) {
-//            mShippingDelegate.setShippingMethods(mShippingmethod);
-//            mPaymentMethodDelegate.setListShippingMethod(mShippingmethod);
-//        }
-//        mDelegate.updateView(mModel.getCollection());
-//
-//        if (mShippingmethod == null || mShippingmethod.size() <= 0) {
-//            mDelegate.setBillingAddress(mBillingAddress);
-//        } else {
-//            mDelegate.setShipingAddress(mShippingAddress);
-//            mDelegate.setBillingAddress(mBillingAddress);
-//        }
-//
-//        // if (!checkAutoSelectShipping()) {
-//        // checkAutoSelectPaymentMehtod();
-//        // }
-//
-//    }
 
     @Override
     public void onResume() {

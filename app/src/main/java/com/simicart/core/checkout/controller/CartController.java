@@ -43,8 +43,8 @@ public class CartController extends SimiController {
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
-                mDelegate.updateView(collection);
                 if (collection != null && collection.getCollection().size() > 0) {
+                    mDelegate.updateView(collection);
                     QuoteEntity cart = (QuoteEntity) collection.getCollection().get(0);
                     int newQtyCart = cart.getQty();
                     SimiManager.getIntance().onUpdateCartQty(

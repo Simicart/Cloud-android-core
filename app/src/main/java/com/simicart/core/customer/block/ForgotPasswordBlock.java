@@ -7,8 +7,11 @@ import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.simicart.core.base.block.SimiBlock;
@@ -43,6 +46,11 @@ public class ForgotPasswordBlock extends SimiBlock implements
 		lable_email = (TextView) mView.findViewById(Rconfig
 				.getInstance().id("lable_email"));
 		lable_email.setTextColor(Color.GRAY);
+		if(DataLocal.isLanguageRTL) {
+			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			params.gravity = Gravity.RIGHT;
+			lable_email.setLayoutParams(params);
+		}
 		lable_email.setText(Config.getInstance().getText("ENTER YOUR EMAIL")
 				.toUpperCase()
 				+ ":");

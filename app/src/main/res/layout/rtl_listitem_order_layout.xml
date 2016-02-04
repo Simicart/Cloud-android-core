@@ -112,7 +112,7 @@
 
             <LinearLayout
                 android:id="@+id/l_items"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
@@ -121,24 +121,27 @@
 
                 <TextView
                     android:id="@+id/item1"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/core_bullet"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_gravity="end"/>
 
                 <TextView
                     android:id="@+id/item2"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/core_bullet"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_gravity="end"/>
 
                 <TextView
                     android:id="@+id/item3"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/core_bullet"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:layout_gravity="end"/>
             </LinearLayout>
         </TableLayout>
     </LinearLayout>
