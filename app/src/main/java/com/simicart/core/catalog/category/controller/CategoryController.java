@@ -61,6 +61,7 @@ public class CategoryController extends SimiController {
             mModel.addFilterDataParameter("status","1");
         }else{
             mModel.addFilterDataParameter("status","1");
+            mModel.addDataParameter("filter[parent][exists]", "0");
         }
         mModel.addDataParameter("order","position");
         mModel.request();
