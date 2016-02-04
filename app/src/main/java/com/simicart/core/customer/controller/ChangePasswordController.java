@@ -1,5 +1,8 @@
 package com.simicart.core.customer.controller;
 
+import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -29,7 +32,11 @@ public class ChangePasswordController extends SimiController {
     protected OnTouchListener mOnTouchCurrentPass;
     protected OnTouchListener mOnTouchNewPass;
     protected OnTouchListener mOnTouchConfirmPass;
+    protected TextWatcher mCurrentPassWatcher;
+    protected TextWatcher mNewPassWatcher;
+    protected TextWatcher mConfirmPassWatcher;
     protected OnClickListener mClicker;
+    protected boolean isPassCondition = false;
     public static final int TOUCH_CURRENT_PASS = 0;
     public static final int TOUCH_NEW_PASS = 1;
     public static final int TOUCH_CONFIRM_PASS = 2;
@@ -39,6 +46,18 @@ public class ChangePasswordController extends SimiController {
     public static final int REQUIRED_CONFIRM_PASS = 3;// confirm pass
     public static final int NOT_CHANGE = 4;// Not Change pass
     public static final int WRONG_CURRENT_PASS = 5;// Password is'nt correct
+
+    public TextWatcher getCurrentPassWatcher() {
+        return mCurrentPassWatcher;
+    }
+
+    public TextWatcher getNewPassWatcher() {
+        return mNewPassWatcher;
+    }
+
+    public TextWatcher getConfirmPassWatcher() {
+        return mConfirmPassWatcher;
+    }
 
     public OnClickListener getSaveClicker() {
         return mClicker;
@@ -62,6 +81,73 @@ public class ChangePasswordController extends SimiController {
 
     @Override
     public void onStart() {
+
+        mCurrentPassWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String currentPassword = mDelegate.getCurrentPass();
+                String newPassword = mDelegate.getNewPass();
+                String confirmPassword = mDelegate.getConfirmPass();
+                if(currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
+                    isPassCondition = true;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
+        mNewPassWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String currentPassword = mDelegate.getCurrentPass();
+                String newPassword = mDelegate.getNewPass();
+                String confirmPassword = mDelegate.getConfirmPass();
+                if(currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
+                    isPassCondition = true;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
+        mConfirmPassWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String currentPassword = mDelegate.getCurrentPass();
+                String newPassword = mDelegate.getNewPass();
+                String confirmPassword = mDelegate.getConfirmPass();
+                if(currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
+                    isPassCondition = true;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        };
+
         mOnTouchCurrentPass = new OnTouchListener() {
 
             @Override
@@ -137,8 +223,10 @@ public class ChangePasswordController extends SimiController {
         mClicker = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                changePassWord();
-                Utils.hideKeyboard(v);
+                if(isPassCondition == true) {
+                    changePassWord();
+                    Utils.hideKeyboard(v);
+                }
             }
         };
     }
@@ -233,6 +321,8 @@ public class ChangePasswordController extends SimiController {
                         profile.getNewPass());
 
                 SimiManager.getIntance().showNotify(null, "Your password has changed successfully", "Ok");
+
+                SimiManager.getIntance().backToHomeFragment();
             }
         });
         model.addDataExtendURL("change-password");
