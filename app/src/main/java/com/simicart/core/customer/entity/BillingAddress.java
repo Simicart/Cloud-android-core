@@ -58,9 +58,9 @@ public class BillingAddress extends SimiEntity {
 			}
 		}
 
-		if(mJSON.has("postcode")) {
+		if(mJSON.has("zip")) {
 			try {
-				mPostCode = mJSON.getString("postcode");
+				mPostCode = mJSON.getString("zip");
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
