@@ -55,4 +55,6 @@ dependencies {
     compile files('libs/vtd-xml_light-2-12.jar')
     compile files('libs/ipay88_androidv7.jar')
     compile project(':checkoutkit')
+    compile files('libs/PayUIndiaSDK.jar')
+    compile project(':CustomBrowser-release')
 }
