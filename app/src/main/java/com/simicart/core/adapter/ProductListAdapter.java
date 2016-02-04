@@ -87,6 +87,8 @@ public class ProductListAdapter extends BaseAdapter {
 
         if (DataLocal.isLanguageRTL) {
             holder.txtName.setGravity(Gravity.RIGHT);
+            holder.tv_first.setGravity(Gravity.RIGHT);
+            holder.tv_second.setGravity(Gravity.RIGHT);
         }
 
         holder.txtName.setText(product.getName());

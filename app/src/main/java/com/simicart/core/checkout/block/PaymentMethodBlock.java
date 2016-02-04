@@ -139,10 +139,12 @@ public class PaymentMethodBlock extends SimiBlock implements
 					RelativeLayout.LayoutParams.WRAP_CONTENT);
 			if (DataLocal.isLanguageRTL) {
 				tvtitle_lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				tvtitle_lp.setMargins(0, 0, Utils.getValueDp(30), 0);
 			} else {
 				tvtitle_lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				tvtitle_lp.setMargins(Utils.getValueDp(30), 0, 0, 0);
 			}
-			tvtitle_lp.setMargins(Utils.getValueDp(30), 0, 0, 0);
+
 			tvtitle_lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 			tv_title.setLayoutParams(tvtitle_lp);
 			tv_title.setPadding(0, Utils.getValueDp(10), Utils.getValueDp(20),
@@ -155,33 +157,41 @@ public class PaymentMethodBlock extends SimiBlock implements
 			TextView tv_content = new TextView(ll_payment.getContext());
 			tv_content.setTextColor(Config.getInstance().getContent_color());
 			tv_content.setId(ViewIdGenerator.generateViewId());
-			if (show_type == 0 & paymentMethod.getContent() != null
-					&& !paymentMethod.getContent().equals("")
-					&& !paymentMethod.getContent().equals("null")) {
-				Log.e("setPaymentMethods", "show type is 0");
-				paymentMethod.setContent(paymentMethod.getContent());
-				tv_content.setText(paymentMethod.getContent(),
-						TextView.BufferType.SPANNABLE);
-				RelativeLayout.LayoutParams tvcontent_lp = new RelativeLayout.LayoutParams(
-						RelativeLayout.LayoutParams.WRAP_CONTENT,
-						RelativeLayout.LayoutParams.WRAP_CONTENT);
-				tvcontent_lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-				tvcontent_lp.addRule(RelativeLayout.BELOW, tv_title.getId());
-				tvcontent_lp.setMargins(Utils.getValueDp(30), 0, 0, 0);
-				tv_content.setLayoutParams(tvcontent_lp);
-
-				tv_content.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
-				tv_content.setVisibility(View.GONE);
-				rl_value.addView(tv_content);
-				listContent.add(tv_content);
-			}
+//			if (show_type == 0 & paymentMethod.getContent() != null
+//					&& !paymentMethod.getContent().equals("")
+//					&& !paymentMethod.getContent().equals("null")) {
+//				Log.e("setPaymentMethods", "show type is 0");
+//				paymentMethod.setContent(paymentMethod.getContent());
+//				tv_content.setText(paymentMethod.getContent(),
+//						TextView.BufferType.SPANNABLE);
+//				RelativeLayout.LayoutParams tvcontent_lp = new RelativeLayout.LayoutParams(
+//						RelativeLayout.LayoutParams.WRAP_CONTENT,
+//						RelativeLayout.LayoutParams.WRAP_CONTENT);
+//				if (DataLocal.isLanguageRTL) {
+//					tvcontent_lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+//				} else {
+//					tvcontent_lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+//				}
+//				tvcontent_lp.addRule(RelativeLayout.BELOW, tv_title.getId());
+//				tvcontent_lp.setMargins(Utils.getValueDp(30), 0, 0, 0);
+//				tv_content.setLayoutParams(tvcontent_lp);
+//
+//				tv_content.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+//				tv_content.setVisibility(View.GONE);
+//				rl_value.addView(tv_content);
+//				listContent.add(tv_content);
+//			}
 
 			// check box
 			final ImageView checkBox = new ImageView(ll_payment.getContext());
 			RelativeLayout.LayoutParams checkbox_lp = new RelativeLayout.LayoutParams(
 					Utils.getValueDp(20), Utils.getValueDp(20));
 			checkbox_lp.addRule(RelativeLayout.CENTER_VERTICAL);
-			checkbox_lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+			if (DataLocal.isLanguageRTL) {
+				checkbox_lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+			} else {
+				checkbox_lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+			}
 			checkBox.setLayoutParams(checkbox_lp);
 
 			Drawable icon_nomal = mContext.getResources().getDrawable(
@@ -200,7 +210,11 @@ public class PaymentMethodBlock extends SimiBlock implements
 				RelativeLayout.LayoutParams img_edit_lp = new RelativeLayout.LayoutParams(
 						Utils.getValueDp(30), Utils.getValueDp(30));
 				img_edit_lp.addRule(RelativeLayout.CENTER_VERTICAL);
-				img_edit_lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				if (DataLocal.isLanguageRTL) {
+					img_edit_lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+				} else {
+					img_edit_lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+				}
 				// img_edit_lp.addRule(RelativeLayout.ALIGN_LEFT);
 				img_edit.setLayoutParams(img_edit_lp);
 
@@ -213,10 +227,15 @@ public class PaymentMethodBlock extends SimiBlock implements
 				RelativeLayout.LayoutParams tvcontent_lp = new RelativeLayout.LayoutParams(
 						RelativeLayout.LayoutParams.WRAP_CONTENT,
 						RelativeLayout.LayoutParams.WRAP_CONTENT);
-				tvcontent_lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 				tvcontent_lp.addRule(RelativeLayout.BELOW, tv_title.getId());
+				if (DataLocal.isLanguageRTL) {
+					tvcontent_lp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+					tvcontent_lp.setMargins(0, 0, 50, 0);
+				} else {
+					tvcontent_lp.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+					tvcontent_lp.setMargins(50, 0, 0, 0);
+				}
 
-				tvcontent_lp.setMargins(50, 0, 0, 0);
 				tv_content.setLayoutParams(tvcontent_lp);
 				listContent.add(tv_content);
 				setContentPaymentMethod(paymentMethod.getMethodCode(),

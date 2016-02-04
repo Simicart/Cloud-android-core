@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 public class BraintreePayment {
 
@@ -20,6 +21,7 @@ public class BraintreePayment {
 
     public BraintreePayment()
     {
+        Log.e("BraintreePayment", "constructor");
         mContext= SimiManager.getIntance().getCurrentActivity();
         IntentFilter filter = new IntentFilter("com.simicart.paymentmethod.placeorder");
         BroadcastReceiver receiver = new BroadcastReceiver() {
