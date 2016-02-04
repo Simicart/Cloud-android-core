@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.util.Log;
 
+import com.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.common.Utils;
 import com.simicart.core.splashscreen.entity.AppConfigEnitity;
