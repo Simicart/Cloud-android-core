@@ -156,10 +156,10 @@ public class CategoryDetailController extends SimiController implements
         String param_sort_option = getValueListParam(ConstantsSearch.PARAM_SORT_OPTION);
         if (Utils.validateString(param_sort_option)) {
             if (param_sort_option.equals("1")) {
-                mModel.addOrderDataParameter("price");
+                mModel.addOrderDataParameter("sale_price");
                 mModel.sortDirASC();
             } else if (param_sort_option.equals("2")) {
-                mModel.addOrderDataParameter("price");
+                mModel.addOrderDataParameter("sale_price");
                 mModel.sortDirDESC();
             } else if (param_sort_option.equals("3")) {
                 mModel.addOrderDataParameter("name");
