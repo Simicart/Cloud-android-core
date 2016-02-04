@@ -1,6 +1,7 @@
 package com.simicart.core.cms.entity;
 
 import com.simicart.core.base.model.entity.SimiEntity;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Constants;
 
 public class Cms extends SimiEntity {
@@ -9,7 +10,7 @@ public class Cms extends SimiEntity {
 	String key;
 	String icon;
 	String content;
-	String status;
+	boolean enable;
 	int seq_no;
 	String updated_at;
 	String created_at;
@@ -47,6 +48,13 @@ public class Cms extends SimiEntity {
 
 			if(mJSON.has("created_at")){
 				created_at = getData("created_at");
+			}
+
+			if(mJSON.has("status")){
+				String statusValue = getData("status");
+				if(Utils.validateString(statusValue) && statusValue.equals("1")){
+					enable = true;
+				}
 			}
 		}
 	}
@@ -99,14 +107,6 @@ public class Cms extends SimiEntity {
 		this.seq_no = seq_no;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public String getTitle() {
 		return title;
 	}
@@ -121,5 +121,13 @@ public class Cms extends SimiEntity {
 
 	public void setUpdated_at(String updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
 	}
 }

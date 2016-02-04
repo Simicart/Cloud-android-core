@@ -37,7 +37,9 @@ public class CMSPageEntity extends SimiEntity {
                         Cms cms = new Cms();
                         cms.setJSONObject(arr.getJSONObject(i));
                         cms.parse();
-                        page.add(cms);
+                        if(cms.isEnable()){
+                            page.add(cms);
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
