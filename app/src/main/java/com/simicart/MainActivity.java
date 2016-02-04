@@ -1,6 +1,5 @@
 package com.simicart;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -9,6 +8,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,11 +18,11 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.magestore.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.controller.ConfigCheckout;
 import com.simicart.core.config.Config;
@@ -34,9 +36,10 @@ import com.simicart.core.notification.common.CommonUtilities;
 import com.simicart.core.notification.controller.NotificationController;
 import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-@SuppressLint("DefaultLocale")
 public class MainActivity extends FragmentActivity {
 
     public final static int PAUSE = 2;
@@ -61,6 +64,25 @@ public class MainActivity extends FragmentActivity {
         SimiManager.getIntance().setCurrentActivity(this);
         SimiManager.getIntance().setCurrentContext(this);
         setContentView(R.layout.core_main_activity);
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.simicart",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("MAINACTIVITY KeyHash ","=================>"+ Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("MAINACTIVITY KeyHash ","=================>"+"Eception 1" + e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            Log.d("MAINACTIVITY KeyHash","=================>"+"Eception " + e.getMessage());
+        }
+
+
+
+
         if (DataLocal.isSignInComplete()) {
             autoSignin();
         }else{
@@ -412,6 +434,10 @@ public class MainActivity extends FragmentActivity {
 //        this.requestCode = requestCode;
 //        this.resultCode = resultCode;
 //        this.data = data;
+//
+//        Intent intent = new Intent("com.simicart.MainActivity.onActivityResult");
+//        LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent);
+
 //        // event form signin
 //        EventController dispatch = new EventController();
 //        dispatch.dispatchEvent("com.simicart.MainActivity.onActivityResult",

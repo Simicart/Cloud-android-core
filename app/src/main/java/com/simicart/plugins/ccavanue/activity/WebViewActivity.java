@@ -107,7 +107,6 @@ public class WebViewActivity extends Activity implements Communicator {
                     mechantID = model.getMerchanID();
                     accessCode = model.getAccessCode();
                     urlRedirect = model.getUrlRedirect();
-                    System.out.println(vResponse);
                     if (!ServiceUtility.chkNull(vResponse).equals("")
                             && ServiceUtility.chkNull(vResponse).toString().indexOf("ERROR") == -1) {
                         StringBuffer vEncVal = new StringBuffer("");
@@ -121,7 +120,6 @@ public class WebViewActivity extends Activity implements Communicator {
                 if (dialog.isShowing())
                     dialog.dismiss();
 
-                @SuppressWarnings("unused")
                 class MyJavaScriptInterface {
                     @JavascriptInterface
                     public void processHTML(String html) {

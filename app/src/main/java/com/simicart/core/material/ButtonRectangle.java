@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.magestore.simicart.R;
+import com.simicart.R;
 
 public class ButtonRectangle extends Button {
 

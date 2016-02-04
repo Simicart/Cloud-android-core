@@ -24,7 +24,7 @@ import android.util.AttributeSet;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.magestore.simicart.R;
+import com.simicart.R;
 
 public class FloatingActionButton extends ImageButton {
 

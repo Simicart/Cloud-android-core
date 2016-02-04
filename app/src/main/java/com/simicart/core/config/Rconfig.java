@@ -6,7 +6,7 @@ import com.simicart.core.base.manager.SimiManager;
 
 public class Rconfig {
 
-	public static String NAME_R = "com.magestore.simicart.R";
+	public static String NAME_R = "com.simicart.R";
 	private static Rconfig instance;
 	private Context mContext;
 
