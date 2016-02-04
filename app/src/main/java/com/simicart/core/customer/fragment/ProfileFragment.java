@@ -47,10 +47,6 @@ public class ProfileFragment extends SimiFragment {
 		}
 
 		mBlock.setSaveClicker(mController.getSaveClicker());
-		mBlock.setShowCurrentPass(mController.getOnTouchCurrentPass());
-		mBlock.setShowNewPass(mController.getOnTouchNewPass());
-		mBlock.setShowConfirmPass(mController.getOnTouchConfirmPass());
-		mBlock.setClickImageGender(mController.getOnclickGenderImage());
 		return view;
 	}
 

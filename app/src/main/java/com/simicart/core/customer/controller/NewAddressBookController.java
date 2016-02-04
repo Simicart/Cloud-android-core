@@ -201,6 +201,7 @@ public class NewAddressBookController extends SimiController implements
 
             @Override
             public void onClick(View v) {
+                SimiManager.getIntance().hideKeyboard();
                 changeFragmentCountry(TYPE_SELECT_COUNTRY, mListCountry);
             }
         };

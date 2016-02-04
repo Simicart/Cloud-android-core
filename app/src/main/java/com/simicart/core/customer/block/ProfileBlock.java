@@ -117,6 +117,7 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 		edt_fullname = (EditText) mView.findViewById(Rconfig.getInstance().id(
 				"et_fullname"));
 		edt_fullname.setHint(Config.getInstance().getText("Name") + "(*)");
+		edt_fullname.setVisibility(View.GONE);
 
 		// email
 		edt_email = (EditText) mView.findViewById(Rconfig.getInstance().id(
@@ -241,18 +242,18 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 				"et_prefix_show"));
 		edt_prefix.setHint(Config.getInstance().getText("First Name") + " (*)");
 		switch (mProfile.getPrefix().toLowerCase()) {
-		case "":
-			edt_prefix.setVisibility(View.GONE);
-			break;
-		case "req":
-			edt_prefix.setHint(Config.getInstance().getText("First Name") + "(*)");
-			break;
-		case "opt":
-			edt_prefix.setHint(Config.getInstance().getText("First Name"));
-			break;
+			case "":
+				edt_prefix.setVisibility(View.GONE);
+				break;
+			case "req":
+				edt_prefix.setHint(Config.getInstance().getText("First Name") + "(*)");
+				break;
+			case "opt":
+				edt_prefix.setHint(Config.getInstance().getText("First Name"));
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 	}
 
@@ -261,17 +262,17 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 		edt_suffix = (EditText) mView.findViewById(Rconfig.getInstance().id(
 				"et_suffix_show"));
 		switch (mProfile.getSuffix().toLowerCase()) {
-		case "":
-			edt_suffix.setVisibility(View.GONE);
-			break;
-		case "req":
-			edt_suffix.setHint(Config.getInstance().getText("Last Name") + "(*)");
-			break;
-		case "opt":
-			edt_suffix.setHint(Config.getInstance().getText("Last Name"));
-			break;
-		default:
-			break;
+			case "":
+				edt_suffix.setVisibility(View.GONE);
+				break;
+			case "req":
+				edt_suffix.setHint(Config.getInstance().getText("Last Name") + "(*)");
+				break;
+			case "opt":
+				edt_suffix.setHint(Config.getInstance().getText("Last Name"));
+				break;
+			default:
+				break;
 		}
 
 	}
@@ -280,18 +281,18 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 		edt_taxVAT = (EditText) mView.findViewById(Rconfig.getInstance().id(
 				"et_taxvat_show"));
 		switch (mProfile.getTaxvat().toLowerCase()) {
-		case "":
-			edt_taxVAT.setVisibility(View.GONE);
-			break;
-		case "req":
-			edt_taxVAT.setHint(Config.getInstance().getText("Tax/VAT number")
-					+ "(*)");
-			break;
-		case "opt":
-			edt_taxVAT.setHint(Config.getInstance().getText("Tax/VAT number"));
-			break;
-		default:
-			break;
+			case "":
+				edt_taxVAT.setVisibility(View.GONE);
+				break;
+			case "req":
+				edt_taxVAT.setHint(Config.getInstance().getText("Tax/VAT number")
+						+ "(*)");
+				break;
+			case "opt":
+				edt_taxVAT.setHint(Config.getInstance().getText("Tax/VAT number"));
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -307,19 +308,19 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 		final int cYear = cDate.get(Calendar.YEAR);
 
 		switch (mProfile.getDob().toLowerCase()) {
-		case "":
-			layout_date_ofbirt.setVisibility(View.GONE);
-			break;
-		case "req":
-			tv_dateBirth.setHint(Config.getInstance().getText("Date of Birth")
-					+ "(*)");
-			break;
-		case "opt":
-			tv_dateBirth.setHint(Config.getInstance().getText("Date of Birth"));
-			break;
+			case "":
+				layout_date_ofbirt.setVisibility(View.GONE);
+				break;
+			case "req":
+				tv_dateBirth.setHint(Config.getInstance().getText("Date of Birth")
+						+ "(*)");
+				break;
+			case "opt":
+				tv_dateBirth.setHint(Config.getInstance().getText("Date of Birth"));
+				break;
 
-		default:
-			break;
+			default:
+				break;
 		}
 
 		layout_date_ofbirt.setOnClickListener(new OnClickListener() {
@@ -336,7 +337,7 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 	private OnDateSetListener onDateSet = new DatePickerDialog.OnDateSetListener() {
 		@Override
 		public void onDateSet(DatePicker view, int year, int monthOfYear,
-				int dayOfMonth) {
+							  int dayOfMonth) {
 			int sYear = year;
 			int sMonth = monthOfYear + 1;
 			int sDay = dayOfMonth;
@@ -347,31 +348,31 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 					.append(sMonth).append("/").append(sYear).append(" ")
 					.toString();
 			switch (mProfile.getDob().toLowerCase()) {
-			case "":
-				layout_date_ofbirt.setVisibility(View.GONE);
-				break;
-			case "req":
-				if (DataLocal.isLanguageRTL) {
-					tv_dateBirth.setText(selectedDate + " :(*)"
-							+ Config.getInstance().getText("Date of Birth"));
-				} else {
-					tv_dateBirth.setText(Config.getInstance().getText(
-							"Date of Birth")
-							+ "(*): " + selectedDate);
-				}
-				break;
-			case "opt":
-				if (DataLocal.isLanguageRTL) {
-					tv_dateBirth.setText(selectedDate + " :"
-							+ Config.getInstance().getText("Date of Birth"));
-				} else {
-					tv_dateBirth.setText(Config.getInstance().getText(
-							"Date of Birth")
-							+ ": " + selectedDate);
-				}
-				break;
-			default:
-				break;
+				case "":
+					layout_date_ofbirt.setVisibility(View.GONE);
+					break;
+				case "req":
+					if (DataLocal.isLanguageRTL) {
+						tv_dateBirth.setText(selectedDate + " :(*)"
+								+ Config.getInstance().getText("Date of Birth"));
+					} else {
+						tv_dateBirth.setText(Config.getInstance().getText(
+								"Date of Birth")
+								+ "(*): " + selectedDate);
+					}
+					break;
+				case "opt":
+					if (DataLocal.isLanguageRTL) {
+						tv_dateBirth.setText(selectedDate + " :"
+								+ Config.getInstance().getText("Date of Birth"));
+					} else {
+						tv_dateBirth.setText(Config.getInstance().getText(
+								"Date of Birth")
+								+ ": " + selectedDate);
+					}
+					break;
+				default:
+					break;
 			}
 		}
 	};
@@ -388,27 +389,27 @@ public class ProfileBlock extends SimiBlock implements ProfileDelegate {
 		sp_gender.setAdapter(adapter);
 
 		switch (mProfile.getGender().toLowerCase()) {
-		case "":
-			rl_gender.setVisibility(View.GONE);
-			break;
-		case "req":
-			if (DataLocal.isLanguageRTL) {
-				tv_gender.setText(":(*)"
-						+ Config.getInstance().getText("Gender"));
-			} else {
-				tv_gender.setText(Config.getInstance().getText("Gender")
-						+ "(*):");
-			}
-			break;
-		case "opt":
-			if (DataLocal.isLanguageRTL) {
-				tv_gender.setText(":" + Config.getInstance().getText("Gender"));
-			} else {
-				tv_gender.setText(Config.getInstance().getText("Gender") + ":");
-			}
-			break;
-		default:
-			break;
+			case "":
+				rl_gender.setVisibility(View.GONE);
+				break;
+			case "req":
+				if (DataLocal.isLanguageRTL) {
+					tv_gender.setText(":(*)"
+							+ Config.getInstance().getText("Gender"));
+				} else {
+					tv_gender.setText(Config.getInstance().getText("Gender")
+							+ "(*):");
+				}
+				break;
+			case "opt":
+				if (DataLocal.isLanguageRTL) {
+					tv_gender.setText(":" + Config.getInstance().getText("Gender"));
+				} else {
+					tv_gender.setText(Config.getInstance().getText("Gender") + ":");
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
