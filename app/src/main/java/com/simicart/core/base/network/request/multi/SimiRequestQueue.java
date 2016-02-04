@@ -12,6 +12,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 public class SimiRequestQueue {
 
     /**
@@ -56,19 +58,39 @@ public class SimiRequestQueue {
 
     protected SimiExecutorDelivery mDelivery;
 
+    protected SimiNetworkCacheL1 mCacheL1;
+
     public SimiRequestQueue() {
         this(DEFAULT_NETWORK_THREAD_POOL_SIZE);
-        Log.e("SimiRequestQueue", "contructor 001");
     }
 
     public SimiRequestQueue(int size) {
         mDispatchers = new SimiNetworkDispatcher[size];
-        // SimiHttpClientStack httpClientStack = new SimiHttpClientStack();
-
+        mCacheL1 = new SimiNetworkCacheL1();
         SimiUrlStack urlStack = new SimiUrlStack();
         mNetwork = new SimiBasicNetwork(urlStack);
         mDelivery = new SimiExecutorDelivery(
                 new Handler(Looper.getMainLooper()));
+    }
+
+    public JSONObject getDataFromCacheL1(SimiRequest request) {
+
+        String key = request.getCacheKey();
+
+        if (null != key) {
+            return mCacheL1.get(key);
+        }
+
+        return null;
+    }
+
+    public void removeFromCacheL1(SimiRequest request) {
+        String key = request.getCacheKey();
+        mCacheL1.remove(key);
+    }
+
+    public void clearCacheL1() {
+        mCacheL1.clear();
     }
 
     public PriorityBlockingQueue<SimiRequest> getNetworkQueue() {
@@ -82,7 +104,7 @@ public class SimiRequestQueue {
         // size.
         for (int i = 0; i < mDispatchers.length; i++) {
             SimiNetworkDispatcher networkDispatcher = new SimiNetworkDispatcher(
-                    mNetworkQueue, mNetwork, mDelivery);
+                    mNetworkQueue, mNetwork, mDelivery,mCacheL1);
             mDispatchers[i] = networkDispatcher;
             networkDispatcher.start();
         }

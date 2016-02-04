@@ -27,6 +27,7 @@ import org.json.JSONObject;
 public class RegisterCustomerController extends SimiController {
 	protected RegisterCustomerDelegate mDelegate;
 	protected OnClickListener mRegister, onClickRelative;
+	protected boolean isCheckout = false;
 
 	public OnClickListener getOnclickRegister() {
 		return mRegister;
@@ -38,6 +39,10 @@ public class RegisterCustomerController extends SimiController {
 
 	public void setDelegate(RegisterCustomerDelegate mDelegate) {
 		this.mDelegate = mDelegate;
+	}
+
+	public void setIsCheckout(boolean isCheckout) {
+		this.isCheckout = isCheckout;
 	}
 
 	@Override
@@ -173,6 +178,7 @@ public class RegisterCustomerController extends SimiController {
 		RegisterCustomer register = mDelegate.getRegisterCustomer();
 
 		SignInFragment fragment = SignInFragment.newInstance();
+		fragment.setCheckout(isCheckout);
 		String email = register.getEmail();
 		fragment.setEmail(email);
 		String pass = register.getPass();

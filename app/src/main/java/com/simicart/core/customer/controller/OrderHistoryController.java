@@ -112,7 +112,7 @@ public class OrderHistoryController extends SimiController {
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -126,7 +126,7 @@ public class OrderHistoryController extends SimiController {
 
         // Add Filter with fixed data
         mModel.addFilterDataParameter("customer|customer_id", DataLocal.getCustomerID());
-
+        mModel.sortDirDESC();
 //        String email = DataLocal.getEmail();
 //        String pass = DataLocal.getPassword();
 //

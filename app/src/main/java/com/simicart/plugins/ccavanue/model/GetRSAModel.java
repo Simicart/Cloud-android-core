@@ -14,6 +14,7 @@ public class GetRSAModel extends SimiModel{
     private String rsaKey = "";
     private String merchanID = "";
     private String accessCode = "";
+    private String urlRedirect = "";
 
     @Override
     protected void setUrlAction() {
@@ -51,6 +52,14 @@ public class GetRSAModel extends SimiModel{
                     e.printStackTrace();
                 }
             }
+
+            if(mJSONResult.has("url")){
+                try {
+                    urlRedirect = mJSONResult.getString("url");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -76,5 +85,13 @@ public class GetRSAModel extends SimiModel{
 
     public void setAccessCode(String accessCode) {
         this.accessCode = accessCode;
+    }
+
+    public String getUrlRedirect() {
+        return urlRedirect;
+    }
+
+    public void setUrlRedirect(String urlRedirect) {
+        this.urlRedirect = urlRedirect;
     }
 }

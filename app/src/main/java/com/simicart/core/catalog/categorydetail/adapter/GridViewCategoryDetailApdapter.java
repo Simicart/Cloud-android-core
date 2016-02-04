@@ -2,6 +2,10 @@ package com.simicart.core.catalog.categorydetail.adapter;
 
 import java.util.ArrayList;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Paint;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -16,11 +20,11 @@ import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.common.DrawableManager;
 import com.simicart.core.common.Utils;
-import com.simicart.core.common.price.CategoryDetailPriceView;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.event.block.EventBlock;
+import com.simicart.core.event.block.SimiEventBlockEntity;
 
 public class GridViewCategoryDetailApdapter extends BaseAdapter {
 
@@ -32,6 +36,8 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 		private LinearLayout ll_price;
 		private TextView txt_outstock;
 		private TextView txt_price_tablet;
+		private TextView tv_first;
+		private TextView tv_second;
 	}
 
 	private Context mContext;
@@ -42,6 +48,8 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 	private RelativeLayout layout_image;
 	private float withScreen;
 	private RelativeLayout layout_header;
+	private float mPrice;
+	private float mSalePrice;
 
 	public GridViewCategoryDetailApdapter(Context context,
 										  ArrayList<ProductEntity> listProduct, ArrayList<String> listId,
@@ -152,6 +160,8 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 					.getContent_color());
 			holder.ll_price = (LinearLayout) convertView.findViewById(Rconfig
 					.getInstance().id("ll_price"));
+			holder.tv_first = (TextView) convertView.findViewById(Rconfig.getInstance().id("tv_fist_price"));
+			holder.tv_second = (TextView) convertView.findViewById(Rconfig.getInstance().id("tv_second_price"));
 			holder.img_avartar = (ImageView) convertView.findViewById(Rconfig
 					.getInstance().id("img_avartar"));
 			holder.layout_stock = (LinearLayout) convertView
@@ -200,26 +210,16 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 					product.getPrice()));
 		}
 
-//		if (product.isMangerStock() == true) {
-			holder.layout_stock.setVisibility(View.GONE);
-//		} else {
-//			holder.layout_stock.setVisibility(View.VISIBLE);
-//			holder.txt_outstock.setText(Config.getInstance().getText(
-//					"Out Stock"));
-//		}
+		holder.layout_stock.setVisibility(View.GONE);
 
-		CategoryDetailPriceView price_view = new CategoryDetailPriceView(
-				product);
-		View view = price_view.createView();
-		if (null != view && null != holder.ll_price) {
-			holder.ll_price.removeAllViewsInLayout();
-			holder.ll_price.addView(view);
+		if(holder.ll_price != null){
+			createPriceWithoutTax(holder, product);
 		}
 
 		String name = product.getName();
 		if (null != name) {
 			name.trim();
-			holder.tv_name.setText(name.toUpperCase());
+			holder.tv_name.setText(name);
 		} else {
 			holder.tv_name.setText("SimiCart");
 		}
@@ -233,10 +233,46 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 
 		RelativeLayout rl_product_list = (RelativeLayout) convertView
 				.findViewById(Rconfig.getInstance().id("rel_product_list"));
+		Intent intent = new Intent("com.simicart.image.product.grid");
+		SimiEventBlockEntity blockEntity = new SimiEventBlockEntity();
+		blockEntity.setView(rl_product_list);
+		blockEntity.setEntity(product);
+		Bundle bundle = new Bundle();
+		bundle.putSerializable(Constants.ENTITY,blockEntity);
+		intent.putExtra(Constants.DATA, bundle);
+		LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
 
-		EventBlock eventBlock = new EventBlock();
-		eventBlock.dispatchEvent("com.simicart.image.product.grid",
-				rl_product_list, mListProduct.get(pos));
+
+
 		return convertView;
+	}
+
+	protected void createPriceWithoutTax(ViewHolder holder, ProductEntity product) {
+		holder.tv_first.setPaintFlags(holder.tv_first.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+		holder.tv_first.setVisibility(View.VISIBLE);
+		holder.tv_second.setVisibility(View.VISIBLE);
+
+		mPrice = product.getPrice();
+		mSalePrice = product.getSalePrice();
+		if (mPrice == mSalePrice) {
+			holder.tv_second.setVisibility(View.GONE);
+			String sPrice = getPrice(mPrice);
+			if (Utils.validateString(sPrice)) {
+				holder.tv_first.setText(sPrice);
+			}
+		} else {
+			if (mSalePrice == 0) {
+				holder.tv_second.setVisibility(View.GONE);
+				holder.tv_first.setText(getPrice(mPrice));
+			} else {
+				holder.tv_second.setText(getPrice(mSalePrice));
+				holder.tv_first.setPaintFlags(holder.tv_first.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+				holder.tv_first.setText(getPrice(mPrice));
+			}
+		}
+	}
+
+	protected String getPrice(float price) {
+		return Config.getInstance().getPrice(price);
 	}
 }

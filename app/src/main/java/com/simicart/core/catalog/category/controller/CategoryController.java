@@ -44,7 +44,9 @@ public class CategoryController extends SimiController {
         ModelDelegate delegate = new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-
+                if(error != null){
+                    SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
+                }
             }
 
             @Override
@@ -61,6 +63,7 @@ public class CategoryController extends SimiController {
             mModel.addFilterDataParameter("status","1");
         }else{
             mModel.addFilterDataParameter("status","1");
+            mModel.addDataParameter("filter[parent][exists]", "0");
         }
         mModel.addDataParameter("order","position");
         mModel.request();

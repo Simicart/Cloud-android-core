@@ -1,6 +1,5 @@
 package com.simicart;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -13,49 +12,34 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.multidex.MultiDex;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.magestore.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.controller.ConfigCheckout;
-import com.simicart.core.common.FontsOverride;
-import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
-import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.controller.AutoGetQtyNotSignInController;
 import com.simicart.core.customer.controller.AutoSignInController;
-import com.simicart.core.event.activity.CacheActivity;
-import com.simicart.core.event.activity.EventActivity;
-import com.simicart.core.event.base.UtilsEvent;
-import com.simicart.core.event.block.EventBlock;
-import com.simicart.core.event.controller.EventController;
 import com.simicart.core.menutop.fragment.FragmentMenuTop;
 import com.simicart.core.notification.NotificationActivity;
 import com.simicart.core.notification.common.CommonUtilities;
 import com.simicart.core.notification.controller.NotificationController;
-import com.simicart.core.shortcutbadger.ShortcutBadgeException;
-import com.simicart.core.shortcutbadger.ShortcutBadger;
 import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.Map;
 
-@SuppressLint("DefaultLocale")
 public class MainActivity extends FragmentActivity {
 
     public final static int PAUSE = 2;
@@ -80,6 +64,25 @@ public class MainActivity extends FragmentActivity {
         SimiManager.getIntance().setCurrentActivity(this);
         SimiManager.getIntance().setCurrentContext(this);
         setContentView(R.layout.core_main_activity);
+
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.simicart",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("MAINACTIVITY KeyHash ","=================>"+ Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.d("MAINACTIVITY KeyHash ","=================>"+"Eception 1" + e.getMessage());
+        } catch (NoSuchAlgorithmException e) {
+            Log.d("MAINACTIVITY KeyHash","=================>"+"Eception " + e.getMessage());
+        }
+
+
+
+
         if (DataLocal.isSignInComplete()) {
             autoSignin();
         }else{
@@ -251,20 +254,21 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        Log.e("Onback", "MainActivity");
 
-        EventBlock eventBlock = new EventBlock();
-        eventBlock
-                .dispatchEvent("com.simicart.leftmenu.mainactivity.onbackpress.checkentrycount");
+
+        Intent intent = new Intent("com.simicart.leftmenu.mainactivity.onbackpress.checkentrycount");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         int count = SimiManager.getIntance().getManager()
                 .getBackStackEntryCount();
+
         if (count > 0) {
             try {
                 if (count == 1) {
                     if (checkBackScan == true) {
                         checkBackScan = false;
-                        eventBlock
-                                .dispatchEvent("com.simicart.leftmenu.mainactivity.onbackpress.backtoscan");
+                        Intent intent_back = new Intent("com.simicart.leftmenu.mainactivity.onbackpress.backtoscan");
+                        LocalBroadcastManager.getInstance(this).sendBroadcast(intent_back);
+
                     } else {
                         // out app
                         AlertDialog.Builder alertboxDowload = new AlertDialog.Builder(
@@ -325,8 +329,8 @@ public class MainActivity extends FragmentActivity {
                         }
                         if (checkBackScan == true) {
                             checkBackScan = false;
-                            eventBlock
-                                    .dispatchEvent("com.simicart.leftmenu.mainactivity.onbackpress.backtoscan");
+                            Intent intent_back = new Intent("com.simicart.leftmenu.mainactivity.onbackpress.backtoscan");
+                            LocalBroadcastManager.getInstance(this).sendBroadcast(intent_back);
                         }
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
@@ -430,6 +434,10 @@ public class MainActivity extends FragmentActivity {
 //        this.requestCode = requestCode;
 //        this.resultCode = resultCode;
 //        this.data = data;
+//
+//        Intent intent = new Intent("com.simicart.MainActivity.onActivityResult");
+//        LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent);
+
 //        // event form signin
 //        EventController dispatch = new EventController();
 //        dispatch.dispatchEvent("com.simicart.MainActivity.onActivityResult",

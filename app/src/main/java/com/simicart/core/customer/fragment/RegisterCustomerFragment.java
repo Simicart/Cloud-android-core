@@ -39,14 +39,20 @@ public class RegisterCustomerFragment extends SimiFragment {
 		if (null == mController) {
 			mController = new RegisterCustomerController();
 			mController.setDelegate(mBlock);
+			mController.setIsCheckout(isCheckout);
 			mController.onStart();
 		} else {
 			mController.setDelegate(mBlock);
+			mController.setIsCheckout(isCheckout);
 			mController.onResume();
 		}
 		mBlock.setOnClickRelativeLayout(mController.getOnClickRelative());
 		mBlock.setRegisterClick(mController.getOnclickRegister());
 		mBlock.setOnClickTextViewGender(mController.getOnClickRelative());
 		return view;
+	}
+
+	public void setIsCheckout(boolean isCheckout) {
+		this.isCheckout = isCheckout;
 	}
 }

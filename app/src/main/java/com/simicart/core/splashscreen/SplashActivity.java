@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.simicart.core.base.manager.SimiManager;
@@ -12,7 +11,6 @@ import com.simicart.core.common.Utils;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.event.activity.CacheActivity;
-import com.simicart.core.event.activity.EventActivity;
 import com.simicart.core.shortcutbadger.ShortcutBadgeException;
 import com.simicart.core.shortcutbadger.ShortcutBadger;
 import com.simicart.core.splashscreen.block.SplashBlock;
@@ -52,9 +50,9 @@ public class SplashActivity extends Activity implements SplashDelegate {
 		// dispatch event for sent google analytic
 		CacheActivity cacheActivity = new CacheActivity();
 		cacheActivity.setActivity(this);
-		EventActivity dispacth = new EventActivity();
-		dispacth.dispatchEvent("com.simicart.splashscreen.onCreate",
-				cacheActivity);
+//		EventActivity dispacth = new EventActivity();
+//		dispacth.dispatchEvent("com.simicart.splashscreen.onCreate",
+//				cacheActivity);
 		// end dispatch
 
 		// Update badge

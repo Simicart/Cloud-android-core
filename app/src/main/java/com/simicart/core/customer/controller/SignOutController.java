@@ -13,14 +13,9 @@ import com.simicart.core.base.delegate.SimiDelegate;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
-import com.simicart.core.checkout.controller.ConfigCheckout;
-import com.simicart.core.checkout.entity.PaymentMethod;
 import com.simicart.core.config.Config;
-import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.model.SignOutModel;
-import com.simicart.core.event.controller.EventController;
-import com.simicart.core.home.fragment.HomeFragment;
 
 public class SignOutController extends SimiController {
 

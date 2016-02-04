@@ -19,7 +19,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.widget.TextView;
 
-import com.magestore.simicart.R;
+import com.simicart.R;
 import com.simicart.MainActivity;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -159,15 +159,15 @@ public class CartListenerController implements CartAdapterDelegate {
 	}
 
 	protected void requestDeleteItemCart(int position){
+		mBlockDelegate.showDialogLoading();
 		ProductEntity productEntity = mCarts.get(position);
 		String productID = productEntity.getID();
-		mBlockDelegate.showDialogLoading();
 		DeleteCartItemModel mModelDelete = new DeleteCartItemModel();
 		mModelDelete.setDelegate(new ModelDelegate() {
 			@Override
 			public void onFail(SimiError error) {
 				mBlockDelegate.dismissDialogLoading();
-				if(error != null){
+				if (error != null) {
 					SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
 				}
 			}
@@ -199,9 +199,23 @@ public class CartListenerController implements CartAdapterDelegate {
 	}
 
 	protected void editItemCart(final int position, String qty) {
+		mBlockDelegate.showDialogLoading();
 		ProductEntity productEntity = mCarts.get(position);
 		String productID = productEntity.getID();
-		mBlockDelegate.showDialogLoading();
+		int iqty = 0;
+		try {
+			iqty = Integer.parseInt(qty);
+		}catch (Exception e)
+		{
+
+		}
+
+		int previous = SimiManager.getIntance().getPreQty();
+		if(previous != iqty)
+		{
+			SimiManager.getIntance().setRefreshCart(true);
+		}
+
 
 		final EditCartItemModel model = new EditCartItemModel();
 		model.setDelegate(new ModelDelegate() {

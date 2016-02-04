@@ -44,7 +44,9 @@ public class BannerModel extends SimiModel {
                         BannerEntity entity = new BannerEntity();
                         entity.setJSONObject(js);
                         entity.parse();
-                        banners.add(entity);
+                        if(entity.isEnable()){
+                            banners.add(entity);
+                        }
                     }
                     collection.setCollection(banners);
                 }

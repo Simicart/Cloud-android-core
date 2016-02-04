@@ -34,7 +34,7 @@ public class SettingModel extends SimiModel{
     protected void paserData() {
         super.paserData();
 
-
+        Log.e("SettingModel", mJSONResult.toString());
         if(mJSONResult.has(settings)){
             try {
                 ConfigEntity entity = new ConfigEntity();

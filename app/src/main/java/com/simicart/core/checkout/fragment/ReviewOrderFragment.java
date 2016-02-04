@@ -5,13 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.block.PaymentMethodBlock;
 import com.simicart.core.checkout.block.ReviewOrderBlock;
-import com.simicart.core.checkout.block.ShippingBlock;
+import com.simicart.core.checkout.block.ShippingMethodBlock;
 import com.simicart.core.checkout.controller.ConfigCheckout;
 import com.simicart.core.checkout.controller.ReviewOrderController;
 import com.simicart.core.checkout.entity.QuoteEntity;
@@ -23,7 +22,7 @@ public class ReviewOrderFragment extends SimiFragment {
 
 	protected ReviewOrderBlock mBlock;
 	protected PaymentMethodBlock mPaymentMethodBlock;
-	protected ShippingBlock mShippingBlock;
+	protected ShippingMethodBlock mShippingBlock;
 	protected ReviewOrderController mController;
 	protected MyAddress mBillingAddress;
 	protected MyAddress mShippingAddress;
@@ -87,14 +86,10 @@ public class ReviewOrderFragment extends SimiFragment {
 		mBlock = new ReviewOrderBlock(view, context);
 		mBlock.initView();
 		
-		LinearLayout list_shiping = (LinearLayout) view.findViewById(Rconfig
-				.getInstance().id("ll_shipping"));
-		mShippingBlock = new ShippingBlock(view, context);
+		mShippingBlock = new ShippingMethodBlock(view, context);
 		mShippingBlock.initView();
 		mShippingBlock.setDelegate(mBlock);
 		
-		LinearLayout list_payment = (LinearLayout) view.findViewById(Rconfig
-				.getInstance().id("ll_payment"));
 		mPaymentMethodBlock = new PaymentMethodBlock(view, context);
 		mPaymentMethodBlock.initView();
 		mPaymentMethodBlock.setDelegate(mBlock);

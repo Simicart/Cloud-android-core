@@ -1,27 +1,36 @@
 package com.simicart.core.config;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.util.Log;
 
+import com.simicart.R;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.common.Utils;
 import com.simicart.core.splashscreen.entity.AppConfigEnitity;
 import com.simicart.core.splashscreen.entity.BaseCurrencyEntity;
 import com.simicart.core.splashscreen.entity.ConfigEntity;
 import com.simicart.core.splashscreen.entity.CurrencyEntity;
 import com.simicart.core.splashscreen.entity.FormatConfigEntity;
+import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
 import com.simicart.core.splashscreen.entity.TaxConfigEntity;
 import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 
 @SuppressLint("DefaultLocale")
 public class Config {
-    private String mBaseUrl = "https://api.jajahub.com/rest/";
-    private String mSecretKey = "05ac78758255ed2ac15e98e65fbe2c4b90c0594bb9b1f8d1bddb05f7e6e4db4e";
+    private String mBaseUrl = "https://dev-api.jajahub.com/rest/";
+    // Android account
+    private String mSecretKey = "92060603cb0fa791dae556a0d2bd1a985d10f681";
+    // Zara account
+//    private String mSecretKey = "ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0";
     // key site live : c843176d88b6e9a21f848482044503ea7ae82e85, api.jajahub.com/rest/
     // key zara: ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0, dev-api.jajahub.com/rest/
+    // key android: 92060603cb0fa791dae556a0d2bd1a985d10f681
     private String key_color = "#3498DB";
     private String top_menu_icon_color = "#FFFFFF";
     private String button_background = "#0277BD";
@@ -137,15 +146,13 @@ public class Config {
         StringBuilder builder = new StringBuilder();
         if (isLeft) {
             builder.append(symbol);
-            if(hasSpace)
-            {
+            if (hasSpace) {
                 builder.append(" ");
             }
             builder.append(s_price);
         } else {
             builder.append(s_price);
-            if(hasSpace)
-            {
+            if (hasSpace) {
                 builder.append(" ");
             }
             builder.append(symbol);
@@ -413,6 +420,12 @@ public class Config {
         }
     }
 
+    public void clearLanguages(){
+        if(mLanguages != null){
+            mLanguages.clear();
+        }
+    }
+
     public String getSenderId() {
         return mSenderID;
     }
@@ -450,11 +463,13 @@ public class Config {
     }
 
     public String getCurrency_code() {
+        Log.e("CONFIG  ","------> GET CURRENCY CODE " + mCurrencyCode);
         return mCurrencyCode;
     }
 
     public void setCurrency_code(String currency_code) {
         mCurrencyCode = currency_code;
+        Log.e("CONFIG  ","------> SET CURRENCY CODE " + mCurrencyCode);
     }
 
     public String getConnectorUrl() {
@@ -474,9 +489,6 @@ public class Config {
         return Color.parseColor(mColorSplashScreen);
     }
 
-//    public int getColorPrice() {
-//        return Color.parseColor(mColorPrice);
-//    }
 
 
     public String getFontCustom() {
@@ -500,7 +512,6 @@ public class Config {
         }
         return translater;
     }
-
 
 
     public String getCurrencyPosition() {
@@ -546,10 +557,20 @@ public class Config {
         return isTaxCart;
     }
 
+    public boolean isRTLLanguage(String locale) {
+        String[] rtl = SimiManager.getIntance().getCurrentContext().getResources().getStringArray(R.array.rtl);
+        for(int i=0;i<rtl.length;i++) {
+            if(locale.equals(rtl[i]))
+                return true;
+        }
+        return false;
+    }
 
     public void parseConfigSetting(ConfigEntity configEntity) {
         FormatConfigEntity formatEntity = configEntity.getFormatOption();
         CurrencyEntity currency = formatEntity.getCurrency();
+
+        Log.e("CONFIG ", "-------> CODE " + currency.getBaseCurrency().getCode());
 
         instance.setCurrency_code(currency.getBaseCurrency().getCode());
         instance.setStore_name(configEntity.getGeneral().getStoreName());
@@ -597,15 +618,49 @@ public class Config {
             instance.setTaxCart(taxConfig.isTaxCart());
         }
 
+        ArrayList<LocaleConfigEntity> listLocale = configEntity.getGeneral().getLocaleApp();
+        if (listLocale != null && listLocale.size() > 0) {
+            DataLocal.listLocale = listLocale;
+            String preLocale = DataLocal.getLocale();
+            if (preLocale.equals("")) {
+                String locale = listLocale.get(0).getCode();
+                if (Utils.validateString(locale)) {
+                    instance.setLocale_identifier(locale);
+                    Log.e("Config", "++" + locale);
+                    if(isRTLLanguage(locale) == true) {
+                        Log.e("Config", "is RTL language");
+                        DataLocal.isLanguageRTL = true;
+                    }
+                }
+            } else {
+                boolean checkLocale = false;
+                for (int i = 0; i < listLocale.size(); i++) {
+                    if (listLocale.get(i).getCode().equals(preLocale)) {
+                        checkLocale = true;
+                    }
+                }
+                if (checkLocale) {
+                    instance.setLocale_identifier(preLocale);
+                    if(isRTLLanguage(preLocale) == true) {
+                        Log.e("Config", "is RTL language");
+                        DataLocal.isLanguageRTL = true;
+                    }
+                } else {
+                    String locale = listLocale.get(0).getCode();
+                    if (Utils.validateString(locale)) {
+                        instance.setLocale_identifier(locale);
+                        if(isRTLLanguage(locale) == true) {
+                            Log.e("Config", "is RTL language");
+                            DataLocal.isLanguageRTL = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void parseAppConfig(AppConfigEnitity appConfig) {
         instance.setConfigTheme(appConfig.getLayout());
-        String locale = appConfig.getLocale();
-        if (Utils.validateString(locale)) {
-            instance.setLocale_identifier(locale);
-        }
-
         ThemeConfigEntity themeConfig = appConfig.getThemeConfig();
         parseThemeConfig(themeConfig);
     }
@@ -631,6 +686,5 @@ public class Config {
         instance.setSearch_box_background(themeConfig.getSearchBoxBackground());
         instance.setSearch_text_color(themeConfig.getSearchTextColor());
     }
-
 
 }

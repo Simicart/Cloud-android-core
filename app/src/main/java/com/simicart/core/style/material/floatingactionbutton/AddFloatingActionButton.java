@@ -10,7 +10,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.Shape;
 import android.util.AttributeSet;
 
-import com.magestore.simicart.R;
+import com.simicart.R;
 
 public class AddFloatingActionButton extends FloatingActionButton {
   int mPlusColor;

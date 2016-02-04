@@ -329,18 +329,18 @@
                         android:id="@+id/ic_expand"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
                         android:src="@drawable/ic_down" />
 
                     <TextView
                         android:id="@+id/shipping_methods"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/ic_expand"
+                        android:layout_toRightOf="@+id/ic_expand"
                         android:paddingBottom="10dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="10dp"
@@ -370,18 +370,18 @@
                         android:id="@+id/ic_expand_payment"
                         android:layout_width="15dp"
                         android:layout_height="15dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="20dp"
                         android:src="@drawable/ic_down" />
 
                     <TextView
                         android:id="@+id/tv_payment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/ic_expand_payment"
+                        android:layout_toRightOf="@+id/ic_expand_payment"
                         android:paddingBottom="10dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="10dp"
@@ -501,20 +501,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="30dp" />
 
-                    <EditText
-                        android:id="@+id/edt_counponCode"
+                    <!-- coupon code -->
+
+                    <RelativeLayout
+                        android:id="@+id/rlt_search"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
                         android:background="@drawable/core_coupon_line_border"
-                        android:gravity="right"
-                        android:imeOptions="actionDone"
-                        android:inputType="text"
-                        android:padding="10dp"
-                        android:textSize="18sp" />
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:id="@+id/image_remove_couponcode"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:src="@drawable/core_exit" />
+
+                        <EditText
+                            android:id="@+id/edt_counponCode"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@android:color/transparent"
+                            android:imeOptions="actionDone"
+                            android:inputType="text"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="right"
+                            android:layout_toRightOf="@+id/image_remove_couponcode"
+                            android:textSize="15sp" />
+
+                    </RelativeLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_confirm"

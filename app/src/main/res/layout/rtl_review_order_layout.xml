@@ -340,7 +340,7 @@
                         android:id="@+id/shipping_methods"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/ic_expand"
                         android:gravity="right"
@@ -385,7 +385,7 @@
                         android:id="@+id/tv_payment"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/ic_expand_payment"
                         android:gravity="right"
@@ -479,20 +479,38 @@
 
                 <!-- coupon code -->
 
-                <EditText
-                    android:id="@+id/edt_counponCode"
+                <RelativeLayout
+                    android:id="@+id/rlt_search"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/core_coupon_line_border"
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/core_coupon_line_border"
-                    android:gravity="right"
-                    android:imeOptions="actionDone"
-                    android:inputType="text"
-                    android:padding="10dp"
-                    android:textSize="15sp" />
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/image_remove_couponcode"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/core_exit" />
+
+                    <EditText
+                        android:id="@+id/edt_counponCode"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@android:color/transparent"
+                        android:imeOptions="actionDone"
+                        android:inputType="text"
+                        android:gravity="right"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:layout_toRightOf="@+id/image_remove_couponcode"
+                        android:textSize="15sp" />
+
+                </RelativeLayout>
 
                 <!-- confirm -->
 

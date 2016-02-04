@@ -118,4 +118,16 @@ public class PhoneSlideMenuBlock implements SlideMenuDelegate {
 		tv_acc.setText(name);
 	}
 
+	@Override
+	public void notifiChangeAdapter() {
+		mAdapter.notifyDataSetChanged();
+		if (DataLocal.isLanguageRTL) {
+			Log.e("PhoneSlideMenuBlock", "RTL");
+			tv_acc.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
+		} else {
+			Log.e("PhoneSlideMenuBlock", "RTL");
+			tv_acc.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+		}
+	}
+
 }

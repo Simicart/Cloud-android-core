@@ -68,6 +68,7 @@ public class WebViewActivity extends Activity implements Communicator {
     private String vResponse;
     private String mechantID;
     private String accessCode;
+    private String urlRedirect;
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -105,7 +106,7 @@ public class WebViewActivity extends Activity implements Communicator {
                     vResponse = model.getRsaKey();
                     mechantID = model.getMerchanID();
                     accessCode = model.getAccessCode();
-                    System.out.println(vResponse);
+                    urlRedirect = model.getUrlRedirect();
                     if (!ServiceUtility.chkNull(vResponse).equals("")
                             && ServiceUtility.chkNull(vResponse).toString().indexOf("ERROR") == -1) {
                         StringBuffer vEncVal = new StringBuffer("");
@@ -119,7 +120,6 @@ public class WebViewActivity extends Activity implements Communicator {
                 if (dialog.isShowing())
                     dialog.dismiss();
 
-                @SuppressWarnings("unused")
                 class MyJavaScriptInterface {
                     @JavascriptInterface
                     public void processHTML(String html) {
@@ -131,12 +131,15 @@ public class WebViewActivity extends Activity implements Communicator {
                                 status = "Transaction Declined!";
                                 updatePayment("2", status);
                             } else if (html.indexOf("Success") != -1) {
-                                status = "Transaction Successful!";
+                                status = "Thank you for your purchase!";
                                 updatePayment("1", status);
                             } else if (html.indexOf("Aborted") != -1) {
-                                status = "Transaction Cancelled!";
+                                status = "Your order has been canceled!";
                                 updatePayment("2", status);
-                            } else {
+                            } else if (html.indexOf("Error") != -1){
+                                status = "Transaction Error!";
+                                updatePayment("0", status);
+                            } else{
                                 status = "Transaction Error!";
                                 updatePayment("0", status);
                             }
@@ -160,7 +163,7 @@ public class WebViewActivity extends Activity implements Communicator {
                     public void onPageFinished(WebView view, String url) {
                         super.onPageFinished(myBrowser, url);
                         Log.e("URLFINSHCCAVANUE", url);
-                        if (url.indexOf("/ccavResponseHandler.jsp") != -1) {
+                        if (url.indexOf("success") != -1) {
                             myBrowser.loadUrl("javascript:window.HTMLOUT.processHTML('<head>'+document.getElementsByTagName('html')[0].innerHTML+'</head>');");
                         }
 
@@ -185,8 +188,8 @@ public class WebViewActivity extends Activity implements Communicator {
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.ACCESS_CODE, accessCode));
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.MERCHANT_ID, mechantID));
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.ORDER_ID, mainIntent.getStringExtra(AvenuesParams.ORDER_ID)));
-                params.append(ServiceUtility.addToPostParams(AvenuesParams.REDIRECT_URL, "http://122.182.6.216/merchant/ccavResponseHandler.jsp"));
-                params.append(ServiceUtility.addToPostParams(AvenuesParams.CANCEL_URL, "http://122.182.6.216/merchant/ccavResponseHandler.jsp"));
+                params.append(ServiceUtility.addToPostParams(AvenuesParams.REDIRECT_URL, urlRedirect));
+                params.append(ServiceUtility.addToPostParams(AvenuesParams.CANCEL_URL, urlRedirect));
                 params.append(ServiceUtility.addToPostParams(AvenuesParams.ENC_VAL, URLEncoder.encode(encVal)));
 
                 String vPostParams = params.substring(0, params.length() - 1);
@@ -793,5 +796,10 @@ public class WebViewActivity extends Activity implements Communicator {
             Toast.makeText(getApplicationContext(), "Action not available for this Payment Option !", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        changeView("Your order has been canceled");
     }
 }

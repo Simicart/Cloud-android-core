@@ -1,5 +1,8 @@
 package com.simicart.core.customer.controller;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +23,6 @@ import com.simicart.core.customer.fragment.AddressBookFragment;
 import com.simicart.core.customer.fragment.ChangePasswordFragment;
 import com.simicart.core.customer.fragment.OrderHistoryFragment;
 import com.simicart.core.customer.fragment.ProfileFragment;
-import com.simicart.core.event.controller.EventController;
 import com.simicart.core.home.fragment.HomeFragment;
 
 public class MyAccountController extends SimiController {
@@ -124,10 +126,11 @@ public class MyAccountController extends SimiController {
 					SimiManager.getIntance().removeDialog();
 					showToastSignOut();
 					DataLocal.isNewSignIn = false;
-					EventController event = new EventController();
-					event.dispatchEvent(
-							"com.simicart.core.customer.controller.SignInController",
-							"");
+					// dispatch event
+					Intent intent = new Intent("com.simicart.core.customer.controller.SignInController");
+					Context context = SimiManager.getIntance().getCurrentContext();
+					LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
 					DataLocal.saveSignInState(false);
 					DataLocal.clearEmailPassowrd();
 					ConfigCheckout.getInstance().setmQty("" + 0);

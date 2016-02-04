@@ -54,15 +54,15 @@ public class HomeFragment extends SimiFragment {
                 false);
         Context context = getActivity();
         // init search
-		View searchView = rootView.findViewById(Rconfig.getInstance().id(
-				"rlt_search"));
-		if (DataLocal.isTablet) {
-			searchView.setVisibility(View.GONE);
-		} else {
-			mSearchHomeBlock = new SearchHomeBlock(searchView, context);
-			mSearchHomeBlock.setTag(TagSearch.TAG_LISTVIEW);
-			mSearchHomeBlock.initView();
-		}
+        View searchView = rootView.findViewById(Rconfig.getInstance().id(
+                "rlt_search"));
+        if (DataLocal.isTablet) {
+            searchView.setVisibility(View.GONE);
+        } else {
+            mSearchHomeBlock = new SearchHomeBlock(searchView, context);
+            mSearchHomeBlock.setTag(TagSearch.TAG_LISTVIEW);
+            mSearchHomeBlock.initView();
+        }
         // init banner
         RelativeLayout rlt_banner = (RelativeLayout) rootView
                 .findViewById(Rconfig.getInstance().id("rlt_banner_home"));

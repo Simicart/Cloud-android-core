@@ -37,6 +37,7 @@ public class ForgotPasswordController extends SimiController {
 
             @Override
             public void onClick(View v) {
+                SimiManager.getIntance().hideKeyboard();
                 onSend();
             }
         };
@@ -100,6 +101,7 @@ public class ForgotPasswordController extends SimiController {
                 if(!model.getMessage().equals("")){
                     mDelegate.showNotify(model.getMessage());
                 }
+                SimiManager.getIntance().backPreviousFragment();
 //                resetPassword(email, pass);
             }
         });

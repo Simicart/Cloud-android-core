@@ -9,6 +9,7 @@ import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.common.ReadXMLLanguage;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.event.base.ReadXML;
@@ -19,7 +20,7 @@ import com.simicart.core.splashscreen.entity.ConfigEntity;
 import com.simicart.core.splashscreen.model.AppConfigModel;
 import com.simicart.core.splashscreen.model.CMSPagesModel;
 import com.simicart.core.splashscreen.model.GetIDPluginsModel;
-import com.simicart.core.splashscreen.model.GetSKUPlugin;
+import com.simicart.core.splashscreen.model.GetSKUPluginModel;
 import com.simicart.core.splashscreen.model.SettingModel;
 
 import java.util.ArrayList;
@@ -69,7 +70,9 @@ public class SplashController {
             @Override
             public void onSuccess(SimiCollection collection) {
                 String ids = idsModel.getIDs();
-                getSKUPlugin(ids);
+                if (Utils.validateString(ids)) {
+                    getSKUPlugin(ids);
+                }
             }
         });
 
@@ -82,7 +85,7 @@ public class SplashController {
         // http://dev-api.jajahub.com/rest/public_plugins
         // lay sku cua cac plugin enbale
 
-        final GetSKUPlugin skuModel = new GetSKUPlugin();
+        final GetSKUPluginModel skuModel = new GetSKUPluginModel();
         skuModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
@@ -150,8 +153,10 @@ public class SplashController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                SimiEntity entity = collection.getCollection().get(0);
-                DataLocal.listCms = ((CMSPageEntity) entity).getPage();
+                if(collection != null && collection.getCollection().size() > 0){
+                    SimiEntity entity = collection.getCollection().get(0);
+                    DataLocal.listCms = ((CMSPageEntity) entity).getPage();
+                }
             }
         });
 
@@ -170,10 +175,13 @@ public class SplashController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                SimiEntity entity = collection.getCollection().get(0);
-                ConfigEntity configEntity = (ConfigEntity) entity;
-                Config.getInstance().parseConfigSetting(configEntity);
-                mDelegate.creatMain();
+                if(collection != null && collection.getCollection().size() > 0) {
+                    SimiEntity entity = collection.getCollection().get(0);
+                    ConfigEntity configEntity = (ConfigEntity) entity;
+                    Config.getInstance().parseConfigSetting(configEntity);
+                    createLanguage();
+                    mDelegate.creatMain();
+                }
             }
         });
 

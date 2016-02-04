@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,15 +28,16 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.fragment.MyAccountFragment;
 import com.simicart.core.customer.fragment.OrderHistoryFragment;
 import com.simicart.core.customer.fragment.SignInFragment;
-import com.simicart.core.event.block.EventBlock;
 import com.simicart.core.event.slidemenu.EventSlideMenu;
 import com.simicart.core.event.slidemenu.SlideMenuData;
 import com.simicart.core.home.fragment.HomeFragment;
 import com.simicart.core.setting.fragment.SettingAppFragment;
+import com.simicart.core.slidemenu.adapter.TabSlideMenuAdapter;
 import com.simicart.core.slidemenu.delegate.CloseSlideMenuDelegate;
 import com.simicart.core.slidemenu.delegate.SlideMenuDelegate;
 import com.simicart.core.slidemenu.entity.ItemNavigation;
 import com.simicart.core.slidemenu.entity.ItemNavigation.TypeItem;
+import com.simicart.core.style.PagerSlidingTabStrip;
 
 public class PhoneSlideMenuController {
 
@@ -52,6 +55,31 @@ public class PhoneSlideMenuController {
     protected int DEFAULT_POSITION = 0;
     protected CloseSlideMenuDelegate mCloseDelegate;
     private boolean check_keyboard_first;
+    protected TabSlideMenuAdapter tabSlideMenuAdapter;
+    protected ViewPager mViewPager;
+    protected ArrayList<SimiFragment> mListFragment;
+    protected FragmentManager fmanager;
+    PagerSlidingTabStrip titletab;
+
+    public void setTabSlideMenuAdapter(TabSlideMenuAdapter tabSlideMenuAdapter) {
+        this.tabSlideMenuAdapter = tabSlideMenuAdapter;
+    }
+
+    public void setViewPager(ViewPager mViewPager) {
+        this.mViewPager = mViewPager;
+    }
+
+    public void setListFragment(ArrayList<SimiFragment> mListFragment) {
+        this.mListFragment = mListFragment;
+    }
+
+    public void setFmanager(FragmentManager fmanager) {
+        this.fmanager = fmanager;
+    }
+
+    public void setTitletab(PagerSlidingTabStrip titletab) {
+        this.titletab = titletab;
+    }
 
     public void setCloseDelegate(CloseSlideMenuDelegate delegate) {
         mCloseDelegate = delegate;
@@ -173,8 +201,8 @@ public class PhoneSlideMenuController {
             slideMenuData.setItemNavigations(mItemsAccount);
             slideMenuData.setPluginFragment(mPluginFragment);
             EventSlideMenu eventSlideMenu = new EventSlideMenu();
-            eventSlideMenu.dispatchEvent("com.simicart.add.navigation.account",
-                    slideMenuData);
+//            eventSlideMenu.dispatchEvent("com.simicart.add.navigation.account",
+//                    slideMenuData);
 
             int index_category = checkElement(CATEGORY);
             if (DataLocal.isTablet) {
@@ -199,8 +227,8 @@ public class PhoneSlideMenuController {
         slideMenuData.setItemNavigations(mItems);
         slideMenuData.setPluginFragment(mPluginFragment);
         EventSlideMenu eventSlideMenu = new EventSlideMenu();
-        eventSlideMenu.dispatchEvent(
-                "com.simicart.remove.navigation.myaccount", slideMenuData);
+//        eventSlideMenu.dispatchEvent(
+//                "com.simicart.remove.navigation.myaccount", slideMenuData);
     }
 
     public void addHome() {
@@ -254,8 +282,8 @@ public class PhoneSlideMenuController {
         slideMenuData.setItemNavigations(mItems);
         slideMenuData.setPluginFragment(mPluginFragment);
         EventSlideMenu eventSlideMenu = new EventSlideMenu();
-        eventSlideMenu.dispatchEvent("com.simicart.add.navigation.more",
-                slideMenuData);
+//        eventSlideMenu.dispatchEvent("com.simicart.add.navigation.more",
+//                slideMenuData);
 
         // CMS
         addCMS();
@@ -270,7 +298,7 @@ public class PhoneSlideMenuController {
                 if (null != name && !name.equals("null")) {
                     item.setName(name);
                 }
-                String url = cms.getIcon();
+                String url = cms.getIconURL();
                 if (null != url && !url.equals("null")) {
                     item.setUrl(url);
                 }
@@ -301,9 +329,9 @@ public class PhoneSlideMenuController {
             if (!item.isSparator()) {
                 // event click barcode leftmenu
                 String nameItem = item.getName();
-                EventBlock block = new EventBlock();
-                Constants.itemName = nameItem;
-                block.dispatchEvent("com.simicart.leftmenu.slidemenucontroller.onnavigate.clickitem");
+//                EventBlock block = new EventBlock();
+//                Constants.itemName = nameItem;
+//                block.dispatchEvent("com.simicart.leftmenu.slidemenucontroller.onnavigate.clickitem");
                 TypeItem type = item.getType();
                 SimiFragment fragment = null;
                 if (type == TypeItem.NORMAL) {
@@ -493,6 +521,17 @@ public class PhoneSlideMenuController {
         }
         mDelegate.setUpdateSignIn(name);
         mDelegate.setAdapter(mItems);
+    }
+
+    public void notifiChangeAdapterSlideMenu(){
+        if(DataLocal.isTablet){
+            if(mViewPager != null) {
+                TabSlideMenuAdapter tabSlideMenuAdapter = new TabSlideMenuAdapter(fmanager, mListFragment);
+                mViewPager.setAdapter(tabSlideMenuAdapter);
+                titletab.setViewPager(mViewPager);
+            }
+        }
+        mDelegate.notifiChangeAdapter();
     }
 
 }

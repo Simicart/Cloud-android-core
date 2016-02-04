@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="months">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+        <item>05</item>
+        <item>06</item>
+        <item>07</item>
+        <item>08</item>
+        <item>09</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+
+    <string-array name="years">
+        <item>2015</item>
+        <item>2016</item>
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+        <item>2020</item>
+        <item>2021</item>
+        <item>2022</item>
+    </string-array>
+
+    <string-array name="rtl">
+        <item>prs_AF</item>
+        <item>ps_AF</item>
+        <item>ar_DZ</item>
+        <item>az_AZ</item>
+        <item>ar_BH</item>
+        <item>ms_BN</item>
+        <item>ar_EG</item>
+        <item>ml_IN</item>
+        <item>pa_IN</item>
+        <item>fa_IR</item>
+        <item>ar_IQ</item>
+        <item>he_IL</item>
+        <item>ar_JO</item>
+        <item>kk_KZ</item>
+        <item>ar_KW</item>
+        <item>ar_LB</item>
+        <item>ar_LY</item>
+        <item>ms_MY</item>
+        <item>ar_MA</item>
+        <item>ar_OM</item>
+        <item>ur_PK</item>
+        <item>ar_QA</item>
+        <item>ar_SA</item>
+        <item>ar_SY</item>
+        <item>syr_SY</item>
+        <item>ar_TN</item>
+        <item>tk_TM</item>
+        <item>ar_AE</item>
+        <item>ar_YE</item>
+    </string-array>
+</resources>

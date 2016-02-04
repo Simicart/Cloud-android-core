@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
@@ -109,6 +110,6 @@ public class SignInFragment extends SimiFragment {
 		this.resultCode = resultCode;
 		this.data = data;
 
-		SimiManager.getIntance().eventFragment(this);
+		SimiManager.getIntance().eventFragment(this,"onActivityResult");
 	}
 }

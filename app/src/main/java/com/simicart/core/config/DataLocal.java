@@ -1,17 +1,22 @@
 package com.simicart.core.config;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.simicart.core.base.manager.SimiManager;
+import com.simicart.core.checkout.entity.CreditcardEntity;
+import com.simicart.core.checkout.entity.ObjectSerializer;
 import com.simicart.core.checkout.entity.QuoteEntity;
 import com.simicart.core.cms.entity.Cms;
 import com.simicart.core.customer.entity.ConfigCustomerAddress;
 import com.simicart.core.customer.entity.ProfileEntity;
 import com.simicart.core.setting.entity.CurrencyEntity;
 import com.simicart.core.splashscreen.entity.ConfigEntity;
+import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
 import com.simicart.core.store.entity.Stores;
 
 public class DataLocal {
@@ -33,13 +38,12 @@ public class DataLocal {
     private static String CUSTOMER_GROUP_ID = "CustomerGroupID";
     private static String SIGNIN_KEY = "SignInKey";
     private static String NOTIFICATION_KEY = "NotificationKey";
-    private static String STORE_KEY = "StoreKey";
     private static String CURRENCY_KEY = "CurrencyKey";
     private static String TYPE_SIGNIN = "TypeSignIn";
     private static String CHECK_REMEMBER_PASSWORD = "check_remember_password";
     private static String QUOTE_CUSTOMER_NOT_SIGIN = "quote_customer_not_sign_in";
+    private static String LOCALE = "locale";
     public static ArrayList<Cms> listCms;
-    public static ArrayList<Stores> listStores;
     public static ArrayList<QuoteEntity> listCarts;
     public static ConfigCustomerAddress ConfigCustomerAddress;
     public static ConfigCustomerAddress ConfigCustomerProfile;
@@ -48,16 +52,18 @@ public class DataLocal {
     public static String qtyCartAuto = "";
     public static ArrayList<CurrencyEntity> listCurrency;
     public static ProfileEntity mCustomer;
-
+    public static ArrayList<LocaleConfigEntity> listLocale;
+    private static String EMAIL_CARD_CREDIT_CARD = "EmailCardCreditCard";
+    private static String SIMI_CREDIT_CARD = "SimiCreditCard";
 
     public static void init(Context context) {
         mContext = context;
         mSharedPre = mContext.getSharedPreferences(NAME_REFERENCE,
                 Context.MODE_PRIVATE);
         listCms = new ArrayList<Cms>();
-        listStores = new ArrayList<Stores>();
         listCarts = new ArrayList<QuoteEntity>();
         listCurrency = new ArrayList<CurrencyEntity>();
+        listLocale = new ArrayList<LocaleConfigEntity>();
         ConfigCustomerAddress = new ConfigCustomerAddress();
         ConfigCustomerProfile = new ConfigCustomerAddress();
     }
@@ -130,22 +136,20 @@ public class DataLocal {
         return quote_customer_not_signin;
     }
 
+    public static String getLocale(){
+        String locale = "";
+        if(mSharedPre != null){
+            locale = mSharedPre.getString(LOCALE, "");
+        }
+        return locale;
+    }
+
     public static Boolean getCheckRemember() {
         boolean check_save = false;
         if (mSharedPre != null) {
             check_save = mSharedPre.getBoolean(CHECK_REMEMBER_PASSWORD, false);
         }
         return check_save;
-    }
-
-    public static String getStoreID() {
-        String id = listStores.get(0).getStoreID();
-        if (mSharedPre != null) {
-            id = mSharedPre
-                    .getString(STORE_KEY, listStores.get(0).getStoreID());
-        }
-
-        return id;
     }
 
     public static String getCurrencyID() {
@@ -240,6 +244,12 @@ public class DataLocal {
         editor.commit();
     }
 
+    public static void saveLocale(String locale){
+        SharedPreferences.Editor editor = mSharedPre.edit();
+        editor.putString(LOCALE, locale);
+        editor.commit();
+    }
+
     public static void saveTypeSignIn(String type) {
         SharedPreferences.Editor editor = mSharedPre.edit();
         editor.putString(TYPE_SIGNIN, type);
@@ -253,12 +263,6 @@ public class DataLocal {
     public static void saveCurrencyID(String id) {
         SharedPreferences.Editor editor = mSharedPre.edit();
         editor.putString(CURRENCY_KEY, id);
-        editor.commit();
-    }
-
-    public static void saveStoreID(String id) {
-        SharedPreferences.Editor editor = mSharedPre.edit();
-        editor.putString(STORE_KEY, id);
         editor.commit();
     }
 
@@ -298,5 +302,47 @@ public class DataLocal {
         listCarts.clear();
     }
 
+    public static void saveEmailCreditCart(String email) {
+        SharedPreferences.Editor editor = mSharedPre.edit();
+        editor.putString(EMAIL_CARD_CREDIT_CARD, email);
+        editor.commit();
+    }
+
+    public static String getEmailCreditCart() {
+        String email = "";
+        if (DataLocal.isSignInComplete()) {
+            email = mSharedPre.getString(EMAIL_CARD_CREDIT_CARD, "");
+        }
+        return email;
+    }
+
+    public static void saveHashMapCreditCart(
+            HashMap<String, HashMap<String, CreditcardEntity>> hashMap) {
+        SharedPreferences.Editor editor = mSharedPre.edit();
+        try {
+            editor.putString(SIMI_CREDIT_CARD,
+                    ObjectSerializer.serialize(hashMap));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        editor.commit();
+    }
+
+    @SuppressWarnings("unchecked")
+    public static HashMap<String, HashMap<String, CreditcardEntity>> getHashMapCreditCart() {
+        HashMap<String, HashMap<String, CreditcardEntity>> creditCard = null;
+        try {
+            creditCard = (HashMap<String, HashMap<String, CreditcardEntity>>) ObjectSerializer
+                    .deserialize(mSharedPre.getString(
+                            SIMI_CREDIT_CARD,
+                            ObjectSerializer
+                                    .serialize(new HashMap<String, HashMap<String, CreditcardEntity>>())));
+        } catch (ClassNotFoundException | IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return creditCard;
+    }
 
 }

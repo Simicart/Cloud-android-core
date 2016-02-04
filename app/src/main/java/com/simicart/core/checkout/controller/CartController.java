@@ -15,6 +15,7 @@ public class CartController extends SimiController {
 
     protected CartDelegate mDelegate;
     protected QuoteEntity mTotal;
+
     public CartController() {
 
     }
@@ -34,7 +35,7 @@ public class CartController extends SimiController {
         ModelDelegate delegate = new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null){
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
                 }
             }
@@ -42,11 +43,12 @@ public class CartController extends SimiController {
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
-                mDelegate.updateView(collection);
                 if (collection != null && collection.getCollection().size() > 0) {
+                    mDelegate.updateView(collection);
                     QuoteEntity cart = (QuoteEntity) collection.getCollection().get(0);
+                    int newQtyCart = cart.getQty();
                     SimiManager.getIntance().onUpdateCartQty(
-                            String.valueOf(cart.getQty()));
+                            String.valueOf(newQtyCart));
                     mTotal = cart;
                     mDelegate.onUpdateTotalPrice(cart);
                 }
@@ -66,8 +68,9 @@ public class CartController extends SimiController {
 
     @Override
     public void onResume() {
-        mDelegate.updateView(mModel.getCollection());
-        mDelegate.onUpdateTotalPrice(mTotal);
+        request();
+//        mDelegate.updateView(mModel.getCollection());
+//        mDelegate.onUpdateTotalPrice(mTotal);
     }
 
     public void setDelegate(CartDelegate delegate) {

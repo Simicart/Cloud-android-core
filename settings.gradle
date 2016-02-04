@@ -1,4 +1,4 @@
-include ':', ':app', ':devsmartAndroid'
+include ':', ':app', ':devsmartAndroid', ':braintreelibrary', ':checkoutkit', ':CustomBrowser-release'
 include ':wheel'
 include ':library'
 

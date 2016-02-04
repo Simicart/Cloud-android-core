@@ -51,7 +51,9 @@ public class SpotProductModel extends SimiModel {
                         SpotProductEntity entity = new SpotProductEntity();
                         entity.setJSONObject(json);
                         entity.parse();
-                        spots.add(entity);
+                        if (entity.isStatus()) {
+                            spots.add(entity);
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

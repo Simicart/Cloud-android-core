@@ -14,6 +14,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -24,13 +25,12 @@ import android.widget.Toast;
 import com.simicart.MainActivity;
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.network.request.multi.SimiRequestQueue;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.event.block.EventBlock;
-import com.simicart.core.event.fragment.CacheFragment;
-import com.simicart.core.event.fragment.EventFragment;
+import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 import com.simicart.core.home.fragment.HomeFragment;
 import com.simicart.core.menutop.controller.MenuTopController;
 import com.simicart.core.slidemenu.controller.PhoneSlideMenuController;
@@ -46,29 +46,18 @@ public class SimiManager {
     private PhoneSlideMenuController mSlideMenuController;
     private MenuTopController mMenuTopController;
     private FragmentManager mChildFragmentManager;
-
+    protected boolean isRefreshCart = true;
     protected SimiRequestQueue mRequestQueue;
     protected Boolean isShowedNotify = false;
-
-    // private final int THEME_DEFAULT = 0;
-    // private final int THEME_MATRIX = 1;
-    // private final int THEME_ZTHEME = 2;
+    protected int mQtyCartPrevious;
 
     public SimiRequestQueue getRequestQueue() {
         return mRequestQueue;
     }
 
     private SimiManager() {
-        try {
-            Log.e("SimiManager", "contructor 001");
-            mRequestQueue = new SimiRequestQueue();
-        } catch (Exception e) {
-            Log.e("SimiManager", "contructor " + e.getMessage());
-        }
-        Log.e("SimiManager", "contructor 002");
+        mRequestQueue = new SimiRequestQueue();
         mRequestQueue.start();
-        Log.e("SimiManager", "contructor 003");
-
     }
 
     public static SimiManager getIntance() {
@@ -125,8 +114,40 @@ public class SimiManager {
     }
 
     public void onUpdateCartQty(String qty) {
+        int i_qty = 0;
+        if(null != qty) {
+            try {
+                qty = qty.trim();
+                i_qty = Integer.parseInt(qty);
+
+            } catch (Exception e) {
+            }
+        }
+
+        if (mQtyCartPrevious != i_qty) {
+            mQtyCartPrevious = i_qty;
+            isRefreshCart = true;
+        } else {
+            isRefreshCart = false;
+        }
         mMenuTopController.updateCartQty(qty);
     }
+
+    public int getPreQty()
+    {
+        return mQtyCartPrevious;
+    }
+
+    public void setRefreshCart(boolean isRefresh)
+    {
+        isRefreshCart = isRefresh;
+    }
+
+    public boolean isRereshCart()
+    {
+        return isRefreshCart;
+    }
+
 
     public void showCartLayout(boolean show) {
         mMenuTopController.showCartLayout(show);
@@ -135,6 +156,12 @@ public class SimiManager {
     public void onUpdateItemSignIn() {
         if (null != mSlideMenuController) {
             mSlideMenuController.updateSignIn();
+        }
+    }
+
+    public void notifiChangeAdapterSlideMenu() {
+        if (null != mSlideMenuController) {
+            mSlideMenuController.notifiChangeAdapterSlideMenu();
         }
     }
 
@@ -147,19 +174,15 @@ public class SimiManager {
     }
 
     public void toMainActivity() {
-        Log.e("SimiManger","toMainActivity 001");
         Intent i = new Intent(mCurrentActivity,
                 MainActivity.class);
-        Log.e("SimiManger","toMainActivity 002");
 
         Bundle extras = mCurrentActivity.getIntent().getExtras();
         if (extras != null) {
             i.putExtras(extras);
         }
-        Log.e("SimiManger","toMainActivity 003");
         mCurrentActivity.startActivity(i);
         mCurrentActivity.finish();
-        Log.e("SimiManger", "toMainActivity 004");
     }
 
     public void changeStoreView() {
@@ -180,15 +203,28 @@ public class SimiManager {
         return null;
     }
 
-    public SimiFragment eventFragment(SimiFragment fragment) {
+    public SimiFragment eventFragment(SimiFragment fragment)
+    {
+        return eventFragment(fragment,"createFragment");
+    }
+    public SimiFragment eventFragment(SimiFragment fragment,String method) {
+
         String nameFragment = fragment.getClass().getName();
-        CacheFragment cache = new CacheFragment();
-        cache.setFragment(fragment);
-        EventFragment event = new EventFragment();
-        event.dispatchEvent(nameFragment, cache);
-        fragment = cache.getFragment();
+        Intent intent = new Intent(nameFragment);
+        SimiEventFragmentEntity entity = new SimiEventFragmentEntity();
+        entity.setFragmetn(fragment);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ENTITY, entity);
+        if(!Utils.validateString(method))
+        {
+            method = "";
+        }
+        bundle.putString(Constants.METHOD,method);
+        intent.putExtra(Constants.DATA, bundle);
+        LocalBroadcastManager.getInstance(mCurrentContext).sendBroadcastSync(intent);
+        fragment = entity.getFragment();
         return fragment;
-        // end event
+
     }
 
     public void addFragment(SimiFragment fragment) {
@@ -196,8 +232,9 @@ public class SimiManager {
             String nameFragment = fragment.getClass().getName();
             // event check barcode
             Constants.NAME_FRAGMENT = nameFragment;
-            EventBlock block = new EventBlock();
-            block.dispatchEvent("com.simicart.leftmenu.slidemenucontroller.onnavigate.checkdirectdetail");
+            Intent intent = new Intent("com.simicart.leftmenu.slidemenucontroller.onnavigate.checkdirectdetail");
+            LocalBroadcastManager.getInstance(mCurrentContext).sendBroadcast(intent);
+
             fragment = eventFragment(fragment);
 
 

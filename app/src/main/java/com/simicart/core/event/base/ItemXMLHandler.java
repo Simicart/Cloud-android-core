@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.simicart.core.common.Utils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,20 +14,18 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class ItemXMLHandler extends DefaultHandler {
 
-    Boolean currentElement = false;
-    String currentValue = "";
-    ItemMaster item = null;
-    String tags = "";
+    private Boolean currentElement = false;
+    private String currentValue = "";
+    private String tags = "event";
+    private String currentSKU;
+    private String currentFullName;
     ArrayList<String> mListSKU;
-    private ArrayList<ItemMaster> itemsList;
 
     public void setTags(String tags) {
         this.tags = tags;
     }
 
-    public ItemXMLHandler(String tags, ArrayList<ItemMaster> itemsList, ArrayList<String> listSKU) {
-        this.tags = tags;
-        this.itemsList = itemsList;
+    public ItemXMLHandler(ArrayList<String> listSKU) {
         this.mListSKU = listSKU;
     }
 
@@ -38,41 +37,43 @@ public class ItemXMLHandler extends DefaultHandler {
 
         currentElement = true;
         currentValue = "";
-        if (localName.equals(this.tags)) {
-            item = new ItemMaster();
-        }
 
     }
 
-    // Called when tag closing
     @Override
     public void endElement(String uri, String localName, String qName)
             throws SAXException {
 
         currentElement = false;
-        /** set value */
-        if (localName.equalsIgnoreCase("name"))
-            item.setName(currentValue);
-        else if (localName.equalsIgnoreCase("package"))
-            item.setPackageName(currentValue);
-        else if (localName.equalsIgnoreCase("class"))
-            item.setClassName(currentValue);
-        else if (localName.equalsIgnoreCase("method"))
-            item.setMethod(currentValue);
-        else if (localName.equalsIgnoreCase("sku"))
-            item.setSku(currentValue);
-        else if (localName.equalsIgnoreCase("order")) {
-            item.setOrder(currentValue);
+
+        if (localName.equalsIgnoreCase("fullname")) {
+            currentFullName = currentValue;
+            currentValue = "";
+
+        } else if (localName.equalsIgnoreCase("sku")) {
+            currentSKU = currentValue;
+            currentValue = "";
         } else if (localName.equalsIgnoreCase(this.tags)) {
-            String sku = item.getSku();
-            Log.e("ItemXMLHandler ", "SKU " + sku);
-            if (Utils.validateString(sku) && checkSKU(sku)) {
-                Log.e("ItemXMLHandler ", "NAME  " + item.getName());
-                        itemsList.add(item);
+            Log.e("ItemXMLHandler ---> ", "SKU " + currentSKU + " FULL NAME " + currentFullName);
+            if (Utils.validateString(currentSKU) && checkSKU(currentSKU)) {
+                try {
+                    Class<?> change = Class.forName(currentFullName);
+                    change.getConstructor().newInstance();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InstantiationException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
-
     }
+
 
     // Called to get tag characters
     @Override

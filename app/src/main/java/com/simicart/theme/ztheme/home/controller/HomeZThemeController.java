@@ -77,6 +77,7 @@ public class HomeZThemeController extends SimiController {
 				getSpotProduct();
 			}
 		});
+		mModel.addDataParameter("order", "position");
 		mModel.request();
 	}
 

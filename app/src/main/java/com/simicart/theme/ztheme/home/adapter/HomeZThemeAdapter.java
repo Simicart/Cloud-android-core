@@ -15,142 +15,153 @@ import android.widget.TextView;
 import com.simicart.core.catalog.category.entity.Category;
 import com.simicart.core.common.DrawableManager;
 import com.simicart.core.common.Utils;
+import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.theme.ztheme.home.entity.CategoryZTheme;
 import com.simicart.theme.ztheme.home.entity.SpotProductZTheme;
 
 public class HomeZThemeAdapter extends BaseExpandableListAdapter {
-	private final Context mContext;
-	private ArrayList<CategoryZTheme> mCategories;
+    private final Context mContext;
+    private ArrayList<CategoryZTheme> mCategories;
 
-	public HomeZThemeAdapter(Context context, ArrayList<CategoryZTheme> list) {
-		mContext = context;
-		this.mCategories = list;
-	}
+    public HomeZThemeAdapter(Context context, ArrayList<CategoryZTheme> list) {
+        mContext = context;
+        this.mCategories = list;
+    }
 
-	public void addNewEntity(CategoryZTheme category)
-	{
-		mCategories.add(category);
-	}
+    public void addNewEntity(CategoryZTheme category) {
+        mCategories.add(category);
+    }
 
-	@Override
-	public int getGroupCount() {
-		return mCategories.size();
-	}
+    @Override
+    public int getGroupCount() {
+        return mCategories.size();
+    }
 
-	@Override
-	public int getChildrenCount(int groupPosition) {
-		return mCategories.get(groupPosition).getmCategories().size();
-	}
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return mCategories.get(groupPosition).getmCategories().size();
+    }
 
-	@Override
-	public Object getGroup(int groupPosition) {
-		return mCategories.get(groupPosition);
-	}
+    @Override
+    public Object getGroup(int groupPosition) {
+        return mCategories.get(groupPosition);
+    }
 
-	@Override
-	public Object getChild(int groupPosition, int childPosition) {
-		return mCategories.get(groupPosition).getmCategories()
-				.get(childPosition);
-	}
+    @Override
+    public Object getChild(int groupPosition, int childPosition) {
+        return mCategories.get(groupPosition).getmCategories()
+                .get(childPosition);
+    }
 
-	@Override
-	public long getGroupId(int groupPosition) {
-		// TODO Auto-generated method stub
-		return groupPosition;
-	}
+    @Override
+    public long getGroupId(int groupPosition) {
+        // TODO Auto-generated method stub
+        return groupPosition;
+    }
 
-	@Override
-	public long getChildId(int groupPosition, int childPosition) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public long getChildId(int groupPosition, int childPosition) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public boolean hasStableIds() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean hasStableIds() {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public View getGroupView(int groupPosition, boolean isExpanded,
-			View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) mContext
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		ViewHolder holder = new ViewHolder();
-		View rootView = null;
-		if (rootView == null) {
-			rootView = inflater.inflate(
-					Rconfig.getInstance().getId("ztheme_item_home_layout",
-							"layout"), null);
-			holder.img_category = (ImageView) rootView.findViewById(Rconfig
-					.getInstance().getId("img_category", "id"));
-			holder.tv_catename = (TextView) rootView.findViewById(Rconfig
-					.getInstance().id("tv_title"));
-			rootView.setTag(holder);
-		} else {
-			rootView = (View) convertView;
-			holder = (ViewHolder) rootView.getTag();
-		}
-		if (holder.tv_catename != null) {
-			if (mCategories.get(groupPosition).getCategoryName() == null
-					|| mCategories.get(groupPosition).getCategoryName().equals("")) {
-				holder.tv_catename.setVisibility(View.GONE);
-			} else {
-				holder.tv_catename.setText(mCategories.get(groupPosition)
-						.getCategoryName());
-			}
-		}
-		String url = "";
-		if (mCategories.get(groupPosition).getType() == CategoryZTheme.TYPE_CAT) {
-			final Category object = mCategories.get(groupPosition);
-			url = object.getCategoryImage();
-		} else {
-			SpotProductZTheme object = mCategories.get(groupPosition)
-					.getSpotProductZTheme();
-			url = object.getImage();
-		}
-		if (Utils.validateString(url)) {
-			try {
-				if (holder.img_category != null) {
-					DrawableManager.fetchDrawableOnThread(url,
-							holder.img_category);
-					notifyDataSetChanged();
-				}
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-		}
+    @Override
+    public View getGroupView(int groupPosition, boolean isExpanded,
+                             View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ViewHolder holder;
+        if (convertView == null) {
+            convertView = inflater.inflate(
+                    Rconfig.getInstance().getId("ztheme_item_home_layout",
+                            "layout"), null);
+            holder = new ViewHolder();
+            holder.img_category = (ImageView) convertView.findViewById(Rconfig
+                    .getInstance().getId("img_category", "id"));
+            holder.tv_catename = (TextView) convertView.findViewById(Rconfig
+                    .getInstance().id("tv_title"));
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
+        }
+        if (holder.tv_catename != null) {
+            holder.tv_catename.setVisibility(View.VISIBLE);
+            CategoryZTheme categoryZTheme = mCategories.get(groupPosition);
+            SpotProductZTheme spotProductZTheme = mCategories.get(groupPosition)
+                    .getSpotProductZTheme();
+            if (categoryZTheme.getType() == CategoryZTheme.TYPE_CAT) {
+                if (Utils.validateString(categoryZTheme.getCategoryName())) {
+                    holder.tv_catename.setVisibility(View.GONE);
+                } else {
+                    holder.tv_catename.setText(categoryZTheme.getCategoryName());
+                }
+            } else {
+                if(Utils.validateString(spotProductZTheme.getName())){
+                    holder.tv_catename.setText(spotProductZTheme.getName());
+                }else {
+                    holder.tv_catename.setVisibility(View.GONE);
+                }
+            }
+        }
+        String url = "";
+        if (mCategories.get(groupPosition).getType() == CategoryZTheme.TYPE_CAT) {
+            final CategoryZTheme object = mCategories.get(groupPosition);
+            if (DataLocal.isTablet) {
+                url = object.getTabImage();
+            } else {
+                url = object.getPhoneImage();
+            }
+        } else {
+            SpotProductZTheme spotProductZTheme = mCategories.get(groupPosition)
+                    .getSpotProductZTheme();
+            url = spotProductZTheme.getImage();
+        }
+        if (Utils.validateString(url)) {
+            if (holder.img_category != null) {
+                DrawableManager.fetchDrawableOnThread(url,
+                        holder.img_category);
+            } else {
+                holder.img_category.setImageResource(Rconfig.getInstance().drawable("default_logo"));
+            }
+        } else {
+            holder.img_category.setImageResource(Rconfig.getInstance().drawable("default_logo"));
+        }
+        return convertView;
+    }
 
-		return rootView;
-	}
+    @Override
+    public View getChildView(int groupPosition, int childPosition,
+                             boolean isLastChild, View convertView, ViewGroup parent) {
+        if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) mContext
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater
+                    .inflate(
+                            Rconfig.getInstance().getId(
+                                    "ztheme_item_list_category_layout",
+                                    "layout"), null);
+            TextView txt_category = (TextView) convertView.findViewById(Rconfig
+                    .getInstance().getId("tv_catename", "id"));
+            txt_category.setText(mCategories.get(groupPosition)
+                    .getmCategories().get(childPosition).getCategoryName());
+        }
+        return convertView;
+    }
 
-	@Override
-	public View getChildView(int groupPosition, int childPosition,
-			boolean isLastChild, View convertView, ViewGroup parent) {
-		if (convertView == null) {
-			LayoutInflater inflater = (LayoutInflater) mContext
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = inflater
-					.inflate(
-							Rconfig.getInstance().getId(
-									"ztheme_item_list_category_layout",
-									"layout"), null);
-			TextView txt_category = (TextView) convertView.findViewById(Rconfig
-					.getInstance().getId("tv_catename", "id"));
-			txt_category.setText(mCategories.get(groupPosition)
-					.getmCategories().get(childPosition).getCategoryName());
-		}
-		return convertView;
-	}
+    static class ViewHolder {
+        TextView tv_catename;
+        ImageView img_category;
+    }
 
-	static class ViewHolder {
-		TextView tv_catename;
-		ImageView img_category;
-	}
-
-	@Override
-	public boolean isChildSelectable(int groupPosition, int childPosition) {
-		return true;
-	}
+    @Override
+    public boolean isChildSelectable(int groupPosition, int childPosition) {
+        return true;
+    }
 }

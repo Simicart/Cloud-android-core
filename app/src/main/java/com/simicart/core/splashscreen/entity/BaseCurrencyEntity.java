@@ -1,5 +1,7 @@
 package com.simicart.core.splashscreen.entity;
 
+import android.util.Log;
+
 import com.simicart.core.base.model.entity.SimiEntity;
 
 /**
@@ -19,6 +21,9 @@ public class BaseCurrencyEntity extends SimiEntity{
         if(mJSON != null){
             if(mJSON.has(code)){
                 mCode = getData(code);
+
+                Log.e("BaseCurrencyEntity ", "----> CODE " + mCode);
+
             }
 
             if(mJSON.has(symbol)){

@@ -1,9 +1,4 @@
-<events>    
-    <event>
-        <name>com.simicart.paymentmethod.placeorder</name>
-	    <package>com.simicart.plugins.checkout.com</package>
-	    <class>CheckoutCom</class>
-	    <method>onCheckOut</method>
-	    <sku>simi_developer</sku>	    	    
-    </event>                                     
-</events>
+<event>
+    <fullname>com.simicart.plugins.checkout.com.CheckoutCom</fullname>
+    <sku>simi_developer</sku>
+</event>

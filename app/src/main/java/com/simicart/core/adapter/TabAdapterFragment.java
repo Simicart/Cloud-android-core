@@ -16,8 +16,6 @@ import com.simicart.core.catalog.product.fragment.RelatedProductFragment;
 import com.simicart.core.catalog.product.fragment.TechSpecsFragment;
 import com.simicart.core.common.price.ProductDetailPriceView;
 import com.simicart.core.config.Config;
-import com.simicart.core.event.block.CacheBlock;
-import com.simicart.core.event.block.EventBlock;
 
 public class TabAdapterFragment extends FragmentStatePagerAdapter {
     protected ProductEntity mProduct;
@@ -117,11 +115,11 @@ public class TabAdapterFragment extends FragmentStatePagerAdapter {
     }
 
     public void EventTabFragment() {
-        EventBlock event = new EventBlock();
-        CacheBlock cacheBlock = new CacheBlock();
-        cacheBlock.setListFragment(mListFragment);
-        cacheBlock.setListName(mListTitle);
-        cacheBlock.setSimiEntity(mProduct);
-        event.dispatchEvent("com.simicart.core.adapter.TabAdapterFragment", cacheBlock);
+//        EventBlock event = new EventBlock();
+//        CacheBlock cacheBlock = new CacheBlock();
+//        cacheBlock.setListFragment(mListFragment);
+//        cacheBlock.setListName(mListTitle);
+//        cacheBlock.setSimiEntity(mProduct);
+//        event.dispatchEvent("com.simicart.core.adapter.TabAdapterFragment", cacheBlock);
     }
 }

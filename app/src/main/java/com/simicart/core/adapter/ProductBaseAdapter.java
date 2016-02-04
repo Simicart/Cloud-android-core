@@ -3,6 +3,9 @@ package com.simicart.core.adapter;
 import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,22 +17,23 @@ import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.view.ViewGroup.LayoutParams;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.common.DrawableManager;
-import com.simicart.core.common.price.CategoryDetailPriceView;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.event.block.EventBlock;
+import com.simicart.core.event.block.SimiEventBlockEntity;
 
 @SuppressLint("ViewHolder")
 public class ProductBaseAdapter extends BaseAdapter {
 
-
     protected ArrayList<ProductEntity> mProductList;
     protected Context mContext;
     protected boolean isHome;
+    private float mPrice;
+    private float mSalePrice;
 
     public ProductBaseAdapter(Context context, ArrayList<ProductEntity> ProductList) {
         this.mContext = context;
@@ -79,6 +83,8 @@ public class ProductBaseAdapter extends BaseAdapter {
                     .getInstance().id("layout_price"));
             holder.img_avartar = (ImageView) convertView.findViewById(Rconfig
                     .getInstance().id("product_list_image"));
+            holder.tv_first = (TextView) convertView.findViewById(Rconfig.getInstance().id("tv_fist_price"));
+            holder.tv_second = (TextView) convertView.findViewById(Rconfig.getInstance().id("tv_second_price"));
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -92,8 +98,12 @@ public class ProductBaseAdapter extends BaseAdapter {
         if (isHome) {
             if (DataLocal.isLanguageRTL) {
                 holder.tv_name.setGravity(Gravity.RIGHT);
+                holder.tv_first.setGravity(Gravity.RIGHT);
+                holder.tv_second.setGravity(Gravity.RIGHT);
             } else {
                 holder.tv_name.setGravity(Gravity.LEFT);
+                holder.tv_first.setGravity(Gravity.LEFT);
+                holder.tv_second.setGravity(Gravity.LEFT);
             }
         }
         // price
@@ -106,16 +116,7 @@ public class ProductBaseAdapter extends BaseAdapter {
         }
 
         // price
-        CategoryDetailPriceView viewPrice = new CategoryDetailPriceView(product);
-        viewPrice.setShowOnePrice(true);
-        View view = viewPrice.createView();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-        if (null != view) {
-            holder.ll_price.removeAllViewsInLayout();
-            holder.ll_price.addView(view, params);
-        }
-
+        createPriceWithoutTax(holder, product);
 
         // image
         if (product.getID().equals("fake")) {
@@ -139,13 +140,18 @@ public class ProductBaseAdapter extends BaseAdapter {
             }
         }
 
-        // dispatchevent
+        // dispatch event for Product Label Plugin
         RelativeLayout rl_product_list = (RelativeLayout) convertView
                 .findViewById(Rconfig.getInstance().id("rel_product_list_spot"));
 
-        EventBlock eventBlock = new EventBlock();
-        eventBlock.dispatchEvent("com.simicart.image.product.home",
-                rl_product_list, product);
+        Intent intent = new Intent("com.simicart.image.product.home");
+        SimiEventBlockEntity blockEntity = new SimiEventBlockEntity();
+        blockEntity.setView(rl_product_list);
+        blockEntity.setEntity(product);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ENTITY,blockEntity);
+        intent.putExtra(Constants.DATA, bundle);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
 
         return convertView;
     }
@@ -155,6 +161,35 @@ public class ProductBaseAdapter extends BaseAdapter {
         TextView tv_name;
         LinearLayout layoutStock;
         LinearLayout ll_price;
+        TextView tv_first;
+        TextView tv_second;
+    }
+
+    protected void createPriceWithoutTax(ViewHolder holder, ProductEntity product) {
+        holder.tv_first.setVisibility(View.VISIBLE);
+        holder.tv_second.setVisibility(View.VISIBLE);
+
+        mPrice = product.getPrice();
+        mSalePrice = product.getSalePrice();
+        if (mPrice == mSalePrice) {
+            holder.tv_second.setVisibility(View.GONE);
+            String sPrice = getPrice(mPrice);
+            if (Utils.validateString(sPrice)) {
+                holder.tv_first.setText(sPrice);
+            }
+        } else {
+            if (mSalePrice == 0) {
+                holder.tv_second.setVisibility(View.GONE);
+                holder.tv_first.setText(getPrice(mPrice));
+            } else {
+                holder.tv_first.setText(getPrice(mSalePrice));
+                holder.tv_second.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    protected String getPrice(float price) {
+        return Config.getInstance().getPrice(price);
     }
 
 }

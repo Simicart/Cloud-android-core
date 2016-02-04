@@ -1,5 +1,8 @@
 package com.simicart.core.customer.controller;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.simicart.core.base.controller.SimiController;
@@ -13,12 +16,10 @@ import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.customer.entity.ProfileEntity;
-import com.simicart.core.catalog.product.model.CreateQuoteModel;
 import com.simicart.core.customer.model.GetAllQuoteModel;
 import com.simicart.core.customer.model.LogInModel;
 import com.simicart.core.customer.model.MergeQuoteModel;
 import com.simicart.core.customer.model.UpdateCustomerToQuoteModel;
-import com.simicart.core.event.controller.EventController;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -87,8 +88,10 @@ public class AutoSignInController extends SimiController {
             model.request();
         } else {
             // event for face book
-            EventController event = new EventController();
-            event.dispatchEvent("com.simicart.autoSignIn", typeSignIn);
+            Intent intent  = new Intent("com.simicart.autoSignIn");
+            intent.putExtra(Constants.DATA,typeSignIn);
+            Context context = SimiManager.getIntance().getCurrentContext();
+            LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }
     }
 

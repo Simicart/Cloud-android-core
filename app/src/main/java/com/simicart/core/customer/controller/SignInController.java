@@ -1,7 +1,11 @@
 package com.simicart.core.customer.controller;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -35,14 +39,11 @@ import com.simicart.core.customer.delegate.SignInDelegate;
 import com.simicart.core.customer.entity.ProfileEntity;
 import com.simicart.core.customer.fragment.ForgotPasswordFragment;
 import com.simicart.core.customer.fragment.RegisterCustomerFragment;
-import com.simicart.core.catalog.product.model.CreateQuoteModel;
 import com.simicart.core.customer.model.GetAllQuoteModel;
 import com.simicart.core.customer.model.LogInModel;
 import com.simicart.core.customer.model.MergeQuoteModel;
 import com.simicart.core.customer.model.UpdateCustomerToQuoteModel;
-import com.simicart.core.event.controller.EventController;
-import com.simicart.core.event.fragment.CacheFragment;
-import com.simicart.core.event.fragment.EventFragment;
+import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 import com.simicart.core.home.fragment.HomeFragment;
 
 import org.json.JSONException;
@@ -235,7 +236,7 @@ public class SignInController extends SimiController {
             public void onFail(SimiError error) {
                 Log.e("SignInController", "Log in fail");
                 mDelegate.dismissLoading();
-                if(error != null)
+                if (error != null)
                     SimiManager.getIntance().showNotify(null, Config.getInstance().getText("Invalid username or password"), "Ok");
             }
 
@@ -285,39 +286,22 @@ public class SignInController extends SimiController {
                 }
 
                 requestGetAllQuote();
+                // dispatch event
+                Intent intent = new Intent("com.simicart.core.customer.controller.SignInController");
+                intent.putExtra(Constants.DATA, mModel.getJSON().toString());
+                Context context = SimiManager.getIntance().getCurrentContext();
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
-                EventController event = new EventController();
-                event.dispatchEvent(
-                        "com.simicart.core.customer.controller.SignInController",
-                        mModel.getJSON().toString());
-
-                if(isCheckout){
+                if (isCheckout) {
                     SimiFragment fragment = null;
                     fragment = AddressBookCheckoutFragment.newInstance();
-                    // event for wish list
-                    CacheFragment cache = new CacheFragment();
-                    cache.setFragment(fragment);
-                    EventFragment eventFragment = new EventFragment();
-                    eventFragment.dispatchEvent(
-                            "com.simicart.event.wishlist.afterSignIn",
-                            cache);
-                    fragment = cache.getFragment();
 
-                    SimiManager.getIntance().replacePopupFragment(fragment);
-                }else{
+                    // event for wish list
+                    processAfterSignIn(fragment);
+                } else {
                     SimiFragment fragment = null;
                     fragment = HomeFragment.newInstance();
-
-                    // event for wish list
-                    CacheFragment cache = new CacheFragment();
-                    cache.setFragment(fragment);
-                    EventFragment eventFragment = new EventFragment();
-                    eventFragment.dispatchEvent(
-                            "com.simicart.event.wishlist.afterSignIn",
-                            cache);
-                    fragment = cache.getFragment();
-
-                    SimiManager.getIntance().replaceFragment(fragment);
+                    processAfterSignIn(fragment);
                 }
             }
         };
@@ -338,12 +322,27 @@ public class SignInController extends SimiController {
         mModel.request();
     }
 
+    private void processAfterSignIn(SimiFragment fragment) {
+        Context context = SimiManager.getIntance().getCurrentContext();
+        Intent intent = new Intent("com.simicart.core.base.fragment.SimiFragment.setName");
+        SimiEventFragmentEntity entity = new SimiEventFragmentEntity();
+        entity.setFragmetn(fragment);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ENTITY, entity);
+        intent.putExtra(Constants.DATA, bundle);
+        LocalBroadcastManager.getInstance(context).sendBroadcastSync(intent);
+        fragment = entity.getFragment();
+        SimiManager.getIntance().replaceFragment(fragment);
+
+    }
+
+
     private void requestGetAllQuote() {
         GetAllQuoteModel quoteModel = new GetAllQuoteModel();
         quoteModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -388,7 +387,7 @@ public class SignInController extends SimiController {
         mergeQuoteModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -417,7 +416,7 @@ public class SignInController extends SimiController {
         updateCustomerToQuoteModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -486,6 +485,7 @@ public class SignInController extends SimiController {
     protected void onCreateAccount() {
         RegisterCustomerFragment fragment = RegisterCustomerFragment
                 .newInstance();
+        fragment.setIsCheckout(isCheckout);
         SimiManager.getIntance().replacePopupFragment(fragment);
     }
 

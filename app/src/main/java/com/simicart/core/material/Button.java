@@ -14,7 +14,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import com.magestore.simicart.R;
+import com.simicart.R;
 
 public abstract class Button extends CustomView {
 
