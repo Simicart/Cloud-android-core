@@ -5,6 +5,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.text.Selection;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,6 +32,18 @@ public class ChangePasswordBlock extends SimiBlock implements ChangePasswordDele
 
     public ChangePasswordBlock(View view, Context context) {
         super(view, context);
+    }
+
+    public void setCurrentPassWatcher(TextWatcher watcher) {
+        edt_currentPass.addTextChangedListener(watcher);
+    }
+
+    public void setNewPassWatcher(TextWatcher watcher) {
+        edt_newPass.addTextChangedListener(watcher);
+    }
+
+    public void setConfirmPassWatcher(TextWatcher watcher) {
+        edt_confirmPass.addTextChangedListener(watcher);
     }
 
     public void setSaveClicker(View.OnClickListener clicker) {
@@ -157,5 +170,20 @@ public class ChangePasswordBlock extends SimiBlock implements ChangePasswordDele
             int position = edt_confirmPass.length();
             Selection.setSelection(edt_confirmPass.getText(), position);
         }
+    }
+
+    @Override
+    public String getCurrentPass() {
+        return edt_currentPass.getText().toString();
+    }
+
+    @Override
+    public String getNewPass() {
+        return edt_newPass.getText().toString();
+    }
+
+    @Override
+    public String getConfirmPass() {
+        return edt_confirmPass.getText().toString();
     }
 }

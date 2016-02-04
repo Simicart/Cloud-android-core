@@ -47,6 +47,9 @@ public class ChangePasswordFragment extends SimiFragment {
             mController.onResume();
         }
 
+        mBlock.setCurrentPassWatcher(mController.getCurrentPassWatcher());
+        mBlock.setNewPassWatcher(mController.getNewPassWatcher());
+        mBlock.setConfirmPassWatcher(mController.getConfirmPassWatcher());
         mBlock.setShowCurrentPass(mController.getOnTouchCurrentPass());
         mBlock.setShowNewPass(mController.getOnTouchNewPass());
         mBlock.setShowConfirmPass(mController.getOnTouchConfirmPass());
