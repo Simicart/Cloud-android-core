@@ -44,7 +44,9 @@ public class CategoryController extends SimiController {
         ModelDelegate delegate = new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-
+                if(error != null){
+                    SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
+                }
             }
 
             @Override
