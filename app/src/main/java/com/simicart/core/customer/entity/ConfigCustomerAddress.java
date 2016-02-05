@@ -33,7 +33,7 @@ public class ConfigCustomerAddress extends SimiEntity {
 		setPrefix(OPTION_REQUIRE);
 		setName(OPTION_HIDE);
 		setSuffix(OPTION_REQUIRE);
-		setEmail(OPTION_REQUIRE);
+		setEmail(OPTION_HIDE);
 		setCompany(OPTION_HIDE);
 		setVat_id(OPTION_HIDE);
 		setStreet(OPTION_REQUIRE);

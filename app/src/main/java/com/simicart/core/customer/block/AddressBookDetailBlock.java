@@ -325,14 +325,15 @@ public class AddressBookDetailBlock extends SimiBlock implements
 	}
 
 	private void createEmail() {
-		String email = mAddressBookDetail.getEmail();
-
-		if (null != email && !email.equals("") && !email.equals("null")) {
-			et_email.setText(mAddressBookDetail.getEmail());
-			et_email.setKeyListener(null);
-		}else{
-			et_email.setVisibility(View.GONE);
-		}
+		et_email.setVisibility(View.GONE);
+//		String email = mAddressBookDetail.getEmail();
+//
+//		if (null != email && !email.equals("") && !email.equals("null")) {
+//			et_email.setText(mAddressBookDetail.getEmail());
+//			et_email.setKeyListener(null);
+//		}else{
+//			et_email.setVisibility(View.GONE);
+//		}
 	}
 
 	private void createDateBirth() {
