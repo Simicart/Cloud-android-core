@@ -25,6 +25,7 @@ import android.view.MenuItem;
 
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.controller.ConfigCheckout;
+import com.simicart.core.common.FontsOverride;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
@@ -112,7 +113,7 @@ public class MainActivity extends FragmentActivity {
 
         mNavigationDrawerFragment.setup(R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-//        changeFont();
+        changeFont();
 
 //        String qtyCart = DataLocal.qtyCartAuto;
 //        if (Utils.validateString(qtyCart)) {
@@ -220,16 +221,16 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-//    private void changeFont() {
-//        FontsOverride.setDefaultFont(this, "DEFAULT", Config.getInstance()
-//                .getFontCustom());
-//        FontsOverride.setDefaultFont(this, "NORMAL", Config.getInstance()
-//                .getFontCustom());
-//        FontsOverride.setDefaultFont(this, "MONOSPACE", Config.getInstance()
-//                .getFontCustom());
-//        FontsOverride.setDefaultFont(this, "SERIF", Config.getInstance()
-//                .getFontCustom());
-//    }
+    private void changeFont() {
+        FontsOverride.setDefaultFont(this, "DEFAULT", Config.getInstance()
+                .getFontCustom());
+        FontsOverride.setDefaultFont(this, "NORMAL", Config.getInstance()
+                .getFontCustom());
+        FontsOverride.setDefaultFont(this, "MONOSPACE", Config.getInstance()
+                .getFontCustom());
+        FontsOverride.setDefaultFont(this, "SERIF", Config.getInstance()
+                .getFontCustom());
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
