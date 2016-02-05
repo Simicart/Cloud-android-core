@@ -43,7 +43,7 @@ public class CategoryDetailModel extends SimiModel {
 						ProductEntity productEntity = new ProductEntity();
 						productEntity.setJSONObject(productArr.getJSONObject(i));
 						productEntity.parse();
-						if(productEntity.isStatus()){
+						if(productEntity.isStatus() && productEntity.isVisibility()){
 							collection.addEntity(productEntity);
 						}
 					}

@@ -199,7 +199,7 @@ public class ProductEntity extends SimiEntity {
             if (mJSON.has(visibility)) {
                 String s_visibility = getData(visibility);
                 if (Utils.validateString(s_visibility) && s_visibility.equals("1")) {
-                    mVirtual = true;
+                    mVisibility = true;
                 }
             }
 
