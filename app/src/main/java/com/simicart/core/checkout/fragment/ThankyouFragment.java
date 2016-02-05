@@ -31,7 +31,7 @@ import com.simicart.core.customer.fragment.OrderHistoryFragment;
 import com.simicart.core.material.ButtonRectangle;
 import com.simicart.core.material.LayoutRipple;
 
-public class ThankyouFragment extends SimiFragment implements OnKeyListener{
+public class ThankyouFragment extends SimiFragment{
 
 	private TextView txt_title_message;
 	private TextView txt_order;
@@ -79,10 +79,10 @@ public class ThankyouFragment extends SimiFragment implements OnKeyListener{
 				Rconfig.getInstance().layout("core_thankyou_layout"),
 				container, false);
 		view.setBackgroundColor(Config.getInstance().getApp_backrground());
-		view.setOnKeyListener(this);
 //		parseJson(jsonObject);
 		initView(view);
 		handleEvent();
+		onBackPress(view);
 		return view;
 	}
 
@@ -155,14 +155,21 @@ public class ThankyouFragment extends SimiFragment implements OnKeyListener{
 		});
 	}
 
-	@Override
-	public boolean onKey(View v, int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK	) {
-			SimiManager.getIntance().showToast("Thankyou page back");
-			return true;
-		}
-		return true;
-	}
-	
+	private void onBackPress(View v){
+		v.setFocusableInTouchMode(true);
+		v.requestFocus();
+		v.setOnKeyListener(new OnKeyListener() {
 
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction() == KeyEvent.ACTION_DOWN) {
+					if (keyCode == KeyEvent.KEYCODE_BACK) {
+						SimiManager.getIntance().backToHomeFragment();
+						return true;
+					}
+				}
+				return false;
+			}
+		});
+	}
 }
