@@ -172,6 +172,8 @@ public class CategoryDetailController extends SimiController implements
 
         mModel.addDataParameter("stock_info", "1");
         mModel.addFilterDataParameter("status", "1");
+        mModel.addDataParameter("order","created_at");
+        mModel.sortDirDESC();
 
         mModel.setDelegate(new ModelDelegate() {
             @Override
