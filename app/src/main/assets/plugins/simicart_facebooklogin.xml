@@ -1,7 +1,7 @@
 
     <event>
         <fullname>com.simicart.plugins.facebooklogin.FacebookLogin</fullname>
-	    <sku>facebook-connect</sku>
+	    <sku>facebook_connect</sku>
     </event>
     <!--<event>-->
         <!--<name>com.simicart.core.customer.fragment.SignInFragment</name>	    -->

@@ -65,24 +65,6 @@ public class MainActivity extends FragmentActivity {
         SimiManager.getIntance().setCurrentContext(this);
         setContentView(R.layout.core_main_activity);
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.simicart",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("MAINACTIVITY KeyHash ","=================>"+ Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.d("MAINACTIVITY KeyHash ","=================>"+"Eception 1" + e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            Log.d("MAINACTIVITY KeyHash","=================>"+"Eception " + e.getMessage());
-        }
-
-
-
-
         if (DataLocal.isSignInComplete()) {
             autoSignin();
         }else{
