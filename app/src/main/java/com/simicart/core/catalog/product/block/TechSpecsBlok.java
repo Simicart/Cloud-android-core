@@ -27,13 +27,16 @@ import java.util.ArrayList;
  * Created by Sony on 12/9/2015.
  */
 public class TechSpecsBlok extends SimiBlock {
+    protected LinearLayout ll_techSpecs;
+
     public TechSpecsBlok(View view, Context context) {
         super(view, context);
     }
 
     @Override
     public void initView() {
-        super.initView();
+        ll_techSpecs = (LinearLayout) mView
+                .findViewById(Rconfig.getInstance().id("l_scrollView"));
     }
 
     @Override
@@ -48,9 +51,6 @@ public class TechSpecsBlok extends SimiBlock {
                 }
 
                 if(attributesArr.size() > 0){
-                    LinearLayout ll_techSpecs = (LinearLayout) mView
-                            .findViewById(Rconfig.getInstance().id("l_scrollView"));
-
                     RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                             RelativeLayout.LayoutParams.MATCH_PARENT,
                             RelativeLayout.LayoutParams.WRAP_CONTENT);
