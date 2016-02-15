@@ -29,23 +29,6 @@ public class CategoryZTheme extends Category {
 	SpotProductZTheme spotProductZTheme;
 
 	public ArrayList<CategoryZTheme> getmCategories() {
-		Log.e("CategoryZTheme", "__" + mCategories.size());
-//		try {
-//			if (mCategories.size() == 0 && hasChild()) {
-//				JSONArray array = getJSONObject().getJSONArray(
-//						ConstantsZTheme.CHILD_CAT);
-//				if (null != array && array.length() > 0) {
-//					for (int i = 0; i < array.length(); i++) {
-//						JSONObject object = array.getJSONObject(i);
-//						CategoryZTheme category = new CategoryZTheme();
-//						category.setJSONObject(object);
-//						mCategories.add(category);
-//					}
-//				}
-//			}
-//		} catch (Exception e) {
-//			Log.e(getClass().getName(), "");
-//		}
 		return mCategories;
 	}
 
