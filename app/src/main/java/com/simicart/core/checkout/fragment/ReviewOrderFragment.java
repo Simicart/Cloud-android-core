@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
-import com.simicart.core.checkout.block.PaymentMethodBlock;
 import com.simicart.core.checkout.block.ReviewOrderBlock;
-import com.simicart.core.checkout.block.ShippingMethodBlock;
 import com.simicart.core.checkout.controller.ConfigCheckout;
 import com.simicart.core.checkout.controller.ReviewOrderController;
 import com.simicart.core.checkout.entity.QuoteEntity;
@@ -21,8 +19,6 @@ import com.simicart.core.customer.entity.MyAddress;
 public class ReviewOrderFragment extends SimiFragment {
 
 	protected ReviewOrderBlock mBlock;
-	protected PaymentMethodBlock mPaymentMethodBlock;
-	protected ShippingMethodBlock mShippingBlock;
 	protected ReviewOrderController mController;
 	protected MyAddress mBillingAddress;
 	protected MyAddress mShippingAddress;
@@ -85,32 +81,16 @@ public class ReviewOrderFragment extends SimiFragment {
 		Context context = getActivity();
 		mBlock = new ReviewOrderBlock(view, context);
 		mBlock.initView();
-		
-		mShippingBlock = new ShippingMethodBlock(view, context);
-		mShippingBlock.initView();
-		mShippingBlock.setDelegate(mBlock);
-		
-		mPaymentMethodBlock = new PaymentMethodBlock(view, context);
-		mPaymentMethodBlock.initView();
-		mPaymentMethodBlock.setDelegate(mBlock);
 
 		if (mController == null) {
 			mController = new ReviewOrderController();
-			mShippingBlock.setReviewOrder(mController);
-			mPaymentMethodBlock.setReviewOrder(mController);
 			mController.setDelegate(mBlock);
-			mController.setShippingDelegate(mShippingBlock);
-			mController.setDelegate(mPaymentMethodBlock);
 			mController.setBillingAddress(mBillingAddress);
 			mController.setShippingAddress(mShippingAddress);
 			mController.setAfterControll(mAfterControll);
 			mController.onStart();
 		} else {
-			mShippingBlock.setReviewOrder(mController);
-			mPaymentMethodBlock.setReviewOrder(mController);
 			mController.setDelegate(mBlock);
-			mController.setShippingDelegate(mShippingBlock);
-			mController.setDelegate(mPaymentMethodBlock);
 			mController.onResume();
 		}
 		mBlock.setOnChoiceBillingAddress(mController

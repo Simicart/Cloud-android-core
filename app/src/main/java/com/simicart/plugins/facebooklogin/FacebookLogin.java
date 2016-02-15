@@ -65,6 +65,8 @@ public class FacebookLogin {
     public FacebookLogin() {
         Context context = SimiManager.getIntance().getCurrentContext();
 
+        Log.e("Facebook ","=========================> CONTRUCTOR");
+
         // register event: create a fragment
         IntentFilter fragment_filter = new IntentFilter("com.simicart.core.customer.fragment.SignInFragment");
         BroadcastReceiver fragment_receiver = new BroadcastReceiver() {
@@ -73,6 +75,7 @@ public class FacebookLogin {
                 Bundle bundle = intent.getBundleExtra(Constants.DATA);
                 SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
                 String method = bundle.getString(Constants.METHOD);
+                Log.e("Facebook ","=========================> METHOD " + method);
                 if (method.equals("createFragment")) {
                     mSignInFragment = (SignInFragment) entity.getFragment();
                 } else if (method.equals("onActivityResult")) {
