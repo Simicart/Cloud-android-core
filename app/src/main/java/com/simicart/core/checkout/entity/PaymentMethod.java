@@ -334,4 +334,14 @@ public class PaymentMethod extends SimiEntity {
 		return mPlaceCCId;
 	}
 
+	public boolean equal(PaymentMethod other)
+	{
+		String code = other.getMethodCode();
+		if(mMethodCode.equals(code))
+		{
+			return true;
+		}
+
+		return false;
+	}
 }

@@ -8,7 +8,7 @@ import com.simicart.core.checkout.entity.TotalPrice;
 
 public interface SelectedShippingMethodDelegate {
 
-	public void updateTotalPrice(TotalPrice totalPrice);
-	public void updatePaymentMethod(ArrayList<PaymentMethod> paymentMethod);
-	public void updateShippingMethod(ShippingMethod shippingMethod);
+//	public void updateTotalPrice(TotalPrice totalPrice);
+//	public void updatePaymentMethod(ArrayList<PaymentMethod> paymentMethod);
+//	public void updateShippingMethod(ShippingMethod shippingMethod);
 }
