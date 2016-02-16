@@ -162,7 +162,7 @@ public class ProductListAdapter extends BaseAdapter {
                 holder.tv_first.setText(sPrice);
             }
         } else {
-            if (mSalePrice == 0) {
+            if (mSalePrice == -1) {
                 holder.tv_second.setVisibility(View.GONE);
                 holder.tv_first.setText(getPrice(mPrice));
             } else {

@@ -120,7 +120,7 @@ public class ProductBaseAdapter extends BaseAdapter {
 
         // image
         if (product.getID().equals("fake")) {
-            // set anh fake
+            // fake image
             holder.img_avartar.setImageResource(Rconfig.getInstance().drawable(
                     "fake_product"));
             holder.img_avartar.setScaleType(ScaleType.FIT_XY);
@@ -178,7 +178,7 @@ public class ProductBaseAdapter extends BaseAdapter {
                 holder.tv_first.setText(sPrice);
             }
         } else {
-            if (mSalePrice == 0) {
+            if (mSalePrice == -1) {
                 holder.tv_second.setVisibility(View.GONE);
                 holder.tv_first.setText(getPrice(mPrice));
             } else {
