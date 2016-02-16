@@ -115,6 +115,7 @@ public class SettingAppFragment extends SimiFragment {
         tv_locator.setText(Config.getInstance().getText("Location Setting"));
         rl_locator = (LayoutRipple) rootView.findViewById(Rconfig.getInstance()
                 .id("rl_locator"));
+        rl_locator.setVisibility(View.GONE);
 
         View v_under = (View) rootView.findViewById(Rconfig.getInstance().id(
                 "v_under"));
