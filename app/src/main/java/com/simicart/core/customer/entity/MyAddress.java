@@ -558,6 +558,42 @@ public class MyAddress extends SimiEntity {
 		if (Utils.validateString(city)) {
 			params.put("city", city);
 		}
+
+		//dob
+		String dob = getDay();
+		if(Utils.validateString(dob)){
+			String day = "";
+			if (getDay().length() == 1) {
+				day = "0" + getDay();
+			} else {
+				day = getDay();
+			}
+
+			String month = "";
+			if (getMonth().length() == 1) {
+				month = "0" + getMonth();
+			} else {
+				month = getMonth();
+			}
+			params.put("day", "" + day + "");
+			params.put("month", "" + month + "");
+			params.put("year", "" + getYear() + "");
+			params.put("dob", "" + month + "/" + day
+					+ "/" + getYear() + "");
+		}
+
+		//gender
+		String gender = getGender();
+		if (Utils.validateString(gender)){
+			params.put("gender", Utils.getValueGender(gender));
+		}
+
+		//tax vat
+		String tax = getTaxvat();
+		if (Utils.validateString(tax)){
+			params.put("taxvat", tax);
+		}
+
 		return params;
 	}
 }
