@@ -123,10 +123,7 @@ public class SlideMenuAdapter extends BaseAdapter {
 
 		String url = item.getUrl();
 		if (Utils.validateString(url)) {
-			// DrawableManager.fetchDrawableIConOnThread(url, holder.img_icon,
-			// mContext, Color.parseColor("#ffffff"));
-			DrawableManager.fetchDrawableIConOnThread(url, holder.img_icon,
-					mContext, Config.getInstance().getMenu_icon_color());
+			DrawableManager.fetchDrawableOnThread(url, holder.img_icon);
 		} else {
 			Drawable drawable = item.getIcon();
 			if (null != drawable) {
