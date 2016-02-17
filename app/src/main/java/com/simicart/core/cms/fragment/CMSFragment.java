@@ -50,7 +50,7 @@ public class CMSFragment extends SimiFragment {
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
 		webView.getSettings().setLoadWithOverviewMode(true);
-		webView.getSettings().setUseWideViewPort(true);
+//		webView.getSettings().setUseWideViewPort(true);
 		webView.getSettings().setBuiltInZoomControls(true);
 		webView.getSettings().setDisplayZoomControls(false);
 		webView.getSettings().setLoadsImagesAutomatically(true);
@@ -58,7 +58,7 @@ public class CMSFragment extends SimiFragment {
 		webView.setHorizontalScrollBarEnabled(false);
 		webView.loadDataWithBaseURL(
 				null,
-				StringHTML("<html><body style=\"color:"+Config.getInstance().getContent_color_string()+";font-family:Helvetica;font-size:40px;\"'background-color:transparent' >"
+				StringHTML("<html><body style=\"color:"+Config.getInstance().getContent_color_string()+";font-family:Helvetica;\"'background-color:transparent' >"
 						+ "<p align=\"justify\">"
 						+ mContent
 						+ "</p>"
@@ -68,7 +68,7 @@ public class CMSFragment extends SimiFragment {
 	}
 
 	private String StringHTML(String html) {
-		String head = "<head><meta content='text/html; charset=UTF-8' http-equiv='Content-Type' /><style type='text/css'>body{font-size: 16px; font-family: 'Helvetica'}</style></head>";
+		String head = "<head><meta content='text/html; charset=UTF-8' http-equiv='Content-Type' /><style type='text/css'>body{ font-family: 'Helvetica'}</style></head>";
 		String HtmlString = "<html>" + head + "<body>" + html
 				+ "</body></html>";
 		return HtmlString;
