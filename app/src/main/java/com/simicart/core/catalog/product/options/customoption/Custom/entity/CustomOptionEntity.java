@@ -35,7 +35,7 @@ public class CustomOptionEntity extends SimiEntity {
     private String title = "title";
     private String type = "type";
     private String un_checkRequired = "uncheckRequired";
-    private String is_Required = "isRequired";
+    private String is_Required = "required";
     private String product_id = "product_id";
     private String client_id = "client_id";
     private String values = "values";
