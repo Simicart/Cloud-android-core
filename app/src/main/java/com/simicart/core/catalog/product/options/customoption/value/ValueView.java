@@ -92,6 +92,10 @@ public class ValueView {
 
     public float getPriceFloat() {
         float price = mValue.getPrice();
+        float salePrice = mValue.getSalePrice();
+        if (salePrice > 0) {
+            price = salePrice;
+        }
 
         String qty = mValue.getQty();
         if (Utils.validateString(qty)) {
@@ -156,6 +160,10 @@ public class ValueView {
             return "";
         }
         float f_price = mValue.getPrice();
+        float salePrice = mValue.getSalePrice();
+        if (salePrice > 0) {
+            f_price = salePrice;
+        }
         String price = "<font color='#7F7F7F'> +"
                 + Config.getInstance().getPrice(f_price) + "</font>";
 
