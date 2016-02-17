@@ -90,8 +90,10 @@ public class ProductDetailPriceView {
     }
 
     protected void createPriceWithoutTax() {
+        Log.e("ProductDetailPriveView ", " Create Price Without Tax " + "Price " + mPrice + " Sale Price " + mSalePrice + " Price Tax " + mPriceTax + " Sale Price Tax " + mSalePriceTax);
         if (mPrice == mSalePrice) {
-            tv_second.setVisibility(View.GONE);
+            Log.e("ProductDetailPriveView ", " Create Price Without Tax 001");
+                     tv_second.setVisibility(View.GONE);
             if (mPrice >= 0) {
                 String sPrice = getPrice(mPrice);
                 if (Utils.validateString(sPrice)) {
@@ -101,7 +103,9 @@ public class ProductDetailPriceView {
                 tv_first.setVisibility(View.GONE);
             }
         } else {
+            Log.e("ProductDetailPriveView ", " Create Price Without Tax 002");
             if (mSalePrice < 0) {
+                Log.e("ProductDetailPriveView ", " Create Price Without Tax 003");
                 tv_second.setVisibility(View.GONE);
                 if (mPrice >= 0) {
                     String content_price = getPrice(mPrice);
@@ -110,14 +114,8 @@ public class ProductDetailPriceView {
                     tv_first.setVisibility(View.GONE);
                 }
             } else {
-
-                String content_salePrice = getPrice(mSalePrice);
-
-                Log.e("ProductDetailPriceView ", "---> Create Price Without Tax 001" + content_salePrice);
-                tv_second.setText(content_salePrice);
-
-
-                if (mPrice >= 0) {
+                if (mPrice >= 0 && tv_second.getVisibility() != View.GONE) {
+                    Log.e("ProductDetailPriveView ", " Create Price Without Tax 004");
                     tv_first.setPaintFlags(tv_first.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                     String content_price = getPrice(mPrice);
                     Log.e("ProductDetailPriceView ", "---> Create Price Without Tax 002" + content_price);
@@ -125,6 +123,15 @@ public class ProductDetailPriceView {
                 } else {
                     tv_first.setVisibility(View.GONE);
                 }
+
+
+                String content_salePrice = getPrice(mSalePrice);
+
+                Log.e("ProductDetailPriceView ", "---> Create Price Without Tax 001" + content_salePrice);
+                tv_second.setVisibility(View.VISIBLE);
+                tv_second.setText(content_salePrice);
+
+
             }
         }
     }
@@ -137,8 +144,12 @@ public class ProductDetailPriceView {
         if (mPriceTax == mSalePriceTax) {
             if (mPriceTax < 0) {
                 Log.e("Product Detail Price View ", "createPriceWithTax CALL  createPriceWithoutTax");
-                mPrice = mProductEntity.getPrice();
-                mSalePrice = mProductEntity.getSalePrice();
+                if(mPrice == -1) {
+                    mPrice = mProductEntity.getPrice();
+                }
+                if(mSalePrice == -1) {
+                    mSalePrice = mProductEntity.getSalePrice();
+                }
                 createPriceWithoutTax();
             } else {
                 tv_second.setVisibility(View.GONE);
@@ -297,7 +308,7 @@ public class ProductDetailPriceView {
                 mSalePrice = mSalePrice - salePrice;
             }
             mPrice = -1;
-            mSalePrice = -1;
+            mPriceTax = -1;
             mSalePriceTax = -1;
         } else if (price > 0) {
             if (isAdd) {
@@ -396,6 +407,9 @@ public class ProductDetailPriceView {
     }
 
     private void addPrice(float price, float taxPrice) {
+
+        Log.e("ProductDetailPriceView ", "BEFORE ADD " + "Price " + mPrice + "Sale Price " + mSalePrice );
+
         if (mPrice >= 0) {
             if (mSalePrice >= 0) {
                 mSalePrice = mSalePrice + price;
@@ -405,6 +419,8 @@ public class ProductDetailPriceView {
         } else if (mSalePrice >= 0) {
             mSalePrice = mSalePrice + price;
         }
+
+        Log.e("ProductDetailPriceView ", "AFTER ADD " + "Price " + mPrice + "Sale Price " + mSalePrice );
 
         if (mPriceTax >= 0) {
             if (mSalePriceTax >= 0) {
@@ -427,6 +443,9 @@ public class ProductDetailPriceView {
                 mSalePriceTax = mSalePriceTax + price;
             }
         }
+
+
+
     }
 
     private void subPrice(float price, float taxPrice) {
