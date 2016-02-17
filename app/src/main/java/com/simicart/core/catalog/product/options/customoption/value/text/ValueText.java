@@ -36,7 +36,7 @@ public class ValueText extends ValueView {
         edt_value.setLayoutParams(param);
         edt_value.setPadding(Utils.getValueDp(5), Utils.getValueDp(10),
                 Utils.getValueDp(5), Utils.getValueDp(10));
-        edt_value.setHint(Config.getInstance().getText("Text"));
+        edt_value.setHint(Config.getInstance().getText("Enter text in here"));
         edt_value.setHintTextColor(Color.GRAY);
         edt_value.setTextColor(Color.parseColor("#000000"));
         edt_value.setBackgroundResource(0);

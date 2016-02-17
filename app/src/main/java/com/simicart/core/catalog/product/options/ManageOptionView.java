@@ -164,7 +164,7 @@ public class ManageOptionView implements ProductVariantDelegate, ManageOptionDel
         if (null != manageVariantView) {
             if (null == mVariantEntity) {
 
-                Log.e("ManageOptionView ","Variant False");
+                Log.e("ManageOptionView ", "Variant False");
 
                 return false;
             }
@@ -172,29 +172,41 @@ public class ManageOptionView implements ProductVariantDelegate, ManageOptionDel
 
         if (null != manageCustomOptionView) {
             if (!manageCustomOptionView.isComplete()) {
-
-                Log.e("ManageOptionView ","CustomOption False");
-
+                return false;
+            }
+        } else {
+            ArrayList<CustomOptionEntity> listCustom = mProduct.getListCustom();
+            if (null != listCustom && listCustom.size() > 0) {
                 return false;
             }
         }
 
         if (null != groupView) {
             if (!groupView.isComplete()) {
-                Log.e("ManageOptionView ","Group False");
+                Log.e("ManageOptionView ", "Group False");
                 return false;
             }
 
+        } else {
+            String type = mProduct.getType();
+            if (type.equals("grouped")) {
+                return false;
+            }
         }
 
 
         if (null != bundleItemView) {
             if (!bundleItemView.isComplete()) {
-                Log.e("ManageOptionView ","Bundle False");
+                Log.e("ManageOptionView ", "Bundle False");
+                return false;
+            }
+        } else {
+            String type = mProduct.getType();
+            if (type.equals("bundle")) {
                 return false;
             }
         }
-
+        Log.e("ManageOptionView ", "-----------> TRUE");
         return true;
     }
 
