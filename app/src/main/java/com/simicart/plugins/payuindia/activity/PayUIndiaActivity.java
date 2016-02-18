@@ -101,7 +101,7 @@ public class PayUIndiaActivity extends Activity {
                 HashMap<String, String> hashMapRespone = new HashMap<>();
                 String dataRespone = data.getStringExtra("result");
                 if (Utils.validateString(dataRespone)) {
-                    String[] items = dataRespone.split("&amp;");
+                    String[] items = dataRespone.split(",");
                     for (String item : items) {
                         if (item.contains("=")) {
                             String[] dataItem = item.split("=");
@@ -135,6 +135,8 @@ public class PayUIndiaActivity extends Activity {
                     } else {
                         requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txn_id, "0", "Transaction Error!");
                     }
+                }else{
+                    requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txn_id, "0", "Transaction Error!");
                 }
             } else {
                 changeView("Your order has been canceled");
