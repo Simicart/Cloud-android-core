@@ -28,6 +28,9 @@ import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
+import com.simicart.plugins.payuindia.entity.DataEntity;
+import com.simicart.plugins.payuindia.entity.HashEntity;
+import com.simicart.plugins.payuindia.entity.PayUEntity;
 import com.simicart.plugins.payuindia.model.GetHashModel;
 import com.simicart.plugins.payuindia.model.UpdatePaymentModel;
 
@@ -125,11 +128,11 @@ public class PayUIndiaActivity extends Activity {
                     }
                 }
                 if (Utils.validateString(status) && Utils.validateString(txn_id)) {
-                    if(status.equals("success")){
+                    if (status.equals("success")) {
                         requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txn_id, "1", "Thank you for your purchase!");
-                    }else if(status.equals("failure")){
+                    } else if (status.equals("failure")) {
                         requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txn_id, "0", "Transaction Declined!");
-                    }else{
+                    } else {
                         requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txn_id, "0", "Transaction Error!");
                     }
                 }
@@ -154,42 +157,120 @@ public class PayUIndiaActivity extends Activity {
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
-                intent = new Intent(PayUIndiaActivity.this, PayUBaseActivity.class);
-                mPaymentParams = new PaymentParams();
-                payuConfig = new PayuConfig();
-                merchantKey = model.getMerchantKey();
-                Log.e("PayUIndiaActivity", "MerchantKey: " + merchantKey);
-                mPaymentParams.setKey(merchantKey);
-                key = merchantKey;
-                mPaymentParams.setAmount(mainIntent.getStringExtra("EXTRA_AMOUNT"));
-                mPaymentParams.setProductInfo("Product");
-                mPaymentParams.setFirstName(DataLocal.getUsername());
-                mPaymentParams.setEmail(DataLocal.getEmail());
-                mPaymentParams.setTxnId("" + System.currentTimeMillis());
-                mPaymentParams.setSurl("https://payu.herokuapp.com/success");
-                mPaymentParams.setFurl("https://payu.herokuapp.com/failure");
-                mPaymentParams.setUdf1("udf1");
-                mPaymentParams.setUdf2("udf2");
-                mPaymentParams.setUdf3("udf3");
-                mPaymentParams.setUdf4("udf4");
-                mPaymentParams.setUdf5("udf5");
-                mPaymentParams.setUserCredentials(merchantKey);
-                var1 = merchantKey;
-                salt = null;
-//                if (Utils.validateString(model.getSalt())) {
-//                    salt = model.getSalt();
-//                }
-                intent.putExtra(PayuConstants.SALT, salt);
-                mPaymentParams.setOfferKey("");
-                String environment = "" + env;
-                cardBin = null;
-                payuConfig.setEnvironment(environment.contentEquals("" + PayuConstants.PRODUCTION_ENV) ? PayuConstants.PRODUCTION_ENV : PayuConstants.MOBILE_STAGING_ENV);
-                if (null == salt) generateHashFromServer(mPaymentParams);
-                else generateHashFromSDK(mPaymentParams, intent.getStringExtra(PayuConstants.SALT));
+                if (collection != null && collection.getCollection().size() > 0) {
+                    PayUEntity payUEntity = (PayUEntity) collection.getCollection().get(0);
+                    HashEntity hashEntity = payUEntity.getHash();
+                    DataEntity dataEntity = payUEntity.getData();
+                    intent = new Intent(PayUIndiaActivity.this, PayUBaseActivity.class);
+                    mPaymentParams = new PaymentParams();
+                    payuConfig = new PayuConfig();
+                    if(payUEntity != null) {
+                        if (Utils.validateString(dataEntity.getKey())) {
+                            merchantKey = dataEntity.getKey();
+                        }
+                        Log.e("PayUIndiaActivity", "MerchantKey: " + merchantKey);
+                        mPaymentParams.setKey(merchantKey);
+                        key = merchantKey;
+                        mPaymentParams.setAmount(dataEntity.getAmount());
+                        mPaymentParams.setProductInfo(dataEntity.getProductInfo());
+                        mPaymentParams.setFirstName(dataEntity.getFirstName());
+                        mPaymentParams.setEmail(dataEntity.getEmail());
+                        mPaymentParams.setTxnId(dataEntity.getTXNID());
+                        mPaymentParams.setSurl(dataEntity.getsURL());
+                        mPaymentParams.setFurl(dataEntity.getfURL());
+                        if(Utils.validateString(dataEntity.getUdf1())){
+                            mPaymentParams.setUdf1(dataEntity.getUdf1());
+                        }else{
+                            mPaymentParams.setUdf1("");
+                        }
+
+                        if(Utils.validateString(dataEntity.getUdf2())){
+                            mPaymentParams.setUdf2(dataEntity.getUdf2());
+                        }else{
+                            mPaymentParams.setUdf2("");
+                        }
+
+                        if(Utils.validateString(dataEntity.getUdf3())){
+                            mPaymentParams.setUdf3(dataEntity.getUdf3());
+                        }else{
+                            mPaymentParams.setUdf3("");
+                        }
+
+                        if(Utils.validateString(dataEntity.getUdf4())){
+                            mPaymentParams.setUdf4(dataEntity.getUdf4());
+                        }else{
+                            mPaymentParams.setUdf4("");
+                        }
+
+                        if(Utils.validateString(dataEntity.getUdf5())){
+                            mPaymentParams.setUdf5(dataEntity.getUdf5());
+                        }else{
+                            mPaymentParams.setUdf5("");
+                        }
+
+                        mPaymentParams.setUserCredentials(dataEntity.getUserCredential());
+                        var1 = dataEntity.getUserCredential();
+                        salt = null;
+//                        if (Utils.validateString(model.getSalt())) {
+//                            salt = model.getSalt();
+//                        }
+                        intent.putExtra(PayuConstants.SALT, salt);
+                        if(Utils.validateString(dataEntity.getOfferKey())){
+                            mPaymentParams.setOfferKey(dataEntity.getOfferKey());
+                        }else{
+                            mPaymentParams.setOfferKey("");
+                        }
+
+                        if(dataEntity.isSanBox()){
+                            env = PayuConstants.MOBILE_DEV_ENV;
+                        }
+
+                        String environment = "" + env;
+                        if(Utils.validateString(dataEntity.getCardBind())){
+                            cardBin = dataEntity.getCardBind();
+                        }else{
+                            cardBin = "";
+                        }
+
+                        payuConfig.setEnvironment(environment.contentEquals("" + PayuConstants.PRODUCTION_ENV) ? PayuConstants.PRODUCTION_ENV : PayuConstants.MOBILE_STAGING_ENV);
+                    }
+                    PayuHashes payuHashes = new PayuHashes();
+                    if (hashEntity != null) {
+                        if (Utils.validateString(hashEntity.getPaymentHash())) {
+                            payuHashes.setPaymentHash(hashEntity.getPaymentHash());
+                        }
+                        if (Utils.validateString(hashEntity.getGetPaymentIBiBo())) {
+                            payuHashes.setMerchantIbiboCodesHash(hashEntity.getGetPaymentIBiBo());
+                        }
+                        if (Utils.validateString(hashEntity.getVasForMobile())) {
+                            payuHashes.setVasForMobileSdkHash(hashEntity.getVasForMobile());
+                        }
+                        if (Utils.validateString(hashEntity.getPaymentRelated())) {
+                            payuHashes.setPaymentRelatedDetailsForMobileSdkHash(hashEntity.getPaymentRelated());
+                        }
+                        if (Utils.validateString(hashEntity.getDeleteUser())) {
+                            payuHashes.setDeleteCardHash(hashEntity.getDeleteUser());
+                        }
+                        if (Utils.validateString(hashEntity.getGetUser())) {
+                            payuHashes.setStoredCardsHash(hashEntity.getGetUser());
+                        }
+                        if (Utils.validateString(hashEntity.getEditUser())) {
+                            payuHashes.setEditCardHash(hashEntity.getEditUser());
+                        }
+                        if (Utils.validateString(hashEntity.getSaveUser())) {
+                            payuHashes.setSaveCardHash(hashEntity.getSaveUser());
+                        }
+
+                        launchSdkUI(payuHashes);
+                    }
+//                    if (null == salt) generateHashFromServer(mPaymentParams);
+//                    else generateHashFromSDK(mPaymentParams, intent.getStringExtra(PayuConstants.SALT));
+                }
             }
         });
-        model.addDataExtendURL("config");
         model.addDataBody("order_id", orderID);
+        model.addDataExtendURL("hash");
+
         model.request();
     }
 
@@ -198,7 +279,7 @@ public class PayUIndiaActivity extends Activity {
         updatePaymentModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null){
+                if (error != null) {
                     changeView(error.getMessage());
                 }
             }
