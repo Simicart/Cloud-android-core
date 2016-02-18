@@ -68,15 +68,15 @@ public class SpotProductController extends SimiController {
                             SpotProductEntity spotProductEntity = new SpotProductEntity();
                             spotProductEntity = (SpotProductEntity) simiEntity;
                             if (spotProductEntity.getType().equals("1")) {
-                                requestBestSeller(spotProductEntity.getName(), i);
+                                requestBestSeller(spotProductEntity.getName(), i, spotProductEntity.getLimit());
                             } else if (spotProductEntity.getType().equals("2")) {
-                                requestNewlyUpdated(spotProductEntity.getName(), i);
+                                requestNewlyUpdated(spotProductEntity.getName(), i, spotProductEntity.getLimit());
                             } else if (spotProductEntity.getType().equals("3")) {
-                                requestRecentlyAdded(spotProductEntity.getName(), i);
+                                requestRecentlyAdded(spotProductEntity.getName(), i, spotProductEntity.getLimit());
                             } else if (spotProductEntity.getType().equals("4")) {
                                 String ids = arrayToString(spotProductEntity.getProducts());
                                 if (Utils.validateString(ids)) {
-                                    getFeature(ids, spotProductEntity.getName(), i);
+                                    getFeature(ids, spotProductEntity.getName(), i, spotProductEntity.getLimit());
                                 }
                             }
                             listSportProduct.add(spotProductEntity);
@@ -89,7 +89,7 @@ public class SpotProductController extends SimiController {
         spAllModel.request();
     }
 
-    private void requestBestSeller(final String title, final int postion) {
+    private void requestBestSeller(final String title, final int postion, String limit) {
         ProductDetailModel bs_model = new ProductDetailModel();
         bs_model.setDelegate(new ModelDelegate() {
             @Override
@@ -126,11 +126,15 @@ public class SpotProductController extends SimiController {
         });
 
         bs_model.addDataParameter("group-type", "best-sellers");
-        bs_model.addLimitDataParameter("15");
+        if(Utils.validateString(limit) && !limit.equals("0")){
+            bs_model.addLimitDataParameter(limit);
+        }else {
+            bs_model.addLimitDataParameter("15");
+        }
         bs_model.request();
     }
 
-    private void requestNewlyUpdated(final String title, final int postion) {
+    private void requestNewlyUpdated(final String title, final int postion, String limit) {
         ProductDetailModel nl_model = new ProductDetailModel();
         nl_model.setDelegate(new ModelDelegate() {
             @Override
@@ -166,12 +170,15 @@ public class SpotProductController extends SimiController {
         });
         nl_model.addOrderDataParameter("updated_at");
         nl_model.sortDirDESC();
-        nl_model.addOffsetDataParameter("0");
-        nl_model.addLimitDataParameter("15");
+        if(Utils.validateString(limit) && !limit.equals("0")){
+            nl_model.addLimitDataParameter(limit);
+        }else{
+            nl_model.addLimitDataParameter("15");
+        }
         nl_model.request();
     }
 
-    protected void requestRecentlyAdded(final String title, final int postion) {
+    protected void requestRecentlyAdded(final String title, final int postion, String limit) {
         ProductDetailModel ra_model = new ProductDetailModel();
         ra_model.setDelegate(new ModelDelegate() {
             @Override
@@ -207,8 +214,11 @@ public class SpotProductController extends SimiController {
         });
         ra_model.addOrderDataParameter("created_at");
         ra_model.sortDirDESC();
-        ra_model.addOffsetDataParameter("0");
-        ra_model.addLimitDataParameter("15");
+        if(Utils.validateString(limit) && !limit.equals("0")){
+            ra_model.addLimitDataParameter(limit);
+        }else{
+            ra_model.addLimitDataParameter("15");
+        }
         ra_model.request();
     }
 
@@ -230,7 +240,7 @@ public class SpotProductController extends SimiController {
         return builder.toString();
     }
 
-    protected void getFeature(String ids, final String title, final int postion) {
+    protected void getFeature(String ids, final String title, final int postion, String limit) {
         ProductDetailModel fModel = new ProductDetailModel();
         fModel.setDelegate(new ModelDelegate() {
             @Override
@@ -265,7 +275,11 @@ public class SpotProductController extends SimiController {
             }
         });
         fModel.addDataParameter("ids", ids);
-        fModel.addLimitDataParameter("15");
+        if(Utils.validateString(limit) && !limit.equals("0")){
+            fModel.addLimitDataParameter(limit);
+        }else {
+            fModel.addLimitDataParameter("15");
+        }
         fModel.request();
     }
 
