@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -31,6 +32,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.paypal.android.sdk.onetouch.core.is;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
@@ -185,24 +187,15 @@ public class Utils {
 
     }
 
-    public static String formatPrice(float price, int numberOfDecimals, String charSepDecimal, String charSepthousand) {
-
-
+    public static String formatPrice(double price, int numberOfDecimals, String charSepDecimal, String charSepthousand) {
         StringBuilder builderDecimal = new StringBuilder();
         for (int i = 0; i < numberOfDecimals; i++) {
             builderDecimal.append("#");
         }
-
-      //  String patern = "###" + charSepthousand + "###" + charSepDecimal + builderDecimal.toString();
-
-        String patern = "###.##";
-
-        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
-        decimalFormat.applyPattern(patern);
-        return decimalFormat.format(price);
-
-//        DecimalFormat format = new DecimalFormat(patern);
-//        return format.format((double) price);
+        DecimalFormat df = new DecimalFormat("###" + charSepthousand + "###" + charSepthousand +
+                "###" + charSepthousand + "###" + charSepthousand + "###" + charSepthousand + "###"
+                + charSepDecimal + builderDecimal.toString());
+        return df.format(price);
     }
 
     @SuppressLint("SimpleDateFormat")

@@ -20,8 +20,8 @@ public class ProductEntity extends SimiEntity {
     protected String mName;
     protected String mType;
     protected String mQrcode;
-    protected float mPrice = -1;
-    protected float mSalePrice = -1;
+    protected double mPrice = -1;
+    protected double mSalePrice = -1;
     protected String mDescription;
     protected String mShortDescription;
     protected boolean mVisibility;
@@ -44,12 +44,12 @@ public class ProductEntity extends SimiEntity {
     protected int mSalePriceType;
     protected String mGroupItems;
     protected String mBundleItems;
-    protected float mPriceIncludeTax = -1;
+    protected double mPriceIncludeTax = -1;
     protected String mDownload;
     protected String mTitle;
     protected int mPurchasedSeparately;
     protected ArrayList<String> mUserCanDownload;
-    protected float mPriceSaleIncludeTax = -1;
+    protected double mPriceSaleIncludeTax = -1;
     protected boolean mMangerStock;
     protected String mProductID;
 
@@ -170,14 +170,14 @@ public class ProductEntity extends SimiEntity {
             if (mJSON.has(price)) {
                 String priceValue = getData(price);
                 if (Utils.validateString(priceValue)) {
-                    mPrice = Float.parseFloat(priceValue);
+                    mPrice = Double.parseDouble(priceValue);
                 }
             }
 
             if (mJSON.has(sale_price)) {
                 String saleValue = getData(sale_price);
                 if (Utils.validateString(saleValue)) {
-                    mSalePrice = Float.parseFloat(saleValue);
+                    mSalePrice = Double.parseDouble(saleValue);
                 }
             }
 
@@ -541,19 +541,19 @@ public class ProductEntity extends SimiEntity {
         this.mQrcode = mQrcode;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return mPrice;
     }
 
-    public void setPrice(float mPrice) {
+    public void setPrice(double mPrice) {
         this.mPrice = mPrice;
     }
 
-    public float getSalePrice() {
+    public double getSalePrice() {
         return mSalePrice;
     }
 
-    public void setSalePrice(float mSalePrice) {
+    public void setSalePrice(double mSalePrice) {
         this.mSalePrice = mSalePrice;
     }
 
@@ -709,19 +709,19 @@ public class ProductEntity extends SimiEntity {
     }
 
 
-    public float getPriceSaleIncludeTax() {
+    public double getPriceSaleIncludeTax() {
         return mPriceSaleIncludeTax;
     }
 
-    public void setPriceSaleIncludeTax(float mPriceSaleIncludeTax) {
+    public void setPriceSaleIncludeTax(double mPriceSaleIncludeTax) {
         this.mPriceSaleIncludeTax = mPriceSaleIncludeTax;
     }
 
-    public float getPriceIncludeTax() {
+    public double getPriceIncludeTax() {
         return mPriceIncludeTax;
     }
 
-    public void setPriceIncludeTax(float mPriceIncludeTax) {
+    public void setPriceIncludeTax(double mPriceIncludeTax) {
         this.mPriceIncludeTax = mPriceIncludeTax;
     }
 
