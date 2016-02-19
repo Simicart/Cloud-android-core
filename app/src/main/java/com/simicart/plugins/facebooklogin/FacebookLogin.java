@@ -65,7 +65,7 @@ public class FacebookLogin {
     public FacebookLogin() {
         Context context = SimiManager.getIntance().getCurrentContext();
 
-        Log.e("Facebook ","=========================> CONTRUCTOR");
+        Log.e("Facebook ", "=========================> CONTRUCTOR");
 
         // register event: create a fragment
         IntentFilter fragment_filter = new IntentFilter("com.simicart.core.customer.fragment.SignInFragment");
@@ -75,7 +75,7 @@ public class FacebookLogin {
                 Bundle bundle = intent.getBundleExtra(Constants.DATA);
                 SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
                 String method = bundle.getString(Constants.METHOD);
-                Log.e("Facebook ","=========================> METHOD " + method);
+                Log.e("Facebook ", "=========================> METHOD " + method);
                 if (method.equals("createFragment")) {
                     mSignInFragment = (SignInFragment) entity.getFragment();
                 } else if (method.equals("onActivityResult")) {
@@ -244,6 +244,7 @@ public class FacebookLogin {
                 mDelegate.dismissLoading();
                 if (collection != null && collection.getCollection().size() > 0) {
                     ProfileEntity entity = (ProfileEntity) collection.getCollection().get(0);
+                    DataLocal.mCustomer = entity;
                     DataLocal.saveTypeSignIn("facebook");
                     DataLocal.saveSignInState(true);
 
@@ -255,8 +256,6 @@ public class FacebookLogin {
 
                     if (entity.getEmail() != null)
                         email = entity.getEmail();
-                    if (entity.getFirstName() != null && entity.getLastName() != null)
-                        name = entity.getFirstName() + " " + entity.getLastName();
                     if (entity.getID() != null)
                         customerID = entity.getID();
                     if (entity.getFirstName() != null)
@@ -264,11 +263,11 @@ public class FacebookLogin {
                     if (entity.getLastName() != null)
                         lastname = entity.getLastName();
 
-                    if (null != name) {
-                        DataLocal.saveData(name, email);
-                        DataLocal.saveCustomerID(customerID);
-                        DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
-                    }
+                    name = entity.getFirstName() + " " + entity.getLastName();
+                    DataLocal.saveData(name, email);
+                    DataLocal.saveCustomerID(customerID);
+                    DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
+
 
                     requestGetAllQuote();
                     SimiManager.getIntance().backPreviousFragment();

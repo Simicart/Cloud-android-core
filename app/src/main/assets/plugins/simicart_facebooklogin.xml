@@ -1,8 +1,13 @@
-
+<events>
     <event>
         <fullname>com.simicart.plugins.facebooklogin.FacebookLogin</fullname>
 	    <sku>facebook_connect</sku>
     </event>
+	<event>
+	    <fullname>com.simicart.plugins.facebooklogin.AutoSignInFacebook</fullname>
+	    <sku>facebook_connect</sku>
+	</event>
+</events>
     <!--<event>-->
         <!--<name>com.simicart.core.customer.fragment.SignInFragment</name>	    -->
 	    <!--<package>com.simicart.plugins.facebooklogin</package>-->
