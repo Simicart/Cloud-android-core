@@ -57,6 +57,8 @@ public class AutoSignInFacebook {
             public void onSuccess(SimiCollection collection) {
                 if (collection != null && collection.getCollection().size() > 0) {
                     ProfileEntity entity = (ProfileEntity) collection.getCollection().get(0);
+                    DataLocal.mCustomer = entity;
+
                     DataLocal.saveTypeSignIn("facebook");
                     DataLocal.saveSignInState(true);
 
