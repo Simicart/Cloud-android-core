@@ -244,6 +244,7 @@ public class FacebookLogin {
                 mDelegate.dismissLoading();
                 if (collection != null && collection.getCollection().size() > 0) {
                     ProfileEntity entity = (ProfileEntity) collection.getCollection().get(0);
+                    DataLocal.mCustomer = entity;
                     DataLocal.saveTypeSignIn("facebook");
                     DataLocal.saveSignInState(true);
 
