@@ -1,5 +1,10 @@
 package com.simicart.plugins.facebooklogin;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -21,12 +26,18 @@ import java.util.ArrayList;
 
 public class AutoSignInFacebook {
 
-	public AutoSignInFacebook(String method, String type) {
-		Log.e("AutoSignIn111", "22222222222");
-		if (type.equals("facebook") && method.equals("autoSignIn")) {
-			autoSignIn();
-			Log.e("AutoSignIn111", "3333333333333");
-		}
+	public AutoSignInFacebook() {
+		Context context = SimiManager.getIntance().getCurrentContext();
+
+		// register event: autosigin facebook
+		IntentFilter autosigin_filter = new IntentFilter("com.simicart.autoSignIn");
+		BroadcastReceiver autosigin_receiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				autoSignIn();
+			}
+		};
+		LocalBroadcastManager.getInstance(context).registerReceiver(autosigin_receiver, autosigin_filter);
 	}
 
 	private void autoSignIn() {
