@@ -6,7 +6,7 @@ import com.simicart.core.common.Utils;
 /**
  * Created by MSI on 08/12/2015.
  */
-public class ItemGroupEntity extends SimiEntity {
+public class ItemGroupEntity extends SimiEntity implements Comparable<ItemGroupEntity> {
     private String _id;
     private int mDefaultQty;
     private String mName;
@@ -17,6 +17,7 @@ public class ItemGroupEntity extends SimiEntity {
     private float mSalePrice;
     private float mPriceTax;
     private float mSalePriceTax;
+    private int mPosition;
 
 
     private String id = "_id";
@@ -40,11 +41,10 @@ public class ItemGroupEntity extends SimiEntity {
 
         // parse default qty
         if (mJSON.has(default_qty)) {
-          String  defaultQty = getData(default_qty);
+            String defaultQty = getData(default_qty);
             try {
                 mDefaultQty = Integer.parseInt(defaultQty);
-            }catch(Exception e)
-            {
+            } catch (Exception e) {
 
             }
         }
@@ -112,6 +112,13 @@ public class ItemGroupEntity extends SimiEntity {
                 } catch (Exception e) {
 
                 }
+            }
+        }
+
+        if (mJSON.has(position)) {
+            String s_position = getData(position);
+            if (Utils.validateString(s_position)) {
+                mPosition = Integer.parseInt(s_position);
             }
         }
 
@@ -197,5 +204,15 @@ public class ItemGroupEntity extends SimiEntity {
 
     public void setSalePriceTax(float mSalePriceTax) {
         this.mSalePriceTax = mSalePriceTax;
+    }
+
+    public int getPosition() {
+        return mPosition;
+    }
+
+    @Override
+    public int compareTo(ItemGroupEntity another) {
+        int position = another.getPosition();
+        return this.mPosition - position;
     }
 }

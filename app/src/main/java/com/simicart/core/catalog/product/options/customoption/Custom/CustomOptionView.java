@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.Html;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,6 +147,8 @@ public class CustomOptionView {
         if (tv_required.getVisibility() == View.GONE) {
             tv_required.setVisibility(View.VISIBLE);
         }
+
+        Log.e("CustomOptionView ", "updatePriceHeader ----> " + price);
 
         if (price.equals("") && mCustomOption.isRequired()) {
             tv_required.setText(Config.getInstance().getText("*"));

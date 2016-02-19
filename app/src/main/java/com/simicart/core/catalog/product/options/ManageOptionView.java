@@ -46,6 +46,8 @@ public class ManageOptionView implements ProductVariantDelegate, ManageOptionDel
 
     public View createOptionView() {
         String type = mProduct.getType();
+
+
         if (type.equals("grouped")) {
             return createGroupedView();
         } else if (type.equals("bundle")) {
@@ -55,17 +57,16 @@ public class ManageOptionView implements ProductVariantDelegate, ManageOptionDel
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         LinearLayout ll_Option = new LinearLayout(SimiManager.getIntance().getCurrentContext());
         ll_Option.setOrientation(LinearLayout.VERTICAL);
+        View viewVariant = createVariantView();
+        if (null != viewVariant) {
+            ll_Option.addView(viewVariant, params);
+        }
 
         View viewCustom = createCustomOptionView();
         if (null != viewCustom) {
             ll_Option.addView(viewCustom, params);
         }
 
-
-        View viewVariant = createVariantView();
-        if (null != viewVariant) {
-            ll_Option.addView(viewVariant, params);
-        }
         return ll_Option;
     }
 

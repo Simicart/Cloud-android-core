@@ -140,16 +140,16 @@ public class ValueView {
         String title = "<font color='#7F7F7F'>" + name
                 + "</font>";
 
-//        String qty = mValue.getQty();
-//
-//        if ((null != qty) && (!qty.equals("") && (!qty.equals("null")))) {
-//            i_qty = (int) Float.parseFloat(qty);
-//            if (i_qty > 1) {
-//                title = "<font color='#7F7F7F'>" + i_qty + " x "
-//                        + mValue.getTitle()
-//                        + "</font>";
-//            }
-//        }
+        String qty = mValue.getQty();
+
+        if (Utils.validateString(qty)) {
+            i_qty = (int) Float.parseFloat(qty);
+            if (i_qty > 1) {
+                title = "<font color='#7F7F7F'>" + i_qty + " x "
+                        + name
+                        + "</font>";
+            }
+        }
 
         return title;
     }

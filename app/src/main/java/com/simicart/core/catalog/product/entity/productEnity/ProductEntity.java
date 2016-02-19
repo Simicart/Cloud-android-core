@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 public class ProductEntity extends SimiEntity {
@@ -672,6 +673,9 @@ public class ProductEntity extends SimiEntity {
     }
 
     public ArrayList<CustomOptionEntity> getListCustom() {
+        if (null != mListCustom && mListCustom.size() > 0) {
+            Collections.sort(mListCustom);
+        }
         return mListCustom;
     }
 
@@ -722,6 +726,11 @@ public class ProductEntity extends SimiEntity {
     }
 
     public ArrayList<CustomOptionEntity> getListBundleItem() {
+
+        if (null != mListBundleItem && mListBundleItem.size() > 0) {
+            Collections.sort(mListBundleItem);
+        }
+
         return mListBundleItem;
     }
 
@@ -730,6 +739,9 @@ public class ProductEntity extends SimiEntity {
     }
 
     public ArrayList<ItemGroupEntity> getListItemGroup() {
+        if (null != mListItemGroup && mListItemGroup.size() > 0) {
+            Collections.sort(mListItemGroup);
+        }
         return mListItemGroup;
     }
 
