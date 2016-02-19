@@ -35,10 +35,10 @@ public class BasicInfoPriceView {
     protected TextView lb_spec_in_tax;
     protected TextView tv_spec_in_tax;
 
-    private float mPrice;
-    private float mSalePrice;
-    private float mPriceTax;
-    private float mSalePriceTax;
+    private double mPrice;
+    private double mSalePrice;
+    private double mPriceTax;
+    private double mSalePriceTax;
 
     public BasicInfoPriceView(ProductEntity product) {
         mProductEntity = product;
@@ -98,7 +98,7 @@ public class BasicInfoPriceView {
         return view_price;
     }
 
-    protected String getPrice(float price) {
+    protected String getPrice(double price) {
         return Config.getInstance().getPrice(price);
     }
 }

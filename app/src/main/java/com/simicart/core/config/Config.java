@@ -27,7 +27,7 @@ public class Config {
     // Android account
     private String mSecretKey = "92060603cb0fa791dae556a0d2bd1a985d10f681";
     // Zara account
-//    private String mSecretKey = "ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0";
+//    private String mSecretKey = "5ed6a808a6142d936196cb4f69a781f7af02fb3a";
     // key site live : c843176d88b6e9a21f848482044503ea7ae82e85, api.jajahub.com/rest/
     // key zara: ef1486cf81657cf2fde4dca2a3ecd7c4ac5a7cb0, dev-api.jajahub.com/rest/
     // key android: 92060603cb0fa791dae556a0d2bd1a985d10f681
@@ -141,7 +141,7 @@ public class Config {
         return hasSpace;
     }
 
-    public String getPrice(float price) {
+    public String getPrice(double price) {
         String s_price = Utils.formatPrice(price, numberDecimal, charSepDecimal, charSepThousand);
         StringBuilder builder = new StringBuilder();
         if (isLeft) {

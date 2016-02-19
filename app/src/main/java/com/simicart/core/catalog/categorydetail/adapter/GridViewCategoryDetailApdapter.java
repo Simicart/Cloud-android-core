@@ -48,8 +48,8 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 	private RelativeLayout layout_image;
 	private float withScreen;
 	private RelativeLayout layout_header;
-	private float mPrice;
-	private float mSalePrice;
+	private double mPrice;
+	private double mSalePrice;
 
 	public GridViewCategoryDetailApdapter(Context context,
 										  ArrayList<ProductEntity> listProduct, ArrayList<String> listId,
@@ -272,7 +272,7 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 		}
 	}
 
-	protected String getPrice(float price) {
+	protected String getPrice(double price) {
 		return Config.getInstance().getPrice(price);
 	}
 }

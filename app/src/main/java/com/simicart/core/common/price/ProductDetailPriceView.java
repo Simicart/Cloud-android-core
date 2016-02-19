@@ -43,10 +43,10 @@ public class ProductDetailPriceView {
     protected VariantEntity mVariant;
     protected boolean isBundleProduct = false;
 
-    private float mPrice = -1;
-    private float mSalePrice = -1;
-    private float mPriceTax = -1;
-    private float mSalePriceTax = -1;
+    private double mPrice = -1;
+    private double mSalePrice = -1;
+    private double mPriceTax = -1;
+    private double mSalePriceTax = -1;
 
 
     public ProductDetailPriceView(ProductEntity product) {
@@ -180,7 +180,7 @@ public class ProductDetailPriceView {
         }
     }
 
-    protected String getPrice(float price) {
+    protected String getPrice(double price) {
         return Config.getInstance().getPrice(price);
     }
 
