@@ -32,7 +32,7 @@ public class PaymentMethodItemView {
     protected TextView tv_title;
     protected TextView tv_content;
     protected ImageView img_check;
-    protected boolean isChecked = false;
+//    protected boolean isChecked = false;
     protected PaymentMethodManageDelegate mDelegate;
     int dp10 = Utils.getValueDp(10);
     int dp20 = Utils.getValueDp(20);
@@ -79,6 +79,7 @@ public class PaymentMethodItemView {
         tv_content.setText(contentMethod,
                 TextView.BufferType.SPANNABLE);
         rl_value.addView(tv_content);
+
         // image icon for checkbox
         img_check = createCheckIMG();
         rl_value.addView(img_check);
@@ -90,6 +91,11 @@ public class PaymentMethodItemView {
             }
         });
 
+        //check select
+        if(mPayment.isCheck()){
+            mDelegate.updatePaymentSelected(mPayment);
+            updateChecked(true);
+        }
 
         return rl_value;
 
@@ -162,11 +168,11 @@ public class PaymentMethodItemView {
     }
 
     private void processEventChecked() {
-        if (!isChecked) {
-            isChecked = true;
+        if (!mPayment.isCheck()) {
+//            isChecked = true;
             updateChecked(true);
             mDelegate.updatePaymentSelected(mPayment);
-
+            mPayment.setIsCheck(true);
         }
     }
 
@@ -178,7 +184,8 @@ public class PaymentMethodItemView {
                     PorterDuff.Mode.SRC_ATOP);
             img_check.setImageDrawable(icon);
         } else {
-            isChecked = true;
+//            isChecked = false;
+            mPayment.setIsCheck(false);
             Drawable icon = mContext.getResources().getDrawable(
                     mIDIconNormal);
             icon.setColorFilter(Config.getInstance().getContent_color(),
