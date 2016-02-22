@@ -1,10 +1,13 @@
 package com.simicart.core.catalog.product.options.variants;
 
 import android.content.Context;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.simicart.core.catalog.product.entity.productEnity.VariantEntity;
@@ -30,6 +33,7 @@ public class VariantAttributeView implements VariantAttributeDelegate {
     private boolean isUserSeleted;
     private boolean isAutoSelected;
     private String mCurrentValue = "";
+    private ImageView imv_arr;
 
     public VariantAttributeView(VariantsAttributeEntity att, Context context, ArrayList<VariantEntity> listVariant, ManageVariantAttributeDelegate delegate) {
         mContext = context;
@@ -44,11 +48,21 @@ public class VariantAttributeView implements VariantAttributeDelegate {
         ll_variantAtt = (LinearLayout) inflater.inflate(Rconfig.getInstance().layout("core_variant_attribute"), null);
 
         // header
+        RelativeLayout rlt_header = (RelativeLayout) ll_variantAtt.findViewById(Rconfig.getInstance().id("rlt_header"));
         TextView tv_title = (TextView) ll_variantAtt.findViewById(Rconfig.getInstance().id("tv_title"));
         tv_item_selected = (TextView) ll_variantAtt.findViewById(Rconfig.getInstance().id("tv_item_selected"));
+        imv_arr = (ImageView) ll_variantAtt.findViewById(Rconfig.getInstance().id("imv_arr"));
         String name = mAttribute.getName();
         Log.e("VariantAttributeView", "Name " + name);
         tv_title.setText(mAttribute.getName());
+        imv_arr.setRotation(90);
+
+        rlt_header.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                animateOption();
+            }
+        });
 
         // body
         ll_body = (LinearLayout) ll_variantAtt.findViewById(Rconfig.getInstance().id("ll_body"));
@@ -65,6 +79,16 @@ public class VariantAttributeView implements VariantAttributeDelegate {
             }
         }
         return ll_variantAtt;
+    }
+
+    protected void animateOption() {
+        if (ll_body.getVisibility() == View.VISIBLE) {
+            Utils.collapse(ll_body);
+            imv_arr.setRotation(0);
+        } else {
+            Utils.expand(ll_body);
+            imv_arr.setRotation(90);
+        }
     }
 
 

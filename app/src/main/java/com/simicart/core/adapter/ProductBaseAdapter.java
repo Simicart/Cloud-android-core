@@ -32,8 +32,8 @@ public class ProductBaseAdapter extends BaseAdapter {
     protected ArrayList<ProductEntity> mProductList;
     protected Context mContext;
     protected boolean isHome;
-    private float mPrice;
-    private float mSalePrice;
+    private double mPrice;
+    private double mSalePrice;
 
     public ProductBaseAdapter(Context context, ArrayList<ProductEntity> ProductList) {
         this.mContext = context;
@@ -188,7 +188,7 @@ public class ProductBaseAdapter extends BaseAdapter {
         }
     }
 
-    protected String getPrice(float price) {
+    protected String getPrice(double price) {
         return Config.getInstance().getPrice(price);
     }
 

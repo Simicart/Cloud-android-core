@@ -654,16 +654,19 @@ public class ReviewOrderController extends SimiController implements PaymentDele
         });
         if (paymentmethod.getShow_type() == 4) {
             mModel.addDataBody(Constants.CARD_TYPE, ""
-                    + PaymentMethod.getInstance().getPlace_cc_type());
+                    + paymentmethod.getPlace_cc_type());
             mModel.addDataBody(Constants.CARD_NUMBER, ""
-                    + PaymentMethod.getInstance().getPlace_cc_number());
+                    + paymentmethod.getPlace_cc_number());
             mModel.addDataBody(Constants.EXPRIRED_MONTH, ""
-                    + PaymentMethod.getInstance().getPlace_cc_exp_month());
+                    + paymentmethod.getPlace_cc_exp_month());
             mModel.addDataBody(Constants.EXPRIRED_YEAR, ""
-                    + PaymentMethod.getInstance().getPlace_cc_exp_year());
-            if (paymentmethod.getData(Constants.USECCV).equals("1")) {
+                    + paymentmethod.getPlace_cc_exp_year());
+
+            String useCCV = paymentmethod.getData(Constants.USECCV);
+
+            if (Utils.validateString(useCCV) && useCCV.equals("1")) {
                 mModel.addDataBody(Constants.CC_ID, ""
-                        + PaymentMethod.getInstance().getPlacecc_id());
+                        + paymentmethod.getPlacecc_id());
             }
         }
 //		if (Config.getInstance().getEnable_agreements() != 0) {
@@ -684,28 +687,29 @@ public class ReviewOrderController extends SimiController implements PaymentDele
     private void processResultPlaceOrder(OrderEntity orderEntity, PaymentMethod paymentMethod) {
         int showtype = paymentMethod.getShow_type();
         switch (showtype) {
-            case 1:
-                Log.e("ReviewOrderController", "type 1");
-                ThankyouFragment fragment = ThankyouFragment.newInstance();
-                fragment.setMessage(Config.getInstance().getText("Thank you for your purchase!"));
-                fragment.setInvoice_number(String.valueOf(orderEntity.getSeqNo()));
-                OrderHisDetail orderHisDetail = new OrderHisDetail();
-                orderHisDetail.setJSONObject(orderEntity.getJSONObject());
-                orderHisDetail.parse();
-                fragment.setOrderHisDetail(orderHisDetail);
-                if (DataLocal.isTablet) {
-                    SimiManager.getIntance().replacePopupFragment(
-                            fragment);
-                } else {
-                    SimiManager.getIntance().replaceFragment(
-                            fragment);
-                }
-                break;
             case 2:
                 dispatchEventForPlaceOrder("com.simicart.paymentmethod.placeorder", orderEntity, paymentMethod);
                 break;
             case 3:
+                Log.e("ReviewOrderController", "type 3 " + paymentMethod.getMethodCode());
                 dispatchEventForPlaceOrder("com.simicart.after.placeorder.webview", orderEntity, paymentMethod);
+                break;
+            default:
+                // type 1 & 4
+                ThankyouFragment tkFragment = ThankyouFragment.newInstance();
+                tkFragment.setMessage(Config.getInstance().getText("Thank you for your purchase!"));
+                tkFragment.setInvoice_number(String.valueOf(orderEntity.getSeqNo()));
+                OrderHisDetail orderHis = new OrderHisDetail();
+                orderHis.setJSONObject(orderEntity.getJSONObject());
+                orderHis.parse();
+                tkFragment.setOrderHisDetail(orderHis);
+                if (DataLocal.isTablet) {
+                    SimiManager.getIntance().replacePopupFragment(
+                            tkFragment);
+                } else {
+                    SimiManager.getIntance().replaceFragment(
+                            tkFragment);
+                }
                 break;
         }
     }

@@ -125,7 +125,6 @@ public class ProductDetailParentController extends ProductController {
 
     @SuppressLint("LongLogTag")
     protected void onShowOption() {
-        Log.e("ProductDeatilParentController", "onShowOption");
         View view_option = onShowOptionView();
         mDelegate.onUpdateOptionView(view_option);
     }

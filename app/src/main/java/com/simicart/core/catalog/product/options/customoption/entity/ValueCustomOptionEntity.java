@@ -6,17 +6,20 @@ import com.simicart.core.common.Utils;
 /**
  * Created by MSI on 07/12/2015.
  */
-public class ValueCustomOptionEntity extends SimiEntity {
+public class ValueCustomOptionEntity extends SimiEntity implements Comparable<ValueCustomOptionEntity>{
 
     private String mTitle;
     private Float mPrice;
     private String mPriceType;
     private String mID;
+    private int mPosition;
 
     private String title = "title";
     private String price = "price";
     private String price_type = "price_type";
     private String _id = "_id";
+    private String position = "position";
+
 
     @Override
     public void parse() {
@@ -45,6 +48,16 @@ public class ValueCustomOptionEntity extends SimiEntity {
         // parse ID
         if (mJSON.has(_id)) {
             mID = getData(_id);
+        }
+
+        // parse position
+        if(mJSON.has(position))
+        {
+            String s_position = getData(position);
+            if(Utils.validateString(position))
+            {
+                mPosition = Integer.parseInt(s_position);
+            }
         }
 
     }
@@ -79,5 +92,16 @@ public class ValueCustomOptionEntity extends SimiEntity {
 
     public void setID(String mID) {
         this.mID = mID;
+    }
+
+    public int getPosition()
+    {
+        return mPosition;
+    }
+
+    @Override
+    public int compareTo(ValueCustomOptionEntity another) {
+        int anotherPosition = another.getPosition();
+        return this.mPosition - anotherPosition;
     }
 }

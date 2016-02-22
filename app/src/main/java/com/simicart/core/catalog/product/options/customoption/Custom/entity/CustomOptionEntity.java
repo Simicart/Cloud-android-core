@@ -9,11 +9,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by MSI on 07/12/2015.
  */
-public class CustomOptionEntity extends SimiEntity {
+public class CustomOptionEntity extends SimiEntity implements Comparable<CustomOptionEntity> {
 
     private String mType;
     private String mTitle;
@@ -26,6 +27,7 @@ public class CustomOptionEntity extends SimiEntity {
     private ArrayList<ValueCustomOptionEntity> mValues;
     private String mID;
     private boolean isCompleteSelected;
+    private int mPosition;
 
     /* data for multi choice option
      */
@@ -35,10 +37,11 @@ public class CustomOptionEntity extends SimiEntity {
     private String title = "title";
     private String type = "type";
     private String un_checkRequired = "uncheckRequired";
-    private String is_Required = "isRequired";
+    private String is_Required = "required";
     private String product_id = "product_id";
     private String client_id = "client_id";
     private String values = "values";
+    private String position = "position";
 
     @Override
     public void parse() {
@@ -103,9 +106,21 @@ public class CustomOptionEntity extends SimiEntity {
         }
 
 
+        // parse position
+        if (mJSON.has(position)) {
+            String s_position = getData(position);
+            if (Utils.validateString(s_position)) {
+                mPosition = Integer.parseInt(s_position);
+            }
+        }
+
+
     }
 
     public ArrayList<ValueCustomOptionEntity> getValues() {
+        if (null != mValues && mValues.size() > 0) {
+            Collections.sort(mValues);
+        }
         return mValues;
     }
 
@@ -199,5 +214,15 @@ public class CustomOptionEntity extends SimiEntity {
 
     public void setMultiPrice(float mMultiPrice) {
         this.mMultiPrice = mMultiPrice;
+    }
+
+    public int getPosition() {
+        return mPosition;
+    }
+
+    @Override
+    public int compareTo(CustomOptionEntity another) {
+        int position = another.getPosition();
+        return this.mPosition - position;
     }
 }

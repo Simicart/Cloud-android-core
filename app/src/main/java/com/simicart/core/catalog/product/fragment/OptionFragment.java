@@ -67,15 +67,6 @@ public class OptionFragment extends SimiFragment {
         scroll_view.addView(view);
 
 
-        scroll_view.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Toast.makeText(SimiManager.getIntance().getCurrentContext(), "Click Scroll View", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
         Animation animationToTop = AnimationUtils.loadAnimation(SimiManager
                         .getIntance().getCurrentContext(),
                 Rconfig.getInstance().getId("down_to_top", "anim"));
