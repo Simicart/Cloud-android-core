@@ -97,6 +97,7 @@ public class ProductDetailPriceView {
             if (mPrice >= 0) {
                 String sPrice = getPrice(mPrice);
                 if (Utils.validateString(sPrice)) {
+                    tv_first.setPaintFlags(tv_first.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     tv_first.setText(sPrice);
                 }
             } else {
@@ -216,8 +217,9 @@ public class ProductDetailPriceView {
         Log.e("ProductDetailPriceView ", "update Price Variant " + mPriceTax + " : " + mSalePriceTax);
 
         if (mPriceTax == mSalePriceTax) {
-            if (mPriceTax == -1) {
+            if (mPriceTax <= 0) {
                 updatePriceVariantWithoutTax();
+                return;
             }
 
         }
@@ -250,7 +252,8 @@ public class ProductDetailPriceView {
 
 
         calculPrice(price, taxPrice, isAdd);
-        if (hasTaxProduct) {
+        Log.e("ProductDetailPriceView ","Price Tax " + mPriceTax + "Sale Price Tax " + mSalePriceTax);
+        if (hasTaxProduct && (mPriceTax > 0 || mSalePriceTax > 0)) {
             createPriceWithTax();
         } else {
             createPriceWithoutTax();
