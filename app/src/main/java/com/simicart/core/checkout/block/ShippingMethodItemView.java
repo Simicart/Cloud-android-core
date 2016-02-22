@@ -34,7 +34,7 @@ public class ShippingMethodItemView {
     protected ImageView img_checked;
     protected int mIDIconNormal;
     protected int mIDIconChecked;
-    protected boolean isChecked = false;
+//    protected boolean isChecked = false;
     protected ShippingMethodManageDelegate mDelegate;
 
     private int dp5 = Utils.getValueDp(5);
@@ -74,6 +74,11 @@ public class ShippingMethodItemView {
             }
         });
 
+        //check select
+        if(mShippingMethod.getIsSelected()){
+            mDelegate.updateShippingMethod(mShippingMethod);
+            updateChecked(true);
+        }
 
         return rl_shipping;
 
@@ -250,10 +255,11 @@ public class ShippingMethodItemView {
     }
 
     private void processEventChecked() {
-        if (!isChecked) {
-            isChecked = true;
+        if (!mShippingMethod.getIsSelected()) {
+//            isChecked = true;
             updateChecked(true);
             mDelegate.updateShippingMethod(mShippingMethod);
+            mShippingMethod.setIsSelected(true);
         }
     }
 
@@ -265,7 +271,8 @@ public class ShippingMethodItemView {
                     PorterDuff.Mode.SRC_ATOP);
             img_checked.setImageDrawable(icon);
         } else {
-            isChecked = true;
+//            isChecked = false;
+            mShippingMethod.setIsSelected(false);
             Drawable icon = mContext.getResources().getDrawable(
                     mIDIconNormal);
             icon.setColorFilter(Config.getInstance().getContent_color(),
@@ -274,4 +281,7 @@ public class ShippingMethodItemView {
         }
     }
 
+    public ShippingMethod getShippingMethod() {
+        return mShippingMethod;
+    }
 }

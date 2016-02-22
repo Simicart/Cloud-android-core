@@ -879,10 +879,16 @@ public class ReviewOrderController extends SimiController implements PaymentDele
     @Override
     public void updateShippingMehtod(ShippingMethod shippingMethod) {
         if (null != shippingMethod) {
-            mCurrentShippingMethod = shippingMethod;
-            String name = mCurrentShippingMethod.getServiceName();
-            mDelegate.setInitViewShippingMethod(name);
-            requestSaveShippingMethod();
+            if(shippingMethod.getIsSelected()){
+                mCurrentShippingMethod = shippingMethod;
+                String name = mCurrentShippingMethod.getServiceName();
+                mDelegate.setInitViewShippingMethod(name);
+            }else{
+                mCurrentShippingMethod = shippingMethod;
+                String name = mCurrentShippingMethod.getServiceName();
+                mDelegate.setInitViewShippingMethod(name);
+                requestSaveShippingMethod();
+            }
         }
 
     }
