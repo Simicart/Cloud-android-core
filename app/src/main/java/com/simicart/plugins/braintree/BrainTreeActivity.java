@@ -149,7 +149,7 @@ public class BrainTreeActivity extends Activity {
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
-                showMessage(Config.getInstance().getText("SUCCESS"));
+                showMessage(Config.getInstance().getText("Thank you for your purchase!"));
                 backToHome();
             }
         };
