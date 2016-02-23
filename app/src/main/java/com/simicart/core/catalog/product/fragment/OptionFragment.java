@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
+import com.simicart.core.catalog.product.controller.ProductDetailParentController;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 
@@ -86,4 +87,9 @@ public class OptionFragment extends SimiFragment {
         return mRootView;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ProductDetailParentController.isShownOption = false;
+    }
 }

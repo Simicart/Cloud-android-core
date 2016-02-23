@@ -188,14 +188,36 @@ public class Utils {
     }
 
     public static String formatPrice(double price, int numberOfDecimals, String charSepDecimal, String charSepthousand) {
-        StringBuilder builderDecimal = new StringBuilder();
-        for (int i = 0; i < numberOfDecimals; i++) {
-            builderDecimal.append("#");
+        Log.e("formatPrice", "++" + price);
+        double isDecimalPrice = price - ((int)price);
+        Log.e("isDecimalPrice", "++" + new Double(isDecimalPrice).compareTo(new Double(0)));
+        if(new Double(isDecimalPrice).compareTo(new Double(0)) == 0) {
+            DecimalFormat df = new DecimalFormat("###" + "," + "###" + "," +
+                    "###" + "," + "###" + "," + "###" + "," + "###");
+            String priceAfterFormat = df.format((int)price);
+            priceAfterFormat = priceAfterFormat.replace(",", charSepthousand);
+            return priceAfterFormat;
+        } else {
+            StringBuilder builderDecimal = new StringBuilder();
+            for (int i = 0; i < numberOfDecimals; i++) {
+                builderDecimal.append("#");
+            }
+            DecimalFormat df = new DecimalFormat("###" + "," + "###" + "," +
+                    "###" + "," + "###" + "," + "###" + "," + "###"
+                    + "." + builderDecimal.toString());
+            String priceAfterFormat = df.format(price);
+            priceAfterFormat = priceAfterFormat.replace(",", charSepthousand);
+            int decimalPos = priceAfterFormat.lastIndexOf(".");
+            if(decimalPos != -1) {
+                priceAfterFormat = priceAfterFormat.substring(0,decimalPos) + charSepDecimal + priceAfterFormat.substring(decimalPos+1);
+            }
+//            while(true) {
+//                if(priceAfterFormat.indexOf(".") != -1) {
+//                    priceAfterFormat = priceAfterFormat.replaceFirst(",",charSepthousand);
+//                } else if(priceAfterFormat.indexOf(".") != -1)
+//            }
+            return priceAfterFormat;
         }
-        DecimalFormat df = new DecimalFormat("###" + charSepthousand + "###" + charSepthousand +
-                "###" + charSepthousand + "###" + charSepthousand + "###" + charSepthousand + "###"
-                + charSepDecimal + builderDecimal.toString());
-        return df.format(price);
     }
 
     @SuppressLint("SimpleDateFormat")

@@ -97,6 +97,7 @@ public class ProductDetailPriceView {
             if (mPrice >= 0) {
                 String sPrice = getPrice(mPrice);
                 if (Utils.validateString(sPrice)) {
+                    tv_first.setVisibility(View.VISIBLE);
                     tv_first.setPaintFlags(tv_first.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                     tv_first.setText(sPrice);
                 }
@@ -252,7 +253,7 @@ public class ProductDetailPriceView {
 
 
         calculPrice(price, taxPrice, isAdd);
-        Log.e("ProductDetailPriceView ","Price Tax " + mPriceTax + "Sale Price Tax " + mSalePriceTax);
+        Log.e("ProductDetailPriceView ", "Price Tax " + mPriceTax + "Sale Price Tax " + mSalePriceTax);
         if (hasTaxProduct && (mPriceTax > 0 || mSalePriceTax > 0)) {
             createPriceWithTax();
         } else {
@@ -401,19 +402,65 @@ public class ProductDetailPriceView {
         Log.e("ProductDetailPriceView ", "update Price Item Group " + price + " : " + salePrice + ":" + taxPrice + ":" + taxSalePrice);
 
 
-        if (taxPrice >= 0 || taxSalePrice >= 0) {
-            calculPrice(taxPrice, taxSalePrice, isAdd);
-        } else {
-            calculPrice(price, salePrice, isAdd);
-        }
+        if (taxPrice > 0 || taxSalePrice > 0) {
+//            calculPrice(taxPrice, taxSalePrice, isAdd);
+            if (mSalePriceTax == -1) {
+                mSalePriceTax = 0;
+            }
 
+            if (mPriceTax == -1) {
+                mPriceTax = 0;
+            }
+
+            if (taxSalePrice > 0) {
+                if (isAdd) {
+                    mSalePriceTax = mSalePriceTax + taxSalePrice;
+                } else {
+                    mSalePriceTax = mSalePriceTax - taxSalePrice;
+                }
+            }
+            if (taxPrice > 0) {
+                if (isAdd) {
+                    mPriceTax = mPriceTax + taxPrice;
+                } else {
+                    mPriceTax = mPriceTax - taxPrice;
+                }
+            }
+
+
+        } else {
+//            calculPrice(price, salePrice, isAdd);
+            if (mSalePrice == -1) {
+                mSalePrice = 0;
+            }
+            if (mPrice == -1) {
+                mPrice = 0;
+            }
+
+            if (salePrice > 0) {
+                if (isAdd) {
+                    mSalePrice = mSalePrice + salePrice;
+                } else {
+                    mSalePrice = mSalePrice - salePrice;
+                }
+            }
+
+            if (price > 0) {
+                if (isAdd) {
+                    mPrice = mPrice + price;
+                } else {
+                    mPrice = mPrice - price;
+                }
+            }
+        }
+        Log.e("ProductDetailPriceView ", "AFTER -->" + "Price " + mPrice + "Sale Price " + mSalePrice + "Price Tax " + mPriceTax + "Sale PRice Tax " + mSalePriceTax);
         if (hasTaxProduct) {
             createPriceWithTax();
         } else {
             createPriceWithoutTax();
         }
+        Log.e("ProductDetailPriceView ", "AFTER 222-->" + "Price " + mPrice + "Sale Price " + mSalePrice + "Price Tax " + mPriceTax + "Sale PRice Tax " + mSalePriceTax);
 
-        Log.e("ProductDetailPriceView ", "AFTER -->" + "Price " + mPrice + "Sale Price " + mSalePrice + "Price Tax " + mPriceTax + "Sale PRice Tax " + mSalePriceTax);
         return ll_price;
     }
 

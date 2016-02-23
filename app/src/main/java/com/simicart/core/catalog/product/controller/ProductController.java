@@ -151,7 +151,9 @@ public class ProductController extends SimiController implements OptionProductDe
     protected View onShowOptionView() {
         ProductEntity productEntity = getProductFromCollection();
         if (null != productEntity) {
-            mManageOptionView = new ManageOptionView(productEntity);
+            if(null == mManageOptionView) {
+                mManageOptionView = new ManageOptionView(productEntity);
+            }
             mManageOptionView.setDelegate(this);
             return mManageOptionView.createOptionView();
         }

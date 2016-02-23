@@ -786,13 +786,19 @@ public class ReviewOrderController extends SimiController implements PaymentDele
 
     @Override
     public void updatePaymentChecked(PaymentMethod payment) {
-        mCurrentPaymentMethod = payment;
-        String name = mCurrentPaymentMethod.getName();
-        mDelegate.setInitViewPaymentMethod(name);
-        requestSavePaymentMethod(mCurrentPaymentMethod);
-        int show_type = payment.getShow_type();
-        if (show_type == 4) {
-            goCreditCardFragment(payment);
+        if(payment.isCheck()){
+            mCurrentPaymentMethod = payment;
+            String name = mCurrentPaymentMethod.getName();
+            mDelegate.setInitViewPaymentMethod(name);
+        }else {
+            mCurrentPaymentMethod = payment;
+            String name = mCurrentPaymentMethod.getName();
+            mDelegate.setInitViewPaymentMethod(name);
+            requestSavePaymentMethod(mCurrentPaymentMethod);
+            int show_type = payment.getShow_type();
+            if (show_type == 4) {
+                goCreditCardFragment(payment);
+            }
         }
     }
 
