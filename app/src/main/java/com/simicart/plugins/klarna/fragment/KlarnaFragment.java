@@ -1,9 +1,13 @@
 package com.simicart.plugins.klarna.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +19,15 @@ import android.widget.Toast;
 
 import com.simicart.MainActivity;
 import com.simicart.core.base.block.SimiBlock;
+import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.delegate.SimiDelegate;
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
+import com.simicart.core.base.model.collection.SimiCollection;
+import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
+import com.simicart.plugins.klarna.model.KlarnaCancelModel;
 
 public class KlarnaFragment extends SimiFragment {
 
@@ -29,7 +37,7 @@ public class KlarnaFragment extends SimiFragment {
 	public static String URL_CHECKOUT_KLARNA = "http://dev-manage.jajahub.com/klarna/index?";
 
 	public static final String MES_SUCCESS = "Complete order Successfully. Thank your for purchase";
-	public static final String MES_FAIL = "Failure: Your order has been canceled";
+	public static final String MES_FAIL = "Your order has been canceled";
 
 	public WebView webview;
 	public View mImageView;
@@ -65,15 +73,23 @@ public class KlarnaFragment extends SimiFragment {
 		Log.e("Klarna Fragment", "++" + url);
 		openWebview(url);
 
-		return view;
-	}
+		rootView.setFocusableInTouchMode(true);
+		rootView.requestFocus();
+		rootView.setOnKeyListener(new View.OnKeyListener() {
 
-	public void showToastMessage(String message) {
-		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
-				.getText(message), Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER, 0, 0);
-		toast.setDuration(Toast.LENGTH_LONG);
-		toast.show();
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if (event.getAction() == KeyEvent.ACTION_DOWN) {
+					if (keyCode == KeyEvent.KEYCODE_BACK) {
+						showDialog();
+						return true;
+					}
+				}
+				return false;
+			}
+		});
+
+		return view;
 	}
 
 	public void openWebview(String url) {
@@ -98,8 +114,13 @@ public class KlarnaFragment extends SimiFragment {
 			@Override
 			public void onPageStarted(WebView view, String url, Bitmap favicon) {
 				if (url.contains(SUCCESS)) {
-					SimiManager.getIntance().backToHomeFragment();
-					showToastMessage(MES_SUCCESS);
+					Handler handler = new Handler();
+					handler.postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							SimiManager.getIntance().backToHomeFragment();
+						}
+					}, 3000);
 				} else if (url.contains(FAIL)) {
 					SimiManager.getIntance().backToHomeFragment();
 					showToastMessage(MES_FAIL);
@@ -114,6 +135,60 @@ public class KlarnaFragment extends SimiFragment {
 			}
 		});
 
+	}
+
+	private void showDialog() {
+		new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
+				.setMessage(
+						Config.getInstance()
+								.getText(
+										"Are you sure that you want to cancel the order?"))
+				.setPositiveButton(Config.getInstance().getText("Yes"),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+												int which) {
+								requestCancelOrder();
+								showToastMessage(MES_FAIL);
+								SimiManager.getIntance().backToHomeFragment();
+							}
+						})
+				.setNegativeButton(Config.getInstance().getText("No"),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+												int which) {
+								// do nothing
+							}
+						}).show();
+
+	}
+
+	private void requestCancelOrder(){
+		KlarnaCancelModel klarnaCancelModel = new KlarnaCancelModel();
+		klarnaCancelModel.setDelegate(new ModelDelegate() {
+			@Override
+			public void onFail(SimiError error) {
+				if(error != null){
+					showToastMessage(error.getMessage());
+				}
+			}
+
+			@Override
+			public void onSuccess(SimiCollection collection) {
+
+			}
+		});
+		klarnaCancelModel.addDataExtendURL(orderID);
+		klarnaCancelModel.addDataExtendURL("cancel");
+		klarnaCancelModel.request();
+	}
+
+
+	public void showToastMessage(String message) {
+		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
+				.getText(message), Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.setDuration(Toast.LENGTH_LONG);
+		toast.show();
 	}
 
 }
