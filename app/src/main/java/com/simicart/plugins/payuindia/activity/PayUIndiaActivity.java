@@ -139,7 +139,10 @@ public class PayUIndiaActivity extends Activity {
                     requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txn_id, "0", "Transaction Error!");
                 }
             } else {
-                changeView("Your order has been canceled");
+                String txnID = mPaymentParams.getTxnId();
+                if(Utils.validateString(txnID)){
+                    requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txnID, "0", "Your order has been canceled");
+                }
             }
         }
     }
@@ -158,7 +161,7 @@ public class PayUIndiaActivity extends Activity {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                mDelegate.dismissLoading();
+//                mDelegate.dismissLoading();
                 if (collection != null && collection.getCollection().size() > 0) {
                     PayUEntity payUEntity = (PayUEntity) collection.getCollection().get(0);
                     HashEntity hashEntity = payUEntity.getHash();

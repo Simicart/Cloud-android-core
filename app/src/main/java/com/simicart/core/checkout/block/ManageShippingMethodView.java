@@ -49,8 +49,6 @@ public class ManageShippingMethodView implements ShippingMethodManageDelegate {
             }
 
 
-
-
             return ll_shipping;
 
         }
@@ -61,6 +59,15 @@ public class ManageShippingMethodView implements ShippingMethodManageDelegate {
 
     @Override
     public void updateShippingMethod(ShippingMethod shippingMethod) {
+        if (mItems.size() > 0) {
+            for (int i = 0; i < mItems.size(); i++) {
+                ShippingMethodItemView item = mItems.get(i);
+                ShippingMethod cShipping = item.getShippingMethod();
+                if(!cShipping.equals(shippingMethod)){
+                    item.updateChecked(false);
+                }
+            }
+        }
         mDelegate.updateShippingMehtod(shippingMethod);
 
     }
