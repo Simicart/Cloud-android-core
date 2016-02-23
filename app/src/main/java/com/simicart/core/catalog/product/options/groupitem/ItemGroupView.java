@@ -1,6 +1,7 @@
 package com.simicart.core.catalog.product.options.groupitem;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
@@ -32,6 +33,8 @@ public class ItemGroupView {
     protected TextView tv_qty;
     protected RelativeLayout rlt_body;
     protected boolean isShow = true;
+    protected TextView tv_price;
+    protected TextView tv_salePrice;
 
     public void setDelegate(ItemGroupDelegate delegate) {
         mDelegate = delegate;
@@ -85,9 +88,9 @@ public class ItemGroupView {
         });
 
         // price
-        TextView tv_price = (TextView) rlt_body.findViewById(Rconfig.getInstance().id("tv_price"));
-        String sPrice = getPriceItem();
-        tv_price.setText(sPrice);
+        tv_price = (TextView) rlt_body.findViewById(Rconfig.getInstance().id("tv_price"));
+        tv_salePrice = (TextView) rlt_body.findViewById(Rconfig.getInstance().id("tv_sale_price"));
+        createPrice();
 
         // image add
         ImageView img_add = (ImageView) rlt_body.findViewById(Rconfig.getInstance().id("img_add"));
@@ -121,7 +124,7 @@ public class ItemGroupView {
     }
 
     private void subItem() {
-        qtyForCheckout--;
+        qtyForCheckout = qtyForCheckout -1;
         Log.e("ItemGroupView ", "SUB QTY " + qtyForCheckout);
         if (qtyForCheckout >= 0) {
             tv_qty.setText("Qty: " + qtyForCheckout);
@@ -132,25 +135,62 @@ public class ItemGroupView {
         }
     }
 
-    private String getPriceItem() {
-        float price_item = 0;
+    private void createPrice() {
+
+        float price1 = 0;
+        float price2 = 0;
 
         float salePriceTax = mItem.getSalePriceTax();
         float priceTax = mItem.getPriceTax();
         float salePrice = mItem.getSalePrice();
         float price = mItem.getPrice();
-        if (salePriceTax > 0) {
-            price_item = salePriceTax;
-        } else if (priceTax > 0) {
-            price_item = priceTax;
-        } else if (salePrice > 0) {
-            price_item = salePrice;
+        if (salePriceTax > 0 || priceTax > 0) {
+            if(salePriceTax > 0) {
+                price2 = salePriceTax;
+            }
+            if (priceTax > 0) {
+                price1 = priceTax;
+            }
+
         } else {
-            price_item = price;
+            if(salePrice > 0)
+            {
+                price2 = salePrice;
+            }
+            if(price > 0)
+            {
+                price1 = price;
+            }
+        }
+
+        if(price2 <= 0)
+        {
+            tv_salePrice.setVisibility(View.GONE);
+            if(price1 > 0)
+            {
+                String s_price1 = Config.getInstance().getPrice(price1);
+                tv_price.setVisibility(View.VISIBLE);
+                tv_price.setText(s_price1);
+            }
+        }
+        else {
+            String s_price2 = Config.getInstance().getPrice(price2);
+            tv_salePrice.setVisibility(View.VISIBLE);
+            tv_salePrice.setText(s_price2);
+            if(price1 <= 0)
+            {
+                tv_price.setVisibility(View.GONE);
+            }
+            else
+            {
+                tv_price.setPaintFlags(tv_price.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                String s_price1 = Config.getInstance().getPrice(price1);
+                tv_price.setVisibility(View.VISIBLE);
+                tv_price.setText(s_price1);
+            }
         }
 
 
-        return Config.getInstance().getPrice(price_item);
     }
 
 
