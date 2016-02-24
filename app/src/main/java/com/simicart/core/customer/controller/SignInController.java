@@ -371,6 +371,10 @@ public class SignInController extends SimiController {
                                 requestMergeQuote();
                             }
                         }
+                    }else{
+                        if (!DataLocal.getQuoteCustomerNotSigin().equals("")) {
+                            requestUpdateCustomerToQuote();
+                        }
                     }
                 }
             }
