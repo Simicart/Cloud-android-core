@@ -46,6 +46,18 @@ public class CategoryModel extends SimiModel {
                 e.printStackTrace();
             }
         }
+        if(mJSONResult.has("category")){
+            try {
+                CategoryEntity categoryEntity = new CategoryEntity();
+                categoryEntity.setJSONObject(mJSONResult.getJSONObject("category"));
+                categoryEntity.parse();
+                if(categoryEntity.isStatus()) {
+                    collection.addEntity(categoryEntity);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
