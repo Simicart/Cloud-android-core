@@ -2,6 +2,7 @@ package com.simicart.core.common.price;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PaintFlagsDrawFilter;
 import android.util.Log;
@@ -69,6 +70,10 @@ public class ProductDetailPriceView {
         ll_price = (LinearLayout) inflater.inflate(Rconfig.getInstance().layout("core_price_layout"), null);
         tv_first = (TextView) ll_price.findViewById(Rconfig.getInstance().id("tv_fist_price"));
         tv_second = (TextView) ll_price.findViewById(Rconfig.getInstance().id("tv_second_price"));
+
+        tv_first.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
+        tv_second.setTextColor(Color.parseColor(Config.getInstance().getSpecial_price_color()));
+
         if (hasTaxProduct) {
             mPriceTax = mProductEntity.getPriceIncludeTax();
             mSalePriceTax = mProductEntity.getPriceSaleIncludeTax();

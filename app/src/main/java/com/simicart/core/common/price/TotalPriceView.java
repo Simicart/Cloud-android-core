@@ -111,7 +111,7 @@ public class TotalPriceView {
     protected View createRowView(String label, String s_price) {
         TableRow tbr_price = new TableRow(mContext);
         String s_label = Config.getInstance().getText(label);
-        String price = "<font color='" + "red" + "'>"
+        String price = "<font color='" + Config.getInstance().getPrice_color() + "'>"
                 + s_price + "</font>";
 
         TextView tb_label = (TextView) showViewLabel(s_label);
