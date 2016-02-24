@@ -86,6 +86,8 @@ public class CheckoutComFragment extends SimiFragment {
 
         checkoutComBlock.setOnCheckoutButtonClicked(checkoutComController.getOnButtonCheckoutClick());
 
+        v.setFocusableInTouchMode(true);
+        v.requestFocus();
         v.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
