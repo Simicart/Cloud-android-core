@@ -32,6 +32,7 @@ import com.simicart.MainActivity;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.delegate.SimiDelegate;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.config.Config;
@@ -283,6 +284,44 @@ public class PaypalActivity extends Activity {
         mModel.request();
     }
 
+    public void changeView() {
+        Intent i = new Intent(PaypalActivity.this, MainActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(i);
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        showDialog();
+    }
+
+    private void showDialog() {
+        new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
+                .setMessage(
+                        Config.getInstance()
+                                .getText(
+                                        "Are you sure that you want to cancel the order?"))
+                .setPositiveButton(Config.getInstance().getText("Yes"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                requestUpdatePaypalCancel(invoice_number, "2");
+                                SimiManager.getIntance().backToHomeFragment();
+                            }
+                        })
+                .setNegativeButton(Config.getInstance().getText("No"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // do nothing
+                            }
+                        }).show();
+
+    }
+
     @SuppressLint("NewApi")
     public void requestUpdatePaypalCancel(String invoice_number,
                                           String payment_status) {
@@ -321,12 +360,4 @@ public class PaypalActivity extends Activity {
         toast.show();
     }
 
-
-    public void changeView() {
-        Intent i = new Intent(PaypalActivity.this, MainActivity.class);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(i);
-        finish();
-    }
 }
