@@ -800,6 +800,7 @@ public class WebViewActivity extends Activity implements Communicator {
 
     @Override
     public void onBackPressed() {
-        changeView("Your order has been canceled");
+        String status = "Your order has been canceled!";
+        updatePayment("2", status);;
     }
 }
