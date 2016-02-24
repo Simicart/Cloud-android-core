@@ -340,6 +340,10 @@ public class FacebookLogin {
                                 requestMergeQuote();
                             }
                         }
+                    }else{
+                        if (!DataLocal.getQuoteCustomerNotSigin().equals("")) {
+                            requestUpdateCustomerToQuote();
+                        }
                     }
                 }
             }
