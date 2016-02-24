@@ -832,4 +832,13 @@ public class CategoryDetailBlock extends SimiBlock implements CategoryDetailDele
 	public int getTotalResult() {
 		return totalResult;
 	}
+
+	@Override
+	public void showSort(boolean isCheck) {
+		if(isCheck){
+			rlt_sort.setVisibility(View.VISIBLE);
+		}else{
+			rlt_sort.setVisibility(View.GONE);
+		}
+	}
 }

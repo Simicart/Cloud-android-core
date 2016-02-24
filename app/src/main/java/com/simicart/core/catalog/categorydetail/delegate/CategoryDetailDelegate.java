@@ -66,4 +66,6 @@ public interface CategoryDetailDelegate extends SimiDelegate {
 	public void setIsLoadMore(boolean loadmore);
 	public EditText getEdittextSearch();
 	public int getTotalResult();
+
+	public void showSort(boolean isCheck);
 }
