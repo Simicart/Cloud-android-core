@@ -75,10 +75,10 @@ public class HomeZThemeAdapter extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded,
                              View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewHolder holder;
         if (convertView == null) {
+            LayoutInflater inflater = (LayoutInflater) mContext
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(
                     Rconfig.getInstance().getId("ztheme_item_home_layout",
                             "layout"), null);
@@ -91,45 +91,44 @@ public class HomeZThemeAdapter extends BaseExpandableListAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+
+        CategoryZTheme categoryZTheme = mCategories.get(groupPosition);
+        SpotProductZTheme spotProductZTheme = categoryZTheme.getSpotProductZTheme();
+
+        // name
         if (holder.tv_catename != null) {
             holder.tv_catename.setVisibility(View.VISIBLE);
-            CategoryZTheme categoryZTheme = mCategories.get(groupPosition);
-            SpotProductZTheme spotProductZTheme = mCategories.get(groupPosition)
-                    .getSpotProductZTheme();
             if (categoryZTheme.getType() == CategoryZTheme.TYPE_CAT) {
-                if (Utils.validateString(categoryZTheme.getCategoryName())) {
-                    holder.tv_catename.setVisibility(View.GONE);
+                String cateName = categoryZTheme.getCategoryName();
+                if (Utils.validateString(cateName)) {
+                    holder.tv_catename.setText(cateName);
                 } else {
-                    holder.tv_catename.setText(categoryZTheme.getCategoryName());
+                    holder.tv_catename.setVisibility(View.GONE);
                 }
             } else {
-                if(Utils.validateString(spotProductZTheme.getName())){
-                    holder.tv_catename.setText(spotProductZTheme.getName());
-                }else {
+                String productName = spotProductZTheme.getName();
+                if (Utils.validateString(productName)) {
+                    holder.tv_catename.setText(productName);
+                } else {
                     holder.tv_catename.setVisibility(View.GONE);
                 }
             }
         }
+
+        // image
         String url = "";
-        if (mCategories.get(groupPosition).getType() == CategoryZTheme.TYPE_CAT) {
-            final CategoryZTheme object = mCategories.get(groupPosition);
+        if (categoryZTheme.getType() == CategoryZTheme.TYPE_CAT) {
             if (DataLocal.isTablet) {
-                url = object.getTabImage();
+                url = categoryZTheme.getTabImage();
             } else {
-                url = object.getPhoneImage();
+                url = categoryZTheme.getPhoneImage();
             }
         } else {
-            SpotProductZTheme spotProductZTheme = mCategories.get(groupPosition)
-                    .getSpotProductZTheme();
             url = spotProductZTheme.getImage();
         }
         if (Utils.validateString(url)) {
-            if (holder.img_category != null) {
-                DrawableManager.fetchDrawableOnThread(url,
-                        holder.img_category);
-            } else {
-                holder.img_category.setImageResource(Rconfig.getInstance().drawable("default_logo"));
-            }
+            DrawableManager.fetchDrawableOnThread(url,
+                    holder.img_category);
         } else {
             holder.img_category.setImageResource(Rconfig.getInstance().drawable("default_logo"));
         }

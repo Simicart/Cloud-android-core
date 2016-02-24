@@ -30,7 +30,7 @@ public class PayU {
                 OrderEntity order = entity.getOder();
                 if (payment.getMethodCode().equals("payu")) {
                     String orderID = order.getID();
-                    onCheckOut(orderID);
+                    onCheckOut(orderID, order);
                 }
             }
         };
@@ -38,8 +38,11 @@ public class PayU {
         LocalBroadcastManager.getInstance(context).registerReceiver(receiver, filter);
     }
 
-    private void onCheckOut(String orderID) {
+    private void onCheckOut(String orderID, OrderEntity order) {
         PayUFragment fragment = PayUFragment.newInstance();
+        if(order != null){
+            fragment.setOrder(order);
+        }
         fragment.setOrderID(orderID);
         SimiManager.getIntance().addFragment(fragment);
     }

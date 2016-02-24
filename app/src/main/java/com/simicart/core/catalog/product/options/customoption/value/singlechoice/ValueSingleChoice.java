@@ -2,6 +2,7 @@ package com.simicart.core.catalog.product.options.customoption.value.singlechoic
 
 import android.content.Context;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -141,6 +142,9 @@ public class ValueSingleChoice extends ValueView {
 
     @Override
     public boolean isComplete() {
+
+        Log.e("ValueSingleChoice ", "======> CHECK " + mValue.isChecked());
+
         return  mValue.isChecked();
     }
 }

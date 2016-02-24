@@ -259,8 +259,6 @@ public class SignInController extends SimiController {
 
                 if (entity.getEmail() != null)
                     email = entity.getEmail();
-                if (entity.getFirstName() != null && entity.getLastName() != null)
-                    name = entity.getFirstName() + " " + entity.getLastName();
                 if (entity.getID() != null)
                     customerID = entity.getID();
                 if (entity.getFirstName() != null)
@@ -268,13 +266,14 @@ public class SignInController extends SimiController {
                 if (entity.getLastName() != null)
                     lastname = entity.getLastName();
 
-                if (null != name) {
-                    Log.e("SignIn Info", name + " " + email + " " + password);
-                    DataLocal.saveData(name, email, password);
-                    DataLocal.saveCustomerID(customerID);
-                    DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
-                    DataLocal.saveEmailPassRemember(email, password);
-                }
+                name = entity.getFirstName() + " " + entity.getLastName();
+
+                Log.e("SignIn Info", name + " " + email + " " + password);
+                DataLocal.saveData(name, email, password);
+                DataLocal.saveCustomerID(customerID);
+                DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
+                DataLocal.saveEmailPassRemember(email, password);
+
                 DataLocal.saveSignInState(true);
                 showToastSignIn();
                 if (!isCheckout && DataLocal.isTablet) {
@@ -371,6 +370,10 @@ public class SignInController extends SimiController {
                             if (!DataLocal.getQuoteCustomerNotSigin().equals("")) {
                                 requestMergeQuote();
                             }
+                        }
+                    }else{
+                        if (!DataLocal.getQuoteCustomerNotSigin().equals("")) {
+                            requestUpdateCustomerToQuote();
                         }
                     }
                 }

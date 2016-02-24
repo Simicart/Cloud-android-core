@@ -79,7 +79,7 @@ public class SpotProductEntity extends SimiEntity {
 
         // parse limit
         if (mJSON.has(limit)) {
-            limit = getData(limit);
+            mLimit = getData(limit);
         }
 
         // parse position

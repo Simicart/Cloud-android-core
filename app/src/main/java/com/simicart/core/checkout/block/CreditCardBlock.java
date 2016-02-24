@@ -388,7 +388,7 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         model.addDataBody("card_type", card_type);
         model.addDataBody("card_number", et_card_number.getText().toString());
         model.addDataBody("card_name", et_type.getText().toString());
-        model.addDataBody("card_digit", "***");
+        model.addDataBody("card_digit", "");
         model.request();
     }
 

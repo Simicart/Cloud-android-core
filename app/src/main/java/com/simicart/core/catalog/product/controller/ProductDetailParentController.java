@@ -27,6 +27,7 @@ public class ProductDetailParentController extends ProductController {
     protected boolean statusTopBottom = true;
     protected ProductDetailAdapterDelegate mAdapterDelegate;
     private boolean checkOptionDerect = false;
+    public static  boolean isShownOption;
 
     public void setAdapterDelegate(ProductDetailAdapterDelegate delegate) {
         mAdapterDelegate = delegate;
@@ -59,6 +60,7 @@ public class ProductDetailParentController extends ProductController {
 
     @Override
     public void onResume() {
+        isShownOption = false;
         mDelegate.updateView(mModel.getCollection());
         onUpdatePriceView();
     }
@@ -125,9 +127,12 @@ public class ProductDetailParentController extends ProductController {
 
     @SuppressLint("LongLogTag")
     protected void onShowOption() {
-        Log.e("ProductDeatilParentController", "onShowOption");
-        View view_option = onShowOptionView();
-        mDelegate.onUpdateOptionView(view_option);
+        if(!isShownOption) {
+            isShownOption = true;
+            onUpdatePriceView((ProductDetailModel)mModel);
+            View view_option = onShowOptionView();
+            mDelegate.onUpdateOptionView(view_option);
+        }
     }
 
 

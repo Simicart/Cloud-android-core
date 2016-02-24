@@ -151,7 +151,9 @@ public class ProductController extends SimiController implements OptionProductDe
     protected View onShowOptionView() {
         ProductEntity productEntity = getProductFromCollection();
         if (null != productEntity) {
-            mManageOptionView = new ManageOptionView(productEntity);
+            if(null == mManageOptionView) {
+                mManageOptionView = new ManageOptionView(productEntity);
+            }
             mManageOptionView.setDelegate(this);
             return mManageOptionView.createOptionView();
         }
@@ -173,7 +175,14 @@ public class ProductController extends SimiController implements OptionProductDe
     }
 
     protected void addtoCart() {
+
+        if(null == mManageOptionView)
+        {
+            Log.e("ProductCOntroller ","------> NULLL");
+        }
+
         if (null != mManageOptionView && mManageOptionView.isComplete()) {
+            Log.e("ProductCOntroller ","------> ADDD");
             mDelegate.showDialogLoading();
             JSONObject json = mManageOptionView.getDataForCheckout();
             if (DataLocal.isSignInComplete()) {
@@ -196,8 +205,9 @@ public class ProductController extends SimiController implements OptionProductDe
             if (null == mManageOptionView) {
                 mManageOptionView = new ManageOptionView(mProduct);
             }
-            //onShowOptionView();
-            SimiManager.getIntance().showNotify("Please select all options");
+            View view_option = onShowOptionView();
+            mDelegate.onUpdateOptionView(view_option);
+           // SimiManager.getIntance().showNotify("Please select all options");
         }
     }
 

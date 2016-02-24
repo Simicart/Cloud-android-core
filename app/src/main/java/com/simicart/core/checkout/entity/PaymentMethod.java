@@ -21,6 +21,7 @@ public class PaymentMethod extends SimiEntity {
 	private String mSandBox;
 	private String mBnCode;
 	private String mPaypalAction;
+	protected boolean isCheck = false;
 
 	private String _id = "_id";
 	private String enable = "enable";
@@ -334,4 +335,22 @@ public class PaymentMethod extends SimiEntity {
 		return mPlaceCCId;
 	}
 
+	public boolean equal(PaymentMethod other)
+	{
+		String code = other.getMethodCode();
+		if(mMethodCode.equals(code))
+		{
+			return true;
+		}
+
+		return false;
+	}
+
+	public boolean isCheck() {
+		return isCheck;
+	}
+
+	public void setIsCheck(boolean isCheck) {
+		this.isCheck = isCheck;
+	}
 }

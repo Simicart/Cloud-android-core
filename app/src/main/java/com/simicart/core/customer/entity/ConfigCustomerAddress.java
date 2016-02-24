@@ -33,7 +33,7 @@ public class ConfigCustomerAddress extends SimiEntity {
 		setPrefix(OPTION_REQUIRE);
 		setName(OPTION_HIDE);
 		setSuffix(OPTION_REQUIRE);
-		setEmail(OPTION_REQUIRE);
+		setEmail(OPTION_HIDE);
 		setCompany(OPTION_HIDE);
 		setVat_id(OPTION_HIDE);
 		setStreet(OPTION_REQUIRE);
@@ -46,6 +46,14 @@ public class ConfigCustomerAddress extends SimiEntity {
 		setDob(OPTION_HIDE);
 		setGender(OPTION_HIDE);
 		setTaxvat(OPTION_HIDE);
+		GenderConfig gender_male = new GenderConfig();
+		gender_male.setLabel("Male");
+		gender_male.setValue("1");
+		GenderConfig gender_female = new GenderConfig();
+		gender_female.setLabel("Female");
+		gender_female.setValue("2");
+		genderConfigs.add(gender_male);
+		genderConfigs.add(gender_female);
 	}
 
 	public void setVat_id(String vat_id) {

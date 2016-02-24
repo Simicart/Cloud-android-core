@@ -47,7 +47,7 @@ dependencies {
     compile files('libs/httpclient-4.0.jar')
     compile 'org.apache:apache:17'
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
-    compile 'com.paypal.sdk:paypal-android-sdk:2.12.4'
+    compile 'com.paypal.sdk:paypal-android-sdk:2.13.3'
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
     compile 'com.google.android.gms:play-services-wallet:8.3.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'

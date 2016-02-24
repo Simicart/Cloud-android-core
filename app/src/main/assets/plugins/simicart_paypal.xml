@@ -1,7 +1,7 @@
 
     <event>
-        <name>com.simicart.plugins.paypal.PayPal</name>
-	    <sku>simi_paypalmobile</sku>
+        <fullname>com.simicart.plugins.paypal.PayPal</fullname>
+	    <sku>simi_developer</sku>
     </event>
 <!--<event>-->
 <!--<name>com.simicart.edit.paymentlist</name>-->

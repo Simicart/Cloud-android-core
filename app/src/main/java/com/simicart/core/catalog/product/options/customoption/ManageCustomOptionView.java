@@ -1,6 +1,7 @@
 package com.simicart.core.catalog.product.options.customoption;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -133,10 +134,11 @@ public class ManageCustomOptionView implements ManageCustomOptionDelegate {
         for (int i = 0; i < mListCustomView.size(); i++) {
             CustomOptionView customView = mListCustomView.get(i);
             if (!customView.isComplete()) {
+                Log.e("ManageCustomOptionView ", "======> CHECK FALSE");
                 return false;
             }
         }
-
+        Log.e("ManageCustomOptionView ", "======> CHECK TRUE");
         return true;
     }
 

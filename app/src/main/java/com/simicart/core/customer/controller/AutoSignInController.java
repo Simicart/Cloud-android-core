@@ -60,8 +60,6 @@ public class AutoSignInController extends SimiController {
 
                         if (entity.getEmail() != null)
                             email = entity.getEmail();
-                        if (entity.getFirstName() != null && entity.getLastName() != null)
-                            name = entity.getFirstName() + " " + entity.getLastName();
                         if (entity.getID() != null)
                             customerID = entity.getID();
                         if (entity.getFirstName() != null)
@@ -69,13 +67,14 @@ public class AutoSignInController extends SimiController {
                         if (entity.getLastName() != null)
                             lastname = entity.getLastName();
 
-                        if (null != name) {
-                            Log.e("SignIn Info", name + " " + email + " " + password);
-                            DataLocal.saveData(name, email, password);
-                            DataLocal.saveCustomerID(customerID);
-                            DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
-                            //DataLocal.saveEmailPassRemember(email, password);
-                        }
+                        name = entity.getFirstName() + " " + entity.getLastName();
+
+                        Log.e("SignIn Info", name + " " + email + " " + password);
+                        DataLocal.saveData(name, email, password);
+                        DataLocal.saveCustomerID(customerID);
+                        DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
+                        //DataLocal.saveEmailPassRemember(email, password);
+
                         SimiManager.getIntance().onUpdateItemSignIn();
                         requestGetAllQuote();
                     }
@@ -88,8 +87,8 @@ public class AutoSignInController extends SimiController {
             model.request();
         } else {
             // event for face book
-            Intent intent  = new Intent("com.simicart.autoSignIn");
-            intent.putExtra(Constants.DATA,typeSignIn);
+            Intent intent = new Intent("com.simicart.autoSignIn");
+            intent.putExtra(Constants.DATA, typeSignIn);
             Context context = SimiManager.getIntance().getCurrentContext();
             LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
         }

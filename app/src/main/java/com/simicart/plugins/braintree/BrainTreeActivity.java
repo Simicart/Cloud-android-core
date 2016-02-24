@@ -11,6 +11,7 @@ import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.base.network.request.error.SimiError;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.plugins.braintree.entity.TokenEntity;
 import com.simicart.plugins.braintree.model.BrainTreeModel;
@@ -118,7 +119,7 @@ public class BrainTreeActivity extends Activity {
                     }
                     break;
                 default:
-                    showMessage(Config.getInstance().getText("FAIL"));
+                    showMessage(Config.getInstance().getText("Your order has been canceled"));
                     backToHome();
                     break;
             }
@@ -135,14 +136,20 @@ public class BrainTreeActivity extends Activity {
             public void onFail(SimiError error) {
                 mDelegate.dismissLoading();
                 if (error != null) {
-                    SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
+                    if(Utils.validateString(error.getMessage())){
+                        SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
+                        backToHome();
+                    }else{
+                        SimiManager.getIntance().showNotify(null, "Transaction Error!", "Ok");
+                        backToHome();
+                    }
                 }
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
-                showMessage(Config.getInstance().getText("SUCCESS"));
+                showMessage(Config.getInstance().getText("Thank you for your purchase!"));
                 backToHome();
             }
         };

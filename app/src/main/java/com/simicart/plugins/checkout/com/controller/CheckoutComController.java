@@ -192,9 +192,19 @@ public class CheckoutComController extends SimiController {
     class ConnectionTask extends AsyncTask<String, Void, String> {
         final int errorColor = Color.rgb(204, 0, 51);
 
-        private boolean validateCardFields(final String number, final String month, final String year, final String cvv) {
+        private boolean validateCardFields(final String name, final String number, final String month, final String year, final String cvv) {
             boolean error = false;
             clearFieldsError();
+
+            if (!CardValidator.validateCardNumber(name)) {
+                activity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mName.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
+                    }
+                });
+                error = true;
+            }
 
             if (!CardValidator.validateCardNumber(number)) {
                 activity.runOnUiThread(new Runnable() {
@@ -241,7 +251,7 @@ public class CheckoutComController extends SimiController {
 
         @Override
         protected String doInBackground(String... urls) {
-            if (validateCardFields(mNumber.getText().toString(), mMonth.getSelectedItem().toString()
+            if (validateCardFields(mName.getText().toString(), mNumber.getText().toString(), mMonth.getSelectedItem().toString()
                     , mYear.getSelectedItem().toString(), mCvv.getText().toString())) {
                 clearFieldsError();
                 try {

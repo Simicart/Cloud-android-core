@@ -14,6 +14,7 @@ import com.simicart.core.catalog.product.fragment.BasicInforFragment;
 import com.simicart.core.catalog.product.fragment.DescriptionFragment;
 import com.simicart.core.catalog.product.fragment.RelatedProductFragment;
 import com.simicart.core.catalog.product.fragment.TechSpecsFragment;
+import com.simicart.core.common.Utils;
 import com.simicart.core.common.price.ProductDetailPriceView;
 import com.simicart.core.config.Config;
 
@@ -64,11 +65,13 @@ public class TabAdapterFragment extends FragmentStatePagerAdapter {
 
         mListFragment.add(fragment_basic);
 
-        DescriptionFragment fragment_description = DescriptionFragment
-                .newInstance();
-        fragment_description.setDescription(mProduct.getDescription());
+        if(mProduct != null && Utils.validateString(mProduct.getDescription())){
+            DescriptionFragment fragment_description = DescriptionFragment
+                    .newInstance();
+            fragment_description.setDescription(mProduct.getDescription());
 
-        mListFragment.add(fragment_description);
+            mListFragment.add(fragment_description);
+        }
 
         ArrayList<Attributes> attributes = mProduct.getAttibutes();
 
@@ -99,7 +102,9 @@ public class TabAdapterFragment extends FragmentStatePagerAdapter {
 
     private void addTitle() {
         mListTitle.add(Config.getInstance().getText("Basic Info"));
-        mListTitle.add(Config.getInstance().getText("Description"));
+        if(mProduct != null && Utils.validateString(mProduct.getDescription())) {
+            mListTitle.add(Config.getInstance().getText("Description"));
+        }
         ArrayList<Attributes> attributes = mProduct.getAttibutes();
         if (null != attributes && !attributes.isEmpty()) {
             mListTitle.add(Config.getInstance().getText("Tech Specs"));

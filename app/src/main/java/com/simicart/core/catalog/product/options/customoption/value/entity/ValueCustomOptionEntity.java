@@ -6,7 +6,7 @@ import com.simicart.core.common.Utils;
 /**
  * Created by MSI on 07/12/2015.
  */
-public class ValueCustomOptionEntity extends SimiEntity {
+public class ValueCustomOptionEntity extends SimiEntity implements Comparable<ValueCustomOptionEntity> {
 
     private String mTitle;
     private float mPrice;
@@ -26,6 +26,7 @@ public class ValueCustomOptionEntity extends SimiEntity {
     private float mTaxPrice;
     private float mSalePrice;
     private float mSaleTaxPrice;
+    private int mPosition;
 
 
     private String title = "title";
@@ -36,6 +37,8 @@ public class ValueCustomOptionEntity extends SimiEntity {
     private String sale_price = "sale_price";
     private String sale_price_tax = "sale_price_include_tax";
     private String name = "name";
+    private String qty = "qty";
+    private String position = "position";
 
     @Override
     public void parse() {
@@ -103,6 +106,17 @@ public class ValueCustomOptionEntity extends SimiEntity {
                 } catch (Exception e) {
 
                 }
+            }
+        }
+
+        if (mJSON.has(qty)) {
+            mQty = getData(qty);
+        }
+
+        if (mJSON.has(position)) {
+            String s_position = getData(position);
+            if (Utils.validateString(s_position)) {
+                mPosition = Integer.parseInt(s_position);
             }
         }
 
@@ -244,5 +258,15 @@ public class ValueCustomOptionEntity extends SimiEntity {
 
     public void setName(String mName) {
         this.mName = mName;
+    }
+
+    public int getPosition() {
+        return mPosition;
+    }
+
+    @Override
+    public int compareTo(ValueCustomOptionEntity another) {
+        int position = another.getPosition();
+        return this.mPosition - position;
     }
 }

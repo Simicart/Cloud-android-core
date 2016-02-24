@@ -119,8 +119,7 @@ public class NotificationController {
 						// } else {
 						// regId = getRegistrationId(mContext);
 						// }
-						ServerUtilities.register(mContext, regId, s_latitude,
-								s_longitude);
+						ServerUtilities.register(mContext, regId);
 						return null;
 					}
 

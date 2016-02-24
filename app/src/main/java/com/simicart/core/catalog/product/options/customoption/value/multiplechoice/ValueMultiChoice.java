@@ -101,8 +101,7 @@ public class ValueMultiChoice extends ValueView {
         float optionPrice = mValue.getPrice();
         int i_qty = 0;
         String optionQty = mValue.getQty();
-        if (null != optionQty && !optionQty.equals("")
-                && !optionQty.equals("null")) {
+        if (Utils.validateString(optionQty)) {
             i_qty = (int) Float.parseFloat(optionQty);
         }
         if (i_qty > 1) {
@@ -113,15 +112,7 @@ public class ValueMultiChoice extends ValueView {
             updateView(true);
             mValue.setChecked(true);
             mDelegate.updateStateCacheOption(mValue.getID(), true);
-            if (!isSave) {
-//                ((CustomOptionDelegate) mDelegate).updatePriceMulti(
-//                        optionPrice, CustomOptionView.ADD_OPERATOR);
-            }
 
-//            if (!Config.getInstance().isShow_zero_price()
-//                    && ((CustomOptionDelegate) mDelegate).getPriceMulti() == 0) {
-//                mDelegate.updatePriceForHeader("");
-//            } else {
 //                mDelegate
 //                        .updatePriceForHeader(""
 //                                + Config.getInstance()
@@ -130,6 +121,7 @@ public class ValueMultiChoice extends ValueView {
 //                                                + ((CustomOptionDelegate) mDelegate)
 //                                                .getPriceMulti()));
 //            }
+
 
             mDelegate.updatePriceParent(mValue, CustomOptionView.ADD_OPERATOR);
 

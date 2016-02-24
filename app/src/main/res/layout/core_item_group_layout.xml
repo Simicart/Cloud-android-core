@@ -64,6 +64,17 @@
             android:layout_centerVertical="true"
             android:textColor="@android:color/holo_red_light"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_sale_price"
+            android:textSize="14sp"
+            android:layout_toRightOf="@id/tv_price"
+            android:layout_marginLeft="5dp"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/holo_red_light"
+            />
+
 
         <ImageView
             android:layout_width="30dp"
@@ -71,7 +82,7 @@
             android:id="@+id/img_add"
             android:src="@drawable/add"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             />
 
         <ImageView

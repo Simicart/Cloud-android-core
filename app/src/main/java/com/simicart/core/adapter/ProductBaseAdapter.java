@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -32,8 +33,8 @@ public class ProductBaseAdapter extends BaseAdapter {
     protected ArrayList<ProductEntity> mProductList;
     protected Context mContext;
     protected boolean isHome;
-    private float mPrice;
-    private float mSalePrice;
+    private double mPrice;
+    private double mSalePrice;
 
     public ProductBaseAdapter(Context context, ArrayList<ProductEntity> ProductList) {
         this.mContext = context;
@@ -120,7 +121,7 @@ public class ProductBaseAdapter extends BaseAdapter {
 
         // image
         if (product.getID().equals("fake")) {
-            // set anh fake
+            // fake image
             holder.img_avartar.setImageResource(Rconfig.getInstance().drawable(
                     "fake_product"));
             holder.img_avartar.setScaleType(ScaleType.FIT_XY);
@@ -169,6 +170,9 @@ public class ProductBaseAdapter extends BaseAdapter {
         holder.tv_first.setVisibility(View.VISIBLE);
         holder.tv_second.setVisibility(View.VISIBLE);
 
+        holder.tv_first.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
+        holder.tv_second.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
+
         mPrice = product.getPrice();
         mSalePrice = product.getSalePrice();
         if (mPrice == mSalePrice) {
@@ -178,7 +182,7 @@ public class ProductBaseAdapter extends BaseAdapter {
                 holder.tv_first.setText(sPrice);
             }
         } else {
-            if (mSalePrice == 0) {
+            if (mSalePrice == -1) {
                 holder.tv_second.setVisibility(View.GONE);
                 holder.tv_first.setText(getPrice(mPrice));
             } else {
@@ -188,7 +192,7 @@ public class ProductBaseAdapter extends BaseAdapter {
         }
     }
 
-    protected String getPrice(float price) {
+    protected String getPrice(double price) {
         return Config.getInstance().getPrice(price);
     }
 

@@ -21,6 +21,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
@@ -31,6 +32,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.paypal.android.sdk.onetouch.core.is;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
@@ -185,24 +187,37 @@ public class Utils {
 
     }
 
-    public static String formatPrice(float price, int numberOfDecimals, String charSepDecimal, String charSepthousand) {
-
-
-        StringBuilder builderDecimal = new StringBuilder();
-        for (int i = 0; i < numberOfDecimals; i++) {
-            builderDecimal.append("#");
+    public static String formatPrice(double price, int numberOfDecimals, String charSepDecimal, String charSepthousand) {
+        Log.e("formatPrice", "++" + price);
+        double isDecimalPrice = price - ((int)price);
+        Log.e("isDecimalPrice", "++" + new Double(isDecimalPrice).compareTo(new Double(0)));
+        if(new Double(isDecimalPrice).compareTo(new Double(0)) == 0) {
+            DecimalFormat df = new DecimalFormat("###" + "," + "###" + "," +
+                    "###" + "," + "###" + "," + "###" + "," + "###");
+            String priceAfterFormat = df.format((int)price);
+            priceAfterFormat = priceAfterFormat.replace(",", charSepthousand);
+            return priceAfterFormat;
+        } else {
+            StringBuilder builderDecimal = new StringBuilder();
+            for (int i = 0; i < numberOfDecimals; i++) {
+                builderDecimal.append("#");
+            }
+            DecimalFormat df = new DecimalFormat("###" + "," + "###" + "," +
+                    "###" + "," + "###" + "," + "###" + "," + "###"
+                    + "." + builderDecimal.toString());
+            String priceAfterFormat = df.format(price);
+            priceAfterFormat = priceAfterFormat.replace(",", charSepthousand);
+            int decimalPos = priceAfterFormat.lastIndexOf(".");
+            if(decimalPos != -1) {
+                priceAfterFormat = priceAfterFormat.substring(0,decimalPos) + charSepDecimal + priceAfterFormat.substring(decimalPos+1);
+            }
+//            while(true) {
+//                if(priceAfterFormat.indexOf(".") != -1) {
+//                    priceAfterFormat = priceAfterFormat.replaceFirst(",",charSepthousand);
+//                } else if(priceAfterFormat.indexOf(".") != -1)
+//            }
+            return priceAfterFormat;
         }
-
-      //  String patern = "###" + charSepthousand + "###" + charSepDecimal + builderDecimal.toString();
-
-        String patern = "###.##";
-
-        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getInstance(Locale.getDefault());
-        decimalFormat.applyPattern(patern);
-        return decimalFormat.format(price);
-
-//        DecimalFormat format = new DecimalFormat(patern);
-//        return format.format((double) price);
     }
 
     @SuppressLint("SimpleDateFormat")

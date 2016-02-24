@@ -25,6 +25,7 @@ import android.view.MenuItem;
 
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.controller.ConfigCheckout;
+import com.simicart.core.common.FontsOverride;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
@@ -65,24 +66,6 @@ public class MainActivity extends FragmentActivity {
         SimiManager.getIntance().setCurrentContext(this);
         setContentView(R.layout.core_main_activity);
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.simicart",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("MAINACTIVITY KeyHash ","=================>"+ Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.d("MAINACTIVITY KeyHash ","=================>"+"Eception 1" + e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            Log.d("MAINACTIVITY KeyHash","=================>"+"Eception " + e.getMessage());
-        }
-
-
-
-
         if (DataLocal.isSignInComplete()) {
             autoSignin();
         }else{
@@ -112,7 +95,7 @@ public class MainActivity extends FragmentActivity {
 
         mNavigationDrawerFragment.setup(R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
-//        changeFont();
+        changeFont();
 
 //        String qtyCart = DataLocal.qtyCartAuto;
 //        if (Utils.validateString(qtyCart)) {
@@ -220,16 +203,16 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-//    private void changeFont() {
-//        FontsOverride.setDefaultFont(this, "DEFAULT", Config.getInstance()
-//                .getFontCustom());
-//        FontsOverride.setDefaultFont(this, "NORMAL", Config.getInstance()
-//                .getFontCustom());
-//        FontsOverride.setDefaultFont(this, "MONOSPACE", Config.getInstance()
-//                .getFontCustom());
-//        FontsOverride.setDefaultFont(this, "SERIF", Config.getInstance()
-//                .getFontCustom());
-//    }
+    private void changeFont() {
+        FontsOverride.setDefaultFont(this, "DEFAULT", Config.getInstance()
+                .getFontCustom());
+        FontsOverride.setDefaultFont(this, "NORMAL", Config.getInstance()
+                .getFontCustom());
+        FontsOverride.setDefaultFont(this, "MONOSPACE", Config.getInstance()
+                .getFontCustom());
+        FontsOverride.setDefaultFont(this, "SERIF", Config.getInstance()
+                .getFontCustom());
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {

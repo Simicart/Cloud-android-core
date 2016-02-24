@@ -2,6 +2,8 @@ package com.simicart.plugins.ipay;
 
 import org.json.JSONException;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,10 +16,12 @@ import com.ipay.IpayPayment;
 import com.simicart.MainActivity;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.delegate.SimiDelegate;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.config.Config;
 import com.simicart.plugins.ipay.delegate.ResultDelegate;
+import com.simicart.plugins.ipay.model.IpayCancelModel;
 import com.simicart.plugins.ipay.model.IpayModel;
 
 public class IpaySimiCart extends Activity {
@@ -26,6 +30,7 @@ public class IpaySimiCart extends Activity {
 	public static IpaySimiCart context;
 	public transient ResultDelegate result_delegate;
 	SimiDelegate mDelegate;
+	private String invoice;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +72,7 @@ public class IpaySimiCart extends Activity {
 				merchant_key = extras.getString("EXTRA_MECHANT_KEY");
 				merchant_code = extras.getString("EXTRA_MECHANT_CODE");
 			}
-			String invoice = extras.getString("EXTRA_INVOICE");
+			invoice = extras.getString("EXTRA_INVOICE");
 
 			IpayPayment payment = new IpayPayment();
 			payment.setMerchantKey(merchant_key);
@@ -146,6 +151,65 @@ public class IpaySimiCart extends Activity {
 		}
 	}
 
+	public void showError(String message){
+		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
+				.getText(message), Toast.LENGTH_LONG);
+		toast.setGravity(Gravity.CENTER, 0, 0);
+		toast.setDuration(10000);
+		toast.show();
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
+		showDialog();
+	}
+
+	private void showDialog() {
+		new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
+				.setMessage(
+						Config.getInstance()
+								.getText(
+										"Are you sure that you want to cancel the order?"))
+				.setPositiveButton(Config.getInstance().getText("Yes"),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+												int which) {
+								requestCancelOrder();
+								changeView("Your order has been canceled!");
+								SimiManager.getIntance().backToHomeFragment();
+							}
+						})
+				.setNegativeButton(Config.getInstance().getText("No"),
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+												int which) {
+								// do nothing
+							}
+						}).show();
+
+	}
+
+	private void requestCancelOrder(){
+		IpayCancelModel ipayCancelModel = new IpayCancelModel();
+		ipayCancelModel.setDelegate(new ModelDelegate() {
+			@Override
+			public void onFail(SimiError error) {
+				if(error != null){
+					changeView(error.getMessage());
+				}
+			}
+
+			@Override
+			public void onSuccess(SimiCollection collection) {
+
+			}
+		});
+		ipayCancelModel.addDataExtendURL(invoice);
+		ipayCancelModel.addDataExtendURL("cancel");
+		ipayCancelModel.request();
+	}
+
 	public void changeView(String message) {
 		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
 				.getText(message), Toast.LENGTH_LONG);
@@ -153,17 +217,9 @@ public class IpaySimiCart extends Activity {
 		toast.setDuration(10000);
 		toast.show();
 		Intent i = new Intent(IpaySimiCart.this, MainActivity.class);
-		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
+		i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		startActivity(i);
 		finish();
-	}
-	
-	public void showError(String message){
-		Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
-				.getText(message), Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER, 0, 0);
-		toast.setDuration(10000);
-		toast.show();
 	}
 }

@@ -2,6 +2,7 @@ package com.simicart.core.checkout.delegate;
 
 import java.util.ArrayList;
 
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.simicart.core.base.delegate.SimiDelegate;
@@ -13,6 +14,7 @@ import com.simicart.core.checkout.entity.TotalPrice;
 import com.simicart.core.customer.entity.MyAddress;
 
 public interface ReviewOrderDelegate extends SimiDelegate {
+
 
 
 	public void setConditions(ArrayList<Condition> conditions);
@@ -47,4 +49,12 @@ public interface ReviewOrderDelegate extends SimiDelegate {
 	public void scrollCenter();
 	public LinearLayout getLayoutShipping();
 	public LinearLayout getLayoutPayment();
+
+
+	// Frank: new Payment
+	public void showPaymentMethod(View view);
+	// frank: new Shippng
+	public void showShipingMethod(View view);
+
+
 }

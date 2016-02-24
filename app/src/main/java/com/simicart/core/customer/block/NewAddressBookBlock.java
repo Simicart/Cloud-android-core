@@ -170,9 +170,9 @@ public class NewAddressBookBlock extends SimiBlock implements
 		createCountry(control);
 		createZipCode();
 		createPhone();
-		createDateBirth();
+		createDateBirth(control);
 		createGender(control);
-		createTaxVat();
+		createTaxVat(control);
 		createFax(control);
 		createPassAndPassConfirm(control);
 		createButtonSave();
@@ -291,86 +291,101 @@ public class NewAddressBookBlock extends SimiBlock implements
 		}
 	}
 
-	protected void createDateBirth() {
-		if (DataLocal.isSignInComplete()) {
-			tv_date_birth.setVisibility(View.GONE);
-			return;
-		}
-		Calendar cDate = Calendar.getInstance();
-		final int cDay = cDate.get(Calendar.DAY_OF_MONTH);
-		final int cMonth = cDate.get(Calendar.MONTH);
-		final int cYear = cDate.get(Calendar.YEAR);
+	protected void createDateBirth(int control) {
+		if(control == NewAddressBookFragment.NEW_CUSTOMER || control == NewAddressBookFragment.NEW_AS_GUEST) {
+			Calendar cDate = Calendar.getInstance();
+			final int cDay = cDate.get(Calendar.DAY_OF_MONTH);
+			final int cMonth = cDate.get(Calendar.MONTH);
+			final int cYear = cDate.get(Calendar.YEAR);
 
-		String check = DataLocal.ConfigCustomerAddress.getDob().toLowerCase();
+			String check = DataLocal.ConfigCustomerAddress.getDob().toLowerCase();
 
-		switch (check) {
-		case "":
-			tv_date_birth.setVisibility(View.GONE);
-			return;
-		case "req":
-			tv_date_birth.setHint(Config.getInstance().getText("Date of Birth")
-					+ " (*):");
-			break;
-		case "opt":
-			tv_date_birth.setHint(Config.getInstance().getText("Date of Birth")
-					+ ":");
-			break;
-		default:
-			break;
-		}
-
-		final OnDateSetListener onDateSet = new DatePickerDialog.OnDateSetListener() {
-			@Override
-			public void onDateSet(DatePicker view, int year, int monthOfYear,
-					int dayOfMonth) {
-				int sYear = year;
-				int sMonth = monthOfYear + 1;
-				int sDay = dayOfMonth;
-				String selectedDate = new StringBuilder().append(sDay)
-						.append("/").append(sMonth).append("/").append(sYear)
-						.append(" ").toString();
-				String check = DataLocal.ConfigCustomerAddress.getDob()
-						.toLowerCase();
-
-				switch (check) {
+			switch (check) {
 				case "":
 					tv_date_birth.setVisibility(View.GONE);
-					break;
+					return;
 				case "req":
-					tv_date_birth.setText(Config.getInstance().getText(
-							"Date of Birth")
-							+ " (*): " + selectedDate);
-					mSelectedDate = selectedDate;
+					tv_date_birth.setHint(Config.getInstance().getText("Date of Birth")
+							+ " (*):");
 					break;
 				case "opt":
-					tv_date_birth.setText(Config.getInstance().getText(
-							"Date of Birth")
-							+ ": " + selectedDate);
-					mSelectedDate = selectedDate;
+					tv_date_birth.setHint(Config.getInstance().getText("Date of Birth")
+							+ ":");
 					break;
 				default:
 					break;
+			}
+
+			final OnDateSetListener onDateSet = new DatePickerDialog.OnDateSetListener() {
+				@Override
+				public void onDateSet(DatePicker view, int year, int monthOfYear,
+									  int dayOfMonth) {
+					int sYear = year;
+					int sMonth = monthOfYear + 1;
+					int sDay = dayOfMonth;
+					String selectedDate = new StringBuilder().append(sDay)
+							.append("/").append(sMonth).append("/").append(sYear)
+							.append(" ").toString();
+					String check = DataLocal.ConfigCustomerAddress.getDob()
+							.toLowerCase();
+
+					switch (check) {
+						case "":
+							tv_date_birth.setVisibility(View.GONE);
+							break;
+						case "req":
+							tv_date_birth.setText(Config.getInstance().getText(
+									"Date of Birth")
+									+ " (*): " + selectedDate);
+							mSelectedDate = selectedDate;
+							break;
+						case "opt":
+							tv_date_birth.setText(Config.getInstance().getText(
+									"Date of Birth")
+									+ ": " + selectedDate);
+							mSelectedDate = selectedDate;
+							break;
+						default:
+							break;
+					}
+
 				}
+			};
 
-			}
-		};
+			tv_date_birth.setOnClickListener(new OnClickListener() {
 
-		tv_date_birth.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				DatePickerDialog datePickerDialog = new DatePickerDialog(
-						mContext, onDateSet, cYear, cMonth, cDay);
-				datePickerDialog.show();
-			}
-		});
-
+				@Override
+				public void onClick(View v) {
+					DatePickerDialog datePickerDialog = new DatePickerDialog(
+							mContext, onDateSet, cYear, cMonth, cDay);
+					datePickerDialog.show();
+				}
+			});
+		}else{
+			tv_date_birth.setVisibility(View.GONE);
+		}
 	}
 
-	protected void createTaxVat() {
-		String check = DataLocal.ConfigCustomerAddress.getTaxvat()
-				.toLowerCase().trim();
-		setPropertyHidden(edt_taxvat, check, "Tax/VAT number");
+	protected void createTaxVat(int control) {
+		if(control == NewAddressBookFragment.NEW_CUSTOMER || control == NewAddressBookFragment.NEW_AS_GUEST) {
+			String check = DataLocal.ConfigCustomerAddress.getTaxvat()
+					.toLowerCase().trim();
+			switch (check) {
+				case "":
+					edt_taxvat.setVisibility(View.GONE);
+					break;
+				case "req":
+					edt_taxvat.setHint(Config.getInstance().getText("Tax/VAT number") + "(*)");
+					break;
+				case "opt":
+					edt_taxvat.setHint(Config.getInstance().getText("Tax/VAT number"));
+					break;
+				default:
+					break;
+			}
+		}else{
+			edt_taxvat.setVisibility(View.GONE);
+		}
 	}
 
 	protected void createCompany() {
@@ -421,51 +436,51 @@ public class NewAddressBookBlock extends SimiBlock implements
 	}
 
 	protected void createGender(int control) {
-		if (DataLocal.isSignInComplete()) {
-			rl_gender.setVisibility(View.GONE);
-			return;
-		}
-		sp_gender = (Spinner) rl_gender.findViewById(Rconfig.getInstance().id(
-				"sp_gender"));
-		tv_gender = (TextView) rl_gender.findViewById(Rconfig.getInstance().id(
-				"tv_gender"));
-		tv_gender.setText(Config.getInstance().getText("Gender") + " (*):");
-		tv_gender.setVisibility(View.VISIBLE);
-		GenderAdapter adapter = new GenderAdapter(mContext);
-		sp_gender.setAdapter(adapter);
-		String check = DataLocal.ConfigCustomerAddress.getGender()
-				.toLowerCase();
-		switch (check) {
-		case "":
-			rl_gender.setVisibility(View.GONE);
-			return;
-		case "req":
+		if(control == NewAddressBookFragment.NEW_CUSTOMER || control == NewAddressBookFragment.NEW_AS_GUEST) {
+			sp_gender = (Spinner) rl_gender.findViewById(Rconfig.getInstance().id(
+					"sp_gender"));
+			tv_gender = (TextView) rl_gender.findViewById(Rconfig.getInstance().id(
+					"tv_gender"));
 			tv_gender.setText(Config.getInstance().getText("Gender") + " (*):");
-			break;
-		case "opt":
-			tv_gender.setText(Config.getInstance().getText("Gender") + ":");
-			break;
-		default:
-			break;
-		}
+			tv_gender.setVisibility(View.VISIBLE);
+			GenderAdapter adapter = new GenderAdapter(mContext);
+			sp_gender.setAdapter(adapter);
+			String check = DataLocal.ConfigCustomerAddress.getGender()
+					.toLowerCase();
+			switch (check) {
+				case "":
+					rl_gender.setVisibility(View.GONE);
+					return;
+				case "req":
+					tv_gender.setText(Config.getInstance().getText("Gender") + " (*):");
+					break;
+				case "opt":
+					tv_gender.setText(Config.getInstance().getText("Gender") + ":");
+					break;
+				default:
+					break;
+			}
 
-		sp_gender.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view,
-					int position, long id) {
-				String gender = "";
-				if (position != 0) {
-					gender = DataLocal.ConfigCustomerAddress.getGenderConfigs()
-							.get(position - 1).getLabel();
+			sp_gender.setOnItemSelectedListener(new OnItemSelectedListener() {
+				@Override
+				public void onItemSelected(AdapterView<?> parent, View view,
+										   int position, long id) {
+					String gender = "";
+					if (position != 0) {
+						gender = DataLocal.ConfigCustomerAddress.getGenderConfigs()
+								.get(position - 1).getLabel();
+					}
+					mGender = gender;
 				}
-				mGender = gender;
-			}
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
+				@Override
+				public void onNothingSelected(AdapterView<?> parent) {
 
-			}
-		});
+				}
+			});
+		}else{
+			rl_gender.setVisibility(View.GONE);
+		}
 	}
 
 	protected void createFax(int control) {

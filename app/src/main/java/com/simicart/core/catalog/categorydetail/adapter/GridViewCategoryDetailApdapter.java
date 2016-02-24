@@ -3,6 +3,7 @@ package com.simicart.core.catalog.categorydetail.adapter;
 import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
@@ -48,8 +49,8 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 	private RelativeLayout layout_image;
 	private float withScreen;
 	private RelativeLayout layout_header;
-	private float mPrice;
-	private float mSalePrice;
+	private double mPrice;
+	private double mSalePrice;
 
 	public GridViewCategoryDetailApdapter(Context context,
 										  ArrayList<ProductEntity> listProduct, ArrayList<String> listId,
@@ -250,7 +251,9 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 	protected void createPriceWithoutTax(ViewHolder holder, ProductEntity product) {
 		holder.tv_first.setPaintFlags(holder.tv_first.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
 		holder.tv_first.setVisibility(View.VISIBLE);
+		holder.tv_first.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
 		holder.tv_second.setVisibility(View.VISIBLE);
+		holder.tv_second.setTextColor(Color.parseColor(Config.getInstance().getSpecial_price_color()));
 
 		mPrice = product.getPrice();
 		mSalePrice = product.getSalePrice();
@@ -272,7 +275,7 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 		}
 	}
 
-	protected String getPrice(float price) {
+	protected String getPrice(double price) {
 		return Config.getInstance().getPrice(price);
 	}
 }

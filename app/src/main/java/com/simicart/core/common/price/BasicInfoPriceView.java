@@ -1,6 +1,7 @@
 package com.simicart.core.common.price;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,10 +36,10 @@ public class BasicInfoPriceView {
     protected TextView lb_spec_in_tax;
     protected TextView tv_spec_in_tax;
 
-    private float mPrice;
-    private float mSalePrice;
-    private float mPriceTax;
-    private float mSalePriceTax;
+    private double mPrice;
+    private double mSalePrice;
+    private double mPriceTax;
+    private double mSalePriceTax;
 
     public BasicInfoPriceView(ProductEntity product) {
         mProductEntity = product;
@@ -65,6 +66,9 @@ public class BasicInfoPriceView {
         lb_spec_in_tax = (TextView) view_price.findViewById(Rconfig.getInstance().id("lb_spec_in_tax"));
         lb_spec_in_tax.setText(Config.getInstance().getText("Incl.Tax") + ":");
         tv_spec_in_tax = (TextView) view_price.findViewById(Rconfig.getInstance().id("tv_spec_in_tax"));
+
+        tv_first.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
+        tv_second.setTextColor(Color.parseColor(Config.getInstance().getSpecial_price_color()));
 
         mPriceTax = mProductEntity.getPriceIncludeTax();
         mSalePriceTax = mProductEntity.getPriceSaleIncludeTax();
@@ -98,7 +102,7 @@ public class BasicInfoPriceView {
         return view_price;
     }
 
-    protected String getPrice(float price) {
+    protected String getPrice(double price) {
         return Config.getInstance().getPrice(price);
     }
 }
