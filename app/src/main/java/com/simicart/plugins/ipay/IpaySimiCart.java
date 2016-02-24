@@ -162,7 +162,7 @@ public class IpaySimiCart extends Activity {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-
+		showDialog();
 	}
 
 	private void showDialog() {
