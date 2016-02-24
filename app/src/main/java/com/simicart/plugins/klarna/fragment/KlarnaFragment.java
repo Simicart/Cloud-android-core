@@ -73,9 +73,9 @@ public class KlarnaFragment extends SimiFragment {
 		Log.e("Klarna Fragment", "++" + url);
 		openWebview(url);
 
-		rootView.setFocusableInTouchMode(true);
-		rootView.requestFocus();
-		rootView.setOnKeyListener(new View.OnKeyListener() {
+		view.setFocusableInTouchMode(true);
+		view.requestFocus();
+		view.setOnKeyListener(new View.OnKeyListener() {
 
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
