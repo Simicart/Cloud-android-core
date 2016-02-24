@@ -119,7 +119,7 @@ public class BrainTreeActivity extends Activity {
                     }
                     break;
                 default:
-                    showMessage(Config.getInstance().getText("FAIL"));
+                    showMessage(Config.getInstance().getText("Your order has been canceled"));
                     backToHome();
                     break;
             }

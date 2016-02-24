@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -168,6 +169,9 @@ public class ProductBaseAdapter extends BaseAdapter {
     protected void createPriceWithoutTax(ViewHolder holder, ProductEntity product) {
         holder.tv_first.setVisibility(View.VISIBLE);
         holder.tv_second.setVisibility(View.VISIBLE);
+
+        holder.tv_first.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
+        holder.tv_second.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
 
         mPrice = product.getPrice();
         mSalePrice = product.getSalePrice();

@@ -3,6 +3,7 @@ package com.simicart.core.adapter;
 import java.util.ArrayList;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -151,7 +152,9 @@ public class ProductListAdapter extends BaseAdapter {
     protected void createPriceWithoutTax(ViewHolder holder, ProductEntity product) {
         holder.tv_first.setPaintFlags(holder.tv_first.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
         holder.tv_first.setVisibility(View.VISIBLE);
+        holder.tv_first.setTextColor(Color.parseColor(Config.getInstance().getPrice_color()));
         holder.tv_second.setVisibility(View.VISIBLE);
+        holder.tv_second.setTextColor(Color.parseColor(Config.getInstance().getSpecial_price_color()));
 
         mPrice = product.getPrice();
         mSalePrice = product.getSalePrice();
