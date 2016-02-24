@@ -110,6 +110,8 @@ public class CategoryDetailController extends SimiController implements
 
         String param_typesport = getValueListParam(ConstantsSearch.PARAM_TYPE_SPORT);
         if(Utils.validateString(param_typesport)){
+            mDelegate.showSort(false);
+
             if(param_typesport.equals("1")){
                 mModel.addDataParameter("group-type", "best-sellers");
             }
@@ -127,6 +129,8 @@ public class CategoryDetailController extends SimiController implements
                     mModel.addDataParameter("ids", param_ids);
                 }
             }
+        }else{
+            mDelegate.showSort(true);
         }
 
         String param_query = getValueListParam(ConstantsSearch.PARAM_QUERY);
