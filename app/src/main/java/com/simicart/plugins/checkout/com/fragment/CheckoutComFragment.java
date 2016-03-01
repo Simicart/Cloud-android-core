@@ -74,11 +74,6 @@ public class CheckoutComFragment extends SimiFragment {
         checkoutComBlock.initView();
         checkoutComController = new CheckoutComController(getActivity());
         checkoutComController.setDelegate(checkoutComBlock);
-        checkoutComController.setCvv(checkoutComBlock.getCvvField());
-        checkoutComController.setMonth(checkoutComBlock.getSpinMonth());
-        checkoutComController.setName(checkoutComBlock.getName());
-        checkoutComController.setNumber(checkoutComBlock.getNumberField());
-        checkoutComController.setYear(checkoutComBlock.getSpinYear());
         checkoutComController.setOrderID(orderID);
         checkoutComController.setmOrderEntity(mOrderEntity);
         checkoutComController.setmOrderHisDetail(mOrderHistoryDetail);

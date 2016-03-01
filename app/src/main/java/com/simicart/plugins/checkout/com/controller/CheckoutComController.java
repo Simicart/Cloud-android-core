@@ -28,7 +28,9 @@ import com.simicart.core.checkout.fragment.ThankyouFragment;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.customer.entity.OrderHisDetail;
+import com.simicart.plugins.checkout.com.CheckoutCom;
 import com.simicart.plugins.checkout.com.block.CheckoutComBlock;
+import com.simicart.plugins.checkout.com.entity.CheckoutComEntity;
 import com.simicart.plugins.checkout.com.model.GetPublicKeyModel;
 import com.simicart.plugins.checkout.com.model.UpdatePaymentModel;
 
@@ -42,11 +44,6 @@ public class CheckoutComController extends SimiController {
     protected CheckoutComBlock mDelegate;
     OnClickListener onButtonCheckoutClick;
     Activity activity;
-    protected EditText mName;
-    protected EditText mNumber;
-    protected EditText mCvv;
-    protected Spinner mMonth;
-    protected Spinner mYear;
     protected String publicKey = "";
     protected String orderID = "";
     protected String cartToken = "";
@@ -73,7 +70,14 @@ public class CheckoutComController extends SimiController {
         onButtonCheckoutClick = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                getCardToken();
+                CheckoutComEntity entity = mDelegate.getCheckoutComData();
+                if(entity != null) {
+                    if(validateCardFields(entity.getName(), entity.getCardNumber(), entity.getExpiredMonth()
+                            , entity.getExpiredYear(), entity.getCvv())) {
+                        getCardToken();
+                    }
+                }
+
             }
         };
     }
@@ -91,36 +95,12 @@ public class CheckoutComController extends SimiController {
         this.mOrderHisDetail = mOrderHisDetail;
     }
 
-    public void setCartToken(String cartToken) {
-        this.cartToken = cartToken;
-    }
-
     public void setOrderID(String orderID) {
         this.orderID = orderID;
     }
 
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
-    }
-
-    public void setCvv(EditText cvv) {
-        this.mCvv = cvv;
-    }
-
-    public void setMonth(Spinner month) {
-        this.mMonth = month;
-    }
-
-    public void setName(EditText name) {
-        this.mName = name;
-    }
-
-    public void setNumber(EditText number) {
-        this.mNumber = number;
-    }
-
-    public void setYear(Spinner year) {
-        this.mYear = year;
     }
 
     public void getCardToken() {
@@ -189,109 +169,114 @@ public class CheckoutComController extends SimiController {
         }
     }
 
-    class ConnectionTask extends AsyncTask<String, Void, String> {
-        final int errorColor = Color.rgb(204, 0, 51);
+    private boolean validateCardFields(final String name, final String number, final String month, final String year, final String cvv) {
+        boolean error = false;
+        clearFieldsError();
 
-        private boolean validateCardFields(final String name, final String number, final String month, final String year, final String cvv) {
-            boolean error = false;
-            clearFieldsError();
+//        Log.e("abc", name);
+//        if (name == null || name.equals("")) {
+//            activity.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mDelegate.setNameFiledError();
+//                }
+//            });
+//            error = true;
+//        }
 
-            if (!CardValidator.validateCardNumber(name)) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mName.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                    }
-                });
-                error = true;
-            }
-
-            if (!CardValidator.validateCardNumber(number)) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mNumber.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                    }
-                });
-                error = true;
-            }
-            if (!CardValidator.validateExpiryDate(month, year)) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mMonth.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                        mYear.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                    }
-                });
-                error = true;
-            }
-            if (cvv.equals("")) {
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        mCvv.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                    }
-                });
-                error = true;
-            }
-            return !error;
-        }
-
-        private void clearFieldsError() {
+        if (!CardValidator.validateCardNumber(number)) {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mCvv.getBackground().clearColorFilter();
-                    mMonth.getBackground().clearColorFilter();
-                    mYear.getBackground().clearColorFilter();
-                    mNumber.getBackground().clearColorFilter();
+                    mDelegate.setNumberFieldError(true);
                 }
             });
+            error = true;
         }
+        if (!CardValidator.validateExpiryDate(month, year)) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mDelegate.setSpinMonthError(true);
+                    mDelegate.setSpinYearError(true);
+                }
+            });
+            error = true;
+        }
+        if (cvv.equals("")) {
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mDelegate.setCvvFieldError(true);
+                }
+            });
+            error = true;
+        }
+        return !error;
+    }
+
+    private void clearFieldsError() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mDelegate.setCvvFieldError(false);
+                mDelegate.setSpinMonthError(false);
+                mDelegate.setSpinYearError(false);
+                mDelegate.setNumberFieldError(false);
+            }
+        });
+    }
+
+    class ConnectionTask extends AsyncTask<String, Void, String> {
+
 
         @Override
         protected String doInBackground(String... urls) {
-            if (validateCardFields(mName.getText().toString(), mNumber.getText().toString(), mMonth.getSelectedItem().toString()
-                    , mYear.getSelectedItem().toString(), mCvv.getText().toString())) {
-                clearFieldsError();
-                try {
-                    Card card = new Card(mNumber.getText().toString(), mNumber.getText().toString(), mMonth.getSelectedItem().toString(), mYear.getSelectedItem().toString(), mCvv.getText().toString());
-                    CheckoutKit ck = CheckoutKit.getInstance(publicKey);
-                    final Response<CardTokenResponse> resp = ck.createCardToken(card);
-                    if (resp.hasError) {
+            CheckoutComEntity entity = mDelegate.getCheckoutComData();
+            if(entity != null) {
+                if (validateCardFields(entity.getName(), entity.getCardNumber(), entity.getExpiredMonth()
+                        , entity.getExpiredYear(), entity.getCvv())) {
+                    clearFieldsError();
+                    try {
+                        Card card = new Card(entity.getCardNumber(), entity.getName(), entity.getExpiredMonth()
+                                , entity.getExpiredYear(), entity.getCvv());
+                        CheckoutKit ck = CheckoutKit.getInstance(publicKey);
+                        final Response<CardTokenResponse> resp = ck.createCardToken(card);
+                        if (resp.hasError) {
+                            activity.runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    goToError();
+                                }
+                            });
+                        } else {
+                            CardToken ct = resp.model.getCard();
+                            //goToSuccess();
+                            Log.e("GetCardToken", "++" + resp.model.getCardToken());
+                            return resp.model.getCardToken();
+                        }
+                    } catch (final CardException e) {
+                        activity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (e.getType().equals(CardException.CardExceptionType.INVALID_CVV)) {
+                                    mDelegate.setCvvFieldError(true);
+                                } else if (e.getType().equals(CardException.CardExceptionType.INVALID_EXPIRY_DATE)) {
+                                    mDelegate.setSpinMonthError(true);
+                                    mDelegate.setSpinYearError(true);
+                                } else if (e.getType().equals(CardException.CardExceptionType.INVALID_NUMBER)) {
+                                    mDelegate.setNumberFieldError(true);
+                                }
+                            }
+                        });
+                    } catch (CheckoutException | IOException e2) {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 goToError();
                             }
                         });
-                    } else {
-                        CardToken ct = resp.model.getCard();
-                        //goToSuccess();
-                        Log.e("GetCardToken", "++" + resp.model.getCardToken());
-                        return resp.model.getCardToken();
                     }
-                } catch (final CardException e) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (e.getType().equals(CardException.CardExceptionType.INVALID_CVV)) {
-                                mCvv.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                            } else if (e.getType().equals(CardException.CardExceptionType.INVALID_EXPIRY_DATE)) {
-                                mMonth.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                                mYear.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                            } else if (e.getType().equals(CardException.CardExceptionType.INVALID_NUMBER)) {
-                                mNumber.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
-                            }
-                        }
-                    });
-                } catch (CheckoutException | IOException e2) {
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            goToError();
-                        }
-                    });
                 }
             }
             return "";
