@@ -33,14 +33,12 @@ public class ManagePaymentMethodView implements PaymentMethodManageDelegate {
         if (null != mPayments && mPayments.size() > 0) {
             LinearLayout ll_payment = new LinearLayout(mContext);
             LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-            Log.e("ManagePaymentMethodView ", "=============> SIZE " + mPayments.size());
             ll_payment.setOrientation(LinearLayout.VERTICAL);
             for (int i = 0; i < mPayments.size(); i++) {
                 PaymentMethod payment = mPayments.get(i);
                 PaymentMethodItemView item = new PaymentMethodItemView(payment, mContext, this);
                 View view = item.initView();
                 if (null != view) {
-                    Log.e("ManagePaymentMethodView ", "=============> ADD " + i);
                     ll_payment.addView(view, param);
                     mItems.add(item);
                 }

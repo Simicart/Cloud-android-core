@@ -90,6 +90,8 @@ public class PayUFragment extends SimiFragment {
         View rootView = inflater.inflate(
                 Rconfig.getInstance().layout("core_webview_layout"), container,
                 false);
+
+        SimiManager.getIntance().hidenMenuTop(true);
         webview = (WebView) rootView.findViewById(Rconfig
                 .getInstance().id("webview_Ad"));
         mImageView = inflater.inflate(
@@ -121,8 +123,10 @@ public class PayUFragment extends SimiFragment {
             }
         });
 
+
         return rootView;
     }
+
 
     public void getUrlRedirect() {
         mDelegate.showLoading();
@@ -174,7 +178,7 @@ public class PayUFragment extends SimiFragment {
                 } else if (url.contains(FAIL)) {
                     SimiManager.getIntance().backToHomeFragment();
                     showToastMessage(MES_FAIL);
-                } else if(url.contains("payu/return")){
+                } else if (url.contains("payu/return")) {
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -195,7 +199,7 @@ public class PayUFragment extends SimiFragment {
                             }
                         }
                     }, 3000);
-                }else {
+                } else {
                     Log.e(getClass().getName(), "RUNNING:" + url);
                     // backtoHomeScreen();
                     // showToastMessage(MES_SUCCESS);
@@ -208,6 +212,13 @@ public class PayUFragment extends SimiFragment {
             }
 
         });
+    }
+
+
+    @Override
+    public void onDestroy() {
+        SimiManager.getIntance().hidenMenuTop(false);
+        super.onDestroy();
     }
 
     private void showDialog() {
@@ -235,12 +246,12 @@ public class PayUFragment extends SimiFragment {
 
     }
 
-    private void requestCancelOrder(){
+    private void requestCancelOrder() {
         PayUCancelModel payUCancelModel = new PayUCancelModel();
         payUCancelModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null){
+                if (error != null) {
                     showToastMessage(error.getMessage());
                 }
             }

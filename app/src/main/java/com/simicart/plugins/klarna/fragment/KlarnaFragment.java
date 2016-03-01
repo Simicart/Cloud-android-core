@@ -60,9 +60,14 @@ public class KlarnaFragment extends SimiFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
+
+
 		View view = inflater.inflate(
 				Rconfig.getInstance().layout("core_webview_layout"), null,
 				false);
+
+		SimiManager.getIntance().hidenMenuTop(true);
 		webview = (WebView) view.findViewById(Rconfig
 				.getInstance().id("webview_Ad"));
 		mImageView = inflater.inflate(
@@ -136,6 +141,8 @@ public class KlarnaFragment extends SimiFragment {
 		});
 
 	}
+
+
 
 	private void showDialog() {
 		new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())

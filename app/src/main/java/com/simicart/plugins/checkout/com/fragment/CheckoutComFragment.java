@@ -68,7 +68,7 @@ public class CheckoutComFragment extends SimiFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(Rconfig.getInstance().layout("plugins_checkout_main"), container,
                 false);
-
+        SimiManager.getIntance().hidenMenuTop(true);
         Context context = getActivity();
         checkoutComBlock = new CheckoutComBlock(v, getActivity());
         checkoutComBlock.initView();
@@ -104,6 +104,12 @@ public class CheckoutComFragment extends SimiFragment {
         return v;
     }
 
+    @Override
+    public void onDestroy() {
+        SimiManager.getIntance().hidenMenuTop(false);
+        super.onDestroy();
+    }
+
     private void showDialog() {
         new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
                 .setMessage(
@@ -129,12 +135,12 @@ public class CheckoutComFragment extends SimiFragment {
 
     }
 
-    private void requestCancelOrder(){
+    private void requestCancelOrder() {
         CheckOutCancelModel checkoutCancelModel = new CheckOutCancelModel();
         checkoutCancelModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null){
+                if (error != null) {
                     showToastMessage(error.getMessage());
                 }
             }

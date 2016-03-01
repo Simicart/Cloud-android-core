@@ -15,6 +15,7 @@ import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.plugins.braintree.entity.TokenEntity;
 import com.simicart.plugins.braintree.model.BrainTreeModel;
+import com.simicart.plugins.braintree.model.BraintreCancelModel;
 import com.simicart.plugins.braintree.model.BraintreeGetTokenModel;
 import com.trueplus.simicart.braintreelibrary.BraintreeFragment;
 import com.trueplus.simicart.braintreelibrary.BraintreePaymentActivity;
@@ -23,7 +24,9 @@ import com.trueplus.simicart.braintreelibrary.exceptions.InvalidArgumentExceptio
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -119,12 +122,12 @@ public class BrainTreeActivity extends Activity {
                     }
                     break;
                 default:
-                    showMessage(Config.getInstance().getText("Your order has been canceled"));
-                    backToHome();
+                    confirmCancel();
                     break;
             }
         }
     }
+
 
     @SuppressLint("NewApi")
     public void requestUpdateBrainTree(String nonce, String orderID) throws JSONException {
@@ -136,10 +139,10 @@ public class BrainTreeActivity extends Activity {
             public void onFail(SimiError error) {
                 mDelegate.dismissLoading();
                 if (error != null) {
-                    if(Utils.validateString(error.getMessage())){
+                    if (Utils.validateString(error.getMessage())) {
                         SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
                         backToHome();
-                    }else{
+                    } else {
                         SimiManager.getIntance().showNotify(null, "Transaction Error!", "Ok");
                         backToHome();
                     }
@@ -160,6 +163,53 @@ public class BrainTreeActivity extends Activity {
         mModel.request();
     }
 
+
+    private void confirmCancel() {
+        new AlertDialog.Builder(this)
+                .setMessage(
+                        Config.getInstance()
+                                .getText(
+                                        "Are you sure that you want to cancel the order?"))
+                .setPositiveButton(Config.getInstance().getText("Yes"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                cancelOrder();
+                            }
+                        })
+                .setNegativeButton(Config.getInstance().getText("No"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // do nothing
+                                getAuthorization();
+                            }
+                        }).show();
+    }
+
+
+    private void cancelOrder() {
+        BraintreCancelModel cancelModel = new BraintreCancelModel();
+        cancelModel.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                String message = "Your order has been canceled!";
+                showMessage(message);
+                backToHome();
+
+            }
+        });
+
+        cancelModel.addDataExtendURL(orderID);
+
+        cancelModel.request();
+    }
+
     public void showMessage(String message) {
         Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
                 .getText(message), Toast.LENGTH_LONG);
@@ -175,5 +225,6 @@ public class BrainTreeActivity extends Activity {
         startActivity(i);
         finish();
     }
+
 
 }

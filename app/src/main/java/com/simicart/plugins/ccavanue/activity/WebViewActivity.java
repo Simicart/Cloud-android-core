@@ -2,11 +2,13 @@ package com.simicart.plugins.ccavanue.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -29,6 +31,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import com.simicart.MainActivity;
 import com.simicart.core.base.delegate.ModelDelegate;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.config.Config;
@@ -196,7 +199,7 @@ public class WebViewActivity extends Activity implements Communicator {
                 try {
                     myBrowser.postUrl(Constants.TRANS_URL, EncodingUtils.getBytes(vPostParams, "UTF-8"));
                 } catch (Exception e) {
-                    showToast("Exception occured while opening webview.");
+
                 }
             }
         });
@@ -205,9 +208,7 @@ public class WebViewActivity extends Activity implements Communicator {
         model.request();
     }
 
-    public void showToast(String msg) {
-        Toast.makeText(this, "Toast: " + msg, Toast.LENGTH_LONG).show();
-    }
+
 
     private void updatePayment(final String paymentStatus, final String status){
         UpdatePaymentModel updatePaymentModel = new UpdatePaymentModel();
@@ -235,7 +236,7 @@ public class WebViewActivity extends Activity implements Communicator {
         Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
                 .getText(message), Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.setDuration(10000);
+        toast.setDuration(Toast.LENGTH_LONG);
         toast.show();
         Intent i = new Intent(WebViewActivity.this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -800,7 +801,29 @@ public class WebViewActivity extends Activity implements Communicator {
 
     @Override
     public void onBackPressed() {
-        String status = "Your order has been canceled!";
-        updatePayment("2", status);;
+
+        new AlertDialog.Builder(this)
+                .setMessage(
+                        Config.getInstance()
+                                .getText(
+                                        "Are you sure that you want to cancel the order?"))
+                .setPositiveButton(Config.getInstance().getText("Yes"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                String status = "Your order has been canceled!";
+                                updatePayment("2", status);;
+                            }
+                        })
+                .setNegativeButton(Config.getInstance().getText("No"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // do nothing
+
+                            }
+                        }).show();
+
+
     }
 }

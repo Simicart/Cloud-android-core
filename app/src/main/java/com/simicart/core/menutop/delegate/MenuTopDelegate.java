@@ -10,4 +10,6 @@ public interface MenuTopDelegate extends SimiDelegate {
 
 	public void showCartLayout(boolean show);
 
+	public void hideMenuTop(boolean isHide);
+
 }

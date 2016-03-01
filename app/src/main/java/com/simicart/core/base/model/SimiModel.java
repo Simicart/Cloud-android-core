@@ -235,6 +235,15 @@ public class SimiModel {
         String class_name = this.getClass().getName();
 
         String cache_key = class_name + url_action;
+
+        HashMap<String, String> parameter = mRequest.getDataParameter();
+        if (parameter.size() > 0) {
+            String s_parameter = parameter.toString();
+            if (Utils.validateString(s_parameter)) {
+                cache_key = cache_key + s_parameter;
+            }
+        }
+
         JSONObject body = mRequest.getBody();
         if (null != body) {
             String post_body = body.toString();
@@ -242,6 +251,7 @@ public class SimiModel {
                 cache_key = cache_key + post_body;
             }
         }
+        Log.e("SimiModel ", "------> CACHE KEY " + cache_key);
         mRequest.setCacheKey(cache_key);
         if (mShouldCache) {
             boolean isRefreshCart = SimiManager.getIntance().isRereshCart();

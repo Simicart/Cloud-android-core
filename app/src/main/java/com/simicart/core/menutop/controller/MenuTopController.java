@@ -130,4 +130,9 @@ public class MenuTopController extends SimiController {
 		mDelegate.showCartLayout(show);
 	}
 
+
+	public void hideMenuTop(boolean isHiden)
+	{
+		mDelegate.hideMenuTop(isHiden);
+	}
 }
