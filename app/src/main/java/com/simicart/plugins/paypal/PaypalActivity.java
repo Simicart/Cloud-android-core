@@ -36,6 +36,7 @@ import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.config.Config;
+import com.simicart.plugins.paypal.model.CancelPaypalOrder;
 import com.simicart.plugins.paypal.model.PaypalModel;
 
 public class PaypalActivity extends Activity {
@@ -143,8 +144,33 @@ public class PaypalActivity extends Activity {
                     "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
             setErrorConnection("Error",
                     "CurrencyCode is invalid. Please see the docs.");
+        } else {
+            showDialog();
         }
     }
+
+
+    private void cancelOrdr() {
+        CancelPaypalOrder cancelModel = new CancelPaypalOrder();
+        cancelModel.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                String message = "Your order has been canceled!";
+                showMessage(message);
+                changeView();
+            }
+        });
+
+        cancelModel.addDataExtendURL(invoice_number);
+
+        cancelModel.request();
+    }
+
 
     public void setErrorConnection(String title, String message) {
         ProgressDialog.Builder alertbox = new ProgressDialog.Builder(this);
@@ -273,7 +299,7 @@ public class PaypalActivity extends Activity {
 
         JSONObject data = new JSONObject();
         String response_type = jsonObject.getString("response_type");
-        data.put("response_type",response_type);
+        data.put("response_type", response_type);
         JSONObject dataClient = jsonObject.getJSONObject("client");
         data.put("client", dataClient);
         JSONObject dataResponse = jsonObject.getJSONObject("response");
@@ -295,7 +321,7 @@ public class PaypalActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        showDialog();
+        // showDialog();
     }
 
     private void showDialog() {
