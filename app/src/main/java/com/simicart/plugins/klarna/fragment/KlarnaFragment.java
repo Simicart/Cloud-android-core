@@ -142,7 +142,11 @@ public class KlarnaFragment extends SimiFragment {
 
 	}
 
-
+	@Override
+	public void onDestroy() {
+		SimiManager.getIntance().hidenMenuTop(false);
+		super.onDestroy();
+	}
 
 	private void showDialog() {
 		new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
