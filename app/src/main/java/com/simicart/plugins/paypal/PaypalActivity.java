@@ -118,6 +118,7 @@ public class PaypalActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("PaypalActivity ", "onActivityResult =========> " + resultCode);
         if (resultCode == Activity.RESULT_OK) {
             PaymentConfirmation confirm = data
                     .getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
@@ -132,20 +133,21 @@ public class PaypalActivity extends Activity {
                 }
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            requestUpdatePaypalCancel(invoice_number, "2");
-            Intent i = new Intent(PaypalActivity.this, MainActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
-            finish();
+
+            showDialog();
+
+//            requestUpdatePaypalCancel(invoice_number, "2");
+//            Intent i = new Intent(PaypalActivity.this, MainActivity.class);
+//            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(i);
+//            finish();
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
             // requestUpdatePaypalCancel(invoice_number, "2");
             Log.e("paymentExample 4",
                     "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
             setErrorConnection("Error",
                     "CurrencyCode is invalid. Please see the docs.");
-        } else {
-            showDialog();
         }
     }
 
@@ -325,7 +327,7 @@ public class PaypalActivity extends Activity {
     }
 
     private void showDialog() {
-        new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
+        new AlertDialog.Builder(this)
                 .setMessage(
                         Config.getInstance()
                                 .getText(
@@ -343,9 +345,20 @@ public class PaypalActivity extends Activity {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 // do nothing
+                                callPayPal();
                             }
                         }).show();
 
+    }
+
+    private void callPayPal() {
+        PayPalConfiguration config = new PayPalConfiguration().environment(
+                CONFIG_ENVIRONMENT).clientId(CONFIG_CLIENT_ID);
+
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        startService(intent);
+        this.onBuyPressed();
     }
 
     @SuppressLint("NewApi")

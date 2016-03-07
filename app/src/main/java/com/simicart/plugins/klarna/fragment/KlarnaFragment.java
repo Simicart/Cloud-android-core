@@ -123,6 +123,7 @@ public class KlarnaFragment extends SimiFragment {
 					handler.postDelayed(new Runnable() {
 						@Override
 						public void run() {
+							showToastMessage(MES_SUCCESS);
 							SimiManager.getIntance().backToHomeFragment();
 						}
 					}, 3000);
