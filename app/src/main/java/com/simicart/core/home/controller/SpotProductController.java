@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SpotProductController extends SimiController {
     protected SpotProductDelegate mDelegate;
@@ -26,12 +27,13 @@ public class SpotProductController extends SimiController {
     protected ArrayList<ProductEntity> mRecentlyAdded;
     protected ArrayList<ProductEntity> mFeature;
     protected ArrayList<SpotProductEntity> listSportProduct;
+    protected HashMap<Integer, ArrayList<ProductEntity>> mListHashCustom;
 
     public SpotProductController() {
         mBestSellers = new ArrayList<ProductEntity>();
         mNewlyUpdated = new ArrayList<ProductEntity>();
         mRecentlyAdded = new ArrayList<ProductEntity>();
-        mFeature = new ArrayList<ProductEntity>();
+        mListHashCustom = new HashMap<Integer, ArrayList<ProductEntity>>();
     }
 
     public void setDelegate(SpotProductDelegate delegate) {
@@ -62,7 +64,7 @@ public class SpotProductController extends SimiController {
                     ArrayList<SimiEntity> entity = collection.getCollection();
                     listSportProduct = new ArrayList<SpotProductEntity>();
                     if (null != entity && entity.size() > 0) {
-                        int i = 0;
+                        int i = -1;
                         for (SimiEntity simiEntity : entity) {
                             i++;
                             SpotProductEntity spotProductEntity = new SpotProductEntity();
@@ -254,6 +256,7 @@ public class SpotProductController extends SimiController {
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoadingSpot();
                 JSONObject jsResult = collection.getJSON();
+                mFeature = new ArrayList<ProductEntity>();
                 if (jsResult.has("products")) {
                     try {
                         JSONArray array = jsResult.getJSONArray("products");
@@ -270,6 +273,7 @@ public class SpotProductController extends SimiController {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    mListHashCustom.put(postion, mFeature);
                     mDelegate.onShowFeature(postion, title, mFeature);
                 }
             }
@@ -298,7 +302,7 @@ public class SpotProductController extends SimiController {
                 } else if (spotProductEntity.getType().equals("3")) {
                     mDelegate.onShowRecentlyAdded(i, spotProductEntity.getName(), mRecentlyAdded);
                 } else if (spotProductEntity.getType().equals("4")) {
-                    mDelegate.onShowFeature(i, spotProductEntity.getName(), mFeature);
+                    mDelegate.onShowFeature(i, spotProductEntity.getName(), mListHashCustom.get(i));
                 }
             }
         }
