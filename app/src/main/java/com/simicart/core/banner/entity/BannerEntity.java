@@ -1,8 +1,6 @@
 package com.simicart.core.banner.entity;
 
 import android.util.Log;
-
-import com.google.android.youtube.player.internal.s;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Constants;

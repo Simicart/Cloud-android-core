@@ -37,7 +37,7 @@ public class CreditCardController extends SimiController {
 				}
 				case MotionEvent.ACTION_UP: {
 					mDelegate.onCLickSave();
-					SimiManager.getIntance().backPreviousFragment();
+
 				}
 
 				case MotionEvent.ACTION_CANCEL: {

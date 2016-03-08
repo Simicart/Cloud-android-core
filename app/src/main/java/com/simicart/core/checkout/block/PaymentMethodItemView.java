@@ -3,7 +3,6 @@ package com.simicart.core.checkout.block;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.delegate.PaymentMethodManageDelegate;
+import com.simicart.core.checkout.entity.CreditcardEntity;
 import com.simicart.core.checkout.entity.PaymentMethod;
 import com.simicart.core.checkout.fragment.CreditCardFragment;
 import com.simicart.core.common.Utils;
@@ -19,6 +19,8 @@ import com.simicart.core.common.ViewIdGenerator;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
+
+import java.util.HashMap;
 
 /**
  * Created by MSI on 04/02/2016.
@@ -32,7 +34,7 @@ public class PaymentMethodItemView {
     protected TextView tv_title;
     protected TextView tv_content;
     protected ImageView img_check;
-//    protected boolean isChecked = false;
+    //    protected boolean isChecked = false;
     protected PaymentMethodManageDelegate mDelegate;
     int dp10 = Utils.getValueDp(10);
     int dp20 = Utils.getValueDp(20);
@@ -51,9 +53,6 @@ public class PaymentMethodItemView {
     public View initView() {
         String titleMethod = mPayment.getTitle();
         String contentMethod = mPayment.getContent();
-
-        Log.e("PaymentMethodItemView ", "=============> TITLE METHOD " + titleMethod);
-
         RelativeLayout rl_value = new RelativeLayout(mContext);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
@@ -71,14 +70,34 @@ public class PaymentMethodItemView {
 
         // title
         tv_title = createTitleTV();
+
         tv_title.setText(titleMethod,
                 TextView.BufferType.SPANNABLE);
         rl_value.addView(tv_title);
+
         // content
         TextView tv_content = createContentTV();
         tv_content.setText(contentMethod,
                 TextView.BufferType.SPANNABLE);
         rl_value.addView(tv_content);
+
+        int show_type = mPayment.getShow_type();
+        // if it is Credit Card Save, we will show edit button
+        if (show_type == 4 && isSavedCC()) {
+            ImageView img_edit = createEditButton();
+            rl_value.addView(img_edit);
+            String payment_method_code = mPayment.getMethodCode();
+            String number = DataLocal.getHashMapCreditCart()
+                    .get(DataLocal.getEmailCreditCart()).get(payment_method_code)
+                    .getPaymentNumber();
+            if (null != number && number.length() > 4) {
+                int lengNumber = number.length();
+                number = "***" + number.substring(lengNumber - 4, lengNumber);
+                String content = number + "";
+                tv_content.setVisibility(View.VISIBLE);
+                tv_content.setText(content);
+            }
+        }
 
         // image icon for checkbox
         img_check = createCheckIMG();
@@ -92,7 +111,7 @@ public class PaymentMethodItemView {
         });
 
         //check select
-        if(mPayment.isCheck()){
+        if (mPayment.isCheck()) {
             mDelegate.updatePaymentSelected(mPayment);
             updateChecked(true);
         }
@@ -123,6 +142,43 @@ public class PaymentMethodItemView {
         tv_title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
 
         return tv_title;
+    }
+
+    private ImageView createEditButton() {
+        final ImageView img_edit = new ImageView(
+                mContext);
+        RelativeLayout.LayoutParams param = new RelativeLayout.LayoutParams(
+                dp30, dp30);
+        param.addRule(RelativeLayout.CENTER_VERTICAL);
+        if (DataLocal.isLanguageRTL) {
+            param.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+        } else {
+            param.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        }
+        img_edit.setLayoutParams(param);
+
+        Drawable icon_edit = mContext.getResources().getDrawable(
+                Rconfig.getInstance().drawable("core_icon_edit"));
+        img_edit.setImageDrawable(icon_edit);
+        img_edit.setPadding(15, 15, 15, 15);
+
+        img_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goCreditCardFragment(mPayment);
+            }
+        });
+
+        return img_edit;
+    }
+
+
+    private void goCreditCardFragment(PaymentMethod payment) {
+        CreditCardFragment fcreditCard = CreditCardFragment
+                .newInstance();
+        fcreditCard.setIsCheckedMethod(true);
+        fcreditCard.setPaymentMethod(payment);
+        SimiManager.getIntance().replacePopupFragment(fcreditCard);
     }
 
     private TextView createContentTV() {
@@ -169,7 +225,6 @@ public class PaymentMethodItemView {
 
     private void processEventChecked() {
         if (!mPayment.isCheck()) {
-//            isChecked = true;
             updateChecked(true);
             mDelegate.updatePaymentSelected(mPayment);
             mPayment.setIsCheck(true);
@@ -184,7 +239,6 @@ public class PaymentMethodItemView {
                     PorterDuff.Mode.SRC_ATOP);
             img_check.setImageDrawable(icon);
         } else {
-//            isChecked = false;
             mPayment.setIsCheck(false);
             Drawable icon = mContext.getResources().getDrawable(
                     mIDIconNormal);
@@ -198,6 +252,26 @@ public class PaymentMethodItemView {
         return mPayment;
     }
 
-
+    private boolean isSavedCC() {
+        HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
+                .getHashMapCreditCart();
+        if (hashMap == null || hashMap.size() == 0) {
+            return false;
+        } else {
+            String email = DataLocal.getEmailCreditCart();
+            if (hashMap.containsKey(email)) {
+                HashMap<String, CreditcardEntity> creditcard = hashMap
+                        .get(DataLocal.getEmailCreditCart());
+                String paymentMethodCode = mPayment.getMethodCode();
+                if (creditcard.containsKey(paymentMethodCode)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+    }
 
 }

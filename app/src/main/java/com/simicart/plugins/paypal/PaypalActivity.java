@@ -36,6 +36,7 @@ import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.config.Config;
+import com.simicart.plugins.paypal.model.CancelPaypalOrder;
 import com.simicart.plugins.paypal.model.PaypalModel;
 
 public class PaypalActivity extends Activity {
@@ -117,6 +118,7 @@ public class PaypalActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("PaypalActivity ", "onActivityResult =========> " + resultCode);
         if (resultCode == Activity.RESULT_OK) {
             PaymentConfirmation confirm = data
                     .getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
@@ -131,12 +133,15 @@ public class PaypalActivity extends Activity {
                 }
             }
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            requestUpdatePaypalCancel(invoice_number, "2");
-            Intent i = new Intent(PaypalActivity.this, MainActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(i);
-            finish();
+
+            showDialog();
+
+//            requestUpdatePaypalCancel(invoice_number, "2");
+//            Intent i = new Intent(PaypalActivity.this, MainActivity.class);
+//            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(i);
+//            finish();
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
             // requestUpdatePaypalCancel(invoice_number, "2");
             Log.e("paymentExample 4",
@@ -145,6 +150,29 @@ public class PaypalActivity extends Activity {
                     "CurrencyCode is invalid. Please see the docs.");
         }
     }
+
+
+    private void cancelOrdr() {
+        CancelPaypalOrder cancelModel = new CancelPaypalOrder();
+        cancelModel.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                String message = "Your order has been canceled!";
+                showMessage(message);
+                changeView();
+            }
+        });
+
+        cancelModel.addDataExtendURL(invoice_number);
+
+        cancelModel.request();
+    }
+
 
     public void setErrorConnection(String title, String message) {
         ProgressDialog.Builder alertbox = new ProgressDialog.Builder(this);
@@ -273,7 +301,7 @@ public class PaypalActivity extends Activity {
 
         JSONObject data = new JSONObject();
         String response_type = jsonObject.getString("response_type");
-        data.put("response_type",response_type);
+        data.put("response_type", response_type);
         JSONObject dataClient = jsonObject.getJSONObject("client");
         data.put("client", dataClient);
         JSONObject dataResponse = jsonObject.getJSONObject("response");
@@ -295,11 +323,11 @@ public class PaypalActivity extends Activity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        showDialog();
+        // showDialog();
     }
 
     private void showDialog() {
-        new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
+        new AlertDialog.Builder(this)
                 .setMessage(
                         Config.getInstance()
                                 .getText(
@@ -317,9 +345,20 @@ public class PaypalActivity extends Activity {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 // do nothing
+                                callPayPal();
                             }
                         }).show();
 
+    }
+
+    private void callPayPal() {
+        PayPalConfiguration config = new PayPalConfiguration().environment(
+                CONFIG_ENVIRONMENT).clientId(CONFIG_CLIENT_ID);
+
+        Intent intent = new Intent(this, PayPalService.class);
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
+        startService(intent);
+        this.onBuyPressed();
     }
 
     @SuppressLint("NewApi")

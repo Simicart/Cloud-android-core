@@ -60,9 +60,14 @@ public class KlarnaFragment extends SimiFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
+
+
 		View view = inflater.inflate(
 				Rconfig.getInstance().layout("core_webview_layout"), null,
 				false);
+
+		SimiManager.getIntance().hidenMenuTop(true);
 		webview = (WebView) view.findViewById(Rconfig
 				.getInstance().id("webview_Ad"));
 		mImageView = inflater.inflate(
@@ -73,9 +78,9 @@ public class KlarnaFragment extends SimiFragment {
 		Log.e("Klarna Fragment", "++" + url);
 		openWebview(url);
 
-		rootView.setFocusableInTouchMode(true);
-		rootView.requestFocus();
-		rootView.setOnKeyListener(new View.OnKeyListener() {
+		view.setFocusableInTouchMode(true);
+		view.requestFocus();
+		view.setOnKeyListener(new View.OnKeyListener() {
 
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -118,6 +123,7 @@ public class KlarnaFragment extends SimiFragment {
 					handler.postDelayed(new Runnable() {
 						@Override
 						public void run() {
+							showToastMessage(MES_SUCCESS);
 							SimiManager.getIntance().backToHomeFragment();
 						}
 					}, 3000);
@@ -135,6 +141,12 @@ public class KlarnaFragment extends SimiFragment {
 			}
 		});
 
+	}
+
+	@Override
+	public void onDestroy() {
+		SimiManager.getIntance().hidenMenuTop(false);
+		super.onDestroy();
 	}
 
 	private void showDialog() {

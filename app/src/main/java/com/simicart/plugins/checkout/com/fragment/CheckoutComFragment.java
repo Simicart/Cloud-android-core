@@ -68,17 +68,12 @@ public class CheckoutComFragment extends SimiFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(Rconfig.getInstance().layout("plugins_checkout_main"), container,
                 false);
-
+        SimiManager.getIntance().hidenMenuTop(true);
         Context context = getActivity();
         checkoutComBlock = new CheckoutComBlock(v, getActivity());
         checkoutComBlock.initView();
         checkoutComController = new CheckoutComController(getActivity());
         checkoutComController.setDelegate(checkoutComBlock);
-        checkoutComController.setCvv(checkoutComBlock.getCvvField());
-        checkoutComController.setMonth(checkoutComBlock.getSpinMonth());
-        checkoutComController.setName(checkoutComBlock.getName());
-        checkoutComController.setNumber(checkoutComBlock.getNumberField());
-        checkoutComController.setYear(checkoutComBlock.getSpinYear());
         checkoutComController.setOrderID(orderID);
         checkoutComController.setmOrderEntity(mOrderEntity);
         checkoutComController.setmOrderHisDetail(mOrderHistoryDetail);
@@ -102,6 +97,12 @@ public class CheckoutComFragment extends SimiFragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onDestroy() {
+        SimiManager.getIntance().hidenMenuTop(false);
+        super.onDestroy();
     }
 
     private void showDialog() {
@@ -129,12 +130,12 @@ public class CheckoutComFragment extends SimiFragment {
 
     }
 
-    private void requestCancelOrder(){
+    private void requestCancelOrder() {
         CheckOutCancelModel checkoutCancelModel = new CheckOutCancelModel();
         checkoutCancelModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null){
+                if (error != null) {
                     showToastMessage(error.getMessage());
                 }
             }

@@ -35,7 +35,7 @@ public class PaymentMethod extends SimiEntity {
 	private String params = "params";
 	private String type = "type";
 	private String client_id = "client_id";
-	private String sandbox = "sandbox";
+	private String sandbox = "sand_box";
 	private String bncode = "bncode";
 	private String payment_action = "payment_action";
 

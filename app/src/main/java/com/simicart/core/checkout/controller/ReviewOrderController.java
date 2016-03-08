@@ -1,6 +1,7 @@
 package com.simicart.core.checkout.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ import com.simicart.core.checkout.delegate.ReviewOrderDelegate;
 import com.simicart.core.checkout.delegate.ShippingMethodDelegate;
 import com.simicart.core.checkout.entity.Condition;
 import com.simicart.core.checkout.entity.CouponCodeEntity;
+import com.simicart.core.checkout.entity.CreditcardEntity;
 import com.simicart.core.checkout.entity.OrderEntity;
 import com.simicart.core.checkout.entity.PaymentMethod;
 import com.simicart.core.checkout.entity.QuoteEntity;
@@ -786,11 +788,11 @@ public class ReviewOrderController extends SimiController implements PaymentDele
 
     @Override
     public void updatePaymentChecked(PaymentMethod payment) {
-        if(payment.isCheck()){
+        if (payment.isCheck()) {
             mCurrentPaymentMethod = payment;
             String name = mCurrentPaymentMethod.getName();
             mDelegate.setInitViewPaymentMethod(name);
-        }else {
+        } else {
             mCurrentPaymentMethod = payment;
             String name = mCurrentPaymentMethod.getName();
             mDelegate.setInitViewPaymentMethod(name);
@@ -855,12 +857,37 @@ public class ReviewOrderController extends SimiController implements PaymentDele
 
 
     private void goCreditCardFragment(PaymentMethod payment) {
-        CreditCardFragment fcreditCard = CreditCardFragment
-                .newInstance();
-        fcreditCard.setIsCheckedMethod(true);
-        fcreditCard.setPaymentMethod(payment);
-        SimiManager.getIntance().replacePopupFragment(fcreditCard);
+        if (!isSavedCC(payment)) {
+            CreditCardFragment fcreditCard = CreditCardFragment
+                    .newInstance();
+            fcreditCard.setIsCheckedMethod(true);
+            fcreditCard.setPaymentMethod(payment);
+            SimiManager.getIntance().replacePopupFragment(fcreditCard);
+        }
     }
+
+    private boolean isSavedCC(PaymentMethod payment) {
+        HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
+                .getHashMapCreditCart();
+        if (hashMap == null || hashMap.size() == 0) {
+            return false;
+        } else {
+            String email = DataLocal.getEmailCreditCart();
+            if (hashMap.containsKey(email)) {
+                HashMap<String, CreditcardEntity> creditcard = hashMap
+                        .get(DataLocal.getEmailCreditCart());
+                String paymentMethodCode = payment.getMethodCode();
+                if (creditcard.containsKey(paymentMethodCode)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+    }
+
 
     // frank; new shipping method
     private void showShippingMethod(ArrayList<ShippingMethod> shippingMethods) {
@@ -879,11 +906,11 @@ public class ReviewOrderController extends SimiController implements PaymentDele
     @Override
     public void updateShippingMehtod(ShippingMethod shippingMethod) {
         if (null != shippingMethod) {
-            if(shippingMethod.getIsSelected()){
+            if (shippingMethod.getIsSelected()) {
                 mCurrentShippingMethod = shippingMethod;
                 String name = mCurrentShippingMethod.getServiceName();
                 mDelegate.setInitViewShippingMethod(name);
-            }else{
+            } else {
                 mCurrentShippingMethod = shippingMethod;
                 String name = mCurrentShippingMethod.getServiceName();
                 mDelegate.setInitViewShippingMethod(name);

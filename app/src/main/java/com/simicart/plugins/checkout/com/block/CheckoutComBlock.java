@@ -1,6 +1,8 @@
 package com.simicart.plugins.checkout.com.block;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import com.simicart.core.config.Constants;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.material.ButtonRectangle;
 import com.simicart.plugins.checkout.com.delegate.CheckoutComDelegate;
+import com.simicart.plugins.checkout.com.entity.CheckoutComEntity;
 
 /**
  * Created by James Crabby on 1/15/2016.
@@ -27,6 +30,7 @@ public class CheckoutComBlock extends SimiBlock implements CheckoutComDelegate {
     Spinner spinMonth;
     Spinner spinYear;
     Button buttonCheckout;
+    final int errorColor = Color.rgb(204, 0, 51);
 
     public CheckoutComBlock(View view, Context context) {
         super(view, context);
@@ -71,23 +75,42 @@ public class CheckoutComBlock extends SimiBlock implements CheckoutComDelegate {
         buttonCheckout.setOnClickListener(onClickListener);
     }
 
-    public EditText getCvvField() {
-        return cvvField;
+    @Override
+    public CheckoutComEntity getCheckoutComData() {
+        CheckoutComEntity entity = new CheckoutComEntity();
+        entity.setCardNumber(numberField.getText().toString());
+        entity.setCvv(cvvField.getText().toString());
+        entity.setExpiredMonth(spinMonth.getSelectedItem().toString());
+        entity.setExpiredYear(spinYear.getSelectedItem().toString());
+        entity.setName(name.getText().toString());
+        return entity;
     }
 
-    public EditText getName() {
-        return name;
+    public void setNumberFieldError(boolean check) {
+        if(check == true)
+            numberField.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
+        else
+            numberField.getBackground().clearColorFilter();
     }
 
-    public EditText getNumberField() {
-        return numberField;
+    public void setCvvFieldError(boolean check) {
+        if(check == true)
+            cvvField.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
+        else
+            cvvField.getBackground().clearColorFilter();
     }
 
-    public Spinner getSpinMonth() {
-        return spinMonth;
+    public void setSpinMonthError(boolean check) {
+        if(check == true)
+            spinMonth.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
+        else
+            spinMonth.getBackground().clearColorFilter();
     }
 
-    public Spinner getSpinYear() {
-        return spinYear;
+    public void setSpinYearError(boolean check) {
+        if(check == true)
+            spinYear.getBackground().setColorFilter(errorColor, PorterDuff.Mode.SRC_ATOP);
+        else
+            spinYear.getBackground().clearColorFilter();
     }
 }

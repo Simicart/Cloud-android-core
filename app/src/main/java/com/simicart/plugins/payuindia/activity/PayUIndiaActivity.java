@@ -1,6 +1,8 @@
 package com.simicart.plugins.payuindia.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.paypal.android.sdk.ba;
 import com.payu.india.Extras.PayUChecksum;
 import com.payu.india.Extras.PayUSdkDetails;
 import com.payu.india.Model.PaymentParams;
@@ -23,6 +26,7 @@ import com.simicart.MainActivity;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.delegate.SimiDelegate;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.common.Utils;
@@ -32,6 +36,7 @@ import com.simicart.plugins.payuindia.entity.DataEntity;
 import com.simicart.plugins.payuindia.entity.HashEntity;
 import com.simicart.plugins.payuindia.entity.PayUEntity;
 import com.simicart.plugins.payuindia.model.GetHashModel;
+import com.simicart.plugins.payuindia.model.PayUIndianCancelModel;
 import com.simicart.plugins.payuindia.model.UpdatePaymentModel;
 
 import org.json.JSONException;
@@ -84,17 +89,19 @@ public class PayUIndiaActivity extends Activity {
         setContentView(rootView, new ViewGroup.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT));
-        mDelegate = new SimiBlock(rootView, MainActivity.context);
+        mDelegate = new SimiBlock(rootView, this);
         PayUSdkDetails payUSdkDetails = new PayUSdkDetails();
         Log.e("PayUIndiaActivity", "Build No: " + payUSdkDetails.getSdkBuildNumber() + "\n Build Type: " + payUSdkDetails.getSdkBuildType() + " \n Build Flavor: " + payUSdkDetails.getSdkFlavor() + "\n Application Id: " + payUSdkDetails.getSdkApplicationId() + "\n Version Code: " + payUSdkDetails.getSdkVersionCode() + "\n Version Name: " + payUSdkDetails.getSdkVersionName());
         mainIntent = getIntent();
-        if (Utils.validateString(mainIntent.getStringExtra("EXTRA_ORDERID"))) {
-            requestGetHash(mainIntent.getStringExtra("EXTRA_ORDERID"));
+        String extra_orderid = mainIntent.getStringExtra("EXTRA_ORDERID");
+        if (Utils.validateString(extra_orderid)) {
+            requestGetHash(extra_orderid);
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("PayUIndiaActivity", "-------------> onActivityResult " + requestCode);
         if (requestCode == PayuConstants.PAYU_REQUEST_CODE) {
             if (data != null) {
                 Log.e("PayUIndiaActivity", "Result: " + data.getStringExtra("result"));
@@ -135,27 +142,30 @@ public class PayUIndiaActivity extends Activity {
                     } else {
                         requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txn_id, "0", "Transaction Error!");
                     }
-                }else{
+                } else {
                     requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txn_id, "0", "Transaction Error!");
                 }
             } else {
+                Log.e("PayUIndiaActivity", "-------------> onActivityResult NULL");
                 String txnID = mPaymentParams.getTxnId();
-                if(Utils.validateString(txnID)){
-                    requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txnID, "0", "Your order has been canceled");
+                if (Utils.validateString(txnID)) {
+                    Log.e("PayUIndiaActivity", "-------------> onActivityResult txnID " + txnID);
+                    confirmCancel();
                 }
             }
         }
     }
 
     private void requestGetHash(String orderID) {
-        mDelegate.showLoading();
+       // mDelegate.showLoading();
         final GetHashModel model = new GetHashModel();
         model.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
                 mDelegate.dismissLoading();
                 if (error != null) {
-                    changeView(error.getMessage());
+                    showMessage(error.getMessage());
+                    backToHome();
                 }
             }
 
@@ -169,7 +179,7 @@ public class PayUIndiaActivity extends Activity {
                     intent = new Intent(PayUIndiaActivity.this, PayUBaseActivity.class);
                     mPaymentParams = new PaymentParams();
                     payuConfig = new PayuConfig();
-                    if(payUEntity != null) {
+                    if (payUEntity != null) {
                         if (Utils.validateString(dataEntity.getKey())) {
                             merchantKey = dataEntity.getKey();
                         }
@@ -183,33 +193,33 @@ public class PayUIndiaActivity extends Activity {
                         mPaymentParams.setTxnId(dataEntity.getTXNID());
                         mPaymentParams.setSurl(dataEntity.getsURL());
                         mPaymentParams.setFurl(dataEntity.getfURL());
-                        if(Utils.validateString(dataEntity.getUdf1())){
+                        if (Utils.validateString(dataEntity.getUdf1())) {
                             mPaymentParams.setUdf1(dataEntity.getUdf1());
-                        }else{
+                        } else {
                             mPaymentParams.setUdf1("");
                         }
 
-                        if(Utils.validateString(dataEntity.getUdf2())){
+                        if (Utils.validateString(dataEntity.getUdf2())) {
                             mPaymentParams.setUdf2(dataEntity.getUdf2());
-                        }else{
+                        } else {
                             mPaymentParams.setUdf2("");
                         }
 
-                        if(Utils.validateString(dataEntity.getUdf3())){
+                        if (Utils.validateString(dataEntity.getUdf3())) {
                             mPaymentParams.setUdf3(dataEntity.getUdf3());
-                        }else{
+                        } else {
                             mPaymentParams.setUdf3("");
                         }
 
-                        if(Utils.validateString(dataEntity.getUdf4())){
+                        if (Utils.validateString(dataEntity.getUdf4())) {
                             mPaymentParams.setUdf4(dataEntity.getUdf4());
-                        }else{
+                        } else {
                             mPaymentParams.setUdf4("");
                         }
 
-                        if(Utils.validateString(dataEntity.getUdf5())){
+                        if (Utils.validateString(dataEntity.getUdf5())) {
                             mPaymentParams.setUdf5(dataEntity.getUdf5());
-                        }else{
+                        } else {
                             mPaymentParams.setUdf5("");
                         }
 
@@ -220,20 +230,20 @@ public class PayUIndiaActivity extends Activity {
 //                            salt = model.getSalt();
 //                        }
                         intent.putExtra(PayuConstants.SALT, salt);
-                        if(Utils.validateString(dataEntity.getOfferKey())){
+                        if (Utils.validateString(dataEntity.getOfferKey())) {
                             mPaymentParams.setOfferKey(dataEntity.getOfferKey());
-                        }else{
+                        } else {
                             mPaymentParams.setOfferKey("");
                         }
 
-                        if(dataEntity.isSanBox()){
+                        if (dataEntity.isSanBox()) {
                             env = PayuConstants.MOBILE_DEV_ENV;
                         }
 
                         String environment = "" + env;
-                        if(Utils.validateString(dataEntity.getCardBind())){
+                        if (Utils.validateString(dataEntity.getCardBind())) {
                             cardBin = dataEntity.getCardBind();
-                        }else{
+                        } else {
                             cardBin = "";
                         }
 
@@ -285,13 +295,15 @@ public class PayUIndiaActivity extends Activity {
             @Override
             public void onFail(SimiError error) {
                 if (error != null) {
-                    changeView(error.getMessage());
+                    showMessage(error.getMessage());
+                    backToHome();
                 }
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                changeView(message);
+                showMessage(message);
+                backToHome();
             }
         });
         updatePaymentModel.addDataExtendURL("update-payment");
@@ -513,22 +525,50 @@ public class PayUIndiaActivity extends Activity {
         startActivityForResult(intent, PayuConstants.PAYU_REQUEST_CODE);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        changeView("Your order has been canceled");
+    private void confirmCancel() {
+        new AlertDialog.Builder(this)
+                .setMessage(
+                        Config.getInstance()
+                                .getText(
+                                        "Are you sure that you want to cancel the order?"))
+                .setPositiveButton(Config.getInstance().getText("Yes"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                String txnID = mPaymentParams.getTxnId();
+                                requestUpdatePayment(mainIntent.getStringExtra("EXTRA_ORDERID"), txnID, "0", "Your order has been canceled");
+                            }
+                        })
+                .setNegativeButton(Config.getInstance().getText("No"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // do nothing
+                                String extra_orderid = mainIntent.getStringExtra("EXTRA_ORDERID");
+                                if (Utils.validateString(extra_orderid)) {
+                                    requestGetHash(extra_orderid);
+                                }
+                            }
+                        }).show();
+
+
     }
 
-    public void changeView(String message) {
-        Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
-                .getText(message), Toast.LENGTH_LONG);
+
+    private void showMessage(String message) {
+        String msg = Config.getInstance()
+                .getText(message);
+        Toast toast = Toast.makeText(MainActivity.context, msg, Toast.LENGTH_LONG);
         toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.setDuration(10000);
         toast.show();
+    }
+
+    private void backToHome() {
         Intent i = new Intent(PayUIndiaActivity.this, MainActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
         finish();
     }
+
 }

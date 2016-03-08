@@ -261,4 +261,15 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 			}
 		}
 	}
+
+	@Override
+	public void hideMenuTop(boolean isHiden) {
+		if(isHiden) {
+			mView.setVisibility(View.GONE);
+		}
+		else {
+			mView.setVisibility(View.VISIBLE);
+		}
+
+	}
 }

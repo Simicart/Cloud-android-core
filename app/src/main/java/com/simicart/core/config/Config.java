@@ -23,9 +23,9 @@ import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 
 @SuppressLint("DefaultLocale")
 public class Config {
-    private String mBaseUrl = "https://dev-api.jajahub.com/rest/";
+    private String mBaseUrl = "http://dev-api.jajahub.com/rest/";
     // Android account
-    private String mSecretKey = "5ed6a808a6142d936196cb4f69a781f7af02fb3a";
+    private String mSecretKey = "92060603cb0fa791dae556a0d2bd1a985d10f681";
     // Zara account
 //    private String mSecretKey = "5ed6a808a6142d936196cb4f69a781f7af02fb3a";
     // key site live : c843176d88b6e9a21f848482044503ea7ae82e85, api.jajahub.com/rest/

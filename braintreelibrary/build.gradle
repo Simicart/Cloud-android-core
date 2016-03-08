@@ -21,12 +21,12 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:23.0.1'
     //compile 'com.braintreepayments.api:braintree:2.+'
     //compile 'com.braintreepayments.api:drop-in:2.+'
     compile 'com.google.android.gms:play-services-wallet:8.3.0'
     compile 'com.braintreepayments:card-form:2.1.0'
-    compile 'com.android.support:support-annotations:23.0.0'
+    compile 'com.android.support:support-annotations:23.0.1'
     compile files('libs/OneTouchCoreAndroid-2.4.1.jar')
     //compile 'com.paypal.sdk:paypal-android-sdk:2.12.4'
 }

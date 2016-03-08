@@ -113,9 +113,13 @@ public class SimiManager {
         mMenuTopController = controller;
     }
 
+    public void hidenMenuTop(boolean isHiden) {
+        mMenuTopController.hideMenuTop(isHiden);
+    }
+
     public void onUpdateCartQty(String qty) {
         int i_qty = 0;
-        if(null != qty) {
+        if (null != qty) {
             try {
                 qty = qty.trim();
                 i_qty = Integer.parseInt(qty);
@@ -133,18 +137,15 @@ public class SimiManager {
         mMenuTopController.updateCartQty(qty);
     }
 
-    public int getPreQty()
-    {
+    public int getPreQty() {
         return mQtyCartPrevious;
     }
 
-    public void setRefreshCart(boolean isRefresh)
-    {
+    public void setRefreshCart(boolean isRefresh) {
         isRefreshCart = isRefresh;
     }
 
-    public boolean isRereshCart()
-    {
+    public boolean isRereshCart() {
         return isRefreshCart;
     }
 
@@ -203,11 +204,11 @@ public class SimiManager {
         return null;
     }
 
-    public SimiFragment eventFragment(SimiFragment fragment)
-    {
-        return eventFragment(fragment,"createFragment");
+    public SimiFragment eventFragment(SimiFragment fragment) {
+        return eventFragment(fragment, "createFragment");
     }
-    public SimiFragment eventFragment(SimiFragment fragment,String method) {
+
+    public SimiFragment eventFragment(SimiFragment fragment, String method) {
 
         String nameFragment = fragment.getClass().getName();
         Intent intent = new Intent(nameFragment);
@@ -215,11 +216,10 @@ public class SimiManager {
         entity.setFragmetn(fragment);
         Bundle bundle = new Bundle();
         bundle.putSerializable(Constants.ENTITY, entity);
-        if(!Utils.validateString(method))
-        {
+        if (!Utils.validateString(method)) {
             method = "";
         }
-        bundle.putString(Constants.METHOD,method);
+        bundle.putString(Constants.METHOD, method);
         intent.putExtra(Constants.DATA, bundle);
         LocalBroadcastManager.getInstance(mCurrentContext).sendBroadcastSync(intent);
         fragment = entity.getFragment();

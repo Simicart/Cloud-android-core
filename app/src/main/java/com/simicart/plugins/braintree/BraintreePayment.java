@@ -49,6 +49,9 @@ public class BraintreePayment {
 
             String orderID = "";
             orderID = order.getID();
+
+            Log.e("BraintreePayment ","=====> ORDER ID " + orderID);
+
             intent.putExtra("EXTRA_INVOICE_NUMBER", orderID);
             this.mContext.startActivity(intent);
         }
