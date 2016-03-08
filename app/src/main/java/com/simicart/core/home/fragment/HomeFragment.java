@@ -95,7 +95,7 @@ public class HomeFragment extends SimiFragment {
             mSpotProductController.onStart();
         } else {
             mSpotProductController.setDelegate(mProductListBlock);
-            mSpotProductController.onStart();
+            mSpotProductController.onResume();
         }
 
         return rootView;
