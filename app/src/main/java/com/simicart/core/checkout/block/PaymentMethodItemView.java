@@ -3,6 +3,7 @@ package com.simicart.core.checkout.block;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -255,23 +256,21 @@ public class PaymentMethodItemView {
     private boolean isSavedCC() {
         HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
                 .getHashMapCreditCart();
-        if (hashMap == null || hashMap.size() == 0) {
-            return false;
-        } else {
+        if (hashMap != null || hashMap.size() != 0) {
             String email = DataLocal.getEmailCreditCart();
-            if (hashMap.containsKey(email)) {
+            Log.e("PaymentMethodItemView ", "SAVE CREDIT CART EMAL ----> " + email);
+            if (Utils.validateString(email) && hashMap.containsKey(email)) {
                 HashMap<String, CreditcardEntity> creditcard = hashMap
-                        .get(DataLocal.getEmailCreditCart());
+                        .get(email);
                 String paymentMethodCode = mPayment.getMethodCode();
+                Log.e("PaymentMethodItemView ", "payment Method Code ----> " + paymentMethodCode);
                 if (creditcard.containsKey(paymentMethodCode)) {
                     return true;
-                } else {
-                    return false;
                 }
-            } else {
-                return false;
             }
         }
+
+        return false;
     }
 
 }

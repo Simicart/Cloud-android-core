@@ -798,6 +798,7 @@ public class ReviewOrderController extends SimiController implements PaymentDele
             mDelegate.setInitViewPaymentMethod(name);
             requestSavePaymentMethod(mCurrentPaymentMethod);
             int show_type = payment.getShow_type();
+            Log.e("ReviewOrderController ","------------> SHOW TYPE " + show_type);
             if (show_type == 4) {
                 goCreditCardFragment(payment);
             }
@@ -858,6 +859,7 @@ public class ReviewOrderController extends SimiController implements PaymentDele
 
     private void goCreditCardFragment(PaymentMethod payment) {
         if (!isSavedCC(payment)) {
+            Log.e("ReviewOrderController ","goCreditCardFragment 001");
             CreditCardFragment fcreditCard = CreditCardFragment
                     .newInstance();
             fcreditCard.setIsCheckedMethod(true);
@@ -869,23 +871,19 @@ public class ReviewOrderController extends SimiController implements PaymentDele
     private boolean isSavedCC(PaymentMethod payment) {
         HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
                 .getHashMapCreditCart();
-        if (hashMap == null || hashMap.size() == 0) {
-            return false;
-        } else {
+        if (hashMap != null || hashMap.size() != 0) {
             String email = DataLocal.getEmailCreditCart();
-            if (hashMap.containsKey(email)) {
+            if (Utils.validateString(email) && hashMap.containsKey(email)) {
                 HashMap<String, CreditcardEntity> creditcard = hashMap
-                        .get(DataLocal.getEmailCreditCart());
+                        .get(email);
                 String paymentMethodCode = payment.getMethodCode();
                 if (creditcard.containsKey(paymentMethodCode)) {
                     return true;
-                } else {
-                    return false;
                 }
-            } else {
-                return false;
             }
         }
+
+        return false;
     }
 
 

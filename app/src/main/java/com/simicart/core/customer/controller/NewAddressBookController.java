@@ -161,9 +161,6 @@ public class NewAddressBookController extends SimiController implements
                                 DataLocal.saveData(name, email, password);
                                 DataLocal.saveCustomer(firstname, lastname, email, name, "");
                                 DataLocal.saveEmailPassRemember(email, password);
-
-                                Log.e("NewAddressBookController ","onClickSAVE ----> " + email);
-
                                 DataLocal.saveEmailCreditCart(email);
                                 fragment.setBilingAddress(address);
                                 fragment.setAfterControll(mAfterController);
