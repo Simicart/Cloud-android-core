@@ -83,9 +83,6 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
                 "expired"));
         et_expired.setText(Config.getInstance().getText("Expired") + ": MM/YY");
 
-        Log.e("CreditCardBlock : ", " Previous NUMBER "
-                + PaymentMethod.getInstance().getPlace_cc_number());
-
         if (isCheckedMethod) {
             et_expired.setText(PaymentMethod.getInstance()
                     .getPlace_cc_exp_month()
@@ -124,12 +121,12 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         gdDefault.setCornerRadius(15);
         bt_save.setBackgroundDrawable(gdDefault);
 
-//        if (mPaymentMethod.getData("useccv").equals("1")) {
-//            EditText cvv = (EditText) mView.findViewById(Rconfig.getInstance()
-//                    .id("cvv"));
-//            cvv.setText(PaymentMethod.getInstance().getPlacecc_id());
-//            cvv.setVisibility(View.VISIBLE);
-//        }
+        if (mPaymentMethod.getData("digit_card").equals("1")) {
+            EditText cvv = (EditText) mView.findViewById(Rconfig.getInstance()
+                    .id("cvv"));
+            cvv.setText(PaymentMethod.getInstance().getPlacecc_id());
+            cvv.setVisibility(View.VISIBLE);
+        }
 
         setPickerDate();
         email = DataLocal.getEmailCreditCart();
@@ -317,28 +314,32 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         String number = "" + et_card_number.getText();
         String ccid = "" + et_cvv.getText();
         String cart_type = "" + et_type.getText().toString();
-        if (validateInputData( number)) {
+        Log.e("CreditCardBlock ", "onCLickSave 001");
+        if (validateInputData(number)) {
+
             String email = DataLocal.getEmailCreditCart();
-            if (DataLocal.isSignInComplete()) {
-                // if signIn succes, save number and name payment method in Data
-                HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
-                        .getHashMapCreditCart();
-                if (hashMap == null) {
-                    hashMap = new HashMap<String, HashMap<String, CreditcardEntity>>();
-                }
-                CreditcardEntity creditCard = new CreditcardEntity(cart_type,
-                        number, split[0], split[1], ccid);
-                HashMap<String, CreditcardEntity> creditCardHashMap = new HashMap<String, CreditcardEntity>();
-                if (hashMap.containsKey(email)) {
-                    creditCardHashMap = hashMap.get(email);
-                }
-                creditCardHashMap.put(mPaymentMethod.getMethodCode(),
-                        creditCard);
-                hashMap.put(email, creditCardHashMap);
-                // luu code cua payment xac dinh payment nay duoc click
-                PaymentMethod.getInstance().setPlace_payment_method(mPaymentMethod.getMethodCode());
-                DataLocal.saveHashMapCreditCart(hashMap);
+            Log.e("CreditCardBlock ", "onCLickSave 002 " + email);
+            // if (DataLocal.isSignInComplete()) {
+            Log.e("CreditCardBlock ", "onCLickSave 003 SIGN IN COMPLETE");
+            // if signIn succes, save number and name payment method in Data
+            HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
+                    .getHashMapCreditCart();
+            if (hashMap == null) {
+                hashMap = new HashMap<String, HashMap<String, CreditcardEntity>>();
             }
+            CreditcardEntity creditCard = new CreditcardEntity(cart_type,
+                    number, split[0], split[1], ccid);
+            HashMap<String, CreditcardEntity> creditCardHashMap = new HashMap<String, CreditcardEntity>();
+            if (hashMap.containsKey(email)) {
+                creditCardHashMap = hashMap.get(email);
+            }
+            creditCardHashMap.put(mPaymentMethod.getMethodCode(),
+                    creditCard);
+            hashMap.put(email, creditCardHashMap);
+            // luu code cua payment xac dinh payment nay duoc click
+            PaymentMethod.getInstance().setPlace_payment_method(mPaymentMethod.getMethodCode());
+            DataLocal.saveHashMapCreditCart(hashMap);
+            // }
 
             PaymentMethod.getInstance().setPlace_cc_exp_month(split[0]);
             PaymentMethod.getInstance().setPlace_cc_exp_year(split[1]);
@@ -346,12 +347,12 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
 
             PaymentMethod.getInstance().setPlace_cc_number(number);
             PaymentMethod.getInstance().setPlacecc_id(ccid);
-
+            Log.e("CreditCardBlock ", "onCLickSave 004");
             onSaveCreditcardToOrder();
         }
     }
 
-    private boolean validateInputData( String number) {
+    private boolean validateInputData(String number) {
 
         if (!Utils.validateString(number)) {
             String message = "Please enter card number.";
@@ -360,17 +361,20 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         }
 
 
-
         return true;
     }
 
     public void onSaveCreditcardToOrder() {
+
+        Log.e("CreditCardBlock ", "onSaveCreditCardToOrder 001");
+
         showLoading();
         CreditCardModel model = new CreditCardModel();
         ModelDelegate delegate = new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
                 dismissLoading();
+                Log.e("CreditCardBlock ", "onSaveCreditCardToOrder ERROR");
                 if (error != null)
                     SimiManager.getIntance().showToast(error.getMessage().toString());
             }
@@ -378,13 +382,22 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
             @Override
             public void onSuccess(SimiCollection collection) {
                 dismissLoading();
+                Log.e("CreditCardBlock ", "onSaveCreditCardToOrder SUCCESS");
                 SimiManager.getIntance().showToast(Config.getInstance().getText("Save Credit Card success"));
                 SimiManager.getIntance().backPreviousFragment();
 
             }
         };
         model.setDelegate(delegate);
-        model.addDataBody("quote_id", Config.getInstance().getQuoteCustomerSignIn());
+
+        String quote_id = "";
+        if (DataLocal.isSignInComplete()) {
+            quote_id = Config.getInstance().getQuoteCustomerSignIn();
+        } else {
+            quote_id = DataLocal.getQuoteCustomerNotSigin();
+        }
+        model.addDataBody("quote_id", quote_id);
+
         JSONArray cc_types = null;
         JSONObject card_type = new JSONObject();
         try {
@@ -404,7 +417,8 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         model.addDataBody("card_type", card_type);
         model.addDataBody("card_number", et_card_number.getText().toString());
         model.addDataBody("card_name", et_type.getText().toString());
-        model.addDataBody("card_digit", "");
+        String ccid = "" + et_cvv.getText();
+        model.addDataBody("card_digit", ccid);
         model.request();
     }
 

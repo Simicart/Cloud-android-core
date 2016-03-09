@@ -161,6 +161,10 @@ public class NewAddressBookController extends SimiController implements
                                 DataLocal.saveData(name, email, password);
                                 DataLocal.saveCustomer(firstname, lastname, email, name, "");
                                 DataLocal.saveEmailPassRemember(email, password);
+
+                                Log.e("NewAddressBookController ","onClickSAVE ----> " + email);
+
+                                DataLocal.saveEmailCreditCart(email);
                                 fragment.setBilingAddress(address);
                                 fragment.setAfterControll(mAfterController);
                                 fragment.setShippingAddress(address);
@@ -238,7 +242,7 @@ public class NewAddressBookController extends SimiController implements
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -276,7 +280,7 @@ public class NewAddressBookController extends SimiController implements
                     }
                 }
             }
-            });
+        });
 
         mModel.request();
     }
@@ -287,7 +291,7 @@ public class NewAddressBookController extends SimiController implements
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -299,7 +303,7 @@ public class NewAddressBookController extends SimiController implements
                     AddressBookFragment fragment = AddressBookFragment
                             .newInstance();
                     SimiManager.getIntance().replacePopupFragment(fragment);
-                }else {
+                } else {
 
                     MyAddress newAddress = (MyAddress) mModel
                             .getCollection().getCollection().get(0);
@@ -370,18 +374,18 @@ public class NewAddressBookController extends SimiController implements
             }
         }
 
-        mModel.addDataExtendURL(DataLocal.getCustomerID(),"addresses");
+        mModel.addDataExtendURL(DataLocal.getCustomerID(), "addresses");
 
-            // prefix
-            String first_name = address.getPrefix();
-            if (Utils.validateString(first_name)) {
-                mModel.addDataBody("first_name", first_name);
-            }
-            // suffix
-            String last_name = address.getSuffix();
-            if (Utils.validateString(last_name)) {
-                mModel.addDataBody("last_name", last_name);
-            }
+        // prefix
+        String first_name = address.getPrefix();
+        if (Utils.validateString(first_name)) {
+            mModel.addDataBody("first_name", first_name);
+        }
+        // suffix
+        String last_name = address.getSuffix();
+        if (Utils.validateString(last_name)) {
+            mModel.addDataBody("last_name", last_name);
+        }
 
         String statename = address.getStateName();
         JSONObject param_state = new JSONObject();
@@ -393,24 +397,24 @@ public class NewAddressBookController extends SimiController implements
                 param_state = null;
                 Log.e("MyAddress", e.getMessage());
             }
-            if(param_state != null) {
+            if (param_state != null) {
                 if (Utils.validateString(param_state.toString())) {
                     mModel.addDataBody("state", param_state);
                 }
-            }else{
+            } else {
                 try {
                     param_state.put("name", "");
                     param_state.put("code", "");
-                }catch (JSONException e) {
+                } catch (JSONException e) {
 
                 }
                 mModel.addDataBody("state", param_state);
             }
-        }else{
+        } else {
             try {
                 param_state.put("name", "");
                 param_state.put("code", "");
-            }catch (JSONException e) {
+            } catch (JSONException e) {
 
             }
             mModel.addDataBody("state", param_state);
@@ -427,55 +431,55 @@ public class NewAddressBookController extends SimiController implements
                 param_country = null;
                 Log.e("MyAddress", e.getMessage());
             }
-            if(param_country != null) {
+            if (param_country != null) {
                 if (Utils.validateString(param_country.toString())) {
                     mModel.addDataBody("country", param_country);
                 }
-            }else{
+            } else {
                 try {
                     param_country.put("name", "");
                     param_country.put("code", "");
-                }catch (JSONException e) {
+                } catch (JSONException e) {
 
                 }
                 mModel.addDataBody("country", param_country);
             }
-        }else{
+        } else {
             try {
                 param_country.put("name", "");
                 param_country.put("code", "");
-            }catch (JSONException e) {
+            } catch (JSONException e) {
 
             }
             mModel.addDataBody("country", param_country);
         }
 
-            // street
-            String street = address.getStreet();
-            if (Utils.validateString(street)) {
-                mModel.addDataBody("street", street);
-            }
+        // street
+        String street = address.getStreet();
+        if (Utils.validateString(street)) {
+            mModel.addDataBody("street", street);
+        }
 
-            // phone
-            String phone = address.getPhone();
-            if (Utils.validateString(phone)) {
-                mModel.addDataBody("phone", phone);
-            }
+        // phone
+        String phone = address.getPhone();
+        if (Utils.validateString(phone)) {
+            mModel.addDataBody("phone", phone);
+        }
 
-            // zip code
-            String zipcode = address.getZipCode();
-            if (Utils.validateString(zipcode)) {
-                mModel.addDataBody("zip", zipcode);
-            }
+        // zip code
+        String zipcode = address.getZipCode();
+        if (Utils.validateString(zipcode)) {
+            mModel.addDataBody("zip", zipcode);
+        }
 
-            // city
-            String city = address.getCity();
-            if (Utils.validateString(city)) {
-                mModel.addDataBody("city", city);
-            }
+        // city
+        String city = address.getCity();
+        if (Utils.validateString(city)) {
+            mModel.addDataBody("city", city);
+        }
 
-            mModel.addDataBody("default_billing", "1");
-            mModel.addDataBody("default_shipping", "1");
+        mModel.addDataBody("default_billing", "1");
+        mModel.addDataBody("default_shipping", "1");
 
         mModel.request();
     }
@@ -483,7 +487,7 @@ public class NewAddressBookController extends SimiController implements
     protected CountryAllowed getCurrentCountry(String name) {
         CountryAllowed country = null;
         if (null != name && null != mListCountryAllowed) {
-            for (int i=0;i<mListCountryAllowed.size();i++) {
+            for (int i = 0; i < mListCountryAllowed.size(); i++) {
                 country = mListCountryAllowed.get(i);
                 if (country.getName().equals(name)) {
                     break;
@@ -499,7 +503,7 @@ public class NewAddressBookController extends SimiController implements
         if (null != name && null != country) {
             ArrayList<StateOfCountry> states = country.getState();
             if (null != states && states.size() > 0) {
-                for (int i=0;i<states.size();i++) {
+                for (int i = 0; i < states.size(); i++) {
                     state = states.get(i);
                     if (state.getName().equals(name)) {
                         break;
@@ -605,7 +609,7 @@ public class NewAddressBookController extends SimiController implements
         ArrayList<String> states = new ArrayList<String>();
         for (CountryAllowed countryAllowed : listCountry) {
             if (countryAllowed.getName().equals(country)) {
-                if(countryAllowed.getState() != null) {
+                if (countryAllowed.getState() != null) {
                     for (StateOfCountry state : countryAllowed.getState()) {
                         states.add(state.getName());
                     }

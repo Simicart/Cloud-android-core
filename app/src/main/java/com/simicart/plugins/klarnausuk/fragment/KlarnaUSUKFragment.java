@@ -1,4 +1,4 @@
-package com.simicart.plugins.klarna.fragment;
+package com.simicart.plugins.klarnausuk.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -18,9 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.simicart.MainActivity;
-import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.delegate.ModelDelegate;
-import com.simicart.core.base.delegate.SimiDelegate;
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
@@ -29,11 +27,17 @@ import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 import com.simicart.plugins.klarna.model.KlarnaCancelModel;
 import com.simicart.plugins.klarna.model.KlarnaModel;
+import com.simicart.plugins.klarnausuk.model.KlarnaUSUKCancelModel;
+import com.simicart.plugins.klarnausuk.model.KlarnaUSUKModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class KlarnaFragment extends SimiFragment {
+/**
+ * Created by MSI on 09/03/2016.
+ */
+public class KlarnaUSUKFragment extends SimiFragment{
+
 
     public static final String SUCCESS = "klarna_order_id";
     public static final String FAIL = "index/failure";
@@ -56,8 +60,8 @@ public class KlarnaFragment extends SimiFragment {
         this.orderID = orderID;
     }
 
-    public static KlarnaFragment newInstance() {
-        KlarnaFragment fragment = new KlarnaFragment();
+    public static KlarnaUSUKFragment newInstance() {
+        KlarnaUSUKFragment fragment = new KlarnaUSUKFragment();
         return fragment;
     }
 
@@ -98,7 +102,7 @@ public class KlarnaFragment extends SimiFragment {
     }
 
     private void getUrlCheckout() {
-        final KlarnaModel model = new KlarnaModel();
+        final KlarnaUSUKModel model = new KlarnaUSUKModel();
         model.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
@@ -150,7 +154,7 @@ public class KlarnaFragment extends SimiFragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-                Log.e("KlarnaFragment ","---> " +url);
+
 
                 if (url.contains(SUCCESS)) {
                     Handler handler = new Handler();
@@ -164,8 +168,6 @@ public class KlarnaFragment extends SimiFragment {
                 } else if (url.contains(FAIL)) {
                     SimiManager.getIntance().backToHomeFragment();
                     showToastMessage(MES_FAIL);
-                } else {
-                    Log.e(getClass().getName(), "RUNNING:" + url);
                 }
             }
 
@@ -209,7 +211,7 @@ public class KlarnaFragment extends SimiFragment {
     }
 
     private void requestCancelOrder() {
-        KlarnaCancelModel klarnaCancelModel = new KlarnaCancelModel();
+        KlarnaUSUKCancelModel klarnaCancelModel = new KlarnaUSUKCancelModel();
         klarnaCancelModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {

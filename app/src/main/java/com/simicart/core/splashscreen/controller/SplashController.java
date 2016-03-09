@@ -64,7 +64,9 @@ public class SplashController {
         idsModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-
+                ArrayList<String> listSKU = new ArrayList<String>();
+                listSKU.add("simi_developer");
+                readXMLPlugins(listSKU);
             }
 
             @Override
@@ -72,6 +74,12 @@ public class SplashController {
                 String ids = idsModel.getIDs();
                 if (Utils.validateString(ids)) {
                     getSKUPlugin(ids);
+                }
+                else
+                {
+                    ArrayList<String> listSKU = new ArrayList<String>();
+                    listSKU.add("simi_developer");
+                    readXMLPlugins(listSKU);
                 }
             }
         });
