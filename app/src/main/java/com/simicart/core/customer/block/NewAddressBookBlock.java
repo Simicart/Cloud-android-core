@@ -271,7 +271,7 @@ public class NewAddressBookBlock extends SimiBlock implements
 			String email = DataLocal.getEmail();
 			if (null != email && !email.equals("")) {
 				edt_email.setText(email);
-				if (mAfterController != NewAddressBookFragment.NEW_CUSTOMER) {
+				if (mAfterController != NewAddressBookFragment.NEW_CUSTOMER && mAfterController != NewAddressBookFragment.NEW_AS_GUEST) {
 					edt_email.setKeyListener(null);
 				}
 			} else {
