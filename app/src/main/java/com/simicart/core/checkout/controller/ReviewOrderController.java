@@ -643,7 +643,7 @@ public class ReviewOrderController extends SimiController implements PaymentDele
                 DataLocal.saveQuoteCustomerNotSignIn("");
                 ConfigCheckout.checkPaymentMethod = false;
                 SimiManager.getIntance().onUpdateCartQty(null);
-                PaymentMethod.getInstance().setPlacePaymentMethod("");
+              //  PaymentMethod.getInstance().setPlacePaymentMethod("");
 
                 if (mAfterControll == NewAddressBookFragment.NEW_CUSTOMER) {
                     AutoSignInController controller = new AutoSignInController();

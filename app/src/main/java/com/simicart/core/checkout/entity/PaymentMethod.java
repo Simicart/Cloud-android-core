@@ -48,14 +48,14 @@ public class PaymentMethod extends SimiEntity {
 	private String mPlaceCCExpYear = "";
 	private String mPlaceCCId = "";
 
-	private static PaymentMethod instance;
-
-	public static PaymentMethod getInstance() {
-		if (null == instance) {
-			instance = new PaymentMethod();
-		}
-		return instance;
-	}
+//	private static PaymentMethod instance;
+//
+//	public static PaymentMethod getInstance() {
+//		if (null == instance) {
+//			instance = new PaymentMethod();
+//		}
+//		return instance;
+//	}
 
 	@Override
 	public void parse() {
