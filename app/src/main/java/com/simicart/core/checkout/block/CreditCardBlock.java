@@ -1,5 +1,6 @@
 package com.simicart.core.checkout.block;
 
+import java.security.Key;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -11,10 +12,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
@@ -146,10 +150,14 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
             if (Utils.validateString(card_name)) {
                 edt_card_name.setText(card_name);
             }
-
-
         }
+
+
+
     }
+
+
+
 
     public void setClickCardType() {
         et_type.setOnClickListener(new OnClickListener() {

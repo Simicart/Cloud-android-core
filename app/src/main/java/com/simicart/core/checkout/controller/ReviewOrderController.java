@@ -643,7 +643,7 @@ public class ReviewOrderController extends SimiController implements PaymentDele
                 DataLocal.saveQuoteCustomerNotSignIn("");
                 ConfigCheckout.checkPaymentMethod = false;
                 SimiManager.getIntance().onUpdateCartQty(null);
-              //  PaymentMethod.getInstance().setPlacePaymentMethod("");
+                //  PaymentMethod.getInstance().setPlacePaymentMethod("");
 
                 if (mAfterControll == NewAddressBookFragment.NEW_CUSTOMER) {
                     AutoSignInController controller = new AutoSignInController();
@@ -790,14 +790,11 @@ public class ReviewOrderController extends SimiController implements PaymentDele
 
     @Override
     public void updatePaymentChecked(PaymentMethod payment) {
-        if (payment.isCheck()) {
-            mCurrentPaymentMethod = payment;
-            String name = mCurrentPaymentMethod.getName();
-            mDelegate.setInitViewPaymentMethod(name);
-        } else {
-            mCurrentPaymentMethod = payment;
-            String name = mCurrentPaymentMethod.getName();
-            mDelegate.setInitViewPaymentMethod(name);
+        mCurrentPaymentMethod = payment;
+        String name = mCurrentPaymentMethod.getName();
+        mDelegate.setInitViewPaymentMethod(name);
+
+        if (!payment.isCheck()) {
             requestSavePaymentMethod(mCurrentPaymentMethod);
             int show_type = payment.getShow_type();
             if (show_type == 4) {
@@ -865,9 +862,7 @@ public class ReviewOrderController extends SimiController implements PaymentDele
             fcreditCard.setIsCheckedMethod(true);
             fcreditCard.setPaymentMethod(payment);
             SimiManager.getIntance().replacePopupFragment(fcreditCard);
-        }
-        else
-        {
+        } else {
             onSaveCreditcardToOrder(payment);
         }
 
@@ -877,7 +872,7 @@ public class ReviewOrderController extends SimiController implements PaymentDele
     private boolean isSavedCC(PaymentMethod payment) {
         HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
                 .getHashMapCreditCart();
-        if (hashMap != null &&  hashMap.size() != 0) {
+        if (hashMap != null && hashMap.size() != 0) {
             String email = DataLocal.getEmailCreditCart();
             if (Utils.validateString(email) && hashMap.containsKey(email)) {
                 HashMap<String, CreditcardEntity> creditcard = hashMap
