@@ -147,6 +147,7 @@ public class NewAddressBookController extends SimiController implements
                             fragment.setBilingAddress(address);
                             fragment.setShippingAddress(address);
                             fragment.setAfterControll(mAfterController);
+                            String email = address.getEmail();
                             SimiManager.getIntance().replacePopupFragment(
                                     fragment);
                         } else if (mAfterController == NewAddressBookFragment.NEW_CUSTOMER) {

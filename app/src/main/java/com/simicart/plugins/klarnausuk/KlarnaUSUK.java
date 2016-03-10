@@ -29,7 +29,7 @@ public class KlarnaUSUK {
                 SimiEventCheckoutEntity entity = (SimiEventCheckoutEntity) bundle.getSerializable(Constants.ENTITY);
                 PaymentMethod payment = entity.getPaymentMethod();
                 OrderEntity order = entity.getOder();
-                if (payment.getMethodCode().equals("klarna-usuk")) {
+                if (payment.getMethodCode().equals(" klarna_us")) {
                     String orderID = order.getID();
                     onCheckOut(orderID);
                 }

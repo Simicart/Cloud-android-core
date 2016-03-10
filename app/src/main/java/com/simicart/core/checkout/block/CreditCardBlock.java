@@ -54,6 +54,7 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
     protected Button bt_save;
     protected EditText et_expired;
     protected EditText et_card_number;
+    protected EditText edt_card_name;
     protected String email;
     protected int key = 0;
 
@@ -83,7 +84,8 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         et_expired = (EditText) mView.findViewById(Rconfig.getInstance().id(
                 "expired"));
         et_expired.setText(Config.getInstance().getText("Expired") + ": MM/YY");
-
+        edt_card_name = (EditText) mView.findViewById(Rconfig.getInstance().id("edt_card_name"));
+        edt_card_name.setHint(Config.getInstance().getText("Card Name"));
 
         String code = mPaymentMethod.getPayment_method();
 
@@ -124,13 +126,24 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
             CreditcardEntity creditcardEntity = DataLocal
                     .getHashMapCreditCart().get(DataLocal.getEmailCreditCart())
                     .get(mPaymentMethod.getMethodCode());
-            et_type.setText(creditcardEntity.getPaymentType());
-            et_card_number.setText(creditcardEntity.getPaymentNumber());
-            et_expired.setText(creditcardEntity.getPaymentMonth() + "/"
-                    + creditcardEntity.getPaymentYear());
+
+            String type =creditcardEntity.getPaymentType();
+            et_type.setText(type);
+
+            String number = creditcardEntity.getPaymentNumber();
+            et_card_number.setText(number);
+
+            String expired_day = creditcardEntity.getPaymentMonth() + "/"
+                    + creditcardEntity.getPaymentYear();
+            et_expired.setText(expired_day);
+
+
             if (mPaymentMethod.getData("digit_card").equals("1")) {
-                et_cvv.setText(creditcardEntity.getPaymentCvv());
+                String cvv = creditcardEntity.getPaymentCvv();
+                et_cvv.setText(cvv);
             }
+
+
         }
     }
 
@@ -302,6 +315,8 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         String number = "" + et_card_number.getText();
         String ccid = "" + et_cvv.getText();
         String cart_type = "" + et_type.getText().toString();
+        String card_name = "" + edt_card_name.getText().toString();
+
         if (validateInputData(number)) {
             String email = DataLocal.getEmailCreditCart();
             HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
@@ -310,7 +325,7 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
                 hashMap = new HashMap<String, HashMap<String, CreditcardEntity>>();
             }
             CreditcardEntity creditCard = new CreditcardEntity(cart_type,
-                    number, split[0], split[1], ccid);
+                    number, split[0], split[1], ccid,card_name);
             HashMap<String, CreditcardEntity> creditCardHashMap = new HashMap<String, CreditcardEntity>();
             if (hashMap.containsKey(email)) {
                 creditCardHashMap = hashMap.get(email);
@@ -392,6 +407,8 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         model.addDataBody("card_name", et_type.getText().toString());
         String ccid = "" + et_cvv.getText();
         model.addDataBody("card_digit", ccid);
+        String card_name = "" + edt_card_name.getText();
+        model.addDataBody("card_name",card_name);
         model.request();
     }
 

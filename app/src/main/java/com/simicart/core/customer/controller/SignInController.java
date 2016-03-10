@@ -234,7 +234,6 @@ public class SignInController extends SimiController {
         ModelDelegate delegate = new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                Log.e("SignInController", "Log in fail");
                 mDelegate.dismissLoading();
                 if (error != null)
                     SimiManager.getIntance().showNotify(null, Config.getInstance().getText("Invalid username or password"), "Ok");
@@ -242,7 +241,6 @@ public class SignInController extends SimiController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                Log.e("SignInController", "Log in success");
                 mDelegate.dismissLoading();
                 DataLocal.isNewSignIn = true;
                 DataLocal.saveTypeSignIn(Constants.NORMAL_SIGN_IN);
@@ -268,7 +266,6 @@ public class SignInController extends SimiController {
 
                 name = entity.getFirstName() + " " + entity.getLastName();
 
-                Log.e("SignIn Info", name + " " + email + " " + password);
                 DataLocal.saveData(name, email, password);
                 DataLocal.saveCustomerID(customerID);
                 DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
@@ -317,8 +314,6 @@ public class SignInController extends SimiController {
         }
         mModel.setJSONBody(obj);
         mModel.addDataExtendURL("login");
-//        mModel.addDataBody(Constants.USER_EMAIL, email);
-//        mModel.addDataBody(Constants.USER_PASSWORD, password);
         mModel.request();
     }
 
