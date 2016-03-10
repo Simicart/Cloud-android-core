@@ -4,26 +4,33 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:orientation="vertical"
-    android:padding="10dp" >
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/credit_card_label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="Credit Card"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_card_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="Card Name:" />
 
     <EditText
         android:id="@+id/card_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:focusable="false"
         android:focusableInTouchMode="false"
-        android:hint="Card Type:" >
-    </EditText>
+        android:hint="Card Type:"></EditText>
 
     <kankan.wheel.widget.WheelView
         android:id="@+id/select_cart"
@@ -36,15 +43,16 @@
         android:id="@+id/card_number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Card Nubmer:"
-        android:inputType="number" >
-    </EditText>
+        android:inputType="number"></EditText>
 
     <EditText
         android:id="@+id/expired"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -58,26 +66,27 @@
         android:layout_gravity="center_horizontal"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"
-        android:weightSum="4"
-        android:visibility="gone" >
+        android:visibility="gone"
+        android:weightSum="4">
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/month"
-            android:layout_weight="3"
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="3" />
 
         <kankan.wheel.widget.WheelView
             android:id="@+id/year"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/cvv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="CVV:"
         android:inputType="number"
@@ -87,6 +96,7 @@
         android:id="@+id/card_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Save" />
 
 </LinearLayout>

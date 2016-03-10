@@ -146,9 +146,9 @@ public class MyAccountController extends SimiController {
 					DataLocal.saveQuoteCustomerNotSignIn("");
 					Config.getInstance().setQuoteCustomerSignIn("");
 
-					PaymentMethod.getInstance().setPlacePaymentMethod("");
-					PaymentMethod.getInstance().setPlace_cc_number("");
-					PaymentMethod.getInstance().setPlacecc_id("");
+//					PaymentMethod.getInstance().setPlacePaymentMethod("");
+//					PaymentMethod.getInstance().setPlace_cc_number("");
+//					PaymentMethod.getInstance().setPlacecc_id("");
 					ConfigCheckout.checkPaymentMethod = false;
 
 					HomeFragment fragment = HomeFragment.newInstance();

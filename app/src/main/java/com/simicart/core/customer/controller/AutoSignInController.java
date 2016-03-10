@@ -74,6 +74,7 @@ public class AutoSignInController extends SimiController {
                         DataLocal.saveCustomerID(customerID);
                         DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
                         //DataLocal.saveEmailPassRemember(email, password);
+                        DataLocal.saveEmailCreditCart(email);
 
                         SimiManager.getIntance().onUpdateItemSignIn();
                         requestGetAllQuote();

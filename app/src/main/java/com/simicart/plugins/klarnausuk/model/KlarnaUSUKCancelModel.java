@@ -1,26 +1,19 @@
-package com.simicart.plugins.klarna.model;
-
-import android.util.Log;
+package com.simicart.plugins.klarnausuk.model;
 
 import com.simicart.core.base.model.SimiModel;
 import com.simicart.core.base.network.request.multi.SimiRequest;
 
 /**
- * Created by Sony on 2/23/2016.
+ * Created by MSI on 09/03/2016.
  */
-public class KlarnaCancelModel extends SimiModel{
+public class KlarnaUSUKCancelModel extends SimiModel {
     @Override
-     protected void setUrlAction() {
+    protected void setUrlAction() {
         addDataExtendURL("orders");
     }
 
     @Override
     protected void setTypeMethod() {
         mTypeMethod = SimiRequest.Method.GET;
-    }
-
-    @Override
-    protected void paserData() {
-        super.paserData();
     }
 }

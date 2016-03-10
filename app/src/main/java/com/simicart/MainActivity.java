@@ -44,20 +44,10 @@ import java.util.List;
 public class MainActivity extends FragmentActivity {
 
     public final static int PAUSE = 2;
-    public final static int RESUME = 1;
-
     private SlideMenuFragment mNavigationDrawerFragment;
     public static Activity context;
     private NotificationController notification;
     public static int state = 0;
-
-//    public static boolean mCheckToDetailAfterScan = false;
-//    public static int mBackEntryCountDetail = 0;
-    public static boolean checkBackScan = false;
-    //    public static MainActivity instance;
-    private int requestCode;
-    private int resultCode;
-    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,27 +58,18 @@ public class MainActivity extends FragmentActivity {
 
         if (DataLocal.isSignInComplete()) {
             autoSignin();
-        }else{
-            if(!DataLocal.getQuoteCustomerNotSigin().equals("")){
+        } else {
+            if (!DataLocal.getQuoteCustomerNotSigin().equals("")) {
                 autoGetQtyNotSignin();
             }
         }
         context = this;
-        // checkTheme();
         SimiManager.getIntance().setManager(getSupportFragmentManager());
-        // dispatch event for sent google analytic
-//        CacheActivity cacheActivity = new CacheActivity();
-//        cacheActivity.setActivity(this);
-//        EventActivity dispacth = new EventActivity();
-//        dispacth.dispatchEvent("com.simicart.mainActivity.onCreate",
-//                cacheActivity);
-        // end dispatch
         if (DataLocal.isTablet) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-
 
         mNavigationDrawerFragment = (SlideMenuFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
@@ -96,18 +77,10 @@ public class MainActivity extends FragmentActivity {
         mNavigationDrawerFragment.setup(R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         changeFont();
-
-//        String qtyCart = DataLocal.qtyCartAuto;
-//        if (Utils.validateString(qtyCart)) {
-//            SimiManager.getIntance().onUpdateCartQty(qtyCart);
-//        }
-//
-        registerReceiver(mHandleMessageReceiver, new IntentFilter(
-                CommonUtilities.DISPLAY_MESSAGE_ACTION));
         notification = new NotificationController(this);
         notification.registerNotification();
 
-         recieveNotification();
+        recieveNotification();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         FragmentMenuTop fragment = FragmentMenuTop
@@ -122,7 +95,7 @@ public class MainActivity extends FragmentActivity {
         controller.onStart();
     }
 
-    private void autoGetQtyNotSignin(){
+    private void autoGetQtyNotSignin() {
         AutoGetQtyNotSignInController controller = new AutoGetQtyNotSignInController();
         controller.onStart();
     }
@@ -144,60 +117,17 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-//    @Override
-//    protected void onResume() {
-//        if ((null == Config.getInstance().getCurrencyCode())
-//                || (Config.getInstance().getCurrencyCode().equals("null"))) {
-//            UtilsEvent.itemsList.clear();
-//            DataLocal.mSharedPre = getApplicationContext()
-//                    .getSharedPreferences(DataLocal.NAME_REFERENCE,
-//                            Context.MODE_PRIVATE);
-//            SimiManager.getIntance().changeStoreView();
-//        }
-//        state = RESUME;
-//        SimiManager.getIntance().setCurrentActivity(this);
-//        SimiManager.getIntance().setCurrentContext(getApplicationContext());
-//        SimiManager.getIntance().setManager(getSupportFragmentManager());
-//        // Update badge
-//        try {
-//            ShortcutBadger.setBadge(context, 0);
-//        } catch (ShortcutBadgeException e) {
-//        }
-//        super.onResume();
-//    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // if (!mNavigationDrawerFragment.isDrawerOpen()) {
-        // getMenuInflater()
-        // .inflate(
-        // Rconfig.getInstance().getId("main_activity2",
-        // "menu"), menu);
-        // restoreActionBar();
-        // return true;
-        // // }
-
-        return super.onCreateOptionsMenu(menu);
+    protected void onResume() {
+        state = 0;
+        super.onResume();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                 notification.openNotificationSetting(this);
+                notification.openNotificationSetting();
                 return true;
-            // case R.id.notification:
-            // notification.openNotificationSetting(this);
-            // return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -215,224 +145,65 @@ public class MainActivity extends FragmentActivity {
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        // Checks the orientation of the screen
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            // Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            // Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private final BroadcastReceiver mHandleMessageReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String newMessage = intent.getExtras().getString(
-                    CommonUtilities.EXTRA_MESSAGE);
-            Log.e(getClass().getName() + newMessage, "EXTRA_MESSAGE");
-        }
-    };
-
-    @Override
     public void onBackPressed() {
-
-
-        Intent intent = new Intent("com.simicart.leftmenu.mainactivity.onbackpress.checkentrycount");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
         int count = SimiManager.getIntance().getManager()
                 .getBackStackEntryCount();
-
-        if (count > 0) {
-            try {
-                if (count == 1) {
-                    if (checkBackScan == true) {
-                        checkBackScan = false;
-                        Intent intent_back = new Intent("com.simicart.leftmenu.mainactivity.onbackpress.backtoscan");
-                        LocalBroadcastManager.getInstance(this).sendBroadcast(intent_back);
-
-                    } else {
-                        // out app
-                        AlertDialog.Builder alertboxDowload = new AlertDialog.Builder(
-                                this);
-                        alertboxDowload.setTitle(Config.getInstance()
-                                .getText("CLOSE APPLICATION").toUpperCase());
-                        alertboxDowload.setMessage(Config.getInstance()
-                                .getText("Are you sure you want to exit?"));
-                        alertboxDowload.setCancelable(false);
-                        alertboxDowload.setPositiveButton(Config.getInstance()
-                                        .getText("OK").toUpperCase(),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                        context = null;
-                                        SimiManager.getIntance().getManager()
-                                                .popBackStack();
-                                        android.os.Process
-                                                .killProcess(android.os.Process
-                                                        .myPid());
-                                        finish();
-                                    }
-                                });
-                        alertboxDowload.setNegativeButton(Config.getInstance()
-                                        .getText("CANCEL").toUpperCase(),
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,
-                                                        int id) {
-                                    }
-                                });
-                        alertboxDowload.show();
-                    }
-
-                } else {
-                    try {
-                        if (count > 2) {
-                            List<Fragment> list = SimiManager.getIntance()
-                                    .getManager().getFragments();
-                            Fragment fragment = SimiManager.getIntance()
-                                    .getManager().getFragments()
-                                    .get(list.size() - 1);
-                            if (fragment != null) {
-                                int tag = fragment.getTargetRequestCode();
-                                if (tag == ConfigCheckout.TARGET_REVIEWORDER) {
-                                    SimiManager.getIntance()
-                                            .backToHomeFragment();
-                                } else {
-                                    SimiManager.getIntance().getManager()
-                                            .popBackStack();
-                                }
-                            } else {
-                                SimiManager.getIntance().getManager()
-                                        .popBackStack();
-                            }
-                        } else {
-                            SimiManager.getIntance().getManager()
-                                    .popBackStack();
-                        }
-                        if (checkBackScan == true) {
-                            checkBackScan = false;
-                            Intent intent_back = new Intent("com.simicart.leftmenu.mainactivity.onbackpress.backtoscan");
-                            LocalBroadcastManager.getInstance(this).sendBroadcast(intent_back);
-                        }
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                    }
-                }
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+        if (count == 1) {
+            showConfirmExitApp();
         } else {
             super.onBackPressed();
         }
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//
-//        // Get the intent that started this Activity.
-//        Intent intent = this.getIntent();
-//        Uri uri = intent.getData();
-//
-//        // Send a screenview using any available campaign or referrer data.
-//       // new HitBuilders.ScreenViewBuilder().setAll(getReferrerMapFromUri(uri));
-//    }
-//
-//    // This examples assumes the use of Google Analytics campaign
-//    // "utm" parameters, like "utm_source"
-//    private static final String CAMPAIGN_SOURCE_PARAM = "utm_source";
-//
-//    /*
-//     * Given a URI, returns a map of campaign data that can be sent with any GA
-//     * hit.
-//     *
-//     * @param uri A hierarchical URI that may or may not have campaign data
-//     * stored in query parameters.
-//     *
-//     * @return A map that may contain campaign or referrer that may be sent with
-//     * any Google Analytics hit.
-//     */
-////    Map<String, String> getReferrerMapFromUri(Uri uri) {
-////
-////        HitBuilders.ScreenViewBuilder paramMap = new HitBuilders.ScreenViewBuilder();
-////
-////        // If no URI, return an empty Map.
-////        if (uri == null) {
-////            return paramMap.build();
-////        }
-////
-////        // Source is the only required campaign field. No need to continue if
-////        // not
-////        // present.
-////        if (uri.getQueryParameter(CAMPAIGN_SOURCE_PARAM) != null) {
-////
-////            // MapBuilder.setCampaignParamsFromUrl parses Google Analytics
-////            // campaign
-////            // ("UTM") parameters from a string URL into a Map that can be set
-////            // on
-////            // the Tracker.
-////            paramMap.setCampaignParamsFromUrl(uri.toString());
-////
-////            // If no source parameter, set authority to source and medium to
-////            // "referral".
-////        } else if (uri.getAuthority() != null) {
-////
-////            paramMap.set("utm_medium", "referral");
-////            paramMap.set("utm_source", uri.getAuthority());
-////
-////        }
-//
-//        return paramMap.build();
-//    }
+    private void showConfirmExitApp() {
+
+        String title = Config.getInstance()
+                .getText("CLOSE APPLICATION").toUpperCase();
+
+        String message = Config.getInstance()
+                .getText("Are you sure you want to exit?");
+
+        String ok = Config.getInstance()
+                .getText("OK").toUpperCase();
+
+        String cancel = Config.getInstance()
+                .getText("CANCEL").toUpperCase();
+
+        AlertDialog.Builder dialog_builder = new AlertDialog.Builder(
+                this);
+        dialog_builder.setTitle(title);
+        dialog_builder.setMessage(message);
+        dialog_builder.setCancelable(false);
+        dialog_builder.setPositiveButton(ok,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int id) {
+                        context = null;
+                        SimiManager.getIntance().getManager()
+                                .popBackStack();
+                        android.os.Process
+                                .killProcess(android.os.Process
+                                        .myPid());
+                        finish();
+                    }
+                });
+        dialog_builder.setNegativeButton(cancel,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,
+                                        int id) {
+                    }
+                });
+        dialog_builder.show();
+    }
+
 
     @Override
     protected void onDestroy() {
         notification.destroy();
-        if (mHandleMessageReceiver != null) {
-            unregisterReceiver(mHandleMessageReceiver);
-        }
-
         System.gc();
         Runtime.getRuntime().freeMemory();
-
         super.onDestroy();
     }
 
-    public int getRequestCode() {
-        return requestCode;
-    }
 
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public Intent getData() {
-        return data;
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-//        this.requestCode = requestCode;
-//        this.resultCode = resultCode;
-//        this.data = data;
-//
-//        Intent intent = new Intent("com.simicart.MainActivity.onActivityResult");
-//        LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent);
-
-//        // event form signin
-//        EventController dispatch = new EventController();
-//        dispatch.dispatchEvent("com.simicart.MainActivity.onActivityResult",
-//                this);
-//        EventBlock block = new EventBlock();
-//        if (requestCode == 64209) {
-//            block = new EventBlock();
-//            block.dispatchEvent("com.simicart.core.catalog.product.block.ProductBlock.resultfacebook.checkresultcode");
-//        }
-//        if (requestCode == Constants.RESULT_BARCODE) {
-//            block = new EventBlock();
-//            block.dispatchEvent("com.simicart.leftmenu.mainactivity.onactivityresult.resultbarcode");
-//        }
-    }
 }

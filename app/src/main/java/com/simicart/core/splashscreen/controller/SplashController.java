@@ -1,8 +1,6 @@
 package com.simicart.core.splashscreen.controller;
 
 import android.content.Context;
-import android.util.Log;
-
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
@@ -13,7 +11,6 @@ import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.event.base.ReadXML;
-import com.simicart.core.splashscreen.delegate.SplashDelegate;
 import com.simicart.core.splashscreen.entity.AppConfigEnitity;
 import com.simicart.core.splashscreen.entity.CMSPageEntity;
 import com.simicart.core.splashscreen.entity.ConfigEntity;
@@ -29,14 +26,12 @@ import java.util.Map;
 
 public class SplashController {
 
-    protected SplashDelegate mDelegate;
     protected Context mContext;
 
     private String MATRIX_THEME = "matrix";
     private String ZARA_THEME = "zara";
 
-    public SplashController(SplashDelegate delegate, Context context) {
-        mDelegate = delegate;
+    public SplashController( Context context) {
         mContext = context;
     }
 
@@ -64,7 +59,9 @@ public class SplashController {
         idsModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-
+                ArrayList<String> listSKU = new ArrayList<String>();
+                listSKU.add("simi_developer");
+                readXMLPlugins(listSKU);
             }
 
             @Override
@@ -72,6 +69,12 @@ public class SplashController {
                 String ids = idsModel.getIDs();
                 if (Utils.validateString(ids)) {
                     getSKUPlugin(ids);
+                }
+                else
+                {
+                    ArrayList<String> listSKU = new ArrayList<String>();
+                    listSKU.add("simi_developer");
+                    readXMLPlugins(listSKU);
                 }
             }
         });
@@ -180,7 +183,7 @@ public class SplashController {
                     ConfigEntity configEntity = (ConfigEntity) entity;
                     Config.getInstance().parseConfigSetting(configEntity);
                     createLanguage();
-                    mDelegate.creatMain();
+                    SimiManager.getIntance().toMainActivity();
                 }
             }
         });
@@ -218,7 +221,6 @@ public class SplashController {
         char lastChar = base_url.charAt(last_index);
         if (lastChar == '/') {
             base_url = base_url.substring(0, last_index);
-            Log.e("SplashController ", "BASE URL " + base_url);
         }
         Config.getInstance().setBase_url(base_url);
 

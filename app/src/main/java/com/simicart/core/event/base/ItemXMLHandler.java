@@ -1,6 +1,6 @@
 package com.simicart.core.event.base;
 
-import android.util.Log;
+
 
 import com.simicart.core.common.Utils;
 
@@ -54,7 +54,6 @@ public class ItemXMLHandler extends DefaultHandler {
             currentSKU = currentValue;
             currentValue = "";
         } else if (localName.equalsIgnoreCase(this.tags)) {
-            Log.e("ItemXMLHandler ---> ", "SKU " + currentSKU + " FULL NAME " + currentFullName);
             if (Utils.validateString(currentSKU) && checkSKU(currentSKU)) {
                 try {
                     Class<?> change = Class.forName(currentFullName);
