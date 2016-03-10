@@ -109,7 +109,8 @@ public class SettingAppController extends SimiController {
 
     private void getCurrency(){
         for (CurrencyEntity entity : DataLocal.listCurrency) {
-            if (entity.getValue().equals(DataLocal.getCurrencyID())) {
+            String currencyID = DataLocal.getCurrencyID();
+            if (entity.getValue().equals(currencyID)) {
                 currency = entity.getTitle();
             }
         }
