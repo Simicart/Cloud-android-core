@@ -25,12 +25,12 @@ import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 public class Config {
     private String mBaseUrl = "http://dev-api.jajahub.com/rest/";
     // Android account
-    private String mSecretKey = "663baaef933473b1e7e52527279b40eb0cb77549";
+    private String mSecretKey = "096a00bc5958983da94aebebfb78e92fd5cbbaf1";
     // Zara account
 //    private String mSecretKey = "5ed6a808a6142d936196cb4f69a781f7af02fb3a";
     // key site live : c843176d88b6e9a21f848482044503ea7ae82e85, api.jajahub.com/rest/
     // key zara: 5ed6a808a6142d936196cb4f69a781f7af02fb3a, dev-api.jajahub.com/rest/
-    // key android: 663baaef933473b1e7e52527279b40eb0cb77549
+    // key android: 096a00bc5958983da94aebebfb78e92fd5cbbaf1
     private String key_color = "#3498DB";
     private String top_menu_icon_color = "#FFFFFF";
     private String button_background = "#0277BD";
