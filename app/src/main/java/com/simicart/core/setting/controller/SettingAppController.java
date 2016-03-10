@@ -96,8 +96,9 @@ public class SettingAppController extends SimiController {
         if (localeArr != null && localeArr.size() > 0) {
             language = localeArr.get(0).getName();
             for (int i = 0; i < localeArr.size(); i++) {
-                if (DataLocal.getLocale().equals(localeArr.get(i).getCode())) {
-                    language = localeArr.get(i).getName();
+                LocaleConfigEntity localeConfigEntity = localeArr.get(i);
+                if (DataLocal.getLocale().equals(localeConfigEntity.getCode())) {
+                    language = localeConfigEntity.getName();
                 }
             }
             mDelegate.updateLanguage(language);
