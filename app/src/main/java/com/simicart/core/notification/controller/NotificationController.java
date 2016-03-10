@@ -38,8 +38,6 @@ import java.io.IOException;
 
 public class NotificationController {
 
-    String s_latitude = "";
-    String s_longitude = "";
 
     FragmentActivity mActivity;
     Context mContext;
@@ -60,8 +58,6 @@ public class NotificationController {
         if (gps.canGetLocation()) {
             double latitude = gps.getLatitude();
             double longitude = gps.getLongitude();
-            s_latitude = Double.toString(latitude);
-            s_longitude = Double.toString(longitude);
         }
     }
 
