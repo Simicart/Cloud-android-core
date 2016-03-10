@@ -127,7 +127,7 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
                     .getHashMapCreditCart().get(DataLocal.getEmailCreditCart())
                     .get(mPaymentMethod.getMethodCode());
 
-            String type =creditcardEntity.getPaymentType();
+            String type = creditcardEntity.getPaymentType();
             et_type.setText(type);
 
             String number = creditcardEntity.getPaymentNumber();
@@ -294,7 +294,7 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
     private boolean isSavedCC(String paymentMethodCode) {
         HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
                 .getHashMapCreditCart();
-        if (hashMap != null || hashMap.size() != 0) {
+        if (hashMap != null && hashMap.size() != 0) {
             String email = DataLocal.getEmailCreditCart();
             if (Utils.validateString(email) && hashMap.containsKey(email)) {
                 HashMap<String, CreditcardEntity> creditcard = hashMap
@@ -314,7 +314,7 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         String[] split = my.split("/");
         String number = "" + et_card_number.getText();
         String ccid = "" + et_cvv.getText();
-        String cart_type = "" + et_type.getText().toString();
+        String card_type = "" + et_type.getText().toString();
         String card_name = "" + edt_card_name.getText().toString();
 
         if (validateInputData(number)) {
@@ -324,8 +324,34 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
             if (hashMap == null) {
                 hashMap = new HashMap<String, HashMap<String, CreditcardEntity>>();
             }
-            CreditcardEntity creditCard = new CreditcardEntity(cart_type,
-                    number, split[0], split[1], ccid,card_name);
+            CreditcardEntity creditCard = new CreditcardEntity(card_type,
+                    number, split[0], split[1], ccid, card_name);
+
+            try {
+                JSONArray js_card_type = new JSONArray(mPaymentMethod.getData("card_type"));
+                for (int i = 0; i < js_card_type.length(); i++) {
+                    JSONObject json = js_card_type.getJSONObject(i);
+                    String title = json.getString("title");
+                    if (Utils.validateString(title) && title.equals(card_type)) {
+                        creditCard.setTitleCardType(title);
+                        String key = json.getString("key");
+                        if (Utils.validateString(key)) {
+                            creditCard.setKeyCardType(key);
+                        }
+
+                        String code = json.getString("code");
+                        if (Utils.validateString(code)) {
+                            creditCard.setCodeCardType(code);
+                        }
+                        break;
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
             HashMap<String, CreditcardEntity> creditCardHashMap = new HashMap<String, CreditcardEntity>();
             if (hashMap.containsKey(email)) {
                 creditCardHashMap = hashMap.get(email);
@@ -408,7 +434,7 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         String ccid = "" + et_cvv.getText();
         model.addDataBody("card_digit", ccid);
         String card_name = "" + edt_card_name.getText();
-        model.addDataBody("card_name",card_name);
+        model.addDataBody("card_name", card_name);
         model.request();
     }
 

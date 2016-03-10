@@ -11,6 +11,10 @@ public class CreditcardEntity implements Serializable {
     private String paymentCvv;
     private String mCardName;
 
+    private String keyCardType;
+    private String codeCardType;
+    private String titleCardType;
+
     public CreditcardEntity() {
         super();
     }
@@ -24,6 +28,31 @@ public class CreditcardEntity implements Serializable {
         this.paymentYear = paymentYear;
         this.paymentCvv = paymentCvv;
         setCardName(card_name);
+    }
+
+
+    public String getCodeCardType() {
+        return codeCardType;
+    }
+
+    public void setCodeCardType(String codeCardType) {
+        this.codeCardType = codeCardType;
+    }
+
+    public String getKeyCardType() {
+        return keyCardType;
+    }
+
+    public void setKeyCardType(String keyCardType) {
+        this.keyCardType = keyCardType;
+    }
+
+    public String getTitleCardType() {
+        return titleCardType;
+    }
+
+    public void setTitleCardType(String titleCardType) {
+        this.titleCardType = titleCardType;
     }
 
     public String getCardName() {

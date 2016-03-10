@@ -3,6 +3,7 @@ package com.simicart.core.checkout.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,6 +48,7 @@ import com.simicart.core.checkout.fragment.CreditCardFragment;
 import com.simicart.core.checkout.fragment.ThankyouFragment;
 import com.simicart.core.checkout.model.CheckOutGuestNewModel;
 import com.simicart.core.checkout.model.CouponCodeModel;
+import com.simicart.core.checkout.model.CreditCardModel;
 import com.simicart.core.checkout.model.PaymentMethodModel;
 import com.simicart.core.checkout.model.PlaceOrderModel;
 import com.simicart.core.checkout.model.RemoveCouponCodeModel;
@@ -798,7 +800,6 @@ public class ReviewOrderController extends SimiController implements PaymentDele
             mDelegate.setInitViewPaymentMethod(name);
             requestSavePaymentMethod(mCurrentPaymentMethod);
             int show_type = payment.getShow_type();
-            Log.e("ReviewOrderController ","------------> SHOW TYPE " + show_type);
             if (show_type == 4) {
                 goCreditCardFragment(payment);
             }
@@ -859,19 +860,24 @@ public class ReviewOrderController extends SimiController implements PaymentDele
 
     private void goCreditCardFragment(PaymentMethod payment) {
         if (!isSavedCC(payment)) {
-            Log.e("ReviewOrderController ","goCreditCardFragment 001");
             CreditCardFragment fcreditCard = CreditCardFragment
                     .newInstance();
             fcreditCard.setIsCheckedMethod(true);
             fcreditCard.setPaymentMethod(payment);
             SimiManager.getIntance().replacePopupFragment(fcreditCard);
         }
+        else
+        {
+            onSaveCreditcardToOrder(payment);
+        }
+
+
     }
 
     private boolean isSavedCC(PaymentMethod payment) {
         HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
                 .getHashMapCreditCart();
-        if (hashMap != null || hashMap.size() != 0) {
+        if (hashMap != null &&  hashMap.size() != 0) {
             String email = DataLocal.getEmailCreditCart();
             if (Utils.validateString(email) && hashMap.containsKey(email)) {
                 HashMap<String, CreditcardEntity> creditcard = hashMap
@@ -970,6 +976,67 @@ public class ReviewOrderController extends SimiController implements PaymentDele
             param.put("shiping_tax_percent", String.valueOf(0));
         }
         return param;
+    }
+
+
+    public void onSaveCreditcardToOrder(PaymentMethod paymentMethod) {
+        mDelegate.showDialogLoading();
+        CreditCardModel model = new CreditCardModel();
+        ModelDelegate delegate = new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+                mDelegate.dismissDialogLoading();
+                if (error != null)
+                    SimiManager.getIntance().showToast(error.getMessage().toString());
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissDialogLoading();
+                SimiManager.getIntance().showToast(Config.getInstance().getText("Save Credit Card success"));
+            }
+        };
+        model.setDelegate(delegate);
+
+        String quote_id = "";
+        if (DataLocal.isSignInComplete()) {
+            quote_id = Config.getInstance().getQuoteCustomerSignIn();
+        } else {
+            quote_id = DataLocal.getQuoteCustomerNotSigin();
+        }
+        model.addDataBody("quote_id", quote_id);
+
+
+        HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
+                .getHashMapCreditCart();
+        String email = DataLocal.getEmailCreditCart();
+        HashMap<String, CreditcardEntity> hs_card = hashMap
+                .get(email);
+        String paymentMethodCode = paymentMethod.getMethodCode();
+        CreditcardEntity cardEntity = hs_card.get(paymentMethodCode);
+
+        String key = cardEntity.getKeyCardType();
+        String code = cardEntity.getCodeCardType();
+        String title = cardEntity.getTitleCardType();
+
+        JSONArray cc_types = null;
+        JSONObject card_type = new JSONObject();
+        try {
+
+            card_type.put("key", key);
+            card_type.put("code", code);
+            card_type.put("title", title);
+        } catch (JSONException e) {
+
+        }
+        model.addDataBody("card_type", card_type);
+        model.addDataBody("card_number", cardEntity.getPaymentNumber());
+        model.addDataBody("card_name", cardEntity.getCardName());
+        String ccid = "" + cardEntity.getPaymentCvv();
+        model.addDataBody("card_digit", ccid);
+        String card_name = "" + cardEntity.getCardName();
+        model.addDataBody("card_name", card_name);
+        model.request();
     }
 
 

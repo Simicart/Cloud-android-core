@@ -2,6 +2,7 @@ package com.simicart.core.checkout.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,8 @@ public class CreditCardFragment extends SimiFragment {
 		mBlock.setClickSave(mController.getOnClickSave());
 		return view;
 	}
+
+
 
 	public void setPaymentMethod(PaymentMethod paymentMethod) {
 		this.mPaymentMethod = paymentMethod;

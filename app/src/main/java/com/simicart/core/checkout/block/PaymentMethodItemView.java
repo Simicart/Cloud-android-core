@@ -175,6 +175,8 @@ public class PaymentMethodItemView {
 
 
     private void goCreditCardFragment(PaymentMethod payment) {
+
+
         CreditCardFragment fcreditCard = CreditCardFragment
                 .newInstance();
         fcreditCard.setIsCheckedMethod(true);
@@ -256,7 +258,7 @@ public class PaymentMethodItemView {
     private boolean isSavedCC() {
         HashMap<String, HashMap<String, CreditcardEntity>> hashMap = DataLocal
                 .getHashMapCreditCart();
-        if (hashMap != null || hashMap.size() != 0) {
+        if (hashMap != null && hashMap.size() != 0) {
             String email = DataLocal.getEmailCreditCart();
             Log.e("PaymentMethodItemView ", "SAVE CREDIT CART EMAL ----> " + email);
             if (Utils.validateString(email) && hashMap.containsKey(email)) {
