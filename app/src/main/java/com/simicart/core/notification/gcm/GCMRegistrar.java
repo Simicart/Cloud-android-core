@@ -151,10 +151,6 @@ public final class GCMRegistrar {
 			throw new IllegalStateException("No receiver for package "
 					+ packageName);
 		}
-		if (Log.isLoggable(TAG, Log.VERBOSE)) {
-			Log.v(TAG, "number of receivers for " + packageName + ": "
-					+ receivers.length);
-		}
 		Set<String> allowedReceivers = new HashSet<String>();
 		for (ActivityInfo receiver : receivers) {
 			if (GCMConstants.PERMISSION_GCM_INTENTS.equals(receiver.permission)) {
@@ -220,8 +216,6 @@ public final class GCMRegistrar {
 
 	static void internalRegister(Context context, String... senderIds) {
 		String flatSenderIds = getFlatSenderIds(senderIds);
-		Log.v(TAG, "Registering app " + context.getPackageName()
-				+ " of senders " + flatSenderIds);
 		Intent intent = new Intent(GCMConstants.INTENT_TO_GCM_REGISTRATION);
 		intent.setPackage(GSF_PACKAGE);
 		intent.putExtra(GCMConstants.EXTRA_APPLICATION_PENDING_INTENT,
@@ -269,7 +263,6 @@ public final class GCMRegistrar {
 	}
 
 	static void internalUnregister(Context context) {
-		Log.v(TAG, "Unregistering app " + context.getPackageName());
 		Intent intent = new Intent(GCMConstants.INTENT_TO_GCM_UNREGISTRATION);
 		intent.setPackage(GSF_PACKAGE);
 		intent.putExtra(GCMConstants.EXTRA_APPLICATION_PENDING_INTENT,
@@ -305,7 +298,6 @@ public final class GCMRegistrar {
 			filter.addCategory(category);
 			// must use a permission that is defined on manifest for sure
 			String permission = category + ".permission.C2D_MESSAGE";
-			Log.v(TAG, "Registering receiver");
 			context.registerReceiver(sRetryReceiver, filter, permission, null);
 		}
 	}
@@ -373,7 +365,6 @@ public final class GCMRegistrar {
 		final SharedPreferences prefs = getGCMPreferences(context);
 		String oldRegistrationId = prefs.getString(PROPERTY_REG_ID, "");
 		int appVersion = getAppVersion(context);
-		Log.v(TAG, "Saving regId on app version " + appVersion);
 		Editor editor = prefs.edit();
 		editor.putString(PROPERTY_REG_ID, regId);
 		editor.putInt(PROPERTY_APP_VERSION, appVersion);
@@ -391,8 +382,6 @@ public final class GCMRegistrar {
 		// set the flag's expiration date
 		long lifespan = getRegisterOnServerLifespan(context);
 		long expirationTime = System.currentTimeMillis() + lifespan;
-		Log.v(TAG, "Setting registeredOnServer status as " + flag + " until "
-				+ new Timestamp(expirationTime));
 		editor.putLong(PROPERTY_ON_SERVER_EXPIRATION_TIME, expirationTime);
 		editor.commit();
 	}
@@ -410,7 +399,6 @@ public final class GCMRegistrar {
 	public static boolean isRegisteredOnServer(Context context) {
 		final SharedPreferences prefs = getGCMPreferences(context);
 		boolean isRegistered = prefs.getBoolean(PROPERTY_ON_SERVER, false);
-		Log.v(TAG, "Is registered on server: " + isRegistered);
 		if (isRegistered) {
 			// checks if the information is not stale
 			long expirationTime = prefs.getLong(

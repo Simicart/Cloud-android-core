@@ -24,20 +24,7 @@ import android.content.Intent;
  */
 public final class CommonUtilities {
 
-	/**
-	 * Base URL of the Demo Server (such as http://my_host:8080/gcm-demo)
-	 */
-	// static final String SERVER_URL = null;
 
-	/**
-	 * Google API project id registered to use GCM.
-	 */
-	// static final String SENDER_ID = Config.getInstance().getSenderId();
-
-	/**
-	 * Tag used on log messages.
-	 */
-	static final String TAG = "GCM_Notification";
 
 	/**
 	 * Intent used to display a message in the screen.

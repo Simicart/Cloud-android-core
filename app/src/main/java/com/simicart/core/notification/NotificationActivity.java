@@ -8,10 +8,7 @@ import com.simicart.core.notification.entity.NotificationEntity;
 
 public class NotificationActivity extends FragmentActivity {
 
-	NotificationEntity notificationData;
-
 	protected void onCreate(Bundle savedInstanceState) {
-		// ------------------notification--------------
 		super.onCreate(savedInstanceState);
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -27,8 +24,5 @@ public class NotificationActivity extends FragmentActivity {
 		}
 	}
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
 
-	}
 }

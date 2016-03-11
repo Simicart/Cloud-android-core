@@ -18,6 +18,11 @@ public class WebviewFragment extends SimiFragment {
 		return fragment;
 	}
 
+	public WebviewFragment()
+	{
+
+	}
+
 	public String Url;
 
 	public WebviewFragment(String url) {
