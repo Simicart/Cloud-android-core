@@ -60,16 +60,13 @@ public class PhoneSlideMenuFragment extends SimiFragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.e("PhoneSlideMenuFragment", "onCreateView 001");
 		View view = inflater.inflate(
 				Rconfig.getInstance().layout("core_phone_slide_menu"), null,
 				false);
 		view.setBackgroundColor(Config.getInstance().getMenu_background());
-		Log.e("PhoneSlideMenuFragment", "onCreateView 002");
 		Context context = getActivity();
 		mBlock = new PhoneSlideMenuBlock(view, context);
 		mBlock.initView();
-		Log.e("PhoneSlideMenuFragment", "onCreateView 003");
 		mController = new PhoneSlideMenuController(mBlock, context);
 		mController.setCloseDelegate(mCloseDelegate);
 		if(DataLocal.isTablet) {
@@ -80,12 +77,9 @@ public class PhoneSlideMenuFragment extends SimiFragment {
 			mController.setTitletab(titletab);
 		}
 		mController.create();
-		Log.e("PhoneSlideMenuFragment", "onCreateView 004");
 		mBlock.setListener(mController.getListener());
 		mBlock.setClickerPersonal(mController.getOnClickPersonal());
-		Log.e("PhoneSlideMenuFragment", "onCreateView 005");
 		SimiManager.getIntance().setSlideMenuController(mController);
-		Log.e("PhoneSlideMenuFragment", "onCreateView 006");
 		return view;
 	}
 }

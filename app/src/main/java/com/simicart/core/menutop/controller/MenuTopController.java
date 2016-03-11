@@ -105,17 +105,8 @@ public class MenuTopController extends SimiController {
 		return mTouchCart;
 	}
 
-	public void setTouchCart(OnTouchListener mTouchCart) {
-		this.mTouchCart = mTouchCart;
-	}
 
-	public SearchView.OnQueryTextListener getSearchListener() {
-		return mSearchListener;
-	}
 
-	public void setSearchListener(SearchView.OnQueryTextListener mSearchListener) {
-		this.mSearchListener = mSearchListener;
-	}
 
 	public OnTouchListener getTouchMenu() {
 		return mTouchMenu;
