@@ -26,162 +26,156 @@ import com.simicart.core.customer.fragment.ProfileFragment;
 import com.simicart.core.home.fragment.HomeFragment;
 
 public class MyAccountController extends SimiController {
-	OnClickListener mClickProfile;
-	OnClickListener mClickChangePass;
-	OnClickListener mClickAddress;
-	OnClickListener mClickOrderHistory;
-	OnClickListener mClickSignOut;
+    OnClickListener mClickProfile;
+    OnClickListener mClickChangePass;
+    OnClickListener mClickAddress;
+    OnClickListener mClickOrderHistory;
+    OnClickListener mClickSignOut;
 
-	protected SimiDelegate mDelegate;
+    protected SimiDelegate mDelegate;
 
-	public void setDelegate(SimiDelegate delegate) {
-		mDelegate = delegate;
-	}
+    public void setDelegate(SimiDelegate delegate) {
+        mDelegate = delegate;
+    }
 
-	public OnClickListener getClickProfile() {
-		return mClickProfile;
-	}
+    public OnClickListener getClickProfile() {
+        return mClickProfile;
+    }
 
-	public OnClickListener getClickChangePass() {
-		return mClickChangePass;
-	}
+    public OnClickListener getClickChangePass() {
+        return mClickChangePass;
+    }
 
-	public OnClickListener getClickAddress() {
-		return mClickAddress;
-	}
+    public OnClickListener getClickAddress() {
+        return mClickAddress;
+    }
 
-	public OnClickListener getClickOrderHistory() {
-		return mClickOrderHistory;
-	}
+    public OnClickListener getClickOrderHistory() {
+        return mClickOrderHistory;
+    }
 
-	public OnClickListener getClickSignOut() {
-		return mClickSignOut;
-	}
+    public OnClickListener getClickSignOut() {
+        return mClickSignOut;
+    }
 
-	@Override
-	public void onStart() {
+    @Override
+    public void onStart() {
 
-		mDelegate.updateView(null);
-		mClickProfile = new OnClickListener() {
+        mDelegate.updateView(null);
+        mClickProfile = new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				if (DataLocal.isTablet) {
-					ProfileFragment fragment = ProfileFragment.newInstance();
-					SimiManager.getIntance().replacePopupFragment(fragment);
-				} else {
-					ProfileFragment fragment = ProfileFragment.newInstance();
-					SimiManager.getIntance().replaceFragment(fragment);
-				}
-			}
-		};
+            @Override
+            public void onClick(View v) {
+                if (DataLocal.isTablet) {
+                    ProfileFragment fragment = ProfileFragment.newInstance();
+                    SimiManager.getIntance().replacePopupFragment(fragment);
+                } else {
+                    ProfileFragment fragment = ProfileFragment.newInstance();
+                    SimiManager.getIntance().replaceFragment(fragment);
+                }
+            }
+        };
 
-		mClickChangePass = new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(DataLocal.isTablet){
-					ChangePasswordFragment fragment = ChangePasswordFragment.newInstance();
-					SimiManager.getIntance().replacePopupFragment(fragment);
-				}else{
-					ChangePasswordFragment fragment = ChangePasswordFragment.newInstance();
-					SimiManager.getIntance().replaceFragment(fragment);
-				}
-			}
-		};
+        mClickChangePass = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (DataLocal.isTablet) {
+                    ChangePasswordFragment fragment = ChangePasswordFragment.newInstance();
+                    SimiManager.getIntance().replacePopupFragment(fragment);
+                } else {
+                    ChangePasswordFragment fragment = ChangePasswordFragment.newInstance();
+                    SimiManager.getIntance().replaceFragment(fragment);
+                }
+            }
+        };
 
-		mClickAddress = new OnClickListener() {
+        mClickAddress = new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				if (DataLocal.isTablet) {
-					AddressBookFragment fragment = AddressBookFragment
-							.newInstance();
-					SimiManager.getIntance().replacePopupFragment(fragment);
-				} else {
-					AddressBookFragment fragment = AddressBookFragment
-							.newInstance();
-					SimiManager.getIntance().replaceFragment(fragment);
-				}
-			}
-		};
+            @Override
+            public void onClick(View v) {
+                if (DataLocal.isTablet) {
+                    AddressBookFragment fragment = AddressBookFragment
+                            .newInstance();
+                    SimiManager.getIntance().replacePopupFragment(fragment);
+                } else {
+                    AddressBookFragment fragment = AddressBookFragment
+                            .newInstance();
+                    SimiManager.getIntance().replaceFragment(fragment);
+                }
+            }
+        };
 
-		mClickOrderHistory = new OnClickListener() {
+        mClickOrderHistory = new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				OrderHistoryFragment fragment = OrderHistoryFragment
-						.newInstance();
-				SimiManager.getIntance().removeDialog();
-				SimiManager.getIntance().replaceFragment(fragment);
-			}
-		};
+            @Override
+            public void onClick(View v) {
+                OrderHistoryFragment fragment = OrderHistoryFragment
+                        .newInstance();
+                SimiManager.getIntance().removeDialog();
+                SimiManager.getIntance().replaceFragment(fragment);
+            }
+        };
 
-		mClickSignOut = new OnClickListener() {
-			boolean isFirst = true;
+        mClickSignOut = new OnClickListener() {
+            boolean isFirst = true;
 
-			@Override
-			public void onClick(View v) {
-				if (isFirst) {
-					isFirst = false;
-					SimiManager.getIntance().removeDialog();
-					showToastSignOut();
-					DataLocal.isNewSignIn = false;
-					// dispatch event
-					Intent intent = new Intent("com.simicart.core.customer.controller.SignInController");
-					Context context = SimiManager.getIntance().getCurrentContext();
-					LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+            @Override
+            public void onClick(View v) {
+                if (isFirst) {
+                    isFirst = false;
+                    processSignOut();
+                }
+            }
+        };
+    }
 
-					DataLocal.saveSignInState(false);
-					DataLocal.clearEmailPassowrd();
-					ConfigCheckout.getInstance().setmQty("" + 0);
-					ConfigCheckout.getInstance().setCheckStatusCart(true);
-					SimiManager.getIntance().onUpdateCartQty("");
-					if (DataLocal.isTablet) {
-						SimiManager.getIntance().clearAllChidFragment();
-						SimiManager.getIntance().removeDialog();
-					} else {
-						SimiManager.getIntance().backPreviousFragment();
-					}
+    private void processSignOut() {
+        SimiManager.getIntance().removeDialog();
+        showToastSignOut();
+        DataLocal.isNewSignIn = false;
+        // dispatch event
+        Intent intent = new Intent("com.simicart.core.customer.controller.SignInController");
+        Context context = SimiManager.getIntance().getCurrentContext();
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
 
-					DataLocal.saveQuoteCustomerNotSignIn("");
-					Config.getInstance().setQuoteCustomerSignIn("");
+        DataLocal.saveSignInState(false);
+        DataLocal.clearEmailPassowrd();
+        ConfigCheckout.getInstance().setmQty("" + 0);
+        ConfigCheckout.getInstance().setCheckStatusCart(true);
+        SimiManager.getIntance().onUpdateCartQty("");
+        if (DataLocal.isTablet) {
+            SimiManager.getIntance().clearAllChidFragment();
+            SimiManager.getIntance().removeDialog();
+        } else {
+            SimiManager.getIntance().backPreviousFragment();
+        }
 
-//					PaymentMethod.getInstance().setPlacePaymentMethod("");
-//					PaymentMethod.getInstance().setPlace_cc_number("");
-//					PaymentMethod.getInstance().setPlacecc_id("");
-					ConfigCheckout.checkPaymentMethod = false;
+        DataLocal.saveQuoteCustomerNotSignIn("");
+        Config.getInstance().setQuoteCustomerSignIn("");
+        ConfigCheckout.checkPaymentMethod = false;
 
-					HomeFragment fragment = HomeFragment.newInstance();
-					SimiManager.getIntance().replaceFragment(fragment);
-				}
-			}
-		};
-	}
+        HomeFragment fragment = HomeFragment.newInstance();
+        SimiManager.getIntance().replaceFragment(fragment);
+    }
 
-	private void showToastSignOut() {
-		LayoutInflater inflater = SimiManager.getIntance().getCurrentActivity()
-				.getLayoutInflater();
-		View layout_toast = inflater
-				.inflate(
-						Rconfig.getInstance().layout(
-								"core_custom_toast_productlist"),
-						(ViewGroup) SimiManager
-								.getIntance()
-								.getCurrentActivity()
-								.findViewById(
-										Rconfig.getInstance().id(
-												"custom_toast_layout")));
-		TextView txt_toast = (TextView) layout_toast.findViewById(Rconfig
-				.getInstance().id("txt_custom_toast"));
-		Toast toast = new Toast(SimiManager.getIntance().getCurrentContext());
-		txt_toast.setText(Config.getInstance().getText("Logout Success"));
-		toast.setView(layout_toast);
-		toast.setDuration(Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 400);
-		toast.show();
-	}
+    private void showToastSignOut() {
+        LayoutInflater inflater = SimiManager.getIntance().getCurrentActivity()
+                .getLayoutInflater();
 
-	@Override
-	public void onResume() {
-	}
+        int id_layout = Rconfig.getInstance().layout("core_custom_toast_productlist");
+        int id_toast_layout = Rconfig.getInstance().id("custom_toast_layout");
+        ViewGroup viewGroup  = (ViewGroup) SimiManager.getIntance().getCurrentActivity().findViewById(id_toast_layout);
+        View layout_toast = inflater.inflate(id_layout,viewGroup);
+        TextView txt_toast = (TextView) layout_toast.findViewById(Rconfig.getInstance().id("txt_custom_toast"));
+        Toast toast = new Toast(SimiManager.getIntance().getCurrentContext());
+        txt_toast.setText(Config.getInstance().getText("Logout Success"));
+        toast.setView(layout_toast);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL, 0, 400);
+        toast.show();
+    }
+
+    @Override
+    public void onResume() {
+    }
 }

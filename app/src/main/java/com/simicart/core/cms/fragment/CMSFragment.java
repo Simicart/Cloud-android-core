@@ -1,6 +1,5 @@
 package com.simicart.core.cms.fragment;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,6 @@ import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 
-@SuppressLint("SetJavaScriptEnabled")
 public class CMSFragment extends SimiFragment {
 
 	protected String mContent;

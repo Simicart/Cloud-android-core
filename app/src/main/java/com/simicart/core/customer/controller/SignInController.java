@@ -28,6 +28,7 @@ import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.base.network.request.error.SimiError;
+import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.checkout.entity.QuoteEntity;
 import com.simicart.core.checkout.fragment.AddressBookCheckoutFragment;
 import com.simicart.core.common.Utils;
@@ -101,6 +102,7 @@ public class SignInController extends SimiController {
             public void afterTextChanged(Editable arg0) {
             }
         };
+
         mEmailWatcher = new TextWatcher() {
 
             @Override
@@ -125,6 +127,7 @@ public class SignInController extends SimiController {
 
             }
         };
+
         mSignInClicker = new OnClickListener() {
 
             @Override
@@ -139,6 +142,7 @@ public class SignInController extends SimiController {
                 }
             }
         };
+
         mCreateAccClicker = new OnTouchListener() {
 
             @Override
@@ -203,7 +207,6 @@ public class SignInController extends SimiController {
     }
 
     protected void onSignIn() {
-
         final String email = mDelegate.getEmail();
         final String password = mDelegate.getPassword();
         onSingIn(email, password);
@@ -242,67 +245,12 @@ public class SignInController extends SimiController {
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
-                DataLocal.isNewSignIn = true;
-                DataLocal.saveTypeSignIn(Constants.NORMAL_SIGN_IN);
-
                 ProfileEntity entity = (ProfileEntity) collection.getCollection().get(0);
-                //JSONObject obj = entity.getJSONObject();
-                DataLocal.mCustomer = entity;
-
-                String email = "";
-                String firstname = "";
-                String lastname = "";
-                String name = "";
-                String customerID = "";
-
-                if (entity.getEmail() != null)
-                    email = entity.getEmail();
-                if (entity.getID() != null)
-                    customerID = entity.getID();
-                if (entity.getFirstName() != null)
-                    firstname = entity.getFirstName();
-                if (entity.getLastName() != null)
-                    lastname = entity.getLastName();
-
-                name = entity.getFirstName() + " " + entity.getLastName();
-
-                DataLocal.saveData(name, email, password);
-                DataLocal.saveCustomerID(customerID);
-                DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
-                DataLocal.saveEmailPassRemember(email, password);
-                DataLocal.saveEmailCreditCart(email);
-
-                DataLocal.saveSignInState(true);
-                showToastSignIn();
-                if (!isCheckout && DataLocal.isTablet) {
-                    SimiManager.getIntance().clearAllChidFragment();
-                    SimiManager.getIntance().removeDialog();
-                } else {
-                    SimiManager.getIntance().backPreviousFragment();
-                    SimiManager.getIntance().removeDialog();
-                }
-
-                requestGetAllQuote();
-                // dispatch event
-                Intent intent = new Intent("com.simicart.core.customer.controller.SignInController");
-                intent.putExtra(Constants.DATA, mModel.getJSON().toString());
-                Context context = SimiManager.getIntance().getCurrentContext();
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-
-                if (isCheckout) {
-                    SimiFragment fragment = null;
-                    fragment = AddressBookCheckoutFragment.newInstance();
-
-                    // event for wish list
-                    processAfterSignIn(fragment);
-                } else {
-                    SimiFragment fragment = null;
-                    fragment = HomeFragment.newInstance();
-                    processAfterSignIn(fragment);
-                }
+                saveDataUser(entity, password);
+                processSignInSuccess();
             }
         };
-        // mModel.setPriority(Priority.IMMEDIATE);
+
         mModel.setDelegate(delegate);
         JSONObject obj = null;
         try {
@@ -316,6 +264,64 @@ public class SignInController extends SimiController {
         mModel.addDataExtendURL("login");
         mModel.request();
     }
+
+    private void saveDataUser(ProfileEntity entity, String password) {
+        DataLocal.mCustomer = entity;
+        DataLocal.isNewSignIn = true;
+        DataLocal.saveTypeSignIn(Constants.NORMAL_SIGN_IN);
+        String email = "";
+        String firstname = "";
+        String lastname = "";
+        String name = "";
+        String customerID = "";
+
+        if (entity.getEmail() != null)
+            email = entity.getEmail();
+        if (entity.getID() != null)
+            customerID = entity.getID();
+        if (entity.getFirstName() != null)
+            firstname = entity.getFirstName();
+        if (entity.getLastName() != null)
+            lastname = entity.getLastName();
+
+        name = entity.getFirstName() + " " + entity.getLastName();
+
+        DataLocal.saveData(name, email, password);
+        DataLocal.saveCustomerID(customerID);
+        DataLocal.saveCustomer(firstname, lastname, email, name, customerID);
+        DataLocal.saveEmailPassRemember(email, password);
+        DataLocal.saveEmailCreditCart(email);
+
+        DataLocal.saveSignInState(true);
+    }
+
+    private void processSignInSuccess() {
+        showToastSignIn();
+        if (!isCheckout && DataLocal.isTablet) {
+            SimiManager.getIntance().clearAllChidFragment();
+            SimiManager.getIntance().removeDialog();
+        } else {
+            SimiManager.getIntance().backPreviousFragment();
+            SimiManager.getIntance().removeDialog();
+        }
+
+        requestGetAllQuote();
+        // dispatch event
+        Intent intent = new Intent("com.simicart.core.customer.controller.SignInController");
+        intent.putExtra(Constants.DATA, mModel.getJSON().toString());
+        Context context = SimiManager.getIntance().getCurrentContext();
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+
+        SimiFragment fragment = null;
+        if (isCheckout) {
+            fragment = AddressBookCheckoutFragment.newInstance();
+        } else {
+             fragment = HomeFragment.newInstance();
+        }
+        processAfterSignIn(fragment);
+    }
+
+
 
     private void processAfterSignIn(SimiFragment fragment) {
         Context context = SimiManager.getIntance().getCurrentContext();
@@ -367,7 +373,7 @@ public class SignInController extends SimiController {
                                 requestMergeQuote();
                             }
                         }
-                    }else{
+                    } else {
                         if (!DataLocal.getQuoteCustomerNotSigin().equals("")) {
                             requestUpdateCustomerToQuote();
                         }

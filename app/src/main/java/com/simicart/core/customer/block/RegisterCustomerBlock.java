@@ -136,10 +136,6 @@ public class RegisterCustomerBlock extends SimiBlock implements
 		btn_register.setTextColor(Color.WHITE);
 		btn_register.setBackgroundColor(Config.getInstance().getKey_color());
 		btn_register.setTextSize(Constants.SIZE_TEXT_BUTTON);
-		// GradientDrawable gdDefault = new GradientDrawable();
-		// gdDefault.setColor(Config.getInstance().getColorMain());
-		// gdDefault.setCornerRadius(3);
-		// btn_register.setBackgroundDrawable(gdDefault);
 
 		rlt_image_extend = (RelativeLayout) mView.findViewById(Rconfig
 				.getInstance().id("rlt_image_extend"));

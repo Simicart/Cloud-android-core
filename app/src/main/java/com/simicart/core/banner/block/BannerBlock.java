@@ -77,7 +77,6 @@ public class BannerBlock extends SimiBlock implements BannerDelegate {
     }
 
     private void showBanners(ArrayList<SimiEntity> listBanner) {
-        Log.e("BannerBlock", "showBanner" + listBanner.size());
         if (listBanner.size() == 1) {
             BannerAnimation bannerAnimation = new BannerAnimation(mView,
                     mBannerFlipper, false);
@@ -91,7 +90,6 @@ public class BannerBlock extends SimiBlock implements BannerDelegate {
             BannerEntity entity = (BannerEntity) listBanner.get(0);
 
             String imagePath = entity.getImage();
-            Log.e("BannerBlock","imagePath " + imagePath);
             if (Utils.validateString(imagePath)) {
                 DrawableManager.fetchDrawableOnThread(
                         imagePath, bannerImageView);

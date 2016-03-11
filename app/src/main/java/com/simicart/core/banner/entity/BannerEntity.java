@@ -1,9 +1,7 @@
 package com.simicart.core.banner.entity;
 
-import android.util.Log;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.common.Utils;
-import com.simicart.core.config.Constants;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,17 +109,12 @@ public class BannerEntity extends SimiEntity {
 
             // parse image of banner
             if (mJSON.has(image)) {
-                Log.e("BannerEntity", "parse image 001");
                 try {
                     JSONObject js_image = mJSON.getJSONObject(image);
-                    Log.e("BannerEntity", "parse image 002 " + js_image.toString());
                     if (js_image.has(url)) {
-                        Log.e("BannerEntity", "parse image 003");
                         mImagePath = js_image.getString(url);
-                        Log.e("BannerEntity", "parse image 004" + mImagePath);
                     }
                 } catch (JSONException e) {
-                    Log.e("BannerEntity", e.getMessage());
                 }
             }
 

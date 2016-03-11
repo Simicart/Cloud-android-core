@@ -22,16 +22,13 @@ public class BannerController extends SimiController {
 
     @Override
     public void onStart() {
-//        mDelegate.showLoading();
         ModelDelegate delegate = new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-//                mDelegate.dismissLoading();
             }
 
             @Override
             public void onSuccess(SimiCollection collection) {
-//                mDelegate.dismissLoading();
                 mDelegate.updateView(collection);
             }
         };
