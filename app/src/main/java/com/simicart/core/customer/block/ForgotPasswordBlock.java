@@ -3,15 +3,12 @@ package com.simicart.core.customer.block;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.simicart.core.base.block.SimiBlock;
@@ -25,110 +22,68 @@ import com.simicart.core.material.ButtonRectangle;
 
 @SuppressLint("DefaultLocale")
 public class ForgotPasswordBlock extends SimiBlock implements
-		ForgotPasswordDelegate {
+        ForgotPasswordDelegate {
 
-	protected ButtonRectangle btn_Send;
-	protected EditText edt_Email, edt_newPass, edt_confirmPass;
-	private TextView lable_email, lable_newPass, lable_confirmPass;
+    protected ButtonRectangle btn_Send;
+    protected EditText edt_Email;
+    private TextView tv_label;
 
-	public ForgotPasswordBlock(View view, Context context) {
-		super(view, context);
-		// TODO Auto-generated constructor stub
-	}
+    public ForgotPasswordBlock(View view, Context context) {
+        super(view, context);
+        // TODO Auto-generated constructor stub
+    }
 
-	public void setOnClicker(OnClickListener clicker) {
-		btn_Send.setOnClickListener(clicker);
-	}
+    public void setOnClicker(OnClickListener clicker) {
+        btn_Send.setOnClickListener(clicker);
+    }
 
-	@SuppressWarnings("deprecation")
-	@Override
-	public void initView() {
-		lable_email = (TextView) mView.findViewById(Rconfig
-				.getInstance().id("lable_email"));
-		lable_email.setTextColor(Color.GRAY);
-		if(DataLocal.isLanguageRTL) {
-			LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-			params.gravity = Gravity.RIGHT;
-			lable_email.setLayoutParams(params);
-		}
-		lable_email.setText(Config.getInstance().getText("ENTER YOUR EMAIL")
-				.toUpperCase()
-				+ ":");
+    @SuppressWarnings("deprecation")
+    @Override
+    public void initView() {
+        // label
+        tv_label = (TextView) mView.findViewById(Rconfig
+                .getInstance().id("tv_label"));
+        tv_label.setTextColor(Color.GRAY);
+        if (DataLocal.isLanguageRTL) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.gravity = Gravity.RIGHT;
+            tv_label.setLayoutParams(params);
+        }
+        String msg_label = Config.getInstance().getText("ENTER YOUR EMAIL").toUpperCase()  + ":";
+        tv_label.setText(msg_label);
 
-		lable_newPass = (TextView) mView.findViewById(Rconfig
-				.getInstance().id("lable_newPass"));
-		lable_newPass.setVisibility(View.GONE);
-		lable_newPass.setTextColor(Color.GRAY);
-		lable_newPass.setText(Config.getInstance().getText("ENTER YOUR NEW PASSWORD")
-				.toUpperCase()
-				+ ":");
 
-		lable_confirmPass = (TextView) mView.findViewById(Rconfig
-				.getInstance().id("lable_confirmPass"));
-		lable_confirmPass.setVisibility(View.GONE);
-		lable_confirmPass.setTextColor(Color.GRAY);
-		lable_confirmPass.setText(Config.getInstance().getText("CONFIRM YOUR NEW PASSWORD")
-				.toUpperCase()
-				+ ":");
+        // button sent
+        btn_Send = (ButtonRectangle) mView.findViewById(Rconfig.getInstance().id(
+                "bt_send"));
+        btn_Send.setText(Config.getInstance().getText("Reset my password"));
+        btn_Send.setTextColor(Color.WHITE);
+        btn_Send.setBackgroundColor(Config.getInstance().getKey_color());
+        btn_Send.setTextSize(Constants.SIZE_TEXT_BUTTON);
 
-		// button sent
-		btn_Send = (ButtonRectangle) mView.findViewById(Rconfig.getInstance().id(
-				"bt_send"));
-		btn_Send.setText(Config.getInstance().getText("Reset my password"));
-		btn_Send.setTextColor(Color.WHITE);
-		btn_Send.setBackgroundColor(Config.getInstance().getKey_color());
-		btn_Send.setTextSize(Constants.SIZE_TEXT_BUTTON);
+        // Email Field
+        edt_Email = (EditText) mView.findViewById(Rconfig.getInstance().id(
+                "et_email"));
+        if (DataLocal.isLanguageRTL) {
+            edt_Email.setGravity(Gravity.RIGHT);
+        }
+        edt_Email.setHint(Config.getInstance().getText("Email"));
 
-		// Email Field
-		edt_Email = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_email"));
-		if(DataLocal.isLanguageRTL){
-			edt_Email.setGravity(Gravity.RIGHT);
-		}
-		edt_Email.setHint(Config.getInstance().getText("Email"));
+        tv_label.setTextColor(Config.getInstance().getContent_color());
+        edt_Email.setTextColor(Config.getInstance().getContent_color());
+        edt_Email.setHintTextColor(Config.getInstance().getHintContent_color());
 
-		lable_email.setTextColor(Config.getInstance().getContent_color());
-		edt_Email.setTextColor(Config.getInstance().getContent_color());
-		edt_Email.setHintTextColor(Config.getInstance().getHintContent_color());
 
-		// New Pass Field
-		edt_newPass = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_new_pass"));
-		edt_newPass.setVisibility(View.GONE);
-		edt_newPass.setHint(Config.getInstance().getText("New Password"));
+    }
 
-		lable_newPass.setTextColor(Config.getInstance().getContent_color());
-		edt_newPass.setTextColor(Config.getInstance().getContent_color());
-		edt_newPass.setHintTextColor(Config.getInstance().getHintContent_color());
+    @Override
+    public String getEmail() {
+        return edt_Email.getText().toString();
+    }
 
-		// Confirm Pass Field
-		edt_confirmPass = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_confirm_pass"));
-		edt_confirmPass.setVisibility(View.GONE);
-		edt_confirmPass.setHint(Config.getInstance().getText("Confirm Password"));
 
-		lable_confirmPass.setTextColor(Config.getInstance().getContent_color());
-		edt_confirmPass.setTextColor(Config.getInstance().getContent_color());
-		edt_confirmPass.setHintTextColor(Config.getInstance().getHintContent_color());
-	}
-
-	@Override
-	public String getEmail() {
-		return edt_Email.getText().toString();
-	}
-
-	@Override
-	public String getNewPass() {
-		return edt_newPass.getText().toString();
-	}
-
-	@Override
-	public String getConfirmPass() {
-		return edt_confirmPass.getText().toString();
-	}
-
-	public void showNotify(String message) {
-		SimiManager.getIntance().showNotify(null, message, "Ok");
-	}
+    public void showNotify(String message) {
+        SimiManager.getIntance().showNotify(null, message, "Ok");
+    }
 
 }

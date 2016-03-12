@@ -20,12 +20,6 @@
                 android:layout_height="30dp"
                 android:background="#EBEBEB" />
 
-            <com.simicart.core.material.ButtonRectangle
-                android:id="@+id/bt_reorder"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_button"
-                android:padding="10dp"
-                android:text="" />
 
             <View
                 android:id="@+id/view_order_date"

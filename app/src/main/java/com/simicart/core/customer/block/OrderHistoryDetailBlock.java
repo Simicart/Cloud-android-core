@@ -3,7 +3,6 @@ package com.simicart.core.customer.block;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -13,14 +12,13 @@ import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
 
 import com.simicart.core.base.block.SimiBlock;
-import com.simicart.core.base.model.collection.SimiCollection;
+import com.simicart.core.base.delegate.SimiDelegate;
 import com.simicart.core.checkout.adapter.ProductOrderAdapter;
 import com.simicart.core.common.Utils;
 import com.simicart.core.common.price.OrderHistoryDetailPriceView;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
-import com.simicart.core.customer.delegate.OrderHistoryReOrderDelegate;
 import com.simicart.core.customer.entity.BillingAddress;
 import com.simicart.core.customer.entity.OrderHisDetail;
 import com.simicart.core.customer.entity.ShippingAddress;
@@ -28,8 +26,7 @@ import com.simicart.core.material.ButtonRectangle;
 
 @SuppressLint("DefaultLocale")
 public class OrderHistoryDetailBlock extends SimiBlock implements
-        OrderHistoryReOrderDelegate {
-    protected ButtonRectangle bt_reorder;
+        SimiDelegate {
     protected OrderHisDetail orderHisDetail;
     private View view_top;
     private View view_bottom;
@@ -43,9 +40,6 @@ public class OrderHistoryDetailBlock extends SimiBlock implements
         this.orderHisDetail = orderHisDetail;
     }
 
-    public void setOnTouchReOrder(OnTouchListener listener) {
-        bt_reorder.setOnTouchListener(listener);
-    }
 
     @Override
     public void initView() {
@@ -88,13 +82,6 @@ public class OrderHistoryDetailBlock extends SimiBlock implements
                 .toUpperCase());
         lb_payment.setTextColor(Config.getInstance().getSection_text_color());
         lb_payment.setBackgroundColor(Color.parseColor(Config.getInstance().getSection_color()));
-        bt_reorder = (ButtonRectangle) mView.findViewById(Rconfig.getInstance()
-                .id("bt_reorder"));
-        bt_reorder.setVisibility(View.GONE);
-        bt_reorder.setTextColor(Color.WHITE);
-        bt_reorder.setText(Config.getInstance().getText("Reorder"));
-        bt_reorder.setTextSize(16);
-        bt_reorder.setBackgroundColor(Config.getInstance().getKey_color());
 
         if (null != orderHisDetail) {
             TextView tv_date = (TextView) mView.findViewById(Rconfig
@@ -317,9 +304,5 @@ public class OrderHistoryDetailBlock extends SimiBlock implements
         }
     }
 
-    @Override
-    public ButtonRectangle reOrder() {
-        // TODO Auto-generated method stub
-        return bt_reorder;
-    }
+
 }
