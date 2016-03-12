@@ -19,14 +19,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp" >
-
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp" />
+                android:paddingRight="10dp"
+                android:layout_marginTop="40dp"
+                >
 
                 <EditText
-                    android:id="@+id/et_prefix_show"
+                    android:id="@+id/edt_first_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -36,7 +34,7 @@
                     android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/et_fullname"
+                    android:id="@+id/edt_last_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -45,18 +43,9 @@
                     android:ems="20"
                     android:inputType="textPersonName" />
 
-                <EditText
-                    android:id="@+id/et_suffix_show"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/background_edittext"
-                    android:ems="20"
-                    android:inputType="textPersonName" />
 
                 <EditText
-                    android:id="@+id/et_email"
+                    android:id="@+id/edt_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -65,91 +54,9 @@
                     android:ems="20"
                     android:inputType="textEmailAddress" />
 
-                <com.simicart.core.material.LayoutRipple
-                    android:id="@+id/layout_date_of_birt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/tv_date_birth"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="5dp"
-                        android:paddingTop="10dp"
-                        android:textSize="18sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        android:layout_alignParentBottom="true"
-                        android:background="@drawable/background_edittext" />
-                </com.simicart.core.material.LayoutRipple>
-
-                <!-- <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="#CACACA" /> -->
-
-                <RelativeLayout
-                    android:id="@+id/rl_gender"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/background_edittext"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="5dp" >
-
-                    <TextView
-                        android:id="@+id/tv_gender"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:textSize="18sp" />
-
-                    <Spinner
-                        android:id="@+id/sp_gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/rlt_image_extend"
-                        android:layout_toRightOf="@+id/tv_gender"
-                        android:background="@null" />
-
-                    <RelativeLayout
-                        android:id="@+id/rlt_image_extend"
-                        android:layout_width="50dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerInParent="true" >
-
-                        <ImageView
-                            android:id="@+id/im_extend"
-                            android:layout_width="25dp"
-                            android:layout_height="25dp"
-                            android:layout_centerInParent="true"
-                            android:rotation="90"
-                            android:src="@drawable/ic_extend" />
-                    </RelativeLayout>
-                </RelativeLayout>
 
                 <EditText
-                    android:id="@+id/et_taxvat_show"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/background_edittext"
-                    android:ems="20"
-                    android:inputType="textAutoComplete" />
-
-                <EditText
-                    android:id="@+id/et_pass"
+                    android:id="@+id/edt_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -159,7 +66,7 @@
                     android:inputType="textPassword" />
 
                 <EditText
-                    android:id="@+id/et_confirm_pass"
+                    android:id="@+id/edt_confirm_pass"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
@@ -168,9 +75,6 @@
                     android:ems="20"
                     android:inputType="textPassword" />
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -187,11 +91,6 @@
                     android:text="" />
             </RelativeLayout>
 
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
         </LinearLayout>
     </ScrollView>
 

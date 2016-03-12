@@ -47,7 +47,10 @@ public class OrderHistory extends SimiEntity {
 		}
 
 		if(mJSON.has("orders")) {
-			mOrders = new ArrayList<>();
+
+			if(null == mOrders) {
+				mOrders = new ArrayList<>();
+			}
 			try {
 				JSONArray arr = mJSON.getJSONArray("orders");
 				for(int i=0;i<arr.length();i++) {
@@ -100,5 +103,16 @@ public class OrderHistory extends SimiEntity {
 
 	public void setmTotal(int mTotal) {
 		this.mTotal = mTotal;
+	}
+
+	public int getNumberOrder()
+	{
+		if(null == mOrders)
+		{
+			return 0;
+		}
+
+
+		return mOrders.size();
 	}
 }

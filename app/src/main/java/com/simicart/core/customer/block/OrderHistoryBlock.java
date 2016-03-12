@@ -48,17 +48,7 @@ public class OrderHistoryBlock extends SimiBlock implements
         listview_order_history.setOnScrollListener(listener);
     }
 
-    protected void showNotifyEmpty() {
-        TextView tv_empty = new TextView(mContext);
-        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT);
-        tv_empty.setGravity(Gravity.CENTER);
-        tv_empty.setText(Config.getInstance().getText("Order history is empty"));
-        tv_empty.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
-        tv_empty.setTextColor(Config.getInstance().getContent_color());
-        ((LinearLayout) mView).addView(tv_empty, params);
-    }
+
 
     @Override
     public void initView() {
@@ -77,13 +67,7 @@ public class OrderHistoryBlock extends SimiBlock implements
             ArrayList<OrderHisDetail> orderHisDetails = new ArrayList<>();
             orderHisDetails = entity.getmOrders();
             if (orderHisDetails.size() > 0) {
-                if (null == mAdapter) {
-                    mAdapter = new OrderHisAdapter(mContext, orderHisDetails);
-                    listview_order_history.setAdapter(mAdapter);
-                } else {
-                    mAdapter.setOrderHis(orderHisDetails);
-                    mAdapter.notifyDataSetChanged();
-                }
+               showListOrder(orderHisDetails);
             } else {
                 showNotifyEmpty();
             }
@@ -92,6 +76,31 @@ public class OrderHistoryBlock extends SimiBlock implements
             showNotifyEmpty();
         }
     }
+
+    private void showListOrder(ArrayList<OrderHisDetail> orderHisDetails)
+    {
+        if (null == mAdapter) {
+            mAdapter = new OrderHisAdapter(mContext, orderHisDetails);
+            listview_order_history.setAdapter(mAdapter);
+        } else {
+            mAdapter.setOrderHis(orderHisDetails);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    protected void showNotifyEmpty() {
+        TextView tv_empty = new TextView(mContext);
+        LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT,
+                LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        tv_empty.setGravity(Gravity.CENTER);
+        tv_empty.setText(Config.getInstance().getText("Order history is empty"));
+        tv_empty.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
+        tv_empty.setTextColor(Config.getInstance().getContent_color());
+        ((LinearLayout) mView).addView(tv_empty, params);
+    }
+
+
 
     @SuppressLint("InflateParams")
     @Override

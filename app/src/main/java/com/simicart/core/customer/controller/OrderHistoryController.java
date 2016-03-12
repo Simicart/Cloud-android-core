@@ -10,6 +10,7 @@ import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
+import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
@@ -18,13 +19,16 @@ import com.simicart.core.customer.entity.OrderHistory;
 import com.simicart.core.customer.fragment.OrderHistoryDetailFragment;
 import com.simicart.core.customer.model.OrderHistoryModel;
 
+import java.util.ArrayList;
+
 public class OrderHistoryController extends SimiController {
     protected OrderHistoryDelegate mDelegate;
     protected OnItemClickListener mItemClicker;
     protected OnScrollListener mScrollListener;
     protected int mOffset = 0;
     protected int mLimit = 5;
-    protected boolean mCheckOnScroll = true;
+    protected  int mTotal;
+    protected  int mCurrentNumberOrder;
 
     public OnItemClickListener getItemClicker() {
         return mItemClicker;
@@ -58,7 +62,7 @@ public class OrderHistoryController extends SimiController {
                 int count = view.getCount();
                 if (scrollState == SCROLL_STATE_IDLE) {
                     if ((view.getLastVisiblePosition() >= count - threshold)) {
-                        if (mCheckOnScroll) {
+                        if(mCurrentNumberOrder < mTotal) {
                             mOffset += 5;
                             onAddData();
                         }
@@ -73,41 +77,12 @@ public class OrderHistoryController extends SimiController {
             }
         };
 
-        onRequestData(mLimit, mOffset);
+        onRequestData();
 
     }
 
-    protected void onAddData() {
-        mDelegate.addFooterView();
-        mCheckOnScroll = false;
-        mModel.setDelegate(new ModelDelegate() {
-            @Override
-            public void onFail(SimiError error) {
-                if(error != null) {
-                    SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
-                }
-            }
-
-            @Override
-            public void onSuccess(SimiCollection collection) {
-
-            }
-        });
-
-        String email = DataLocal.getEmail();
-        String pass = DataLocal.getPassword();
-
-        mModel.addDataBody(Constants.USER_EMAIL, email);
-        mModel.addDataBody(Constants.USER_PASSWORD, pass);
-        mModel.addDataBody(Constants.LIMIT, String.valueOf(mLimit));
-        mModel.addDataBody(Constants.OFFSET, String.valueOf(mOffset));
-
-        mModel.request();
-    }
-
-    protected void onRequestData(int limit, int offset) {
+    protected void onRequestData() {
         mDelegate.showLoading();
-        mCheckOnScroll = false;
         mModel = new OrderHistoryModel();
         mModel.setDelegate(new ModelDelegate() {
             @Override
@@ -120,29 +95,68 @@ public class OrderHistoryController extends SimiController {
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
+
+                ArrayList<SimiEntity> entities = collection.getCollection();
+                if(entities.size() > 0)
+                {
+                    OrderHistory orderHistory = (OrderHistory) entities.get(0);
+                    mTotal = orderHistory.getmTotal();
+                    mCurrentNumberOrder = orderHistory.getNumberOrder();
+                }
+
                 mDelegate.updateView(collection);
+
+
             }
         });
 
         // Add Filter with fixed data
         mModel.addFilterDataParameter("customer|customer_id", DataLocal.getCustomerID());
         mModel.sortDirDESC();
-//        String email = DataLocal.getEmail();
-//        String pass = DataLocal.getPassword();
-//
-//        mModel.addDataBody(Constants.USER_EMAIL, email);
-//        mModel.addDataBody(Constants.USER_PASSWORD, pass);
-//        mModel.addDataBody(Constants.LIMIT, String.valueOf(limit));
-//        mModel.addDataBody(Constants.OFFSET, String.valueOf(offset));
+        mModel.addOffsetDataParameter(String.valueOf(mOffset));
+        mModel.addLimitDataParameter(String.valueOf(mLimit));
 
         mModel.request();
     }
+
+    protected void onAddData() {
+        mDelegate.addFooterView();
+        mModel.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+                if(error != null) {
+                    SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
+                }
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+                mDelegate.removeFooterView();
+                mDelegate.updateView(collection);
+                ArrayList<SimiEntity> entities = collection.getCollection();
+                if(entities.size() > 0)
+                {
+                    OrderHistory orderHistory = (OrderHistory) entities.get(0);
+                    mTotal = orderHistory.getmTotal();
+                    mCurrentNumberOrder = orderHistory.getNumberOrder();
+                }
+            }
+        });
+
+        mModel.addFilterDataParameter("customer|customer_id", DataLocal.getCustomerID());
+        mModel.sortDirDESC();
+        mModel.addOffsetDataParameter(String.valueOf(mOffset));
+        mModel.addLimitDataParameter(String.valueOf(mLimit));
+
+        mModel.request();
+    }
+
+
 
     protected void onSelectedItem(int position) {
         OrderHistory orderHis = (OrderHistory) mModel.getCollection()
                 .getCollection().get(0);
 
-        String id = orderHis.getmID().get(position);
         OrderHistoryDetailFragment fragment = OrderHistoryDetailFragment
                 .newInstance();
         fragment.setOrderHisDetail(orderHis.getmOrders().get(position));

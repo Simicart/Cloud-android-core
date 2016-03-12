@@ -46,9 +46,7 @@ public class RegisterCustomerFragment extends SimiFragment {
 			mController.setIsCheckout(isCheckout);
 			mController.onResume();
 		}
-		mBlock.setOnClickRelativeLayout(mController.getOnClickRelative());
 		mBlock.setRegisterClick(mController.getOnclickRegister());
-		mBlock.setOnClickTextViewGender(mController.getOnClickRelative());
 		return view;
 	}
 

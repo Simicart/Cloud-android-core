@@ -28,7 +28,6 @@ public class ProfileModel extends SimiModel {
 	protected void paserData() {
 		super.paserData();
 		if(mJSONResult != null){
-			Log.e("ProfileModel", mJSONResult.toString());
 			try {
 				JSONObject customerObj = mJSONResult.getJSONObject("customer");
 				ProfileEntity profileEntity = new ProfileEntity();
