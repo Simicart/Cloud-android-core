@@ -226,5 +226,8 @@ public class BrainTreeActivity extends Activity {
         finish();
     }
 
-
+    @Override
+    public void onBackPressed() {
+        
+    }
 }
