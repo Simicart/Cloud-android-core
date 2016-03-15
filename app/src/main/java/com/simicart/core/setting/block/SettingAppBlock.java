@@ -89,6 +89,14 @@ public class SettingAppBlock extends SimiBlock implements SettingAppDelegate{
         tv_notification.setText(Config.getInstance().getText(
                 "Show notifications"));
 
+        tb_notification = (ToggleButton) mView
+                .findViewById(Rconfig.getInstance().id("tb_notification"));
+        if (DataLocal.enableNotification()) {
+            tb_notification.setChecked(true);
+        } else {
+            tb_notification.setChecked(false);
+        }
+
         // Locator
         rl_locator = (LayoutRipple) mView.findViewById(Rconfig.getInstance()
                 .id("rl_locator"));
@@ -100,14 +108,6 @@ public class SettingAppBlock extends SimiBlock implements SettingAppDelegate{
         v_under = (View) mView.findViewById(Rconfig.getInstance().id(
                 "v_under"));
         v_under.setBackgroundColor(Config.getInstance().getApp_backrground());
-
-        tb_notification = (ToggleButton) mView
-                .findViewById(Rconfig.getInstance().id("tb_notification"));
-        if (DataLocal.enableNotification()) {
-            tb_notification.setChecked(true);
-        } else {
-            tb_notification.setChecked(false);
-        }
 
         setColor(mView);
     }
