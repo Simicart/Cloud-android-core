@@ -79,8 +79,6 @@ public class NewAddressBookFragment extends SimiFragment {
 		mBlock.setSaveAddress(mController.getClickSave());
 		mBlock.setChooseCountry(mController.getChooseCountry());
 		mBlock.setChooseStates(mController.getChooseStates());
-		mBlock.setOnclickTextviewGender(mController.showGender());
-		mBlock.setOnclickImageGender(mController.showGender());
 
 		if(afterControl != NEW_ADDRESS) {
 			SimiManager.getIntance().showCartLayout(false);
