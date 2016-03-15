@@ -41,6 +41,12 @@ public class AddressBookDetailController extends SimiController implements
     protected OnClickListener mChooseStates;
     protected String mCountry;
     protected ArrayList<String> list_country_adapter;
+    protected MyAddress mAddressDetail;
+
+    public void setAddressDetail(MyAddress address) {
+        mAddressDetail = address;
+    }
+
 
     public OnClickListener getClickSave() {
         return mClickSave;
@@ -89,19 +95,22 @@ public class AddressBookDetailController extends SimiController implements
 
             @Override
             public void onClick(View v) {
-                MyAddress addressBookDetail = mDelegate.getAddressBookDetail();
+
+                String countryname = mAddressDetail.getCountry().getName();
                 changeFragmentCountry(
                         1,
-                        getStateFromCountry(addressBookDetail.getCountryName(),
+                        getStateFromCountry(countryname,
                                 country));
             }
         };
+
+        mDelegate.showAddressDetail(mAddressDetail);
     }
 
     @Override
     public void onResume() {
-        Log.e("Address Book", "onResume()");
         mDelegate.updateView(mModel.getCollection());
+        mDelegate.showAddressDetail(mAddressDetail);
         mDelegate.setListCountry(country);
     }
 
@@ -111,7 +120,7 @@ public class AddressBookDetailController extends SimiController implements
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -146,7 +155,7 @@ public class AddressBookDetailController extends SimiController implements
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -160,8 +169,7 @@ public class AddressBookDetailController extends SimiController implements
             }
         });
 
-        Log.e("AddressBookDTController", address.getID());
-        mModel.addDataExtendURL(DataLocal.getCustomerID(),"addresses");
+        mModel.addDataExtendURL(DataLocal.getCustomerID(), "addresses");
         mModel.addDataExtendURL(address.getID());
 
         // prefix
@@ -183,26 +191,25 @@ public class AddressBookDetailController extends SimiController implements
                 param_state.put("code", address.getStates().getCode());
             } catch (JSONException e) {
                 param_state = null;
-                Log.e("MyAddress", e.getMessage());
             }
-            if(param_state != null) {
+            if (param_state != null) {
                 if (Utils.validateString(param_state.toString())) {
                     mModel.addDataBody("state", param_state);
                 }
-            }else{
+            } else {
                 try {
                     param_state.put("name", "");
                     param_state.put("code", "");
-                }catch (JSONException e) {
+                } catch (JSONException e) {
 
                 }
                 mModel.addDataBody("state", param_state);
             }
-        }else{
+        } else {
             try {
                 param_state.put("name", "");
                 param_state.put("code", "");
-            }catch (JSONException e) {
+            } catch (JSONException e) {
 
             }
             mModel.addDataBody("state", param_state);
@@ -217,26 +224,25 @@ public class AddressBookDetailController extends SimiController implements
                 param_country.put("code", address.getCountry().getCode());
             } catch (JSONException e) {
                 param_country = null;
-                Log.e("MyAddress", e.getMessage());
             }
-            if(param_country != null) {
+            if (param_country != null) {
                 if (Utils.validateString(param_country.toString())) {
                     mModel.addDataBody("country", param_country);
                 }
-            }else{
+            } else {
                 try {
                     param_country.put("name", "");
                     param_country.put("code", "");
-                }catch (JSONException e) {
+                } catch (JSONException e) {
 
                 }
                 mModel.addDataBody("country", param_country);
             }
-        }else{
+        } else {
             try {
                 param_country.put("name", "");
                 param_country.put("code", "");
-            }catch (JSONException e) {
+            } catch (JSONException e) {
 
             }
             mModel.addDataBody("country", param_country);
@@ -270,59 +276,48 @@ public class AddressBookDetailController extends SimiController implements
     }
 
     protected boolean isCompleteRequired(MyAddress addressBookDetail) {
-        ConfigCustomerAddress _configCustomer = DataLocal.ConfigCustomerAddress;
-        if (addressBookDetail.getEmail().equals("")) {
-            return true;
-        } else {
 
-            String prefix = addressBookDetail.getPrefix();
-            if (_configCustomer.getPrefix().toLowerCase().equals("req")
-                    && (null == prefix || prefix.equals(""))) {
-                return false;
-            }
-            String suffix = addressBookDetail.getSuffix();
-            if (_configCustomer.getSuffix().toLowerCase().equals("req")
-                    && (null == suffix || suffix.equals(""))) {
-                return false;
-            }
-
-            String street = addressBookDetail.getStreet();
-            if (_configCustomer.getStreet().toLowerCase().equals("req")
-                    && (null == street || street.equals(""))) {
-                return false;
-            }
-            String city = addressBookDetail.getCity();
-            if (_configCustomer.getCity().toLowerCase().equals("req")
-                    && (null == city || city.equals(""))) {
-                return false;
-            }
-            String zipcode = addressBookDetail.getZipCode();
-            if (_configCustomer.getZipcode().toLowerCase().equals("req")
-                    && (null == zipcode || zipcode.equals(""))) {
-                return false;
-            }
-            String phone = addressBookDetail.getPhone();
-            if (_configCustomer.getTelephone().toLowerCase().equals("req")
-                    && (null == phone || phone.equals(""))) {
-                return false;
-            }
-            if (_configCustomer.getFax().toLowerCase().equals("req")
-                    && (addressBookDetail.getFax() == null || addressBookDetail
-                    .getFax().equals(""))) {
-                return false;
-            }
-            if (_configCustomer.getVat_id().toLowerCase().equals("req")
-                    && (addressBookDetail.getTaxvatCheckout() == null || addressBookDetail
-                    .getTaxvatCheckout().equals(""))) {
-                return false;
-            }
-            if (_configCustomer.getCompany().toLowerCase().equals("req")
-                    && (addressBookDetail.getCompany() == null || addressBookDetail
-                    .getCompany().equals(""))) {
-                return false;
-            }
-            return true;
+        String first_name = addressBookDetail.getFirstName();
+        if (!Utils.validateString(first_name)) {
+            return false;
         }
+
+        String last_name = addressBookDetail.getLastName();
+        if (!Utils.validateString(last_name)) {
+            return false;
+        }
+
+        String street = addressBookDetail.getStreet();
+        if (!Utils.validateString(street)) {
+            return false;
+        }
+
+        String city = addressBookDetail.getCity();
+        if (!Utils.validateString(city)) {
+            return false;
+        }
+
+        String state = addressBookDetail.getStateName();
+        if (!Utils.validateString(state)) {
+            return false;
+        }
+
+        String country = addressBookDetail.getCountryName();
+        if (!Utils.validateString(country)) {
+            return false;
+        }
+
+        String zip_code = addressBookDetail.getZipCode();
+        if (!Utils.validateString(zip_code)) {
+            return false;
+        }
+
+        String phone_number = addressBookDetail.getPhone();
+        if (!Utils.validateString(phone_number)) {
+            return false;
+        }
+
+        return true;
     }
 
     protected void changeFragmentCountry(int type,
@@ -337,10 +332,22 @@ public class AddressBookDetailController extends SimiController implements
     public ArrayList<String> getStateFromCountry(String country,
                                                  ArrayList<CountryAllowed> listCountry) {
         ArrayList<String> states = new ArrayList<String>();
+
+        Log.e("AddressBookDetailController ", "getStateFromCountry ==> COUNTRY " + country);
+
         for (CountryAllowed countryAllowed : listCountry) {
-            if (countryAllowed.getName().equals(country)) {
-                for (StateOfCountry state : countryAllowed.getState()) {
-                    states.add(state.getName());
+            String name_country = countryAllowed.getName();
+
+            if (name_country.equals(country)) {
+                Log.e("AddressBookDetailController ", "getStateFromCountry ==> NAME_COUNTRY " + name_country);
+
+                ArrayList<StateOfCountry> stateOfCountries = countryAllowed.getState();
+                if (null != stateOfCountries && stateOfCountries.size() > 0) {
+                    for (StateOfCountry state : stateOfCountries) {
+                        Log.e("AddressBookDetailController ", "getStateFromCountry ==> STATE " + state);
+
+                        states.add(state.getName());
+                    }
                 }
                 return states;
             }
@@ -350,9 +357,88 @@ public class AddressBookDetailController extends SimiController implements
 
     @Override
     public void chooseCountry(int type, String mCountry) {
-        Log.e("AddressBook", mCountry);
-        mDelegate.setCountry(type, mCountry, this.country);
+
+        ArrayList<String> states = getStateFromCountry(mCountry, this.country);
+
+        if (type == 0) {
+            mAddressDetail.setCountryName(mCountry);
+            mAddressDetail.setStateName("");
+            if (states.size() <= 0) {
+                mAddressDetail.setStateName("");
+            } else {
+                mAddressDetail.setStateName(states.get(0).toString());
+            }
+            mAddressDetail.setCountryCode(getCountryCode(mCountry,
+                    this.country));
+            mAddressDetail.getCountry().setName(mCountry);
+            mAddressDetail.getCountry().setCode(getCountryCode(mCountry,
+                    this.country));
+        }
+        if (type == 1) {
+            mAddressDetail.setStateName(mCountry);
+            mAddressDetail.setStateCode(getStateCode(
+                    mCountry,
+                    getListStateFromCountry(
+                            mAddressDetail.getCountryName(), this.country)));
+            mAddressDetail.setStateId(getStateId(
+                    mCountry,
+                    getListStateFromCountry(
+                            mAddressDetail.getCountryName(), this.country)));
+        }
+
     }
+
+
+    public String getCountryCode(String country,
+                                 ArrayList<CountryAllowed> countryAlloweds) {
+        String country_code = "";
+        for (CountryAllowed countryAllowed : countryAlloweds) {
+            if (countryAllowed.getName().equals(country)) {
+                country_code = countryAllowed.getCode();
+                return country_code;
+            }
+        }
+        return country_code;
+    }
+
+    public String getStateCode(String statename,
+                               ArrayList<StateOfCountry> stateOfCountries) {
+        String state_code = "";
+        if (null != stateOfCountries && stateOfCountries.size() > 0) {
+            for (StateOfCountry stateOfCountry : stateOfCountries) {
+                if (stateOfCountry.getName().equals(statename)) {
+                    state_code = stateOfCountry.getName();
+                    return state_code;
+                }
+            }
+        }
+        return state_code;
+    }
+
+    public ArrayList<StateOfCountry> getListStateFromCountry(String country,
+                                                             ArrayList<CountryAllowed> countryAlloweds) {
+        for (CountryAllowed countryAllowed : countryAlloweds) {
+            if (countryAllowed.getName().equals(country)) {
+                return countryAllowed.getState();
+            }
+        }
+        return null;
+    }
+
+    public String getStateId(String statename,
+                             ArrayList<StateOfCountry> stateOfCountries) {
+        String state_Id = "";
+        if (null != stateOfCountries && stateOfCountries.size() > 0) {
+            for (StateOfCountry stateOfCountry : stateOfCountries) {
+                if (stateOfCountry.getName().equals(statename)) {
+                    state_Id = stateOfCountry.getCode();
+                    return state_Id;
+                }
+            }
+        }
+        return state_Id;
+    }
+
 
     @Override
     public void setCurrentCountry(String country) {

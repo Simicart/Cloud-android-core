@@ -50,27 +50,15 @@ public class SlideMenuFragment extends SimiFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.e("SlideMenuFragment", "onCreateView 001");
         rootView = inflater.inflate(
                 Rconfig.getInstance().getId(getActivity(),
                         "core_slidemenu_layout", "layout"), container, false);
-        // rootView.setBackgroundColor(Color.parseColor("#05292929"));
-        Log.e("SlideMenuFragment", "onCreateView 002");
         return rootView;
     }
 
     public void setup(int fragmentId, DrawerLayout drawerLayout) {
-        // ActionBar actionBar = getActionBar();
-        // actionBar.setDisplayHomeAsUpEnabled(true);
-        // actionBar.setHomeButtonEnabled(true);
-
-        Log.e("SlideMenuFragment", "setup 001");
-
         int mIdIconDrawer = Rconfig.getInstance().drawable("ic_menu");
-
         mFragmentContainerView = getActivity().findViewById(fragmentId);
-
-        Log.e("SlideMenuFragment", "setup 002");
 
         mDrawerLayout = (DrawerLayout) getActivity().findViewById(
                 Rconfig.getInstance().id("drawer_layout"));
@@ -80,8 +68,6 @@ public class SlideMenuFragment extends SimiFragment implements
         mDrawerLayout.setBackgroundColor(Config.getInstance()
                 .getApp_backrground());
 
-        Log.e("SlideMenuFragment", "setup 003");
-
         mDrawerToggle = new ActionBarDrawerToggle(getActivity(), mDrawerLayout,
                 mIdIconDrawer, Rconfig.getInstance().string(
                 "navigation_drawer_open"), Rconfig.getInstance()
@@ -89,25 +75,16 @@ public class SlideMenuFragment extends SimiFragment implements
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
-                // if (!isAdded()) {
-                // return;
-                // }
                 getActivity().supportInvalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                // if (!isAdded()) {
-                // return;
-                // }
                 getActivity().supportInvalidateOptionsMenu();
             }
         };
 
-        Log.e("SlideMenuFragment", "setup 004");
-
-        // mDrawerLayout.openDrawer(mFragmentContainerView);
         mDrawerLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -115,22 +92,16 @@ public class SlideMenuFragment extends SimiFragment implements
             }
         });
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        Log.e("SlideMenuFragment", "setup 005");
         initView();
     }
 
     public void initView() {
         if (DataLocal.isTablet) {
-            Log.e("SlideMenuFragment ", "initView Tablet");
             initSlideTablet();
         } else {
-            Log.e("SlideMenuFragment", "initSlidePhone 001");
             PhoneSlideMenuFragment fragment = new PhoneSlideMenuFragment();
             fragment.setCloseDelegate(this);
-            Log.e("SlideMenuFragment", "initSlidePhone 002");
             replaceFragment(fragment);
-            Log.e("SlideMenuFragment", "initSlidePhone 003");
         }
     }
 
@@ -180,11 +151,6 @@ public class SlideMenuFragment extends SimiFragment implements
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // if (isDrawerOpen()) {
-        // inflater.inflate(Rconfig.getInstance().getId("global", "menu"),
-        // menu);
-        // // showGlobalContextActionBar();
-        // }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -196,14 +162,6 @@ public class SlideMenuFragment extends SimiFragment implements
         return super.onOptionsItemSelected(item);
     }
 
-    // protected void showGlobalContextActionBar() {
-    // ActionBar actionBar = getActionBar();
-    // actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-    // }
-
-    // protected ActionBar getActionBar() {
-    // return ((ActionBarActivity) getActivity()).getSupportActionBar();
-    // }
 
     public void openMenu() {
         mDrawerLayout.openDrawer(mFragmentContainerView);

@@ -17,29 +17,31 @@ import java.util.ArrayList;
 
 public class OrderHistoryModel extends SimiModel {
 
-	@Override
-	protected void setUrlAction() {
-		addDataExtendURL("orders");
-	}
+    private OrderHistory orderHistory;
 
-	@Override
-	protected void setTypeMethod() {
-		mTypeMethod = SimiRequest.Method.GET;
-	}
+    @Override
+    protected void setUrlAction() {
+        addDataExtendURL("orders");
+    }
 
-	@Override
-	protected void paserData() {
-		super.paserData();
+    @Override
+    protected void setTypeMethod() {
+        mTypeMethod = SimiRequest.Method.GET;
+    }
 
-		Log.e("OrderHistoryModel", "" + mJSONResult.toString());
+    @Override
+    protected void paserData() {
+        super.paserData();
 
-		OrderHistory orderHistory = new OrderHistory();
-		orderHistory.setJSONObject(mJSONResult);
-		orderHistory.parse();
+        if(null == orderHistory) {
+            orderHistory = new OrderHistory();
+        }
+        orderHistory.setJSONObject(mJSONResult);
+        orderHistory.parse();
 
-		ArrayList<SimiEntity> arrayEntity = new ArrayList<>();
-		arrayEntity.add(orderHistory);
-		collection.setCollection(arrayEntity);
-	}
+        ArrayList<SimiEntity> arrayEntity = new ArrayList<>();
+        arrayEntity.add(orderHistory);
+        collection.setCollection(arrayEntity);
+    }
 
 }

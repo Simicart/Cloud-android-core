@@ -2,29 +2,16 @@ package com.simicart;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Base64;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 
 import com.simicart.core.base.manager.SimiManager;
-import com.simicart.core.checkout.controller.ConfigCheckout;
 import com.simicart.core.common.FontsOverride;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
@@ -33,13 +20,8 @@ import com.simicart.core.customer.controller.AutoGetQtyNotSignInController;
 import com.simicart.core.customer.controller.AutoSignInController;
 import com.simicart.core.menutop.fragment.FragmentMenuTop;
 import com.simicart.core.notification.NotificationActivity;
-import com.simicart.core.notification.common.CommonUtilities;
 import com.simicart.core.notification.controller.NotificationController;
 import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 public class MainActivity extends FragmentActivity {
 

@@ -58,6 +58,29 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 		}
 	}
 
+
+	private void initButtonMenu() {
+		imv_menu = (ImageView) mView.findViewById(Rconfig.getInstance().id(
+				"img_menu"));
+		Drawable ic_menu = mContext.getResources().getDrawable(
+				Rconfig.getInstance().drawable("ic_drawer2"));
+		ic_menu.setColorFilter(Config.getInstance().getTop_menu_icon_color(),
+				PorterDuff.Mode.SRC_ATOP);
+		imv_menu.setImageDrawable(ic_menu);
+	}
+
+	private void initCartView() {
+		initIconCart();
+		Button btn_cartnavigation = (Button) mView.findViewById(Rconfig
+				.getInstance().id("btn_cartnavigation"));
+		btn_cartnavigation.setBackgroundDrawable(iconCart);
+
+		rltCart = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id(
+				"layout_cart"));
+		mViewCart = mView.findViewById(Rconfig.getInstance().id(
+				"btn_cartnavigation"));
+	}
+
 	private void initSearch() {
 		final ImageView img_search = (ImageView) mView.findViewById(Rconfig
 				.getInstance().id("img_ic_search2"));
@@ -160,27 +183,7 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 		SimiManager.getIntance().replaceFragment(fragment);
 	}
 
-	private void initButtonMenu() {
-		imv_menu = (ImageView) mView.findViewById(Rconfig.getInstance().id(
-				"img_menu"));
-		Drawable ic_menu = mContext.getResources().getDrawable(
-				Rconfig.getInstance().drawable("ic_drawer2"));
-		ic_menu.setColorFilter(Config.getInstance().getTop_menu_icon_color(),
-				PorterDuff.Mode.SRC_ATOP);
-		imv_menu.setImageDrawable(ic_menu);
-	}
 
-	private void initCartView() {
-		initIconCart();
-		Button btn_cartnavigation = (Button) mView.findViewById(Rconfig
-				.getInstance().id("btn_cartnavigation"));
-		btn_cartnavigation.setBackgroundDrawable(iconCart);
-
-		rltCart = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id(
-				"layout_cart"));
-		mViewCart = mView.findViewById(Rconfig.getInstance().id(
-				"btn_cartnavigation"));
-	}
 
 	protected void initIconCart() {
 		iconCart = mContext.getResources().getDrawable(
@@ -202,8 +205,7 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 	public void updateCartQty(String qty) {
 		TextView tv_cartQty = (TextView) mView.findViewById(Rconfig
 				.getInstance().id("cart_qty"));
-		if (qty == null || qty.equals("0") || qty.equals("")
-				|| qty.equals("null")) {
+		if (!Utils.validateString(qty)) {
 			tv_cartQty.setVisibility(View.GONE);
 		} else {
 			try {

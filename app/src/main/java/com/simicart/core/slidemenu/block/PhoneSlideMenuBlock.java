@@ -100,17 +100,8 @@ public class PhoneSlideMenuBlock implements SlideMenuDelegate {
 
 	@Override
 	public void setAdapter(ArrayList<ItemNavigation> items) {
-
-		Log.e("PhoneSlideBlock", "setAdapter 001");
-		// if (null == mAdapter) {
 		mAdapter = new SlideMenuAdapter(items, mContext);
 		lv_navigation.setAdapter(mAdapter);
-		Log.e("PhoneSlideBlock", "setAdapter 002");
-		// } else {
-		// Log.e("PhoneSlideMenuBlock ", "setAdapter 002");
-		// mAdapter.setItems(items);
-		// mAdapter.notifyDataSetChanged();
-		// }
 	}
 
 	@Override
@@ -122,10 +113,8 @@ public class PhoneSlideMenuBlock implements SlideMenuDelegate {
 	public void notifiChangeAdapter() {
 		mAdapter.notifyDataSetChanged();
 		if (DataLocal.isLanguageRTL) {
-			Log.e("PhoneSlideMenuBlock", "RTL");
 			tv_acc.setGravity(Gravity.RIGHT | Gravity.CENTER_VERTICAL);
 		} else {
-			Log.e("PhoneSlideMenuBlock", "RTL");
 			tv_acc.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 		}
 	}

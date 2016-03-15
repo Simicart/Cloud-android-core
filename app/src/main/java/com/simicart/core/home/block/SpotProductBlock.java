@@ -60,7 +60,6 @@ public class SpotProductBlock extends SimiBlock implements SpotProductDelegate {
     @Override
     public void createViewSport(int rowView) {
         ll_layout = (LinearLayout) mView.findViewById(Rconfig.getInstance().id("ll_spot"));
-        Log.e("SpotProductBlock", "Row : " + rowView);
         for (int i = 0; i <= rowView; i++) {
             ll_layoutchild = new LinearLayout(mContext);
             ll_layout.addView(ll_layoutchild, i);

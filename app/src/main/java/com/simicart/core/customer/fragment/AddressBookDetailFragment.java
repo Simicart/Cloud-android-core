@@ -36,7 +36,7 @@ public class AddressBookDetailFragment extends SimiFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(
-				Rconfig.getInstance().layout("core_new_address_layout"),
+				Rconfig.getInstance().layout("core_addressbook_detail"),
 				container, false);
 		if (DataLocal.isLanguageRTL) {
 			view = inflater
@@ -48,12 +48,13 @@ public class AddressBookDetailFragment extends SimiFragment {
 		Context context = getActivity();
 
 		mBlock = new AddressBookDetailBlock(view, context);
-		mBlock.setAddressBookDetail(addressbook);
+		//mBlock.setAddressBookDetail(addressbook);
 		mBlock.initView();
 
 		if (null == mController) {
 			mController = new AddressBookDetailController();
 			mController.setDelegate(mBlock);
+			mController.setAddressDetail(addressbook);
 			mController.onStart();
 		} else {
 			mController.setDelegate(mBlock);

@@ -9,9 +9,11 @@ import com.simicart.core.customer.entity.MyAddress;
 public interface AddressBookDetailDelegate extends SimiDelegate {
 	public MyAddress getAddressBookDetail();
 
-	public void setCountry(int type, String mCountry,
-			ArrayList<CountryAllowed> listCountry);
 
 	public void setListCountry(ArrayList<CountryAllowed> listCountry);
+
+
+	public void showAddressDetail(MyAddress address);
+
 
 }

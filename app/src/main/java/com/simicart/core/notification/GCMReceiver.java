@@ -11,10 +11,6 @@ public class GCMReceiver extends WakefulBroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		try {
-			Log.e("GCMReceiver", "GCMReceiver");
-			Log.e("GCMReceiver", "Action: " + intent.getAction());
-		}catch (Exception e){}
 		// Explicitly specify that GcmIntentService will handle the intent.
 		ComponentName comp = new ComponentName(context.getPackageName(),
 				GCMIntentService.class.getName());

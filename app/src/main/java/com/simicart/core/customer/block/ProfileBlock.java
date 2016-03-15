@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
@@ -42,510 +43,119 @@ import com.simicart.core.material.LayoutRipple;
 
 @SuppressLint("DefaultLocale")
 public class ProfileBlock extends SimiBlock implements ProfileDelegate {
-	protected TextView tv_profile;
-	private TextView tv_gender;
-	protected EditText edt_prefix;
-	protected EditText edt_fullname;
-	protected EditText edt_suffix;
-	protected EditText edt_email;
-	protected TextView tv_dateBirth;
-	protected RelativeLayout rl_gender;
-	protected Spinner sp_gender;
-	protected EditText edt_taxVAT;
-	protected EditText edt_currentPass;
-	protected EditText edt_newPass;
-	protected EditText edt_confirmPass;
-	protected ButtonRectangle btn_save;
-	protected ConfigCustomerAddress mProfile;
-	protected ImageView im_show_current_pass;
-	protected ImageView im_show_new_pass;
-	protected ImageView im_show_confirm_pass;
-	private ImageView img_show_gender;
-	private RelativeLayout rlt_show_gender;
-	private String mDay = "";
-	private String mMonth = "";
-	private String mYear = "";
-	protected RelativeLayout rl_current_pass;
-	protected RelativeLayout rl_new_pass;
-	protected RelativeLayout rl_confirm_pass;
 
-	private LayoutRipple layout_date_ofbirt;
+    protected EditText edt_first_name;
+    protected EditText edt_last_name;
+    protected EditText edt_email;
+    protected ButtonRectangle btn_save;
 
-	public ProfileBlock(View view, Context context) {
-		super(view, context);
+    public ProfileBlock(View view, Context context) {
+        super(view, context);
+    }
 
-		mProfile = DataLocal.ConfigCustomerAddress;
-	}
+    public void setSaveClicker(OnClickListener clicker) {
+        btn_save.setOnClickListener(clicker);
+    }
 
-	public void setSaveClicker(OnClickListener clicker) {
-		btn_save.setOnClickListener(clicker);
-	}
 
-	public void setShowCurrentPass(OnTouchListener onTouch) {
-		im_show_current_pass.setOnTouchListener(onTouch);
-	}
+    @SuppressWarnings("deprecation")
+    @Override
+    public void initView() {
+        // first name
+        edt_first_name = (EditText) mView.findViewById(Rconfig.getInstance().id(
+                "edt_first_name"));
 
-	public void setClickImageGender(OnClickListener listener) {
-		rlt_show_gender.setOnClickListener(listener);
-	}
+        // last name
+        edt_last_name = (EditText) mView.findViewById(Rconfig.getInstance().id(
+                "edt_last_name"));
 
-	public void setShowNewPass(OnTouchListener onTouch) {
-		im_show_new_pass.setOnTouchListener(onTouch);
-	}
+        // email
+        edt_email = (EditText) mView.findViewById(Rconfig.getInstance().id(
+                "edt_email"));
 
-	public void setShowConfirmPass(OnTouchListener onTouch) {
-		im_show_confirm_pass.setOnTouchListener(onTouch);
-	}
+        // save button
+        btn_save = (ButtonRectangle) mView.findViewById(Rconfig.getInstance()
+                .id("bt_save"));
+        btn_save.setTextSize(Constants.SIZE_TEXT_BUTTON);
+        btn_save.setText(Config.getInstance().getText("Save"));
+        btn_save.setTextColor(Config.getInstance().getButton_text_color());
+        btn_save.setBackgroundColor(Config.getInstance().getKey_color());
 
-	@SuppressWarnings("deprecation")
-	@Override
-	public void initView() {
-		createPrefix();
-		createSuffix();
-		createDateBirth();
-		createTaxVat();
-		createGender();
+        setColorComponent();
+    }
 
-		btn_save = (ButtonRectangle) mView.findViewById(Rconfig.getInstance()
-				.id("bt_save"));
-		btn_save.setTextSize(Constants.SIZE_TEXT_BUTTON);
-		btn_save.setText(Config.getInstance().getText("Save"));
-		btn_save.setTextColor(Config.getInstance().getButton_text_color());
-		btn_save.setBackgroundColor(Config.getInstance().getKey_color());
+    @Override
+    public void drawView(SimiCollection collection) {
+        if (null != collection) {
+            ArrayList<SimiEntity> entities = collection.getCollection();
+            if (null != entities && entities.size() > 0) {
+                ProfileEntity profile = (ProfileEntity) entities.get(0);
+                showProfile(profile);
+            }
+        }
 
-		// full name
-		edt_fullname = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_fullname"));
-		edt_fullname.setHint(Config.getInstance().getText("Name") + "(*)");
-		edt_fullname.setVisibility(View.GONE);
+    }
 
-		// email
-		edt_email = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_email"));
-		edt_email.setHint(Config.getInstance().getText("Email") + "(*)");
+    private void showProfile(ProfileEntity profile) {
+        String first_name = profile.getFirstName();
+        if (Utils.validateString(first_name)) {
+            edt_first_name.setText(first_name);
+        }
 
-		rl_current_pass = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id("rl_current_pass"));
-		rl_current_pass.setVisibility(View.GONE);
-		rl_new_pass = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id("rl_new_pass"));
-		rl_new_pass.setVisibility(View.GONE);
-		rl_confirm_pass = (RelativeLayout) mView.findViewById(Rconfig.getInstance().id("rl_confirm_pass"));
-		rl_confirm_pass.setVisibility(View.GONE);
+        String last_name = profile.getLastName();
+        if (Utils.validateString(last_name)) {
+            edt_last_name.setText(last_name);
+        }
 
-		// current password
-		edt_currentPass = (EditText) mView.findViewById(Rconfig.getInstance()
-				.id("et_current_pass"));
-		edt_currentPass.setHint(Config.getInstance()
-				.getText("Current Password"));
+        String email = profile.getEmail();
+        if (Utils.validateString(email)) {
+            edt_email.setText(email);
+        }
 
-		// new password
-		edt_newPass = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_new_pass"));
-		edt_newPass.setHint(Config.getInstance().getText("New Password"));
+    }
 
-		// confirm password
-		edt_confirmPass = (EditText) mView.findViewById(Rconfig.getInstance()
-				.id("et_confirm_pass"));
-		edt_confirmPass.setHint(Config.getInstance()
-				.getText("Confirm Password"));
+    private void setColorComponent() {
+        setColorEdittext(edt_email);
+        setHintColorEdittext(edt_email);
 
-		// if (DataLocal.isLanguageRTL) {
-		// setPositionRTL(edt_fullname);
-		// setPositionRTL(edt_email);
-		// setPositionRTL(edt_currentPass);
-		// setPositionRTL(edt_newPass);
-		// setPositionRTL(edt_confirmPass);
-		// }
+        setColorEdittext(edt_first_name);
+        setHintColorEdittext(edt_first_name);
 
-		im_show_current_pass = (ImageView) mView.findViewById(Rconfig
-				.getInstance().id("im_show_current_pass"));
-		im_show_new_pass = (ImageView) mView.findViewById(Rconfig.getInstance()
-				.id("im_show_new_pass"));
-		im_show_confirm_pass = (ImageView) mView.findViewById(Rconfig
-				.getInstance().id("im_show_confirm_pass"));
-		img_show_gender = (ImageView) mView.findViewById(Rconfig.getInstance()
-				.id("im_extend"));
-		rlt_show_gender = (RelativeLayout) mView.findViewById(Rconfig
-				.getInstance().id("rlt_im_extend"));
-		setColorComponent();
-	}
+        setColorEdittext(edt_last_name);
+        setHintColorEdittext(edt_last_name);
 
-	private void setColorComponent() {
-		setColorTextview(tv_profile);
-		setColorTextview(tv_dateBirth);
-		setColorTextview(tv_gender);
+    }
 
-		setColorEdittext(edt_prefix);
-		setHintColorEdittext(edt_prefix);
-		setColorEdittext(edt_fullname);
-		setHintColorEdittext(edt_fullname);
 
-		setColorEdittext(edt_suffix);
-		setHintColorEdittext(edt_suffix);
+    private void setColorEdittext(EditText editText) {
+        if (editText != null) {
+            editText.setTextColor(Config.getInstance().getContent_color());
+        }
+    }
 
-		setColorEdittext(edt_email);
-		setHintColorEdittext(edt_email);
+    private void setHintColorEdittext(EditText editText) {
+        if (editText != null) {
+            editText.setHintTextColor(Config.getInstance()
+                    .getHintContent_color());
+        }
+    }
 
-		setColorEdittext(edt_taxVAT);
-		setHintColorEdittext(edt_taxVAT);
 
-		setColorEdittext(edt_currentPass);
-		setHintColorEdittext(edt_currentPass);
+    @Override
+    public ProfileEntity getProfileEntity() {
+        ProfileEntity profile = new ProfileEntity();
+        //first name
+        String first_name = edt_first_name.getText().toString();
+        profile.setFirstName(first_name);
+        //last name
+        String last_name = edt_last_name.getText().toString();
+        profile.setLastName(last_name);
+        // email
+        String email = edt_email.getText().toString();
+        profile.setEmail(email);
 
-		setColorEdittext(edt_newPass);
-		setHintColorEdittext(edt_newPass);
+        return profile;
+    }
 
-		setColorEdittext(edt_confirmPass);
-		setHintColorEdittext(edt_confirmPass);
 
-		changeColorImageView(im_show_current_pass, "ic_show_password");
-		changeColorImageView(im_show_new_pass, "ic_show_password");
-		changeColorImageView(im_show_confirm_pass, "ic_show_password");
-		changeColorImageView(img_show_gender, "ic_extend");
-
-	}
-
-	private void setColorTextview(TextView view) {
-		if (view != null) {
-			view.setTextColor(Config.getInstance().getContent_color());
-		}
-	}
-
-	private void setColorEdittext(EditText editText) {
-		if (editText != null) {
-			editText.setTextColor(Config.getInstance().getContent_color());
-		}
-	}
-
-	private void setHintColorEdittext(EditText editText) {
-		if (editText != null) {
-			editText.setHintTextColor(Config.getInstance()
-					.getHintContent_color());
-		}
-	}
-
-	private void changeColorImageView(ImageView img, String src) {
-		if (img != null) {
-			Drawable icon = mContext.getResources().getDrawable(
-					Rconfig.getInstance().drawable(src));
-			icon.setColorFilter(Config.getInstance().getContent_color(),
-					PorterDuff.Mode.SRC_ATOP);
-			img.setImageDrawable(icon);
-		}
-	}
-
-	// protected void setPositionRTL(EditText edt) {
-	// edt.setSelection(edt.getHint().length());
-	// }
-
-	protected void createPrefix() {
-		edt_prefix = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_prefix_show"));
-		edt_prefix.setHint(Config.getInstance().getText("First Name") + " (*)");
-		switch (mProfile.getPrefix().toLowerCase()) {
-			case "":
-				edt_prefix.setVisibility(View.GONE);
-				break;
-			case "req":
-				edt_prefix.setHint(Config.getInstance().getText("First Name") + "(*)");
-				break;
-			case "opt":
-				edt_prefix.setHint(Config.getInstance().getText("First Name"));
-				break;
-
-			default:
-				break;
-		}
-	}
-
-	protected void createSuffix() {
-
-		edt_suffix = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_suffix_show"));
-		switch (mProfile.getSuffix().toLowerCase()) {
-			case "":
-				edt_suffix.setVisibility(View.GONE);
-				break;
-			case "req":
-				edt_suffix.setHint(Config.getInstance().getText("Last Name") + "(*)");
-				break;
-			case "opt":
-				edt_suffix.setHint(Config.getInstance().getText("Last Name"));
-				break;
-			default:
-				break;
-		}
-
-	}
-
-	protected void createTaxVat() {
-		edt_taxVAT = (EditText) mView.findViewById(Rconfig.getInstance().id(
-				"et_taxvat_show"));
-		switch (mProfile.getTaxvat().toLowerCase()) {
-			case "":
-				edt_taxVAT.setVisibility(View.GONE);
-				break;
-			case "req":
-				edt_taxVAT.setHint(Config.getInstance().getText("Tax/VAT number")
-						+ "(*)");
-				break;
-			case "opt":
-				edt_taxVAT.setHint(Config.getInstance().getText("Tax/VAT number"));
-				break;
-			default:
-				break;
-		}
-	}
-
-	protected void createDateBirth() {
-		layout_date_ofbirt = (LayoutRipple) mView.findViewById(Rconfig
-				.getInstance().id("layout_date_of_birt"));
-		tv_dateBirth = (TextView) mView.findViewById(Rconfig.getInstance().id(
-				"tv_date_birth"));
-
-		Calendar cDate = Calendar.getInstance();
-		final int cDay = cDate.get(Calendar.DAY_OF_MONTH);
-		final int cMonth = cDate.get(Calendar.MONTH) + 1;
-		final int cYear = cDate.get(Calendar.YEAR);
-
-		switch (mProfile.getDob().toLowerCase()) {
-			case "":
-				layout_date_ofbirt.setVisibility(View.GONE);
-				break;
-			case "req":
-				tv_dateBirth.setHint(Config.getInstance().getText("Date of Birth")
-						+ "(*)");
-				break;
-			case "opt":
-				tv_dateBirth.setHint(Config.getInstance().getText("Date of Birth"));
-				break;
-
-			default:
-				break;
-		}
-
-		layout_date_ofbirt.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				DatePickerDialog datePickerDialog = new DatePickerDialog(
-						mContext, onDateSet, cYear, cMonth, cDay);
-				datePickerDialog.show();
-			}
-		});
-	}
-
-	private OnDateSetListener onDateSet = new DatePickerDialog.OnDateSetListener() {
-		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
-							  int dayOfMonth) {
-			int sYear = year;
-			int sMonth = monthOfYear + 1;
-			int sDay = dayOfMonth;
-			mDay = String.valueOf(sDay);
-			mMonth = String.valueOf(sMonth);
-			mYear = String.valueOf(sYear);
-			String selectedDate = new StringBuilder().append(sDay).append("/")
-					.append(sMonth).append("/").append(sYear).append(" ")
-					.toString();
-			switch (mProfile.getDob().toLowerCase()) {
-				case "":
-					layout_date_ofbirt.setVisibility(View.GONE);
-					break;
-				case "req":
-					if (DataLocal.isLanguageRTL) {
-						tv_dateBirth.setText(selectedDate + " :(*)"
-								+ Config.getInstance().getText("Date of Birth"));
-					} else {
-						tv_dateBirth.setText(Config.getInstance().getText(
-								"Date of Birth")
-								+ "(*): " + selectedDate);
-					}
-					break;
-				case "opt":
-					if (DataLocal.isLanguageRTL) {
-						tv_dateBirth.setText(selectedDate + " :"
-								+ Config.getInstance().getText("Date of Birth"));
-					} else {
-						tv_dateBirth.setText(Config.getInstance().getText(
-								"Date of Birth")
-								+ ": " + selectedDate);
-					}
-					break;
-				default:
-					break;
-			}
-		}
-	};
-
-	protected void createGender() {
-		rl_gender = (RelativeLayout) mView.findViewById(Rconfig.getInstance()
-				.id("rl_gender"));
-		sp_gender = (Spinner) rl_gender.findViewById(Rconfig.getInstance().id(
-				"sp_gender"));
-		tv_gender = (TextView) rl_gender.findViewById(Rconfig.getInstance().id(
-				"tv_gender"));
-
-		GenderAdapter adapter = new GenderAdapter(mContext);
-		sp_gender.setAdapter(adapter);
-
-		switch (mProfile.getGender().toLowerCase()) {
-			case "":
-				rl_gender.setVisibility(View.GONE);
-				break;
-			case "req":
-				if (DataLocal.isLanguageRTL) {
-					tv_gender.setText(":(*)"
-							+ Config.getInstance().getText("Gender"));
-				} else {
-					tv_gender.setText(Config.getInstance().getText("Gender")
-							+ "(*):");
-				}
-				break;
-			case "opt":
-				if (DataLocal.isLanguageRTL) {
-					tv_gender.setText(":" + Config.getInstance().getText("Gender"));
-				} else {
-					tv_gender.setText(Config.getInstance().getText("Gender") + ":");
-				}
-				break;
-			default:
-				break;
-		}
-	}
-
-	@Override
-	public void drawView(SimiCollection collection) {
-		ArrayList<SimiEntity> entity = collection.getCollection();
-		if (null != entity && entity.size() > 0) {
-			ProfileEntity profile = (ProfileEntity) entity.get(0);
-			if (View.VISIBLE == edt_prefix.getVisibility()) {
-				edt_prefix.setText(profile.getFirstName());
-			}
-
-			if (View.VISIBLE == edt_suffix.getVisibility()) {
-				edt_suffix.setText(profile.getLastName());
-			}
-
-			if (View.VISIBLE == edt_fullname.getVisibility()) {
-				edt_fullname.setText(profile.getName());
-			}
-
-			if (View.VISIBLE == edt_email.getVisibility()) {
-				edt_email.setText(profile.getEmail());
-			}
-
-//			if (View.VISIBLE == edt_taxVAT.getVisibility()) {
-//				edt_taxVAT.setText(profile.getTaxVat());
-//			}
-//
-//			if (View.VISIBLE == edt_taxVAT.getVisibility()) {
-//				edt_taxVAT.setText(profile.getTaxVat());
-//			}
-
-//			String day = profile.getDay();
-//			if (null != day && !day.equals("") && !day.equals("null")) {
-//				String selectedDate = profile.getDay() + "/"
-//						+ profile.getMonth() + "/" + profile.getYear();
-//				switch (mProfile.getDob().toLowerCase()) {
-//				case "":
-//					tv_dateBirth.setVisibility(View.GONE);
-//					break;
-//				case "req":
-//					tv_dateBirth.setText(Config.getInstance().getText(
-//							"Date of Birth")
-//							+ "(*): " + selectedDate);
-//					break;
-//				case "opt":
-//					tv_dateBirth.setText(Config.getInstance().getText(
-//							"Date of Birth")
-//							+ ": " + selectedDate);
-//					break;
-//				default:
-//					break;
-//				}
-//			}
-//
-//			if (profile.getGender().equals("")) {
-//				sp_gender.setSelection(0);
-//			} else {
-//				int i = 0;
-//				for (GenderConfig genderConfig : DataLocal.ConfigCustomerAddress
-//						.getGenderConfigs()) {
-//					i++;
-//					if (genderConfig.getLabel().equals(profile.getGender())) {
-//						sp_gender.setSelection(i);
-//					}
-//				}
-//			}
-		}
-	}
-
-	@Override
-	public ProfileEntity getProfileEntity() {
-		ProfileEntity profile = new ProfileEntity();
-		profile.setEmail(edt_email.getText().toString());
-		profile.setName(edt_fullname.getText().toString());
-		profile.setFirstName(edt_prefix.getText().toString());
-		profile.setLastName(edt_suffix.getText().toString());
-//
-//		profile.setGender(sp_gender.getSelectedItem().toString());
-//
-//		profile.setTaxVat(edt_taxVAT.getText().toString());
-//
-//		profile.setDay(mDay);
-//		profile.setMonth(mMonth);
-//		profile.setYear(mYear);
-//
-		profile.setCurrentPass(edt_currentPass.getText().toString());
-		profile.setNewPass(edt_newPass.getText().toString());
-		profile.setConfirmPass(edt_confirmPass.getText().toString());
-		// and so on
-		return profile;
-	}
-
-	@Override
-	public void onTouchDown(int type) {
-		if (type == ProfileController.TOUCH_CURRENT_PASS) {
-			edt_currentPass
-					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-		} else if (type == ProfileController.TOUCH_NEW_PASS) {
-			edt_newPass
-					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-		} else if (type == ProfileController.TOUCH_CONFIRM_PASS) {
-			edt_confirmPass
-					.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-		}
-	}
-
-	@Override
-	public void onTouchCancel(int type) {
-		if (type == ProfileController.TOUCH_CURRENT_PASS) {
-			edt_currentPass.setInputType(129);
-			int position = edt_currentPass.length();
-			Selection.setSelection(edt_currentPass.getText(), position);
-		} else if (type == ProfileController.TOUCH_NEW_PASS) {
-			edt_newPass.setInputType(129);
-			int position = edt_newPass.length();
-			Selection.setSelection(edt_newPass.getText(), position);
-		} else if (type == ProfileController.TOUCH_CONFIRM_PASS) {
-			edt_confirmPass.setInputType(129);
-			int position = edt_confirmPass.length();
-			Selection.setSelection(edt_confirmPass.getText(), position);
-		}
-	}
-
-	@Override
-	public Spinner getGenderSpinner() {
-		return sp_gender;
-	}
-
-	@Override
-	public ImageView getImageViewGender() {
-		return img_show_gender;
-	}
-
-	@Override
-	public RelativeLayout getRelativeGender() {
-		return rlt_show_gender;
-	}
 }

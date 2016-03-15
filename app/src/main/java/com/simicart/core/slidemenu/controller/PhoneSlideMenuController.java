@@ -109,7 +109,6 @@ public class PhoneSlideMenuController {
     }
 
     public void create() {
-        Log.e("PhoneSlideController", "create 001");
         mListener = new OnItemClickListener() {
 
             @Override
@@ -136,21 +135,16 @@ public class PhoneSlideMenuController {
                 SimiManager.getIntance().replacePopupFragment(fragment);
             }
         };
-        Log.e("PhoneSlideController", "create 002");
-
         initial();
     }
 
     private void initial() {
-        Log.e("PhoneSlideController", "initial 001");
         initDataAdapter();
         if (null != mDelegate) {
             mDelegate.setAdapter(mItems);
         }
-        Log.e("PhoneSlideController", "initial 002");
         // open home page
         onNaviagte(DEFAULT_POSITION);
-        Log.e("PhoneSlideController", "initial 003");
     }
 
     public void initDataAdapter() {
@@ -196,14 +190,6 @@ public class PhoneSlideMenuController {
             item.setIcon(icon);
             mItemsAccount.add(item);
 
-            // event for rewards, wish list
-            SlideMenuData slideMenuData = new SlideMenuData();
-            slideMenuData.setItemNavigations(mItemsAccount);
-            slideMenuData.setPluginFragment(mPluginFragment);
-            EventSlideMenu eventSlideMenu = new EventSlideMenu();
-//            eventSlideMenu.dispatchEvent("com.simicart.add.navigation.account",
-//                    slideMenuData);
-
             int index_category = checkElement(CATEGORY);
             if (DataLocal.isTablet) {
                 index_category = checkElement(HOME);
@@ -221,21 +207,11 @@ public class PhoneSlideMenuController {
         if (index != -1) {
             mItems.remove(index);
         }
-
-        // event my account
-        SlideMenuData slideMenuData = new SlideMenuData();
-        slideMenuData.setItemNavigations(mItems);
-        slideMenuData.setPluginFragment(mPluginFragment);
-        EventSlideMenu eventSlideMenu = new EventSlideMenu();
-//        eventSlideMenu.dispatchEvent(
-//                "com.simicart.remove.navigation.myaccount", slideMenuData);
     }
 
     public void addHome() {
-        Log.e("PhoneSlideController", "addHOme 001");
         int index = checkElement(HOME);
         if (index == -1) {
-            Log.e("PhoneSlideController", "addHOme 002");
             ItemNavigation item = new ItemNavigation();
             item.setType(TypeItem.NORMAL);
             item.setName(HOME);
@@ -244,9 +220,7 @@ public class PhoneSlideMenuController {
             icon.setColorFilter(Color.parseColor("#ffffff"),
                     PorterDuff.Mode.SRC_ATOP);
             item.setIcon(icon);
-            Log.e("PhoneSlideController", "addHOme 003");
             mItems.add(item);
-            Log.e("PhoneSlideController", "addHOme 004");
         }
     }
 
@@ -276,15 +250,6 @@ public class PhoneSlideMenuController {
         item.setSparator(true);
         item.setName(MORE);
         mItems.add(item);
-
-        // event for add barcode to slidemenu
-        SlideMenuData slideMenuData = new SlideMenuData();
-        slideMenuData.setItemNavigations(mItems);
-        slideMenuData.setPluginFragment(mPluginFragment);
-        EventSlideMenu eventSlideMenu = new EventSlideMenu();
-//        eventSlideMenu.dispatchEvent("com.simicart.add.navigation.more",
-//                slideMenuData);
-
         // CMS
         addCMS();
 
@@ -327,11 +292,6 @@ public class PhoneSlideMenuController {
         ItemNavigation item = mItems.get(position);
         if (null != item) {
             if (!item.isSparator()) {
-                // event click barcode leftmenu
-                String nameItem = item.getName();
-//                EventBlock block = new EventBlock();
-//                Constants.itemName = nameItem;
-//                block.dispatchEvent("com.simicart.leftmenu.slidemenucontroller.onnavigate.clickitem");
                 TypeItem type = item.getType();
                 SimiFragment fragment = null;
                 if (type == TypeItem.NORMAL) {
@@ -426,7 +386,7 @@ public class PhoneSlideMenuController {
     }
 
     protected int checkElement(String name) {
-        if (null != mItems || mItems.size() > 0) {
+        if (null != mItems && mItems.size() > 0) {
             for (int i = 0; i < mItems.size(); i++) {
                 ItemNavigation item = mItems.get(i);
                 if (item.getName().equals(name)) {
@@ -523,9 +483,9 @@ public class PhoneSlideMenuController {
         mDelegate.setAdapter(mItems);
     }
 
-    public void notifiChangeAdapterSlideMenu(){
-        if(DataLocal.isTablet){
-            if(mViewPager != null) {
+    public void notifiChangeAdapterSlideMenu() {
+        if (DataLocal.isTablet) {
+            if (mViewPager != null) {
                 TabSlideMenuAdapter tabSlideMenuAdapter = new TabSlideMenuAdapter(fmanager, mListFragment);
                 mViewPager.setAdapter(tabSlideMenuAdapter);
                 titletab.setViewPager(mViewPager);

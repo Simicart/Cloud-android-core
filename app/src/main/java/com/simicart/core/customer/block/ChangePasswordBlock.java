@@ -9,10 +9,12 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
 import com.simicart.core.config.Rconfig;
+import com.simicart.core.customer.controller.ChangePasswordController;
 import com.simicart.core.customer.controller.ProfileController;
 import com.simicart.core.customer.delegate.ChangePasswordDelegate;
 import com.simicart.core.customer.entity.ProfileEntity;
@@ -21,7 +23,7 @@ import com.simicart.core.material.ButtonRectangle;
 /**
  * Created by Sony on 1/19/2016.
  */
-public class ChangePasswordBlock extends SimiBlock implements ChangePasswordDelegate{
+public class ChangePasswordBlock extends SimiBlock implements ChangePasswordDelegate {
     protected EditText edt_currentPass;
     protected EditText edt_newPass;
     protected EditText edt_confirmPass;
@@ -143,13 +145,13 @@ public class ChangePasswordBlock extends SimiBlock implements ChangePasswordDele
 
     @Override
     public void onTouchDown(int type) {
-        if (type == ProfileController.TOUCH_CURRENT_PASS) {
+        if (type == ChangePasswordController.TOUCH_CURRENT_PASS) {
             edt_currentPass
                     .setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-        } else if (type == ProfileController.TOUCH_NEW_PASS) {
+        } else if (type == ChangePasswordController.TOUCH_NEW_PASS) {
             edt_newPass
                     .setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-        } else if (type == ProfileController.TOUCH_CONFIRM_PASS) {
+        } else if (type == ChangePasswordController.TOUCH_CONFIRM_PASS) {
             edt_confirmPass
                     .setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         }
@@ -157,15 +159,15 @@ public class ChangePasswordBlock extends SimiBlock implements ChangePasswordDele
 
     @Override
     public void onTouchCancel(int type) {
-        if (type == ProfileController.TOUCH_CURRENT_PASS) {
+        if (type == ChangePasswordController.TOUCH_CURRENT_PASS) {
             edt_currentPass.setInputType(129);
             int position = edt_currentPass.length();
             Selection.setSelection(edt_currentPass.getText(), position);
-        } else if (type == ProfileController.TOUCH_NEW_PASS) {
+        } else if (type == ChangePasswordController.TOUCH_NEW_PASS) {
             edt_newPass.setInputType(129);
             int position = edt_newPass.length();
             Selection.setSelection(edt_newPass.getText(), position);
-        } else if (type == ProfileController.TOUCH_CONFIRM_PASS) {
+        } else if (type == ChangePasswordController.TOUCH_CONFIRM_PASS) {
             edt_confirmPass.setInputType(129);
             int position = edt_confirmPass.length();
             Selection.setSelection(edt_confirmPass.getText(), position);

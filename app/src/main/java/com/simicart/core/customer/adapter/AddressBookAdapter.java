@@ -90,11 +90,10 @@ public class AddressBookAdapter extends BaseAdapter {
 		Utils.changeColorImageview(mContext, holder.img_extend,"ic_extend");
 
 		// name
-		String name = myAddress.getName();
-		String prefix = myAddress.getPrefix();
-		String suffix = myAddress.getSuffix();
+		String first_name = myAddress.getFirstName();
+		String last_name = myAddress.getLastName();
 
-		holder.tv_name.setText(prefix + " " + suffix);
+		holder.tv_name.setText(first_name + " " + last_name);
 
 		// Street
 		String street = myAddress.getStreet();

@@ -94,9 +94,6 @@ public class AddressBookController extends SimiController {
 
 	}
 
-	protected void addNewAddress() {
-
-	}
 
 	protected void selectItem(int position) {
 		ProfileEntity entity = (ProfileEntity) mModel.getCollection().getCollection().get(0);
@@ -106,8 +103,9 @@ public class AddressBookController extends SimiController {
 				if(entity.getAddress().size() > 0) {
 					for (SimiEntity simiEntity : entity.getAddress()) {
 						MyAddress addr = (MyAddress) simiEntity;
-						if(Utils.validateString(entity.getEmail())){
-							addr.setEmail(entity.getEmail());
+						String email = entity.getEmail();
+						if(Utils.validateString(email)){
+							addr.setEmail(email);
 						}
 						address.add(addr);
 					}

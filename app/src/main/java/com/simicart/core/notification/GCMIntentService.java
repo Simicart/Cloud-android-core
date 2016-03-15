@@ -32,6 +32,7 @@ import android.util.Log;
 
 import com.simicart.R;
 import com.simicart.MainActivity;
+import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
@@ -58,7 +59,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	@Override
 	protected void onRegistered(Context context, String registrationId) {
-		Log.e(TAG, "Device registered: regId = " + registrationId);
 		CommonUtilities.displayMessage(context,
 				"From GCM: device successfully registered!");
 		ServerUtilities.register(context, registrationId);
@@ -69,12 +69,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 		CommonUtilities.displayMessage(context,
 				"From GCM: device successfully unregistered!");
 		if (GCMRegistrar.isRegisteredOnServer(context)) {
-			Log.e(TAG, "Device unregistered");
 			ServerUtilities.unregister(context, registrationId);
-		} else {
-			// This callback results from the call to unregister made on
-			// ServerUtilities when the registration to the server failed.
-			Log.e(TAG, "Ignoring unregister callback");
 		}
 	}
 
@@ -87,11 +82,10 @@ public class GCMIntentService extends GCMBaseIntentService {
 		if (action.equals("com.google.android.c2dm.intent.RECEIVE")) {
 			try {
 				JSONObject json = null;
-				if (content != null && !content.equals("")) {
+				if (Utils.validateString(content)) {
 					json = new JSONObject(content);
 				}
 				if (json != null) {
-					Log.e("GCMIntentService", "Message:" + json.toString());
 					notificationTemp = new NotificationEntity();
 					if (json.has(Constants.MESSAGE)) {
 						notificationTemp.setMessage(json
@@ -139,6 +133,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
+
 			if (notificationTemp != null) {
 				if (notificationData == null) {
 					notificationData = notificationTemp;
@@ -155,7 +150,7 @@ public class GCMIntentService extends GCMBaseIntentService {
 				}
 			}
 		}
-		return;
+
 	}
 
 	private void onRecieveMessage(Context context) {
@@ -169,16 +164,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 						"TAG");
 		wakeLock.acquire(5000);
 
-		// // Am thanh mac dinh
-		// try {
-		// Uri notification = RingtoneManager
-		// .getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-		// Ringtone r = RingtoneManager.getRingtone(getApplicationContext(),
-		// notification);
-		// r.play();
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// }
 
 		// check app open or close
 		if (MainActivity.context != null
@@ -199,7 +184,6 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	@Override
 	protected void onDeletedMessages(Context context, int total) {
-		Log.e(TAG, "Received deleted messages notification");
 		String message = ("From GCM: server deleted %1$d pending messages!" + total);
 		CommonUtilities.displayMessage(context, message);
 		// notifies user
@@ -212,14 +196,11 @@ public class GCMIntentService extends GCMBaseIntentService {
 
 	@Override
 	public void onError(Context context, String errorId) {
-		Log.e(TAG, "Received error: " + errorId);
 		CommonUtilities.displayMessage(context, ("From GCM: error" + errorId));
 	}
 
 	@Override
 	protected boolean onRecoverableError(Context context, String errorId) {
-		// log message
-		Log.e(TAG, "Received recoverable error: " + errorId);
 		CommonUtilities.displayMessage(context,
 				("From GCM: recoverable error (%1$s)." + errorId));
 		return super.onRecoverableError(context, errorId);

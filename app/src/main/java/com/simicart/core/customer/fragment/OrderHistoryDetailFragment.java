@@ -7,18 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.simicart.core.base.fragment.SimiFragment;
-import com.simicart.core.checkout.controller.ConfigCheckout;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.block.OrderHistoryDetailBlock;
-import com.simicart.core.customer.controller.OrderHistoryDetailController;
 import com.simicart.core.customer.entity.OrderHisDetail;
 
 public class OrderHistoryDetailFragment extends SimiFragment {
 
 	protected String mID;
 	protected OrderHistoryDetailBlock mBlock;
-	protected OrderHistoryDetailController mController;
 	protected OrderHisDetail orderHisDetail;
 
 	public void setID(String ID) {

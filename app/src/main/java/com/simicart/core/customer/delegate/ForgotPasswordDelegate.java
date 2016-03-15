@@ -6,9 +6,6 @@ public interface ForgotPasswordDelegate extends SimiDelegate {
 
 	public String getEmail();
 
-	public String getNewPass();
-
-	public String getConfirmPass();
 
 	public void showNotify(String message);
 }

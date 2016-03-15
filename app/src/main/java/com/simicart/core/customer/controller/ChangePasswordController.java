@@ -11,6 +11,7 @@ import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
+import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
@@ -40,6 +41,7 @@ public class ChangePasswordController extends SimiController {
     public static final int TOUCH_CURRENT_PASS = 0;
     public static final int TOUCH_NEW_PASS = 1;
     public static final int TOUCH_CONFIRM_PASS = 2;
+
     public static final int CHANGE_PASS = 0;// changepass
     public static final int REQUIRED_CURRENT_PASS = 1;// not type current pass
     public static final int REQUIRED_NEW_PASS = 2;// not type new pass
@@ -93,7 +95,7 @@ public class ChangePasswordController extends SimiController {
                 String currentPassword = mDelegate.getCurrentPass();
                 String newPassword = mDelegate.getNewPass();
                 String confirmPassword = mDelegate.getConfirmPass();
-                if(currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
+                if (currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
                     isPassCondition = true;
                 }
             }
@@ -115,7 +117,7 @@ public class ChangePasswordController extends SimiController {
                 String currentPassword = mDelegate.getCurrentPass();
                 String newPassword = mDelegate.getNewPass();
                 String confirmPassword = mDelegate.getConfirmPass();
-                if(currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
+                if (currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
                     isPassCondition = true;
                 }
             }
@@ -137,7 +139,7 @@ public class ChangePasswordController extends SimiController {
                 String currentPassword = mDelegate.getCurrentPass();
                 String newPassword = mDelegate.getNewPass();
                 String confirmPassword = mDelegate.getConfirmPass();
-                if(currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
+                if (currentPassword.length() >= 6 && newPassword.length() >= 6 && confirmPassword.length() >= 6) {
                     isPassCondition = true;
                 }
             }
@@ -223,80 +225,81 @@ public class ChangePasswordController extends SimiController {
         mClicker = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isPassCondition == true) {
+                if (isPassCondition == true) {
                     changePassWord();
                     Utils.hideKeyboard(v);
+                }
+               else {
+                    String msg = "Please enter current password and new password";
+                    SimiManager.getIntance().showNotify(null, msg, "Ok");
                 }
             }
         };
     }
 
     private int checkPass(ProfileEntity profile) {
-        if ((profile.getConfirmPass() == null || profile.getConfirmPass()
-                .equals(""))
-                || (profile.getNewPass() == null || profile.getNewPass()
-                .equals(""))
-                || (profile.getCurrentPass() == null || profile
-                .getCurrentPass().equals(""))) {
-            if ((profile.getConfirmPass() == null || profile.getConfirmPass()
-                    .equals(""))
-                    && (profile.getNewPass() == null || profile.getNewPass()
-                    .equals(""))
-                    && (profile.getCurrentPass() == null || profile
-                    .getCurrentPass().equals(""))) {
-                return NOT_CHANGE;
-            } else if ((profile.getCurrentPass() == null || profile
-                    .getCurrentPass().equals(""))) {
-                return REQUIRED_CURRENT_PASS;
-            } else {
-                return REQUIRED_NEW_PASS;
-            }
-        } else {
-            if (profile.getNewPass().equals(profile.getConfirmPass())) {
-                if (!profile.getCurrentPass().equals(DataLocal.getPassword())) {
-                    return WRONG_CURRENT_PASS;
-                } else {
-                    return CHANGE_PASS;
-                }
-            } else {
-                return REQUIRED_CONFIRM_PASS;
-            }
+        String current_pass = profile.getCurrentPass();
+        String new_pass = profile.getNewPass();
+        String confirm_pass = profile.getConfirmPass();
+
+        if (!Utils.validateString(current_pass)) {
+            return REQUIRED_CURRENT_PASS;
         }
+
+        if (!current_pass.equals(DataLocal.getPassword())) {
+            return WRONG_CURRENT_PASS;
+        }
+
+        if (!Utils.validateString(new_pass)) {
+            return REQUIRED_NEW_PASS;
+        }
+
+        if (!Utils.validateString(confirm_pass)) {
+            return REQUIRED_CONFIRM_PASS;
+        }
+
+        if (!new_pass.equals(confirm_pass)) {
+            return REQUIRED_CONFIRM_PASS;
+        }
+
+        return CHANGE_PASS;
+
     }
 
     protected void changePassWord() {
         ProfileEntity profile = mDelegate.getProfileEntity();
+        String msg = "";
         switch (checkPass(profile)) {
-            case NOT_CHANGE:
-                SimiManager.getIntance().showNotify(null,
-                        "Current password field cannot be empty.", "Ok");
+
+            case REQUIRED_CURRENT_PASS:
+                msg = "Current password field cannot be empty.";
+                SimiManager.getIntance().showNotify(null, msg, "Ok");
                 break;
+
+            case WRONG_CURRENT_PASS:
+                msg = "Current password isn't correct.";
+                SimiManager.getIntance().showNotify(null, msg, "Ok");
+                break;
+
+            case REQUIRED_NEW_PASS:
+                msg = "New password or Confirm password field cannot be empty.";
+                SimiManager.getIntance().showNotify(null, msg, "Ok");
+                break;
+
+            case REQUIRED_CONFIRM_PASS:
+                msg = "New password and Confirm password don't match.";
+                SimiManager.getIntance().showNotify(null, msg, "Ok");
+                break;
+
             case CHANGE_PASS:
                 requestChangePass(profile);
                 break;
-            case REQUIRED_NEW_PASS:
-                SimiManager
-                        .getIntance()
-                        .showNotify(
-                                null,
-                                "New password or Confirm password field cannot be empty.",
-                                "Ok");
-                break;
-            case REQUIRED_CURRENT_PASS:
-                SimiManager.getIntance().showNotify(null,
-                        "Current password field cannot be empty.", "Ok");
-                break;
-            case REQUIRED_CONFIRM_PASS:
-                SimiManager.getIntance().showNotify(null,
-                        "New password and Confirm password don't match.", "Ok");
-                break;
-            case WRONG_CURRENT_PASS:
-                SimiManager.getIntance().showNotify(null,
-                        "Current password isn't correct.", "Ok");
-                break;
+
             default:
                 break;
         }
+
+
     }
 
     private void requestChangePass(final ProfileEntity profile) {
@@ -306,7 +309,7 @@ public class ChangePasswordController extends SimiController {
             @Override
             public void onFail(SimiError error) {
                 mDelegate.dismissDialogLoading();
-                if(error != null) {
+                if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
             }
@@ -314,30 +317,41 @@ public class ChangePasswordController extends SimiController {
             @Override
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissDialogLoading();
-
-                DataLocal.saveData(profile.getEmail(),
-                        profile.getNewPass());
-                DataLocal.saveEmailPassRemember(profile.getEmail(),
-                        profile.getNewPass());
-
-                SimiManager.getIntance().showNotify(null, "Your password has changed successfully", "Ok");
-
+                saveData(profile);
+                String msg = "Your password has changed successfully";
+                SimiManager.getIntance().showNotify(null, msg, "Ok");
                 SimiManager.getIntance().backToHomeFragment();
             }
         });
         model.addDataExtendURL("change-password");
-        JSONObject obj = new JSONObject();
-        try {
-            obj.put("email", DataLocal.getEmail());
-            obj.put("password", profile.getCurrentPass());
-            obj.put("newpassword", profile.getNewPass());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        model.setJSONBody(obj);
+
+        JSONObject data_body = getParam(profile);
+        model.setJSONBody(data_body);
 
         model.request();
     }
+
+
+    private JSONObject getParam(ProfileEntity profile) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("email", DataLocal.getEmail());
+            json.put("password", profile.getCurrentPass());
+            json.put("newpassword", profile.getNewPass());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return json;
+    }
+
+    private void saveData(ProfileEntity profile) {
+        DataLocal.saveData(profile.getEmail(),
+                profile.getNewPass());
+        DataLocal.saveEmailPassRemember(profile.getEmail(),
+                profile.getNewPass());
+    }
+
 
     @Override
     public void onResume() {

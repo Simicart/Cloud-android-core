@@ -97,10 +97,6 @@ public class SignInBlock extends SimiBlock implements SignInDelegate {
 		btn_SignIn.setBackgroundColor(Config.getInstance()
 				.getButton_background());
 		btn_SignIn.setTextSize(Constants.SIZE_TEXT_BUTTON);
-		// GradientDrawable gdDefault = new GradientDrawable();
-		// gdDefault.setColor(Color.GRAY);
-		// gdDefault.setCornerRadius(3);
-		// btn_SignIn.setBackgroundDrawable(gdDefault);
 
 		// initial Email Field
 		edt_Email = (EditText) mView.findViewById(Rconfig.getInstance().id(

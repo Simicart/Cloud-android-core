@@ -8,6 +8,4 @@ import com.simicart.core.customer.entity.RegisterCustomer;
 
 public interface RegisterCustomerDelegate extends SimiDelegate{
 	public RegisterCustomer getRegisterCustomer();
-	public RelativeLayout getRelativeImage();
-	public Spinner getSpinnerSex();
 }
