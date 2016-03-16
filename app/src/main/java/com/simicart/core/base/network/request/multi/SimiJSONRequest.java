@@ -38,20 +38,8 @@ public class SimiJSONRequest extends SimiRequest {
             if (response.parse()) {
                 mDelegate.callBack(response, true);
             } else {
-
                 mRequestQueue.finish(this);
-
-//                String message = response.getMessage();
-//                if (!Utils.validateString(message) && isShowNotify) {
-//                    message = Config.getInstance().getText(
-//                            "Some errors occured. Please try again later");
-//                }
-//
-//                if (isShowNotify) {
-//                    SimiManager.getIntance().showNotify(message);
-//                }
                 mDelegate.callBack(response, false);
-                // mRequestQueue.stop();
             }
 
         } else {

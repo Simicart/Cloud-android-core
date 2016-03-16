@@ -48,15 +48,12 @@ public class CoreResponse {
             mJSON = new JSONObject(mData);
             Log.e("CoreRespone", mJSON.toString());
             if (mJSON.has("errors")) {
-                JSONArray errorArr = mJSON.getJSONArray("errors");
-                for (int i = 0; i < errorArr.length(); i++){
-                    mError = new SimiError();
-                    JSONObject jsError = errorArr.getJSONObject(0);
-                    String code = jsError.getString("code");
-                    String message = jsError.getString("message");
-                    mError.setCodeError(code);
-                    mError.setMessage(message);
-                }
+                mError = new SimiError();
+                JSONObject jsError = mJSON.getJSONObject("errors");
+                String code = jsError.getString("code");
+                String message = jsError.getString("message");
+                mError.setCodeError(code);
+                mError.setMessage(message);
                 return false;
             }
             return true;

@@ -251,7 +251,6 @@ public class SimiModel {
                 cache_key = cache_key + post_body;
             }
         }
-        Log.e("SimiModel ", "------> CACHE KEY " + cache_key);
         mRequest.setCacheKey(cache_key);
         if (mShouldCache) {
             boolean isRefreshCart = SimiManager.getIntance().isRereshCart();
@@ -296,7 +295,6 @@ public class SimiModel {
                 .getDataFromCacheL1(mRequest);
         if (null != json) {
             CoreResponse coreResponse = new CoreResponse();
-            Log.e("SimiModel  DATA FROM CACHE ", json.toString());
             coreResponse.setData(json.toString());
             coreResponse.parse();
             mDelegate.callBack(coreResponse, true);
@@ -341,7 +339,6 @@ public class SimiModel {
                     Map.Entry entry = (Map.Entry) iter.next();
                     // key
                     String key = (String) entry.getKey();
-                    Log.e("SimiModel", "Key Entry " + key);
                     if (Utils.validateString(key)) {
                         builder.append("/");
                         builder.append(key);
@@ -349,7 +346,6 @@ public class SimiModel {
                     // value
                     String value = (String) entry.getValue();
                     if (Utils.validateString(value)) {
-                        Log.e("SimiModel", "Value Entry " + value);
                         builder.append("/");
                         builder.append(value);
                     }

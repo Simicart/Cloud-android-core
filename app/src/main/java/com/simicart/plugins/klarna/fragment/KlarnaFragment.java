@@ -150,7 +150,7 @@ public class KlarnaFragment extends SimiFragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
 
-                Log.e("KlarnaFragment ","---> " +url);
+                Log.e("KlarnaFragment ", "---> " + url);
 
                 if (url.contains(SUCCESS)) {
                     Handler handler = new Handler();
@@ -175,6 +175,19 @@ public class KlarnaFragment extends SimiFragment {
             }
         });
 
+        webview.setOnKeyListener(new View.OnKeyListener() {
+
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        showDialog();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
