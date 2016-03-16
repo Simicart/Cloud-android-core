@@ -10,6 +10,7 @@ public class CreditcardEntity implements Serializable {
     private String paymentYear;
     private String paymentCvv;
     private String mCardName;
+    private String mExpired;
 
     private String keyCardType;
     private String codeCardType;
@@ -101,5 +102,13 @@ public class CreditcardEntity implements Serializable {
 
     public void setPaymentCvv(String paymentCvv) {
         this.paymentCvv = paymentCvv;
+    }
+
+    public String getExpired() {
+        return mExpired;
+    }
+
+    public void setExpired(String expired) {
+        mExpired = expired;
     }
 }

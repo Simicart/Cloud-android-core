@@ -10,6 +10,7 @@ import kankan.wheel.widget.WheelView;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -281,28 +282,14 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
     }
 
     @Override
-    public String getCardType() {
-        return et_type.getText().toString();
-    }
-
-    @Override
-    public String getCVV() {
-        return et_cvv.getText().toString();
-    }
-
-    @Override
-    public String getExpired() {
-        return et_expired.getText().toString();
-    }
-
-    @Override
-    public String getCardNumber() {
-        return et_card_number.getText().toString();
-    }
-
-    @Override
-    public String getCardName() {
-        return edt_card_name.getText().toString();
+    public CreditcardEntity getCreditCard() {
+        CreditcardEntity entity = new CreditcardEntity();
+        entity.setCardName(edt_card_name.getText().toString());
+        entity.setPaymentType(et_type.getText().toString());
+        entity.setPaymentNumber(et_card_number.getText().toString());
+        entity.setPaymentCvv(et_cvv.getText().toString());
+        entity.setExpired(et_expired.getText().toString());
+        return entity;
     }
 
     @Override

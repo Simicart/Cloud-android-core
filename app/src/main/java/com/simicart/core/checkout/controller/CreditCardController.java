@@ -29,6 +29,7 @@ import java.util.HashMap;
 
 public class CreditCardController extends SimiController {
 
+    protected CreditcardEntity entity;
     protected CreditCardDelegate mDelegate;
     protected boolean isCheckedMethod;
     protected int key = 0;
@@ -43,6 +44,7 @@ public class CreditCardController extends SimiController {
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onStart() {
+
         onCLickSave = new OnTouchListener() {
             @SuppressWarnings("deprecation")
             @Override
@@ -57,6 +59,7 @@ public class CreditCardController extends SimiController {
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
+                        entity = mDelegate.getCreditCard();
                         onButtonSaveClicked();
                     }
 
@@ -176,7 +179,7 @@ public class CreditCardController extends SimiController {
         try {
             cc_types = new JSONArray(mDelegate.getPaymentMethod().getData("card_type"));
             for (int i = 0; i < cc_types.length(); i++) {
-                if (cc_types.getJSONObject(i).getString("title").equals(mDelegate.getCardType())) {
+                if (cc_types.getJSONObject(i).getString("title").equals(entity.getPaymentType())) {
                     key = i;
                     break;
                 }
@@ -188,24 +191,22 @@ public class CreditCardController extends SimiController {
             e1.printStackTrace();
         }
         model.addDataBody("card_type", card_type);
-        model.addDataBody("card_number", mDelegate.getCardNumber());
-        model.addDataBody("card_name", mDelegate.getCardName());
-        String ccid = mDelegate.getCVV();
+        model.addDataBody("card_number", entity.getPaymentNumber());
+        model.addDataBody("card_name", entity.getCardName());
+        String ccid = entity.getPaymentCvv();
         model.addDataBody("card_digit", ccid);
-        String card_name = mDelegate.getCardName();
-        model.addDataBody("card_name", card_name);
-        model.addDataBody("expiration_date", mDelegate.getExpired());
+        model.addDataBody("expiration_date", entity.getExpired());
         model.request();
     }
 
     public void onButtonSaveClicked() {
         SimiManager.getIntance().hideKeyboard();
-        String my = mDelegate.getExpired();
+        String my = entity.getExpired();
         String[] split = my.split("/");
-        String number = mDelegate.getCardNumber();
-        String ccid = mDelegate.getCVV();
-        String card_type = mDelegate.getCardType();
-        String card_name = mDelegate.getCardName();
+        String number = entity.getPaymentNumber();
+        String ccid = entity.getPaymentCvv();
+        String card_type = entity.getPaymentType();
+        String card_name = entity.getCardName();
 
         if (validateInputData(number)) {
             String email = DataLocal.getEmailCreditCart();
