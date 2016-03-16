@@ -592,7 +592,7 @@ public class Config {
         boolean has_space = false;
         String currencyPosition = currency.getCurrencyPosition();
         if (Utils.validateString(currencyPosition)) {
-            currencyPosition = currencyPosition.toUpperCase();
+            currencyPosition = currencyPosition.toLowerCase();
             if (currencyPosition.contains("left")) {
                 isLeft = true;
             }
