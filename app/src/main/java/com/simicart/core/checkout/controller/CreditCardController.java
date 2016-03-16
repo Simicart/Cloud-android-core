@@ -194,7 +194,8 @@ public class CreditCardController extends SimiController {
         model.addDataBody("card_number", entity.getPaymentNumber());
         model.addDataBody("card_name", entity.getCardName());
         String ccid = entity.getPaymentCvv();
-        model.addDataBody("card_digit", ccid);
+        if(mDelegate.getPaymentMethod().getData("digit_card").equals("1"))
+            model.addDataBody("card_digit", ccid);
         model.addDataBody("expiration_date", entity.getExpired());
         model.request();
     }
