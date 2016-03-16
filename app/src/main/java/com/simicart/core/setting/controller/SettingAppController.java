@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.provider.Settings;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.DataLocal;
@@ -13,6 +14,7 @@ import com.simicart.core.setting.entity.CurrencyEntity;
 import com.simicart.core.setting.fragment.ListCurrencyFragment;
 import com.simicart.core.setting.fragment.ListLanguageFragment;
 import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
+
 import java.util.ArrayList;
 
 /**
@@ -91,7 +93,7 @@ public class SettingAppController extends SimiController {
 
     }
 
-    private void getLanguage(){
+    private void getLanguage() {
         ArrayList<LocaleConfigEntity> localeArr = DataLocal.listLocale;
         if (localeArr != null && localeArr.size() > 0) {
             language = localeArr.get(0).getName();
@@ -102,14 +104,14 @@ public class SettingAppController extends SimiController {
                 }
             }
             mDelegate.updateLanguage(language);
-        }else{
+        } else {
             mDelegate.hidenLanguage();
         }
     }
 
-    private void getCurrency(){
+    private void getCurrency() {
+        String currencyID = DataLocal.getCurrencyID();
         for (CurrencyEntity entity : DataLocal.listCurrency) {
-            String currencyID = DataLocal.getCurrencyID();
             if (entity.getValue().equals(currencyID)) {
                 currency = entity.getTitle();
             }
@@ -137,7 +139,7 @@ public class SettingAppController extends SimiController {
         }
     }
 
-    protected void enableLocator(){
+    protected void enableLocator() {
         Intent viewIntent = new Intent(
                 Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         mContext.startActivity(viewIntent);
