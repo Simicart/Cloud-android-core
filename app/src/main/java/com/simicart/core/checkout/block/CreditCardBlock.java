@@ -10,6 +10,7 @@ import kankan.wheel.widget.WheelView;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
@@ -247,8 +248,20 @@ public class CreditCardBlock extends SimiBlock implements CreditCardDelegate {
         wv_card.setCurrentItem(0);
     }
 
-    public void setClickCardType(OnClickListener onClick) {
-        et_type.setOnClickListener(onClick);
+    public void setClickCardName(OnTouchListener onTouchListener) {
+        edt_card_name.setOnTouchListener(onTouchListener);
+    }
+
+    public void setClickCardNumber(OnTouchListener onTouchListener) {
+        et_card_number.setOnTouchListener(onTouchListener);
+    }
+
+    public void setClickCVV(OnTouchListener onTouchListener) {
+        et_cvv.setOnTouchListener(onTouchListener);
+    }
+
+    public void setClickCardType(OnClickListener onTouchListener) {
+        et_type.setOnClickListener(onTouchListener);
     }
 
     public void setClickSave(OnTouchListener onTouchListener) {

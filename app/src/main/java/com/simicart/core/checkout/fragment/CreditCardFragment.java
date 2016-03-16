@@ -51,6 +51,9 @@ public class CreditCardFragment extends SimiFragment {
 		mBlock.setClickSave(mController.getOnClickSave());
 		mBlock.setClickCardType(mController.getOnClickCardType());
 		mBlock.setClickExpiredDate(mController.getOnClickCardDate());
+		mBlock.setClickCardName(mController.getOnClickCardName());
+		mBlock.setClickCardNumber(mController.getOnCLickCardNumber());
+		mBlock.setClickCVV(mController.getOnClickCVV());
 		return view;
 	}
 

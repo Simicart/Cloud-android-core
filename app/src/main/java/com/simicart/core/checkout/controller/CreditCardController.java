@@ -36,8 +36,9 @@ public class CreditCardController extends SimiController {
     OnTouchListener onCLickSave;
     OnClickListener onClickCardType;
     OnClickListener onClickExpiredDate;
-    protected int click = 0;
-    protected int click_date = 0;
+    OnTouchListener onClickCardName;
+    OnTouchListener onCLickCardNumber;
+    OnTouchListener onClickCVV;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -76,24 +77,53 @@ public class CreditCardController extends SimiController {
         onClickCardType = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (click % 2 == 0) {
+                SimiManager.getIntance().hideKeyboard();
+                if (mDelegate.getWheelViewCardType().getVisibility() == View.GONE) {
+                    mDelegate.getCardDateLayout().setVisibility(View.GONE);
                     mDelegate.getWheelViewCardType().setVisibility(View.VISIBLE);
                 } else {
                     mDelegate.getWheelViewCardType().setVisibility(View.GONE);
                 }
-                click++;
             }
         };
 
         onClickExpiredDate = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (click_date % 2 == 0) {
+                SimiManager.getIntance().hideKeyboard();
+                if (mDelegate.getCardDateLayout().getVisibility() == View.GONE) {
+                    mDelegate.getWheelViewCardType().setVisibility(View.GONE);
                     mDelegate.getCardDateLayout().setVisibility(View.VISIBLE);
                 } else {
                     mDelegate.getCardDateLayout().setVisibility(View.GONE);
                 }
-                click_date++;
+            }
+        };
+
+        onClickCardName = new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDelegate.getWheelViewCardType().setVisibility(View.GONE);
+                mDelegate.getCardDateLayout().setVisibility(View.GONE);
+                return false;
+            }
+        };
+
+        onCLickCardNumber = new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDelegate.getWheelViewCardType().setVisibility(View.GONE);
+                mDelegate.getCardDateLayout().setVisibility(View.GONE);
+                return false;
+            }
+        };
+
+        onClickCVV = new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDelegate.getWheelViewCardType().setVisibility(View.GONE);
+                mDelegate.getCardDateLayout().setVisibility(View.GONE);
+                return false;
             }
         };
     }
@@ -244,6 +274,18 @@ public class CreditCardController extends SimiController {
 
     public OnClickListener getOnClickCardDate() {
         return onClickExpiredDate;
+    }
+
+    public OnTouchListener getOnClickCardName() {
+        return onClickCardName;
+    }
+
+    public OnTouchListener getOnCLickCardNumber() {
+        return onCLickCardNumber;
+    }
+
+    public OnTouchListener getOnClickCVV() {
+        return onClickCVV;
     }
 
 }
