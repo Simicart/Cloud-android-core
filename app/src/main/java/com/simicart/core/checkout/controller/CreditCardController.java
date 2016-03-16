@@ -194,6 +194,7 @@ public class CreditCardController extends SimiController {
         model.addDataBody("card_digit", ccid);
         String card_name = mDelegate.getCardName();
         model.addDataBody("card_name", card_name);
+        model.addDataBody("expiration_date", mDelegate.getExpired());
         model.request();
     }
 
