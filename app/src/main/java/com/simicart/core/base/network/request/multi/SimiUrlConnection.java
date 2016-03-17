@@ -56,9 +56,6 @@ public class SimiUrlConnection {
 
         Log.e("SimiUrlConnection ", "makeUrlConnection " + url_extended);
 
-        if (url_extended.equals(Constants.SIGN_IN)) {
-            request.onStopRequestQueue();
-        }
 
         String url = Config.getInstance().getBaseUrl() + url_extended;
 
@@ -106,7 +103,7 @@ public class SimiUrlConnection {
             }
 
 
-            Log.e("SimiUrlConnection ","Type " + type);
+            Log.e("SimiUrlConnection ", "Type " + type);
 
             // set type method for request
             if (type == Method.GET) {
@@ -114,9 +111,9 @@ public class SimiUrlConnection {
             } else if (type == Method.POST) {
                 urlConnection.setRequestMethod("POST");
 
-                Log.e("SimiUrlConnection ","POSTTTTTTTTTTTTTTTT" + url);
+                Log.e("SimiUrlConnection ", "POSTTTTTTTTTTTTTTTT" + url);
 
-                        JSONObject postBody = request.getBody();
+                JSONObject postBody = request.getBody();
                 if (null != postBody) {
                     Log.e("SimiUrlConnection ", "PARAM " + postBody.toString());
                     OutputStream os = urlConnection.getOutputStream();
@@ -126,9 +123,7 @@ public class SimiUrlConnection {
                     writer.flush();
                     writer.close();
                     os.close();
-                }
-                else
-                {
+                } else {
                     Log.e("SimiUrlConnection ", "Data POST NULL");
                 }
             } else if (type == Method.PUT) {
@@ -144,7 +139,6 @@ public class SimiUrlConnection {
                     writer.close();
                     os.close();
                 }
-
 
 
             } else if (type == Method.DELETE) {
@@ -180,19 +174,11 @@ public class SimiUrlConnection {
                         response.addHeader(h);
                     }
                 }
-                if (url_extended.equals(Constants.SIGN_IN)) {
-                    request.onStartRequestQueue();
-                }
-                // Log.e("SimiURLConnection Finish ",
-                // url_extended + System.currentTimeMillis());
                 return response;
             }
 
         } catch (IOException e) {
             Log.e("SimiUrlStack ", "IOException " + e.getMessage());
-        }
-        if (url_extended.equals(Constants.SIGN_IN)) {
-            request.onStartRequestQueue();
         }
         request.cancel(true);
         return null;

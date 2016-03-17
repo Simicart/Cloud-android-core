@@ -19,7 +19,6 @@ import com.simicart.core.catalog.product.delegate.ProductDelegate;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.catalog.product.model.AddToCartModel;
 import com.simicart.core.catalog.product.model.CreateQuoteModel;
-import com.simicart.core.catalog.product.model.ProductModel;
 import com.simicart.core.catalog.product.entity.productEnity.VariantEntity;
 import com.simicart.core.catalog.product.model.UpdateQuoteModel;
 import com.simicart.core.catalog.product.options.ManageOptionView;
@@ -75,21 +74,6 @@ public class ProductController extends SimiController implements OptionProductDe
     @Override
     public void onStart() {
         mDelegate.showLoading();
-//        ModelDelegate delegate = new ModelDelegate() {
-//            @Override
-//            public void onFail(SimiError error) {
-//
-//            }
-//
-//            @Override
-//            public void onSuccess(SimiCollection collection) {
-//
-//            }
-//        };
-//        mModel = new ProductModel();
-//        mModel.addDataBody("product_id", mID);
-//        mModel.setDelegate(delegate);
-//        mModel.request();
 
         mListenerAddToCart = new OnTouchListener() {
 
