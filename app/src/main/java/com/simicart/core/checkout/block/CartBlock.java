@@ -12,6 +12,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -23,10 +24,8 @@ import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.checkout.controller.CartListenerController;
-import com.simicart.core.checkout.controller.PopupCheckoutController;
 import com.simicart.core.checkout.delegate.CartDelegate;
 import com.simicart.core.checkout.entity.QuoteEntity;
-import com.simicart.core.checkout.entity.TotalPrice;
 import com.simicart.core.common.Utils;
 import com.simicart.core.common.price.TotalPriceView;
 import com.simicart.core.config.Config;
@@ -42,13 +41,8 @@ public class CartBlock extends SimiBlock implements CartDelegate {
     protected TableLayout layoutPrice;
     protected CartListAdapter mAdapter;
     protected CartListenerController mListenerController;
-    protected PopupCheckoutController mPCheckoutController;
 
     protected ProgressDialog pp_checkout;
-    protected TextView tv_cancel;
-    protected TextView tv_excustomer;
-    protected TextView tv_newcustomer;
-    protected TextView tv_guest;
 
     private View line_price;
     private View line_bottom;
@@ -60,8 +54,6 @@ public class CartBlock extends SimiBlock implements CartDelegate {
         super(view, context);
         mListenerController = new CartListenerController();
         mListenerController.setCartDelegate(this);
-        mPCheckoutController = new PopupCheckoutController();
-        mPCheckoutController.setDelegate(this);
     }
 
     @Override
@@ -72,8 +64,6 @@ public class CartBlock extends SimiBlock implements CartDelegate {
         btn_Checkout.setText(Config.getInstance().getText("CHECKOUT"));
         btn_Checkout.setTextColor(Color.parseColor("#FFFFFF"));
         btn_Checkout.setTextSize(Constants.SIZE_TEXT_BUTTON);
-        btn_Checkout.setOnClickListener(mListenerController
-                .getCheckoutClicker());
 
         // list product
         lv_product = (ListView) mView.findViewById(Rconfig.getInstance().id(
@@ -176,49 +166,9 @@ public class CartBlock extends SimiBlock implements CartDelegate {
     }
 
     @Override
-    public void showPopupCheckout() {
-        createPopupMenu();
+    public void showPopupCheckout(ProgressDialog popup) {
+        pp_checkout = popup;
         pp_checkout.show();
-    }
-
-    public void createPopupMenu() {
-        pp_checkout = ProgressDialog.show(mView.getContext(), null, null, true,
-                false);
-        pp_checkout.setContentView(Rconfig.getInstance().layout(
-                "core_popup_checkout_layout"));
-        pp_checkout.getWindow().setBackgroundDrawable(
-                new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        pp_checkout.setCanceledOnTouchOutside(false);
-        mPCheckoutController.onStart();
-        pp_checkout.show();
-
-        tv_cancel = (TextView) pp_checkout.findViewById(Rconfig.getInstance()
-                .id("method_cancel"));
-        tv_cancel.setText(Config.getInstance().getText("Cancel"));
-        tv_cancel.setOnTouchListener(mPCheckoutController.getOnCancel());
-
-        tv_excustomer = (TextView) pp_checkout.findViewById(Rconfig
-                .getInstance().id("method_excustomer"));
-        tv_excustomer.setText(Config.getInstance().getText(
-                "Checkout as existing customer"));
-        tv_excustomer
-                .setOnTouchListener(mPCheckoutController.getOnExcustomer());
-
-        tv_newcustomer = (TextView) pp_checkout.findViewById(Rconfig
-                .getInstance().id("method_newcustomer"));
-        tv_newcustomer.setText(Config.getInstance().getText(
-                "Checkout as new customer"));
-        tv_newcustomer.setOnTouchListener(mPCheckoutController
-                .getOnNewcustomer());
-
-        tv_guest = (TextView) pp_checkout.findViewById(Rconfig.getInstance()
-                .id("method_guest"));
-        if (Config.getInstance().getGuest_checkout() == 1) {
-            tv_guest.setText(Config.getInstance().getText("Checkout as guest"));
-            tv_guest.setOnTouchListener(mPCheckoutController.getOnAsguest());
-        } else {
-            tv_guest.setVisibility(View.GONE);
-        }
     }
 
     @Override
