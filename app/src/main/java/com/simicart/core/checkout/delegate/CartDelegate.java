@@ -1,5 +1,7 @@
 package com.simicart.core.checkout.delegate;
 
+import android.app.ProgressDialog;
+
 import com.simicart.core.base.delegate.SimiDelegate;
 import com.simicart.core.checkout.entity.QuoteEntity;
 import com.simicart.core.checkout.entity.TotalPrice;
@@ -9,7 +11,7 @@ public interface CartDelegate extends SimiDelegate {
 
 	public void onUpdateTotalPrice(QuoteEntity totalPrice);
 
-	public void showPopupCheckout();
+	public void showPopupCheckout(ProgressDialog pp_checkout);
 
 	public void dismissPopupCheckout();
 
