@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -44,6 +45,7 @@ public class CartListenerController implements CartAdapterDelegate {
 	protected ArrayList<ProductEntity> mCarts;
 	protected CartDelegate mBlockDelegate;
 	protected String mMessage;
+	protected boolean isClickDelete = false;
 
 	public void setmMessage(String mMessage) {
 		this.mMessage = mMessage;
@@ -95,6 +97,7 @@ public class CartListenerController implements CartAdapterDelegate {
 
 	@Override
 	public OnTouchListener getOnTouchListener(final int position) {
+		Log.e("CartListenerController", "" + mCarts.size());
 		OnTouchListener onTouch = new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
@@ -104,7 +107,11 @@ public class CartListenerController implements CartAdapterDelegate {
 					break;
 				}
 				case MotionEvent.ACTION_UP: {
-					deleteItemCart(position);
+					Log.e("CartListenerController", "++" + position);
+					if(isClickDelete == false) {
+						deleteItemCart(position);
+						isClickDelete = true;
+					}
 				}
 
 				case MotionEvent.ACTION_CANCEL: {
@@ -146,6 +153,7 @@ public class CartListenerController implements CartAdapterDelegate {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								requestDeleteItemCart(position);
+								isClickDelete = false;
 							}
 						})
 				.setNegativeButton(Config.getInstance().getText("No"),
@@ -153,8 +161,10 @@ public class CartListenerController implements CartAdapterDelegate {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								// do nothing
+								isClickDelete = false;
 							}
-						}).show();
+						})
+				.setCancelable(false).show();
 
 	}
 
