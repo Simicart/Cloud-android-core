@@ -129,7 +129,6 @@ public class SearchHomeBlock extends SimiBlock {
 			CategoryDetailFragment fragment = CategoryDetailFragment.newInstance();
 			fragment.setQuerySearch(key);
 			fragment.setTag_search(tag);
-//			fragment.setUrlSearch(Constants.SEARCH_PRODUCTS);
 			fragment.setUrlSearch("products");
 			fragment.setTypeSearch(TagSearch.TYPE_SEARCH_ALL);
 			SimiManager.getIntance().addFragment(fragment);

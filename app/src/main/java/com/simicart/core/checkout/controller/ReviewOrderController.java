@@ -673,10 +673,7 @@ public class ReviewOrderController extends SimiController implements PaymentDele
                         + paymentmethod.getPlacecc_id());
             }
         }
-//		if (Config.getInstance().getEnable_agreements() != 0) {
-//			mModel.addDataBody(Constants.CONDITION, ""
-//					+ Config.getInstance().getEnable_agreements());
-//		}
+
 
         if (!Config.getInstance().getQuoteCustomerSignIn().equals("")) {
             mModel.addDataExtendURL(Config.getInstance().getQuoteCustomerSignIn() + "?action=createorder");

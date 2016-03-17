@@ -24,7 +24,6 @@ import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-//import android.support.v4.util.LruCache;
 import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.view.Display;
@@ -33,8 +32,6 @@ import android.widget.TextView;
 
 import com.simicart.MainActivity;
 import com.simicart.core.base.manager.SimiManager;
-import com.simicart.core.common.loadimage.UrlImageViewCallback;
-import com.simicart.core.common.loadimage.UrlImageViewHelper;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 
