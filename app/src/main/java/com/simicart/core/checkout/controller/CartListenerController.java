@@ -49,8 +49,6 @@ public class CartListenerController implements CartAdapterDelegate {
     }
 
 
-
-
     @Override
     public OnTouchListener getOnTouchListener(final int position) {
         OnTouchListener onTouch = new OnTouchListener() {
@@ -102,33 +100,6 @@ public class CartListenerController implements CartAdapterDelegate {
 
     }
 
-    public OnClickListener getClickItemCartListener(final int position,
-                                                    final ArrayList<String> listID) {
-        OnClickListener clicker = new OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                showProductDetail(position, listID);
-
-            }
-        };
-
-        return clicker;
-    }
-    protected void showProductDetail(int position, ArrayList<String> listID) {
-        ProductEntity cart = mCarts.get(position);
-        if (null != cart) {
-            String id = cart.getProductID();
-            if (Utils.validateString(id)) {
-                ProductDetailParentFragment fragment = ProductDetailParentFragment
-                        .newInstance();
-                fragment.setProductID(id);
-                fragment.setListIDProduct(listID);
-                SimiManager.getIntance().replaceFragment(fragment);
-                SimiManager.getIntance().removeDialog();
-            }
-        }
-    }
 
 
 
@@ -224,6 +195,35 @@ public class CartListenerController implements CartAdapterDelegate {
 //		model.addDataExtendURL("56682d0ce2bc731b157b23d1");
         model.addDataBody("qty", qty);
         model.request();
+    }
+
+    public OnClickListener getClickItemCartListener(final int position,
+                                                    final ArrayList<String> listID) {
+        OnClickListener clicker = new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                showProductDetail(position, listID);
+
+            }
+        };
+
+        return clicker;
+    }
+
+    protected void showProductDetail(int position, ArrayList<String> listID) {
+        ProductEntity cart = mCarts.get(position);
+        if (null != cart) {
+            String id = cart.getProductID();
+            if (Utils.validateString(id)) {
+                ProductDetailParentFragment fragment = ProductDetailParentFragment
+                        .newInstance();
+                fragment.setProductID(id);
+                fragment.setListIDProduct(listID);
+                SimiManager.getIntance().replaceFragment(fragment);
+                SimiManager.getIntance().removeDialog();
+            }
+        }
     }
 
     protected void onEditQty(final int position, String qty) {
