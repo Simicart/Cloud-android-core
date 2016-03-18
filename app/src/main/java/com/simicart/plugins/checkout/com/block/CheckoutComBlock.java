@@ -113,4 +113,16 @@ public class CheckoutComBlock extends SimiBlock implements CheckoutComDelegate {
         else
             spinYear.getBackground().clearColorFilter();
     }
+
+    public void setOnNameListener(View.OnKeyListener onKeyListener) {
+        name.setOnKeyListener(onKeyListener);
+    }
+
+    public void setOnCardNumberListener(View.OnKeyListener onKeyListener) {
+        numberField.setOnKeyListener(onKeyListener);
+    }
+
+    public void setOnCVVListener(View.OnKeyListener onKeyListener) {
+        cvvField.setOnKeyListener(onKeyListener);
+    }
 }
