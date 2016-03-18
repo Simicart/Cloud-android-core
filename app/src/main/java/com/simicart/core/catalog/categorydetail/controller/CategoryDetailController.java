@@ -1,6 +1,5 @@
 package com.simicart.core.catalog.categorydetail.controller;
 
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -8,7 +7,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.RelativeLayout;
+import android.widget.GridView;
 
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
@@ -28,7 +27,6 @@ import com.simicart.core.catalog.categorydetail.entity.TagSearch;
 import com.simicart.core.catalog.categorydetail.model.ConstantsSearch;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.DataLocal;
-import com.simicart.core.config.Rconfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,8 +52,9 @@ public class CategoryDetailController extends SimiController implements
     protected OnScrollListener mScrollListviewListener,
             mScrollGridviewListener;
     protected OnItemClickListener mListviewClick;
-    protected OnTouchListener mOnTouchChangeViewData, mOnTouchToFilter,
-            mOnTouchToSort, mOnTouchGridview;
+    protected View.OnClickListener mOnTouchChangeViewData, mOnTouchToFilter,
+            mOnTouchToSort;
+    protected OnTouchListener mOnTouchGridview;
     protected boolean is_back_filter;
     protected String typeSearch = "0";
     // protected String type_search;
@@ -69,7 +68,7 @@ public class CategoryDetailController extends SimiController implements
     boolean clickDetected = true;
     private static boolean checkZoom = false;
     private int position = -1;
-    protected int firstPos = -1;
+    //  protected int firstPos = -1;
 
     public void setList_Param(Map<String, String> list_query) {
         this.list_param = list_query;
@@ -82,7 +81,6 @@ public class CategoryDetailController extends SimiController implements
 
     @Override
     public void onStart() {
-        Log.e("Onstart", "Request product list Onstart");
         createListener();
         requestProduct();
     }
@@ -92,9 +90,9 @@ public class CategoryDetailController extends SimiController implements
             mDelegate.showLoading();
         }
         if (DataLocal.isTablet) {
-            limit = 16;
+            limit = 32;
         } else {
-            limit = 8;
+            limit = 12;
         }
         if (mModel == null) {
             mModel = new CategoryDetailModel();
@@ -109,27 +107,27 @@ public class CategoryDetailController extends SimiController implements
         }
 
         String param_typesport = getValueListParam(ConstantsSearch.PARAM_TYPE_SPORT);
-        if(Utils.validateString(param_typesport)){
+        if (Utils.validateString(param_typesport)) {
             mDelegate.showSort(false);
 
-            if(param_typesport.equals("1")){
+            if (param_typesport.equals("1")) {
                 mModel.addDataParameter("group-type", "best-sellers");
             }
-            if(param_typesport.equals("2")){
+            if (param_typesport.equals("2")) {
                 mModel.addOrderDataParameter("updated_at");
                 mModel.sortDirDESC();
             }
-            if(param_typesport.equals("3")){
+            if (param_typesport.equals("3")) {
                 mModel.addOrderDataParameter("created_at");
                 mModel.sortDirDESC();
             }
-            if(param_typesport.equals("4")){
+            if (param_typesport.equals("4")) {
                 String param_ids = getValueListParam(ConstantsSearch.PARAM_IDS_FEATURE);
-                if(Utils.validateString(param_ids)) {
+                if (Utils.validateString(param_ids)) {
                     mModel.addDataParameter("ids", param_ids);
                 }
             }
-        }else{
+        } else {
             mDelegate.showSort(true);
         }
 
@@ -176,7 +174,7 @@ public class CategoryDetailController extends SimiController implements
 
         mModel.addDataParameter("stock_info", "1");
         mModel.addFilterDataParameter("status", "1");
-        mModel.addDataParameter("order","created_at");
+        mModel.addDataParameter("order", "created_at");
         mModel.sortDirDESC();
 
         mModel.setDelegate(new ModelDelegate() {
@@ -214,117 +212,36 @@ public class CategoryDetailController extends SimiController implements
                 selectemItem(position - 1);
             }
         };
-        mOnTouchChangeViewData = new OnTouchListener() {
 
-            RelativeLayout layout_changeview = mDelegate.getLayoutToGridview();
-
+        mOnTouchChangeViewData = new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // layout_changeview.setBackgroundColor(Color
-                        // .parseColor("#6e7f80"));
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // layout_changeview.setBackgroundColor(Config.getInstance()
-                        // .getColorSort());
-                        // toGridView(mDelegate.getQuery());
-                        changeDataView();
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                        // layout_changeview.setBackgroundColor(Config.getInstance()
-                        // .getColorSort());
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                tag_search = mDelegate.onChangeTypeViewShow();
             }
         };
 
-        mOnTouchToFilter = new OnTouchListener() {
-
-            RelativeLayout layout_to_filter = mDelegate.getLayoutToFilter();
-
+        mOnTouchToFilter = new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // layout_to_filter.setBackgroundColor(Color
-                        // .parseColor("#6e7f80"));
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // layout_to_filter.setBackgroundColor(Config.getInstance()
-                        // .getColorSort());
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                        // layout_to_filter.setBackgroundColor(Config.getInstance()
-                        // .getColorSort());
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+
             }
         };
 
-        mOnTouchToSort = new OnTouchListener() {
-            RelativeLayout layout_to_sort = mDelegate.getLayoutToSort();
-
+        mOnTouchToSort = new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        // layout_to_sort.setBackgroundColo
-
-                        break;
-                    case MotionEvent.ACTION_UP:
-                        // layout_to_sort.setBackgroundColor(Config.getInstance()
-                        // .getColorSort());
-                        toSortLayout(mQuery);
-                        break;
-                    case MotionEvent.ACTION_CANCEL:
-                        // layout_to_sort.setBackgroundColor(Config.getInstance()
-                        // .getColorSort());
-                        break;
-                }
-                return true;
+            public void onClick(View v) {
+                toSortLayout(mQuery);
             }
         };
 
-        mScrollGridviewListener = new OnScrollListener() {
+        initScrollGrid();
 
-            int currentFirstVisibleItem;
+        initScrollList();
 
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                int threshold = 1;
-                int count = view.getCount();
-                if (scrollState == SCROLL_STATE_IDLE) {
-                    if ((view.getLastVisiblePosition() >= count - threshold)
-                            && Integer.parseInt(resultNumber) > count) {
-                        if (isOnscroll) {
-                            mCurrentOffset += limit;
-                            isOnscroll = false;
-                            mDelegate.addFooterView();
-                            mDelegate.setTagSearch(TagSearch.TAG_GRIDVIEW);
-                            mDelegate.addFooterView();
-                            mDelegate.setIsLoadMore(true);
-//                            checkUrlRequest = true;
-                            requestProduct();
-                        }
-                    }
-                }
-            }
+        initTouchScroll();
+    }
 
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem,
-                                 int visibleItemCount, int totalItem) {
-                if (currentFirstVisibleItem > firstVisibleItem) {
-                    mDelegate.setVisibilityMenuBotton(true);
-                } else if (currentFirstVisibleItem < firstVisibleItem) {
-                    mDelegate.setVisibilityMenuBotton(false);
-                }
-                currentFirstVisibleItem = firstVisibleItem;
-                mDelegate.setCurrentPosition(view.getFirstVisiblePosition());
-            }
-        };
+    protected void initScrollList() {
         mScrollListviewListener = new OnScrollListener() {
 
             int currentFirstVisibleItem;
@@ -334,18 +251,15 @@ public class CategoryDetailController extends SimiController implements
                 try {
                     int threshold = 1;
                     int count = view.getCount();
-                    Log.e("Count :", count + "");
+                    int current_size = ((CategoryDetailModel) mModel).getCurrentSize();
                     if (scrollState == SCROLL_STATE_IDLE) {
                         if ((view.getLastVisiblePosition() >= count - threshold)
-                                && Integer.parseInt(resultNumber) > count) {
-                            Log.e("ResultNumber :", resultNumber);
-                            Log.e("IsOnscroll:", isOnscroll + "");
+                                && Integer.parseInt(resultNumber) > current_size) {
                             if (isOnscroll) {
                                 mCurrentOffset += limit;
                                 isOnscroll = false;
                                 mDelegate.addFooterView();
                                 mDelegate.setIsLoadMore(true);
-//                                checkUrlRequest = true;
                                 requestProduct();
                             }
                         }
@@ -373,6 +287,50 @@ public class CategoryDetailController extends SimiController implements
                 }
             }
         };
+    }
+
+
+    protected void initScrollGrid() {
+        mScrollGridviewListener = new OnScrollListener() {
+
+            int currentFirstVisibleItem;
+
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                int threshold = 1;
+                int count = view.getCount();
+                int current_size = ((CategoryDetailModel) mModel).getCurrentSize();
+                if (scrollState == SCROLL_STATE_IDLE) {
+                    if ((view.getLastVisiblePosition() >= count - threshold)
+                            && Integer.parseInt(resultNumber) > current_size) {
+                        if (isOnscroll) {
+                            mCurrentOffset += limit;
+                            isOnscroll = false;
+                            mDelegate.addFooterView();
+                            mDelegate.setTagSearch(TagSearch.TAG_GRIDVIEW);
+                            mDelegate.setIsLoadMore(true);
+                            requestProduct();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItem) {
+                if (currentFirstVisibleItem > firstVisibleItem) {
+                    mDelegate.setVisibilityMenuBotton(true);
+                } else if (currentFirstVisibleItem < firstVisibleItem) {
+                    mDelegate.setVisibilityMenuBotton(false);
+                }
+                currentFirstVisibleItem = firstVisibleItem;
+                mDelegate.setCurrentPosition(view.getFirstVisiblePosition());
+            }
+        };
+    }
+
+
+    protected void initTouchScroll() {
         mOnTouchGridview = new OnTouchListener() {
 
             @Override
@@ -383,12 +341,11 @@ public class CategoryDetailController extends SimiController implements
                     clickDetected = false;
                 }
                 switch (event.getAction() & MotionEvent.ACTION_MASK) {
-                    // case MotionEvent.ACTION_SCROLL:
                     case MotionEvent.ACTION_DOWN:
                         // first finger down only
                         float singer_down = event.getY();
                         down_Y = singer_down;
-                        int postion = mDelegate.getGridView().pointToPosition(
+                        int postion = ((GridView) v).pointToPosition(
                                 (int) event.getX(), (int) event.getY());
                         position = postion;
                         break;
@@ -431,88 +388,18 @@ public class CategoryDetailController extends SimiController implements
                         // second finger lifted
                         float up = spacing(event);
                         distance_up = up;
+                        boolean is_zoom_out;
                         if (distance_up < distance_down) {
                             // zoom out
-                            if (DataLocal.isTablet) {
-                                if (mDelegate.getGridView().getNumColumns() < 6) {
-                                    firstPos = mDelegate.getGridView()
-                                            .getFirstVisiblePosition();
-                                    mDelegate.setGridviewAdapter(
-                                            mDelegate.getmContext(),
-                                            mDelegate.getListProduct(),
-                                            mDelegate.getmIDs(), 6);
-                                    mDelegate.getGridView().setAdapter(
-                                            mDelegate.getAdapterGridview());
-                                    mDelegate.getGridView().setNumColumns(6);
-                                    mDelegate.getGridView().startAnimation(
-                                            mDelegate.getZoomOut());
-                                    mDelegate.getAdapterGridview()
-                                            .notifyDataSetInvalidated();
-                                    mDelegate.getGridView().invalidateViews();
-                                }
-                            } else {
-                                if (mDelegate.getGridView().getNumColumns() < 4) {
-                                    firstPos = mDelegate.getGridView()
-                                            .getFirstVisiblePosition();
-                                    mDelegate.setGridviewAdapter(
-                                            mDelegate.getmContext(),
-                                            mDelegate.getListProduct(),
-                                            mDelegate.getmIDs(), 4);
-                                    mDelegate.getGridView().setAdapter(
-                                            mDelegate.getAdapterGridview());
-                                    mDelegate.getGridView().setNumColumns(4);
-                                    mDelegate.getGridView().startAnimation(
-                                            mDelegate.getZoomOut());
-                                    mDelegate.getAdapterGridview()
-                                            .notifyDataSetInvalidated();
-                                    mDelegate.getGridView().invalidateViews();
-                                }
-                            }
+                            is_zoom_out = true;
                         } else {
-                            if (DataLocal.isTablet) {
-                                if (mDelegate.getGridView().getNumColumns() > 4) {
-                                    firstPos = mDelegate.getGridView()
-                                            .getFirstVisiblePosition();
-                                    mDelegate.setGridviewAdapter(
-                                            mDelegate.getmContext(),
-                                            mDelegate.getListProduct(),
-                                            mDelegate.getmIDs(), 4);
-                                    mDelegate.getGridView().setAdapter(
-                                            mDelegate.getAdapterGridview());
-                                    // zoom(2);
-                                    mDelegate.getGridView().setNumColumns(4);
-                                    mDelegate.getGridView().startAnimation(
-                                            mDelegate.getZoomIn());
-                                    mDelegate.getAdapterGridview()
-                                            .notifyDataSetInvalidated();
-                                    mDelegate.getGridView().invalidateViews();
-                                }
-                            } else {
-                                if (mDelegate.getGridView().getNumColumns() > 2) {
-                                    firstPos = mDelegate.getGridView()
-                                            .getFirstVisiblePosition();
-                                    mDelegate.setGridviewAdapter(
-                                            mDelegate.getmContext(),
-                                            mDelegate.getListProduct(),
-                                            mDelegate.getmIDs(), 2);
-                                    mDelegate.getGridView().setAdapter(
-                                            mDelegate.getAdapterGridview());
-                                    // zoom(2);
-                                    mDelegate.getGridView().setNumColumns(2);
-                                    mDelegate.getGridView().startAnimation(
-                                            mDelegate.getZoomIn());
-                                    mDelegate.getAdapterGridview()
-                                            .notifyDataSetInvalidated();
-                                    mDelegate.getGridView().invalidateViews();
-                                }
-                            }
+                            is_zoom_out = false;
                         }
+                        processZoomGridView(is_zoom_out);
                         break;
                     case MotionEvent.ACTION_POINTER_DOWN:
                         // second finger down
-                        System.out.println("Second finger down");
                         float down = spacing(event);
-                        System.out.println("DownDistance:" + down);
                         distance_down = down;
                         break;
                     case MotionEvent.ACTION_MOVE:
@@ -523,7 +410,6 @@ public class CategoryDetailController extends SimiController implements
                 return false;
             }
         };
-
     }
 
     private float spacing(MotionEvent event) {
@@ -531,6 +417,11 @@ public class CategoryDetailController extends SimiController implements
         float y = event.getY(0) - event.getY(1);
         return (float) Math.sqrt(x * x + y * y);
     }
+
+    private void processZoomGridView(boolean is_zoom_out) {
+        mDelegate.onChangeNumberColumnGrid(is_zoom_out);
+    }
+
 
     private void selectemItem(int position) {
         if (position != -1) {
@@ -555,59 +446,6 @@ public class CategoryDetailController extends SimiController implements
         SimiManager.getIntance().hideKeyboard();
     }
 
-
-    private void changeDataView() {
-        if (mDelegate.getTagSearch().equals(TagSearch.TAG_LISTVIEW)) {
-            mDelegate.getImageChangeview().setBackgroundResource(
-                    Rconfig.getInstance().drawable("ic_to_listview"));
-            mDelegate.getListView().setVisibility(View.GONE);
-            mDelegate.getGridView().setVisibility(View.VISIBLE);
-            if (mDelegate.getListProduct().size() > 0) {
-                Log.e("ProductListZThemeBlock ", "Product Size "
-                        + mDelegate.getListProduct().size());
-                if (null == mDelegate.getAdapterGridview()) {
-                    mDelegate.setGridviewAdapter(mDelegate.getmContext(),
-                            mDelegate.getListProduct(), mDelegate.getmIDs(), 2);
-                    mDelegate.getGridView().setSelection(
-                            mDelegate.getCurrentPosition());
-                    mDelegate.getGridView().setAdapter(
-                            mDelegate.getAdapterGridview());
-                } else {
-                    mDelegate.getAdapterGridview().setListProduct(
-                            mDelegate.getListProduct());
-                    mDelegate.getGridView().setSelection(
-                            mDelegate.getCurrentPosition());
-                    mDelegate.getAdapterGridview().notifyDataSetChanged();
-                }
-            }
-            tag_search = TagSearch.TAG_GRIDVIEW;
-            mDelegate.setTagSearch(TagSearch.TAG_GRIDVIEW);
-        } else {
-            mDelegate.getImageChangeview().setBackgroundResource(
-                    Rconfig.getInstance().drawable("ic_to_gridview"));
-            mDelegate.getListView().setVisibility(View.VISIBLE);
-            mDelegate.getGridView().setVisibility(View.GONE);
-            if (mDelegate.getListProduct().size() > 0) {
-                if (null == mDelegate.getAdapterProductList()) {
-                    mDelegate.setListviewAdapter(mDelegate.getmContext(),
-                            mDelegate.getListProduct());
-                    mDelegate.getListView().setSelection(
-                            mDelegate.getCurrentPosition());
-                    mDelegate.getListView().setAdapter(
-                            mDelegate.getAdapterProductList());
-                } else {
-                    mDelegate.getAdapterProductList().setProductList(
-                            mDelegate.getListProduct());
-                    mDelegate.getListView().setSelection(
-                            mDelegate.getCurrentPosition());
-                    mDelegate.getAdapterProductList().notifyDataSetChanged();
-                }
-            }
-            tag_search = TagSearch.TAG_LISTVIEW;
-            mDelegate.setTagSearch(TagSearch.TAG_LISTVIEW);
-        }
-
-    }
 
     private void toSortLayout(String query) {
         SortFragment fragment = SortFragment.newInstance(mName, mID);
@@ -636,7 +474,6 @@ public class CategoryDetailController extends SimiController implements
             checkUrlRequest = true;
             requestProduct();
         } else {
-            Log.d("Resume", "visibile MenuBottom");
             mDelegate.setTagSearch(tag_search);
             mDelegate.updateView(mModel.getCollection());
             if (mModel.getCollection().getCollection().size() > 0) {
@@ -728,7 +565,7 @@ public class CategoryDetailController extends SimiController implements
         return mScrollListviewListener;
     }
 
-    public OnTouchListener getmOnTouchChangeViewData() {
+    public View.OnClickListener getmOnTouchChangeViewData() {
         return mOnTouchChangeViewData;
     }
 
@@ -736,11 +573,11 @@ public class CategoryDetailController extends SimiController implements
         return mOnTouchGridview;
     }
 
-    public OnTouchListener getmOnTouchToFilter() {
+    public View.OnClickListener getmOnTouchToFilter() {
         return mOnTouchToFilter;
     }
 
-    public OnTouchListener getmOnTouchToSort() {
+    public View.OnClickListener getmOnTouchToSort() {
         return mOnTouchToSort;
     }
 

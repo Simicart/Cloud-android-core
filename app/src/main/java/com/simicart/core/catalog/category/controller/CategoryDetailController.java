@@ -46,20 +46,9 @@ public class CategoryDetailController extends SimiController {
     }
 
     private void requestListProducts() {
-//		 mDelegate.showDialogLoading();
         mModel = new ListProductModel();
         ((ListProductModel) mModel).setCategoryID(mID);
-//        mModel.addDataBody("category_id", mID);
-//        mModel.addDataBody("offset", "0");
-//        mModel.addDataBody("limit", "10");
-//        // mModel.addDataBody("sort_option", mSortType);
-//        mModel.addDataBody("width", "300");
-//        mModel.addDataBody("height", "300");
-//        // if (null != jsonFilter) {
-//        // mModel.addDataBody("filter", jsonFilter);
-//        // }
-
-        if(!mID.equals("-1")){
+        if (!mID.equals("-1")) {
             mModel.addDataExtendURL(mID);
             mModel.addDataExtendURL("products");
         }
