@@ -1,11 +1,12 @@
 package com.simicart.core.event.slidemenu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.simicart.core.slidemenu.entity.ItemNavigation;
 
-public class SlideMenuData {
+public class SlideMenuData implements Serializable {
 	protected ArrayList<ItemNavigation> mItemNavigations;
 	protected ArrayList<ItemNavigation> mItemNavigationsFull;
 	protected HashMap<String, String> mPluginFragment;
