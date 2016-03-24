@@ -305,6 +305,14 @@ public class PhoneSlideMenuController {
         ItemNavigation item = mItems.get(position);
         if (null != item) {
             if (!item.isSparator()) {
+                String nameItem = item.getName();
+
+                Intent intent = new Intent("com.simicart.leftmenu.slidemenucontroller.onnavigate.clickitem");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constants.ENTITY, nameItem);
+                intent.putExtra(Constants.DATA, bundle);
+                LocalBroadcastManager.getInstance(mContext).sendBroadcastSync(intent);
+
                 TypeItem type = item.getType();
                 SimiFragment fragment = null;
                 if (type == TypeItem.NORMAL) {
