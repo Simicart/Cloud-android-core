@@ -45,8 +45,4 @@ public class ScanCodeModel extends SimiModel {
 		}
 	}
 
-	@Override
-	public void setShouldCache() {
-		mShouldCache = true;
-	}
 }

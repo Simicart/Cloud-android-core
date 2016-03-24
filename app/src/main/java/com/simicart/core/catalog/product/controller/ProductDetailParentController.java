@@ -32,26 +32,16 @@ public class ProductDetailParentController extends ProductController {
     protected OnTouchListener onTouchDetails;
     protected OnClickListener onTouchOptions;
     protected OnClickListener onDoneClick;
+    protected View.OnKeyListener mListenerBack;
 
     protected boolean fromScan = false;
-    protected boolean hasOption = false;
     protected boolean statusTopBottom = true;
     protected ProductDetailAdapterDelegate mAdapterDelegate;
     private boolean checkOptionDerect = false;
-    public static  boolean isShownOption;
-
-    protected  View view;
+    public static boolean isShownOption;
 
     public void setAdapterDelegate(ProductDetailAdapterDelegate delegate) {
         mAdapterDelegate = delegate;
-    }
-
-    public void setView(View view) {
-        this.view = view;
-    }
-
-    public void setHasOption(boolean hasOption) {
-        this.hasOption = hasOption;
     }
 
     public void setFromScan(boolean fromScan) {
@@ -94,7 +84,6 @@ public class ProductDetailParentController extends ProductController {
     @SuppressLint("ClickableViewAccessibility")
     protected void initOnTouchListener() {
 
-        initBack();
 
         onTouchAddToCart = new OnClickListener() {
 
@@ -150,46 +139,33 @@ public class ProductDetailParentController extends ProductController {
                 onAddToCart();
             }
         };
-    }
 
-    public void initBack() {
-        view.setFocusableInTouchMode(true);
-        view.requestFocus();
-        view.setOnKeyListener(new View.OnKeyListener() {
+        mListenerBack = new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == KeyEvent.ACTION_DOWN) {
                     if (keyCode == KeyEvent.KEYCODE_BACK) {
-                        List<Fragment> list_fragmens = SimiManager.getIntance().getManager().getFragments();
-                        if(list_fragmens.get(list_fragmens.size() - 1) instanceof OptionFragment) {
-                            SimiManager.getIntance().getManager().popBackStack();
-                            isShownOption = false;
-                        } else if(fromScan == true && isShownOption == false) {
-                            Intent intent = new Intent("com.simicart.leftmenu.mainactivity.onbackpress.backtoscan");
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable(Constants.ENTITY, "Scan Now");
-                            intent.putExtra(Constants.DATA, bundle);
-                            LocalBroadcastManager.getInstance(SimiManager.getIntance().getCurrentContext()).sendBroadcastSync(intent);
-                            SimiManager.getIntance().getManager().popBackStack();
-
-                            fromScan = false;
-                        } else {
-                            SimiManager.getIntance().backPreviousFragment();
-                        }
+                        processBack();
                         return true;
                     }
                 }
                 return false;
             }
-        });
+        };
+
+        initBack();
+    }
+
+    public void initBack() {
+        mDelegate.setListenerBack(mListenerBack);
     }
 
 
     @SuppressLint("LongLogTag")
     protected void onShowOption() {
-        if(!isShownOption) {
+        if (!isShownOption) {
             isShownOption = true;
-            onUpdatePriceView((ProductDetailModel)mModel);
+            onUpdatePriceView((ProductDetailModel) mModel);
             View view_option = onShowOptionView();
             mDelegate.onUpdateOptionView(view_option);
         }
@@ -205,11 +181,29 @@ public class ProductDetailParentController extends ProductController {
     protected void onShowDetail() {
         InformationFragment fragment = InformationFragment.newInstance();
         if (null != priceView) {
-            Log.e("Parent Controller ","set Price View Basic");
             fragment.setPriceViewBasic(priceView);
         }
         fragment.setProduct(getProductFromCollection());
         SimiManager.getIntance().addPopupFragment(fragment);
+    }
+
+    protected void processBack() {
+        List<Fragment> list_fragmens = SimiManager.getIntance().getManager().getFragments();
+        if (list_fragmens.get(list_fragmens.size() - 1) instanceof OptionFragment) {
+            SimiManager.getIntance().getManager().popBackStack();
+            isShownOption = false;
+        } else if (fromScan == true && isShownOption == false) {
+            Intent intent = new Intent("com.simicart.leftmenu.mainactivity.onbackpress.backtoscan");
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(Constants.ENTITY, "Scan Now");
+            intent.putExtra(Constants.DATA, bundle);
+            LocalBroadcastManager.getInstance(SimiManager.getIntance().getCurrentContext()).sendBroadcastSync(intent);
+            SimiManager.getIntance().getManager().popBackStack();
+
+            fromScan = false;
+        } else {
+            SimiManager.getIntance().backPreviousFragment();
+        }
     }
 
     @SuppressLint("LongLogTag")
@@ -222,12 +216,6 @@ public class ProductDetailParentController extends ProductController {
             mManageOptionView = new ManageOptionView(mProduct);
             mDelegate.updateView(model.getCollection());
 
-//            Auto add to cart
-//            if(fromScan == true && hasOption == false) {
-//                onAddToCart();
-//            } else if(fromScan == true && hasOption == true) {
-//                onShowOption();
-//            }
         }
     }
 

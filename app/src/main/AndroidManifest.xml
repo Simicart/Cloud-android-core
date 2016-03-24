@@ -89,11 +89,11 @@
         android:required="false" />
 
     <permission
-        android:name="com.simicart.permission.C2D_MESSAGE"
+        android:name="com.magestore.simicart.permission.C2D_MESSAGE"
         android:protectionLevel="signature"
         android:required="false" />
 
-    <uses-permission android:name="com.simicart.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.magestore.simicart.permission.C2D_MESSAGE" />
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 

@@ -13,8 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -37,14 +35,11 @@ import com.simicart.core.slidemenu.entity.ItemNavigation.TypeItem;
 
 public class ScanCode {
 
-    public final String SCAN_NOW = "Scan QR Barcode";
     public final String QR_BAR_CODE = "Scan Now";
 
     Context mContext;
     ArrayList<ItemNavigation> mItems;
-    private String type = "";
     private ScanCodeModel mModel;
-    boolean isBackFromDetail = false;
 
     public ScanCode() {
         mContext = SimiManager.getIntance().getCurrentActivity();
@@ -54,7 +49,6 @@ public class ScanCode {
         BroadcastReceiver addItemReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-
                 Bundle bundle = intent.getBundleExtra(Constants.DATA);
                 SlideMenuData entity = (SlideMenuData) bundle.getSerializable(Constants.ENTITY);
                 mItems = entity.getItemNavigations();
@@ -101,8 +95,6 @@ public class ScanCode {
                 IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
                 if (result != null) {
                     if (result.getContents() == null) {
-                        Toast.makeText(mContext, "Cancelled", Toast.LENGTH_LONG).show();
-
                         for (Fragment fragment : SimiManager.getIntance()
                                 .getManager().getFragments()) {
                             if (fragment == null) {
@@ -157,7 +149,6 @@ public class ScanCode {
             @Override
             public void onSuccess(SimiCollection collection) {
                 pd_loading.dismiss();
-                Log.e("abc", "++" + mModel.getDataJSON().toString());
                 ArrayList<String> listID = new ArrayList<String>();
 
                 ProductEntity product = null;
@@ -173,19 +164,6 @@ public class ScanCode {
                     return;
                 }
 
-//                for (Fragment fragment : SimiManager.getIntance()
-//                        .getManager().getFragments()) {
-//                    if (fragment == null) {
-//                        // SimiManager.getIntance().getManager()
-//                        // .getFragments().remove(fragment);
-//                        break;
-//                    } else {
-//                        if (fragment instanceof ProductDetailParentFragment) {
-//                            SimiManager.getIntance().getManager().getFragments().remove(fragment);
-//                        }
-//                    }
-//                }
-
                 listID.add(product_id);
                 ProductDetailParentFragment fragment = ProductDetailParentFragment.newInstance();
                 fragment.setListIDProduct(listID);
@@ -193,23 +171,6 @@ public class ScanCode {
                 fragment.setIsFromScan(true);
                 SimiManager.getIntance().replaceFragment(fragment);
 
-//			if (!Utils.validateString(product_id)) {
-//				SimiManager.getIntance().showToast(
-//						"Result products is empty");
-//				return;
-//			}
-//			listID.add(product_id);
-//			ProductDetailParentFragment fragment = ProductDetailParentFragment
-//					.newInstance(product_id, listID);
-//			fragment.setTargetFragment(fragment,
-//					Constants.TARGET_PRODUCTDETAIL);
-////						fragment.setProductID(product_id);
-////						fragment.setListIDProduct(listID);
-//			SimiManager.getIntance().addFragment(fragment);
-//			MainActivity.mCheckToDetailAfterScan = true;
-//			MainActivity.mBackEntryCountDetail = SimiManager
-//					.getIntance().getManager()
-//					.getBackStackEntryCount();
             }
         });
         mModel.addDataExtendURL("barcode");
@@ -219,85 +180,10 @@ public class ScanCode {
     }
 
     private void clickItemLeftMenuCode(String nameItem) {
-        if (nameItem.equals(Config.getInstance().getText(
-                QR_BAR_CODE))) {
+        if (nameItem.equals(QR_BAR_CODE)) {
             new IntentIntegrator(MainActivity.context).initiateScan();
-//			intent.putExtra("SCAN_MODE", Constants.SCAN_MODE);
-//			intent.putExtra("SCAN_MODE", Constants.SCAN_MODE_BARCODE);
-//			SimiManager.getIntance().getCurrentActivity()
-//					.startActivityForResult(intent, Constants.RESULT_BARCODE);
         }
     }
 
-//	private void checkEntryCount() {
-//		int backEntryCountDetail = SimiManager.getIntance().getManager()
-//				.getBackStackEntryCount();
-//		if (MainActivity.mBackEntryCountDetail == backEntryCountDetail) {
-//			if (Constants.DIRECT_TODETAIL == true) {
-//				if (SimiManager.getIntance().getManager().getFragments().size() > 0) {
-//					try {
-//						for (Fragment fragment : SimiManager.getIntance()
-//								.getManager().getFragments()) {
-//							if (fragment == null) {
-//								// SimiManager.getIntance().getManager()
-//								// .getFragments().remove(fragment);
-//								break;
-//							} else {
-//								if (fragment.getTargetRequestCode() == Constants.TARGET_PRODUCTDETAIL
-//										&& MainActivity.mCheckToDetailAfterScan == true) {
-//									MainActivity.checkBackScan = true;
-//								}
-//							}
-//						}
-//					} catch (Exception e) {
-//						System.out.println(e.getMessage());
-//					}
-//				}
-//			}
-//		}
-//	}
-//
-//	private void backToScan() {
-//		Intent intent = new Intent(Constants.SCANNER);
-//		intent.putExtra("SCAN_MODE", Constants.SCAN_MODE);
-//		intent.putExtra("SCAN_MODE", Constants.SCAN_MODE_BARCODE);
-//		SimiManager.getIntance().getCurrentActivity()
-//				.startActivityForResult(intent, Constants.RESULT_BARCODE);
-//		MainActivity.mCheckToDetailAfterScan = false;
-//	}
-//
-//	@SuppressWarnings("unused")
-//	private void addItemLeftMenu(boolean theme) {
-//		// if (theme == true) {
-//		// // parent
-//		// ItemNavigation parentBarcode = new ItemNavigation();
-//		// parentBarcode.setSparator(true);
-//		// parentBarcode.setName(ConstantBarcode.SCAN_NOW);
-//		// parentBarcode.setType(ItemNavigation.BASIC_TYPE);
-//		// mItems.add(parentBarcode);
-//		// // child
-//		// ItemNavigation mItemNavigation = new ItemNavigation();
-//		// mItemNavigation.setType(ItemNavigation.PLUGIN_TYPE);
-//		// Drawable icon = SimiManager.getIntance().getCurrentContext()
-//		// .getResources()
-//		// .getDrawable(Rconfig.getInstance().drawable("ic_barcode"));
-//		// icon.setColorFilter(Config.getInstance().getColorMenu(),
-//		// PorterDuff.Mode.SRC_ATOP);
-//		// mItemNavigation.setName(ConstantBarcode.QR_BAR_CODE);
-//		// mItemNavigation.setIcon(icon);
-//		// mItems.add(mItemNavigation);
-//		// } else {
-//		// mItems = mSlideMenuData.getItemNavigations();
-//		// Drawable ic_barcode = mContext.getResources().getDrawable(
-//		// Rconfig.getInstance().drawable("ic_barcode"));
-//		// ic_barcode.setColorFilter(Config.getInstance().getColorMenu(),
-//		// PorterDuff.Mode.SRC_ATOP);
-//		// ItemNavigation itemCategory = new ItemNavigation();
-//		// itemCategory.setIcon(ic_barcode);
-//		// itemCategory.setName(ConstantBarcode.QR_BAR_CODE);
-//		// itemCategory.setType(ItemNavigation.BASIC_TYPE);
-//		// mItems.add(itemCategory);
-//		// }
-//	}
 
 }

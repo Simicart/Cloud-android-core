@@ -338,4 +338,11 @@ public class ProductDetailParentBlock extends SimiBlock implements
         return ll_more;
     }
 
+    @Override
+    public void setListenerBack(View.OnKeyListener listenerBack) {
+        mView.setFocusableInTouchMode(true);
+        mView.requestFocus();
+        mView.setOnKeyListener(listenerBack);
+    }
+
 }

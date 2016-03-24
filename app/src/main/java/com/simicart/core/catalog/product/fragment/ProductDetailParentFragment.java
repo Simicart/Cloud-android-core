@@ -68,16 +68,13 @@ public class ProductDetailParentFragment extends SimiFragment {
 			mController.setDelegate(mBlock);
 			mController.setProductDelegate(mBlock);
 			mController.setProductId(mID);
-			mController.setHasOption(mBlock.hasOption());
 			if(isFromScan == true) {
 				mController.setFromScan(true);
 			}
-			mController.setView(view);
 			mController.onStart();
 		} else {
 			mController.setDelegate(mBlock);
 			mController.setProductDelegate(mBlock);
-			mController.setView(view);
 			mController.onResume();
 		}
 
