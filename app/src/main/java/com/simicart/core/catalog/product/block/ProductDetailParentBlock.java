@@ -271,7 +271,7 @@ public class ProductDetailParentBlock extends SimiBlock implements
 
     }
 
-    protected boolean hasOption() {
+    public boolean hasOption() {
         boolean has_option = false;
         ProductEntity productEntity = mProduct;
         if (productEntity == null) {

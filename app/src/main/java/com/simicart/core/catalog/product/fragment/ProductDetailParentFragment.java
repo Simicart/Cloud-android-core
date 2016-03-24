@@ -29,6 +29,8 @@ public class ProductDetailParentFragment extends SimiFragment {
 	protected String mID;
 	protected ProductDetailParentBlock mBlock;
 	protected ProductDetailParentController mController;
+	protected  boolean isFromScan = false;
+	protected  boolean isShownOption = true;
 
 	public static ProductDetailParentFragment newInstance() {
 		ProductDetailParentFragment fragment = new ProductDetailParentFragment();
@@ -41,6 +43,10 @@ public class ProductDetailParentFragment extends SimiFragment {
 
 	public void setListIDProduct(ArrayList<String> ids) {
 		mListID = ids;
+	}
+
+	public void setIsFromScan(boolean isFromScan) {
+		this.isFromScan = isFromScan;
 	}
 
 	@Override
@@ -62,10 +68,16 @@ public class ProductDetailParentFragment extends SimiFragment {
 			mController.setDelegate(mBlock);
 			mController.setProductDelegate(mBlock);
 			mController.setProductId(mID);
+			mController.setHasOption(mBlock.hasOption());
+			if(isFromScan == true) {
+				mController.setFromScan(true);
+			}
+			mController.setView(view);
 			mController.onStart();
 		} else {
 			mController.setDelegate(mBlock);
 			mController.setProductDelegate(mBlock);
+			mController.setView(view);
 			mController.onResume();
 		}
 

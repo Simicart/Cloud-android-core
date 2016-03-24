@@ -8,12 +8,15 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.common.FontsOverride;
+import com.simicart.core.common.entity.IntentEntity;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.controller.AutoGetQtyNotSignInController;
@@ -30,6 +33,10 @@ public class MainActivity extends FragmentActivity {
     public static Activity context;
     private NotificationController notification;
     public static int state = 0;
+
+    private int requestCode;
+    private int resultCode;
+    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -187,5 +194,29 @@ public class MainActivity extends FragmentActivity {
         super.onDestroy();
     }
 
+    public int getRequestCode() {
+        return requestCode;
+    }
+
+    public int getResultCode() {
+        return resultCode;
+    }
+
+    public Intent getData() {
+        return data;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        IntentEntity entity = new IntentEntity(data, requestCode, resultCode);
+
+        Intent intent = new Intent("com.simicart.leftmenu.mainactivity.onactivityresult.resultbarcode");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ENTITY, entity);
+        intent.putExtra(Constants.DATA, bundle);
+        LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcastSync(intent);
+    }
 
 }

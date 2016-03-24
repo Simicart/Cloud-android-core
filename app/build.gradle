@@ -49,7 +49,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
     compile 'com.paypal.sdk:paypal-android-sdk:2.13.3'
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
-    compile 'com.google.android.gms:play-services-wallet:8.3.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile project(':braintreelibrary')
     compile files('libs/vtd-xml_light-2-12.jar')
@@ -57,6 +56,7 @@ dependencies {
     compile project(':checkoutkit')
     compile files('libs/PayUIndiaSDK.jar')
     compile project(':CustomBrowser-release')
-    compile 'com.android.support:design:23.0.1'
+    compile 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
+    compile 'com.google.zxing:core:3.2.1'
     compile 'com.android.support:appcompat-v7:23.0.1'
 }
