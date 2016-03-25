@@ -87,7 +87,7 @@ public class SettingAppBlock extends SimiBlock implements SettingAppDelegate{
                 .getApp_backrground());
         tv_notification.setTextColor(Config.getInstance().getContent_color());
         tv_notification.setText(Config.getInstance().getText(
-                "Show notifications"));
+                "Show notification"));
 
         tb_notification = (ToggleButton) mView
                 .findViewById(Rconfig.getInstance().id("tb_notification"));
