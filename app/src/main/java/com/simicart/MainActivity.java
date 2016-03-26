@@ -60,6 +60,8 @@ public class MainActivity extends FragmentActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
+
+
         mNavigationDrawerFragment = (SlideMenuFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
 

@@ -1,0 +1,1443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+	<item>
+		<key>Edit</key>
+		<value>संपादित करें</value>
+	</item>
+	<item>
+		<key>Done</key>
+		<value>किया हुआ</value>
+	</item>
+	<item>
+		<key>Cancel</key>
+		<value>रद्द करना</value>
+	</item>
+	<item>
+		<key>Save</key>
+		<value>बचाना</value>
+	</item>
+	<item>
+		<key>Back</key>
+		<value>वापस</value>
+	</item>
+	<item>
+		<key>Close</key>
+		<value>बंद करे</value>
+	</item>
+	<item>
+		<key>Show</key>
+		<value>प्रदर्शन</value>
+	</item>
+	<item>
+		<key>None</key>
+		<value>कोई नहीं</value>
+	</item>
+	<item>
+		<key>Reload</key>
+		<value>सीमा से अधिक लादना</value>
+	</item>
+	<item>
+		<key>required</key>
+		<value>अपेक्षित</value>
+	</item>
+	<item>
+		<key>Loading</key>
+		<value>लोड हो रहा है</value>
+	</item>
+	<item>
+		<key>SUCCESS</key>
+		<value>सफलता</value>
+	</item>
+	<item>
+		<key>OK</key>
+		<value>ठीक</value>
+	</item>
+	<item>
+		<key>Don't Accept</key>
+		<value>स्वीकार नहीं करते</value>
+	</item>
+	<item>
+		<key>Accept</key>
+		<value>स्वीकार करना</value>
+	</item>
+	<item>
+		<key>Error</key>
+		<value>त्रुटि</value>
+	</item>
+	<item>
+		<key>FAIL</key>
+		<value>असफल</value>
+	</item>
+	<item>
+		<key>Request Failed</key>
+		<value>अनुरोध विफल रहा</value>
+	</item>
+	<item>
+		<key>Network Error</key>
+		<value>नेटवर्क त्रुटि</value>
+	</item>
+	<item>
+		<key>Invalid</key>
+		<value>अमान्य</value>
+	</item>
+	<item>
+		<key>Data Not Found</key>
+		<value>डेटा नहीं मिला</value>
+	</item>
+	<item>
+		<key>Some errors occurred. Please try again later</key>
+		<value>कुछ त्रुटियाँ हुई। बाद में पुन: प्रयास करें</value>
+	</item>
+	<item>
+		<key>Couldn't get shipping method information.</key>
+		<value>नहीं विधि शिपिंग जानकारी मिल सकती है।</value>
+	</item>
+	<item>
+		<key>Couldn't get payment method information.</key>
+		<value>भुगतान पद्धति के बारे में जानकारी नहीं मिल सका।</value>
+	</item>
+	<item>
+		<key>The Internet connection appears to be offline</key>
+		<value>इंटरनेट कनेक्शन ऑफ़लाइन प्रतीत होता है</value>
+	</item>
+	<item>
+		<key>The request timed out</key>
+		<value>अनुरोध का समय समाप्त हुआ</value>
+	</item>
+	<item>
+		<key>A connection failure occurred</key>
+		<value>एक कनेक्शन विफलता हुई</value>
+	</item>
+	<item>
+		<key>Home</key>
+		<value>घर</value>
+	</item>
+	<item>
+		<key>Already a customer?</key>
+		<value>पहले से ही एक ग्राहक?</value>
+	</item>
+	<item>
+		<key>Sign In</key>
+		<value>साइन इन करें</value>
+	</item>
+	<item>
+		<key>Hello</key>
+		<value>नमस्ते</value>
+	</item>
+	<item>
+		<key>View Account</key>
+		<value>अपना खाता देखें</value>
+	</item>
+	<item>
+		<key>Notification</key>
+		<value>अधिसूचना</value>
+	</item>
+	<item>
+		<key>Password</key>
+		<value>पासवर्ड</value>
+	</item>
+	<item>
+		<key>Forgot your password?</key>
+		<value>क्या आप अपना पासवर्ड भूल गए?</value>
+	</item>
+	<item>
+		<key>Don't have an account?</key>
+		<value>एक खाता नहीं है?</value>
+	</item>
+	<item>
+		<key>Create account</key>
+		<value>खाता बनाएं</value>
+	</item>
+	<item>
+		<key>Register</key>
+		<value>रजिस्टर</value>
+	</item>
+	<item>
+		<key>Full Name</key>
+		<value>पूरा नाम</value>
+	</item>
+	<item>
+		<key>Confirm Password</key>
+		<value>पासवर्ड की पुष्टि कीजिये</value>
+	</item>
+	<item>
+		<key>By creating an account, you agree to Our Conditions of Use and Privacy Policy</key>
+		<value>एक खाता बना कर आप हमारी उपयोग की शर्तों और गोपनीयता नीति से सहमत</value>
+	</item>
+	<item>
+		<key>Password and Confirm password don't match.</key>
+		<value>पासवर्ड और पासवर्ड की पुष्टि मेल नहीं खाते।</value>
+	</item>
+	<item>
+		<key>Please select all (*) fields</key>
+		<value>सभी (*) क्षेत्रों का चयन करें</value>
+	</item>
+	<item>
+		<key>My Account</key>
+		<value>मेरा खाता</value>
+	</item>
+	<item>
+		<key>Profile</key>
+		<value>प्रोफाइल</value>
+	</item>
+	<item>
+		<key>Address Book</key>
+		<value>पता पुस्तिका</value>
+	</item>
+	<item>
+		<key>Order History</key>
+		<value>आदेश इतिहास</value>
+	</item>
+	<item>
+		<key>Logout</key>
+		<value>लोग आउट</value>
+	</item>
+	<item>
+		<key>Name</key>
+		<value>नाम</value>
+	</item>
+	<item>
+		<key>Email</key>
+		<value>ईमेल</value>
+	</item>
+	<item>
+		<key>Current Password</key>
+		<value>वर्तमान पासवर्ड</value>
+	</item>
+	<item>
+		<key>New Password</key>
+		<value>नया पासवर्ड</value>
+	</item>
+	<item>
+		<key>Add an address</key>
+		<value>एक पता जोड़ें</value>
+	</item>
+	<item>
+		<key>Or choose an address for editing</key>
+		<value>या संपादन के लिए एक पते चुनें</value>
+	</item>
+	<item>
+		<key>Or choose an address</key>
+		<value>या पते का चयन करें</value>
+	</item>
+	<item>
+		<key>New Address</key>
+		<value>नया पता</value>
+	</item>
+	<item>
+		<key>Street</key>
+		<value>सड़क</value>
+	</item>
+	<item>
+		<key>City</key>
+		<value>शहर</value>
+	</item>
+	<item>
+		<key>State</key>
+		<value>राज्य</value>
+	</item>
+	<item>
+		<key>Post/Zip Code</key>
+		<value>डाक / ज़िप कोड</value>
+	</item>
+	<item>
+		<key>Country</key>
+		<value>देश</value>
+	</item>
+	<item>
+		<key>Phone</key>
+		<value>फ़ोन</value>
+	</item>
+	<item>
+		<key>All products</key>
+		<value>सारे उत्पाद</value>
+	</item>
+	<item>
+		<key>Please choose a payment method</key>
+		<value>कृपया भुगतान विधि का चयन</value>
+	</item>
+	<item>
+		<key>Search</key>
+		<value>खोज</value>
+	</item>
+	<item>
+		<key>Refine</key>
+		<value>परिष्कृत</value>
+	</item>
+	<item>
+		<key>Sort By</key>
+		<value>इसके अनुसार क्रमबद्ध करें</value>
+	</item>
+	<item>
+		<key>In Stock</key>
+		<value>स्टॉक में</value>
+	</item>
+	<item>
+		<key>Out Stock</key>
+		<value>उपलब्ध नहीं</value>
+	</item>
+	<item>
+		<key>Customer Reviews</key>
+		<value>ग्राहक समीक्षा</value>
+	</item>
+	<item>
+		<key>Related Products</key>
+		<value>संबंधित उत्पाद</value>
+	</item>
+	<item>
+		<key>Add To Cart</key>
+		<value>कार्ट में जोड़ें</value>
+	</item>
+	<item>
+		<key>Special Price</key>
+		<value>विशेष मूल्य</value>
+	</item>
+	<item>
+		<key>Regular Price</key>
+		<value>नियमित रूप से मूल्य</value>
+	</item>
+	<item>
+		<key>Images</key>
+		<value>इमेजिस</value>
+	</item>
+	<item>
+		<key>Product Detail</key>
+		<value>वास्तु की बारीकी</value>
+	</item>
+	<item>
+		<key>Basic Info</key>
+		<value>बुनियादी जानकारी</value>
+	</item>
+	<item>
+		<key>Description</key>
+		<value>विवरण</value>
+	</item>
+	<item>
+		<key>Tech Specs</key>
+		<value>तकनीक विनिर्देश</value>
+	</item>
+	<item>
+		<key>Reviews</key>
+		<value>समीक्षा</value>
+	</item>
+	<item>
+		<key>Options</key>
+		<value>विकल्प</value>
+	</item>
+	<item>
+		<key>Details</key>
+		<value>विवरण</value>
+	</item>
+	<item>
+		<key>Related</key>
+		<value>सम्बंधित</value>
+	</item>
+	<item>
+		<key>Please specify the quantity of product(s)</key>
+		<value>उत्पाद की मात्रा निर्दिष्ट करें (s)</value>
+	</item>
+	<item>
+		<key>Cart</key>
+		<value>गाड़ी</value>
+	</item>
+	<item>
+		<key>2Checkout</key>
+		<value>2Checkout</value>
+	</item>
+	<item>
+		<key>Your shopping cart is empty</key>
+		<value>आपकी खरीदारी की टोकरी खाली है</value>
+	</item>
+	<item>
+		<key>Items to buy now</key>
+		<value>आइटम अब खरीदने के लिए</value>
+	</item>
+	<item>
+		<key>Qty</key>
+		<value>मात्रा</value>
+	</item>
+	<item>
+		<key>Delete</key>
+		<value>मिटाना</value>
+	</item>
+	<item>
+		<key>Subtotal</key>
+		<value>आधा</value>
+	</item>
+	<item>
+		<key>Review Order</key>
+		<value>अादेश का पुनः निरिक्षण</value>
+	</item>
+	<item>
+		<key>Checkout as existing customer</key>
+		<value>मौजूदा ग्राहक के रूप में चेकआउट</value>
+	</item>
+	<item>
+		<key>Checkout as new customer</key>
+		<value>नए ग्राहक के रूप चेकआउट</value>
+	</item>
+	<item>
+		<key>Checkout as guest</key>
+		<value>अतिथि के रूप में चेकआउट करें</value>
+	</item>
+	<item>
+		<key>Please add a billing address</key>
+		<value>कृपया एक बिलिंग पता जोड़ने</value>
+	</item>
+	<item>
+		<key>Please select a billing address</key>
+		<value>कृपया एक बिलिंग पते का चयन</value>
+	</item>
+	<item>
+		<key>Confirm</key>
+		<value>पुष्टि</value>
+	</item>
+	<item>
+		<key>Place Now</key>
+		<value>अब जगह</value>
+	</item>
+	<item>
+		<key>Fee Detail</key>
+		<value>शुल्क विस्तार</value>
+	</item>
+	<item>
+		<key>Discount</key>
+		<value>छूट</value>
+	</item>
+	<item>
+		<key>Total</key>
+		<value>कुल</value>
+	</item>
+	<item>
+		<key>Tax</key>
+		<value>कर</value>
+	</item>
+	<item>
+		<key>Billing and Shipping Addresses</key>
+		<value>बिलिंग और शिपिंग पते</value>
+	</item>
+	<item>
+		<key>Payment</key>
+		<value>भुगतान</value>
+	</item>
+	<item>
+		<key>Shipment Details</key>
+		<value>शिपमेंट की जानकारी</value>
+	</item>
+	<item>
+		<key>Shipping Method</key>
+		<value>शिपिंग का तरीका</value>
+	</item>
+	<item>
+		<key>Select a shipping method</key>
+		<value>एक शिपिंग विधि का चयन करें</value>
+	</item>
+	<item>
+		<key>is not available for now</key>
+		<value>अब के लिए उपलब्ध नहीं है</value>
+	</item>
+	<item>
+		<key>Enter a coupon code</key>
+		<value>एक कूपन कोड दर्ज</value>
+	</item>
+	<item>
+		<key>Order Status</key>
+		<value>आदेश की स्थिति</value>
+	</item>
+	<item>
+		<key>Order Date</key>
+		<value>आर्डर की तारीख</value>
+	</item>
+	<item>
+		<key>Order Total</key>
+		<value>कुल आदेश</value>
+	</item>
+	<item>
+		<key>Recipient</key>
+		<value>प्राप्तकर्ता</value>
+	</item>
+	<item>
+		<key>Items</key>
+		<value>आइटम</value>
+	</item>
+	<item>
+		<key>Ship To</key>
+		<value>यहां भेजें</value>
+	</item>
+	<item>
+		<key>Coupon code</key>
+		<value>कूपन कोड</value>
+	</item>
+	<item>
+		<key>Are you sure you want to exit?</key>
+		<value>क्या आप निश्चित हैं आपकी बाहर निकलने की इच्छा है?</value>
+	</item>
+	<item>
+		<key>CLOSE APPLICATION</key>
+		<value>एप्लिकेशन बंद करो</value>
+	</item>
+	<item>
+		<key>Service Unavailable</key>
+		<value>सेवा उप्लब्ध् नहीं है</value>
+	</item>
+	<item>
+		<key>Internal Server Error</key>
+		<value>आंतरिक सर्वर त्रुटि</value>
+	</item>
+	<item>
+		<key>Shop by Category</key>
+		<value>वर्गों के अनुसार खरीदारी</value>
+	</item>
+	<item>
+		<key>Enter Your Email</key>
+		<value>अपना ईमेल दर्ज करें</value>
+	</item>
+	<item>
+		<key>Invalid email address</key>
+		<value>अमान्य ईमेल पता</value>
+	</item>
+	<item>
+		<key>Expired</key>
+		<value>समय सीमा समाप्त</value>
+	</item>
+	<item>
+		<key>From</key>
+		<value>से</value>
+	</item>
+	<item>
+		<key>To</key>
+		<value>को</value>
+	</item>
+	<item>
+		<key>Send</key>
+		<value>भेजना</value>
+	</item>
+	<item>
+		<key>The user canceled</key>
+		<value>उपयोगकर्ता रद्द</value>
+	</item>
+	<item>
+		<key>Please specify payment method</key>
+		<value>भुगतान विधि निर्दिष्ट करें</value>
+	</item>
+	<item>
+		<key>Please specify shipping method</key>
+		<value>शिपिंग विधि निर्दिष्ट करें</value>
+	</item>
+	<item>
+		<key>More</key>
+		<value>अधिक</value>
+	</item>
+	<item>
+		<key>Price</key>
+		<value>मूल्य</value>
+	</item>
+	<item>
+		<key>Sign Out</key>
+		<value>साइन आउट</value>
+	</item>
+	<item>
+		<key>Store View</key>
+		<value>स्टोर देखें</value>
+	</item>
+	<item>
+		<key>Clear</key>
+		<value>स्पष्ट</value>
+	</item>
+	<item>
+		<key>Update</key>
+		<value>अपडेट</value>
+	</item>
+	<item>
+		<key>Added to Cart</key>
+		<value>गाड़ी में जोड़ा</value>
+	</item>
+	<item>
+		<key>Select a Address</key>
+		<value>एक पते का चयन</value>
+	</item>
+	<item>
+		<key>Shopping Cart</key>
+		<value>शॉपिंग कार्ट</value>
+	</item>
+	<item>
+		<key>By</key>
+		<value>द्वारा</value>
+	</item>
+	<item>
+		<key>Star</key>
+		<value>तारा</value>
+	</item>
+	<item>
+		<key>Show more</key>
+		<value>और दिखाओ</value>
+	</item>
+	<item>
+		<key>Show less</key>
+		<value>कम दिखाएं</value>
+	</item>
+	<item>
+		<key>Sort</key>
+		<value>तरह</value>
+	</item>
+	<item>
+		<key>results</key>
+		<value>परिणाम</value>
+	</item>
+	<item>
+		<key>results for</key>
+		<value>के परिणाम</value>
+	</item>
+	<item>
+		<key>Grid</key>
+		<value>जाल</value>
+	</item>
+	<item>
+		<key>List</key>
+		<value>सूची</value>
+	</item>
+	<item>
+		<key>Text</key>
+		<value>टेक्स्ट</value>
+	</item>
+	<item>
+		<key>in</key>
+		<value>में</value>
+	</item>
+	<item>
+		<key>all categories</key>
+		<value>सब वर्ग</value>
+	</item>
+	<item>
+		<key>Shop by</key>
+		<value>द्वारा खरीदारी</value>
+	</item>
+	<item>
+		<key>Prefix</key>
+		<value>उपसर्ग</value>
+	</item>
+	<item>
+		<key>Suffix</key>
+		<value>प्रत्यय</value>
+	</item>
+	<item>
+		<key>Gender</key>
+		<value>लिंग</value>
+	</item>
+	<item>
+		<key>Tax/VAT number</key>
+		<value>कर / वैट संख्या</value>
+	</item>
+	<item>
+		<key>Date of Birth</key>
+		<value>जन्मतिथि</value>
+	</item>
+	<item>
+		<key>Excl. Tax</key>
+		<value>निकालें। कर</value>
+	</item>
+	<item>
+		<key>Incl. Tax</key>
+		<value>Incl। कर</value>
+	</item>
+	<item>
+		<key>Excl.Tax</key>
+		<value>Excl.Tax</value>
+	</item>
+	<item>
+		<key>Incl.Tax</key>
+		<value>Incl.Tax</value>
+	</item>
+	<item>
+		<key>Price as configured</key>
+		<value>मूल्य के रूप में विन्यस्त</value>
+	</item>
+	<item>
+		<key>As Low As</key>
+		<value>जितना कम</value>
+	</item>
+	<item>
+		<key>Store List</key>
+		<value>स्टोर सूची</value>
+	</item>
+	<item>
+		<key>List Store</key>
+		<value>सूची स्टोर</value>
+	</item>
+	<item>
+		<key>Store List View</key>
+		<value>स्टोर सूची देखें</value>
+	</item>
+	<item>
+		<key>Map View</key>
+		<value>नक्शा देखें</value>
+	</item>
+	<item>
+		<key>Best Seller</key>
+		<value>सर्वश्रेष्ठ विक्रेता</value>
+	</item>
+	<item>
+		<key>Recently Added</key>
+		<value>हाल ही में जोड़ा</value>
+	</item>
+	<item>
+		<key>Most View</key>
+		<value>अधिकांश देखें</value>
+	</item>
+	<item>
+		<key>Newly Updated</key>
+		<value>नए अद्यतन</value>
+	</item>
+	<item>
+		<key>Grand Total</key>
+		<value>कुल योग</value>
+	</item>
+	<item>
+		<key>Starting at</key>
+		<value>पे शुरुवात</value>
+	</item>
+	<item>
+		<key>Please agree to all the terms and conditions before placing the order.</key>
+		<value>ऑर्डर देने से पहले सभी नियमों और शर्तों के लिए सहमत हैं।</value>
+	</item>
+	<item>
+		<key>PRODUCTS</key>
+		<value>उत्पाद</value>
+	</item>
+	<item>
+		<key>View now</key>
+		<value>अभी देखें</value>
+	</item>
+	<item>
+		<key>View more</key>
+		<value>और देखो</value>
+	</item>
+	<item>
+		<key>VIEW ALL CATEGORIES</key>
+		<value>सभी श्रेणियों को देखने</value>
+	</item>
+	<item>
+		<key>No payment information required</key>
+		<value>कोई भुगतान जानकारी की आवश्यकता</value>
+	</item>
+	<item>
+		<key>Quantity</key>
+		<value>मात्रा</value>
+	</item>
+	<item>
+		<key>Clear All</key>
+		<value>सभी साफ करें</value>
+	</item>
+	<item>
+		<key>VAT Number</key>
+		<value>वैट क्रमांक</value>
+	</item>
+	<item>
+		<key>Order history is empty</key>
+		<value>आदेश के इतिहास में खाली है</value>
+	</item>
+	<item>
+		<key>Use Your Current Location</key>
+		<value>आपका वर्तमान स्थान का उपयोग</value>
+	</item>
+	<item>
+		<key>Extension was disabled.</key>
+		<value>एक्सटेंशन निष्क्रिय किया गया।</value>
+	</item>
+	<item>
+		<key>No store match with your searching</key>
+		<value>आपकी खोज के साथ कोई दुकान मैच</value>
+	</item>
+	<item>
+		<key>Result</key>
+		<value>परिणाम</value>
+	</item>
+	<item>
+		<key>First, You must update Google Maps.</key>
+		<value>सबसे पहले, आप गूगल मैप्स अद्यतन करना चाहिए।</value>
+	</item>
+	<item>
+		<key>Setting</key>
+		<value>सेटिंग</value>
+	</item>
+	<item>
+		<key>Ignore</key>
+		<value>नज़रअंदाज़ करना</value>
+	</item>
+	<item>
+		<key>needs access to your location. Please turn on location access.</key>
+		<value>अपने स्थान के लिए उपयोग की जरूरत है। कृपया स्थान का उपयोग पर बारी।</value>
+	</item>
+	<item>
+		<key>Location services disabled</key>
+		<value>स्थान सेवाएं अक्षम</value>
+	</item>
+	<item>
+		<key>Location not available</key>
+		<value>स्थान उपलब्ध नहीं</value>
+	</item>
+	<item>
+		<key>Category</key>
+		<value>वर्ग</value>
+	</item>
+	<item>
+		<key>You have no items in your shopping cart</key>
+		<value>आपकी शॉपिंग कार्ट में कोई आइटम नहीं हैं</value>
+	</item>
+	<item>
+		<key>Forgot Password</key>
+		<value>पासवर्ड भूल गए</value>
+	</item>
+	<item>
+		<key>Searching</key>
+		<value>खोज कर</value>
+	</item>
+	<item>
+		<key>Order Detail</key>
+		<value>ऑर्डर विवरण</value>
+	</item>
+	<item>
+		<key>You have placed no orders.</key>
+		<value>आप कोई आदेश रखा है।</value>
+	</item>
+	<item>
+		<key>First Name</key>
+		<value>पहला नाम</value>
+	</item>
+	<item>
+		<key>Last Name</key>
+		<value>अंतिम नाम</value>
+	</item>
+	<item>
+		<key>Remember password</key>
+		<value>पासवर्ड याद रखें</value>
+	</item>
+	<item>
+		<key>New price</key>
+		<value>नया मूल्य</value>
+	</item>
+	<item>
+		<key>Old price</key>
+		<value>पुरानी कीमत</value>
+	</item>
+	<item>
+		<key>Searching for</key>
+		<value>के लिए खोज</value>
+	</item>
+	<item>
+		<key>Edit Address</key>
+		<value>पता संपादित करें</value>
+	</item>
+	<item>
+		<key>Customer is not exist</key>
+		<value>ग्राहक मौजूद नहीं है</value>
+	</item>
+	<item>
+		<key>There are no products matching the selection.</key>
+		<value>चयन के मिलान वाले कोई उत्पाद नहीं हैं।</value>
+	</item>
+	<item>
+		<key>If there is an account associated with %s you will receive an email with a link to reset your password.</key>
+		<value>वहाँ% s के साथ जुड़े एक खाता है, तो आप अपना पासवर्ड रीसेट करने के लिए एक लिंक के साथ एक ईमेल प्राप्त होगा।</value>
+	</item>
+	<item>
+		<key>Please enter 6 or more characters.</key>
+		<value>6 या अधिक वर्ण दर्ज करें।</value>
+	</item>
+	<item>
+		<key>App Setting</key>
+		<value>अनुप्रयोग की स्थापना</value>
+	</item>
+	<item>
+		<key>Filter</key>
+		<value>फ़िल्टर</value>
+	</item>
+	<item>
+		<key>Call</key>
+		<value>पु का र ना</value>
+	</item>
+	<item>
+		<key>Message</key>
+		<value>संदेश</value>
+	</item>
+	<item>
+		<key>Website</key>
+		<value>वेबसाइट</value>
+	</item>
+	<item>
+		<key>Term and conditions</key>
+		<value>नियम और शर्तें</value>
+	</item>
+	<item>
+		<key>Contact Us</key>
+		<value>हमसे संपर्क करें</value>
+	</item>
+	<item>
+		<key>Feature Products</key>
+		<value>सुविधा उत्पादों</value>
+	</item>
+	<item>
+		<key>Thank you for your purchase</key>
+		<value>आपकी खरीदारी के लिए धन्यवाद</value>
+	</item>
+	<item>
+		<key>Show notification</key>
+		<value>अधिसूचना दिखाएं</value>
+	</item>
+	<item>
+		<key>Enable</key>
+		<value>सक्षम करें</value>
+	</item>
+	<item>
+		<key>Disable</key>
+		<value>अक्षम</value>
+	</item>
+	<item>
+		<key>Location Setting</key>
+		<value>स्थान सेटिंग</value>
+	</item>
+	<item>
+		<key>Reorder</key>
+		<value>पुन: व्यवस्थित करें</value>
+	</item>
+	<item>
+		<key>Cancel this purchase</key>
+		<value>इस खरीद को रद्द</value>
+	</item>
+	<item>
+		<key>Recently viewed</key>
+		<value>हाल में ही देखा गया</value>
+	</item>
+	<item>
+		<key>Share</key>
+		<value>शेयर</value>
+	</item>
+	<item>
+		<key>Account</key>
+		<value>लेखा</value>
+	</item>
+	<item>
+		<key>View all</key>
+		<value>सभी को देखें</value>
+	</item>
+	<item>
+		<key>Credit Card</key>
+		<value>क्रेडिट कार्ड</value>
+	</item>
+	<item>
+		<key>Card Type</key>
+		<value>कार्ड के प्रकार</value>
+	</item>
+	<item>
+		<key>Card Number</key>
+		<value>कार्ड नंबर</value>
+	</item>
+	<item>
+		<key>CVV</key>
+		<value>सीवीवी</value>
+	</item>
+	<item>
+		<key>Activated</key>
+		<value>सक्रिय</value>
+	</item>
+	<item>
+		<key>Select a filter</key>
+		<value>एक फिल्टर का चयन करें</value>
+	</item>
+	<item>
+		<key>Male</key>
+		<value>नर</value>
+	</item>
+	<item>
+		<key>Female</key>
+		<value>महिला</value>
+	</item>
+	<item>
+		<key>Login</key>
+		<value>लॉगिन</value>
+	</item>
+	<item>
+		<key>Menu</key>
+		<value>मेन्यू</value>
+	</item>
+	<item>
+		<key>Privacy</key>
+		<value>एकांत</value>
+	</item>
+	<item>
+		<key>Your account</key>
+		<value>आपका खाता</value>
+	</item>
+	<item>
+		<key>Your password</key>
+		<value>आपका पासवर्ड</value>
+	</item>
+	<item>
+		<key>Remember me</key>
+		<value>मुझे याद रखना</value>
+	</item>
+	<item>
+		<key>Taxvat</key>
+		<value>Taxvat</value>
+	</item>
+	<item>
+		<key>Reordering Completed</key>
+		<value>पुनर्व्यवस्था पूरे</value>
+	</item>
+	<item>
+		<key>Shipping</key>
+		<value>शिपिंग</value>
+	</item>
+	<item>
+		<key>Billing Address</key>
+		<value>बिल भेजने का पता</value>
+	</item>
+	<item>
+		<key>Shipping Address</key>
+		<value>शिपिंग पता</value>
+	</item>
+	<item>
+		<key>Do you want to cancel this coupon code?</key>
+		<value>आप इस कूपन कोड को रद्द करना चाहते हैं?</value>
+	</item>
+	<item>
+		<key>Configured</key>
+		<value>विन्यस्त किया</value>
+	</item>
+	<item>
+		<key>Search On</key>
+		<value>पर खोज</value>
+	</item>
+	<item>
+		<key>Search On All Products</key>
+		<value>सभी उत्पादों पर खोजें</value>
+	</item>
+	<item>
+		<key>Product</key>
+		<value>उत्पाद</value>
+	</item>
+	<item>
+		<key>Review</key>
+		<value>समीक्षा</value>
+	</item>
+	<item>
+		<key>Option</key>
+		<value>देखिये</value>
+	</item>
+	<item>
+		<key>Password must be least 6 characters</key>
+		<value>पासवर्ड कम से कम होना चाहिए 6 अक्षर</value>
+	</item>
+	<item>
+		<key>Check your email and try again.</key>
+		<value>अपने ईमेल की जाँच करें और फिर कोशिश करें।</value>
+	</item>
+	<item>
+		<key>Language</key>
+		<value>भाषा</value>
+	</item>
+	<item>
+		<key>Currency</key>
+		<value>मुद्रा</value>
+	</item>
+	<item>
+		<key>ConnectionFailed</key>
+		<value>कनेक्शन विफल</value>
+	</item>
+	<item>
+		<key>QR Barcode</key>
+		<value>QR बारकोड</value>
+	</item>
+	<item>
+		<key>Thank your for purchase</key>
+		<value>खरीद के लिए अपने धन्यवाद</value>
+	</item>
+	<item>
+		<key>Have some errors, please try again</key>
+		<value>कुछ त्रुटियाँ हैं, कृपया पुनः प्रयास करें</value>
+	</item>
+	<item>
+		<key>Your order has been canceled</key>
+		<value>आपका आदेश रद्द कर दिया गया है</value>
+	</item>
+	<item>
+		<key>Rewards Card</key>
+		<value>पुरस्कार कार्ड</value>
+	</item>
+	<item>
+		<key>BALANCE</key>
+		<value>संतुलन</value>
+	</item>
+	<item>
+		<key>Rewards History</key>
+		<value>पुरस्कार इतिहास</value>
+	</item>
+	<item>
+		<key>You currently have no activity</key>
+		<value>आप वर्तमान में कोई गतिविधि नहीं है</value>
+	</item>
+	<item>
+		<key>Expire on=></key>
+		<value>=> को समाप्त हो</value>
+	</item>
+	<item>
+		<key>Spending</key>
+		<value>खर्च</value>
+	</item>
+	<item>
+		<key>My Rewards</key>
+		<value>मेरा पुरस्कार</value>
+	</item>
+	<item>
+		<key>Spend my Points</key>
+		<value>मेरे अंक खर्च</value>
+	</item>
+	<item>
+		<key>Please login before using points to spend</key>
+		<value>लॉग इन करें अंक का उपयोग कर खर्च करने से पहले</value>
+	</item>
+	<item>
+		<key>You will earn</key>
+		<value>आप कामाएंगे</value>
+	</item>
+	<item>
+		<key>You will spend</key>
+		<value>आप खर्च करेगा</value>
+	</item>
+	<item>
+		<key>Settings</key>
+		<value>सेटिंग्स</value>
+	</item>
+	<item>
+		<key>Email Subscriptions</key>
+		<value>ईमेल सदस्यता</value>
+	</item>
+	<item>
+		<key>Subscribe to receive updates on your point balance</key>
+		<value>अपनी बात संतुलन पर अपडेट प्राप्त करने के लिए सदस्यता लें</value>
+	</item>
+	<item>
+		<key>Point Balance Update</key>
+		<value>प्वाइंट शेष अपडेट</value>
+	</item>
+	<item>
+		<key>Subscribe to receive notifications of expiring points in advance</key>
+		<value>अग्रिम में अवसान हो रहा अंक की सूचनाएं प्राप्त करने के लिए सदस्यता लें</value>
+	</item>
+	<item>
+		<key>Expired Point Transaction</key>
+		<value>समय सीमा समाप्त प्वाइंट लेनदेन</value>
+	</item>
+	<item>
+		<key>Our policies</key>
+		<value>हमारी नीतियां</value>
+	</item>
+	<item>
+		<key>Login or Signup</key>
+		<value>लॉग इन या साइन अप करें</value>
+	</item>
+	<item>
+		<key>My Wishlist</key>
+		<value>मेरी इच्छा सूची</value>
+	</item>
+	<item>
+		<key>Share Wishlist</key>
+		<value>शेयर कार्ट</value>
+	</item>
+	<item>
+		<key>Your Wishlist is empty</key>
+		<value>आपकी इच्छा सूची खाली है</value>
+	</item>
+	<item>
+		<key>Are you sure want to remove?</key>
+		<value>क्या आप वाकई निकालना चाहते हैं?</value>
+	</item>
+	<item>
+		<key>Yes</key>
+		<value>हाँ</value>
+	</item>
+	<item>
+		<key>Call facility is not available\!</key>
+		<value>कॉल की सुविधा उपलब्ध नहीं है !!!</value>
+	</item>
+	<item>
+		<key>You haven’t setup email account</key>
+		<value>आप नहीं सेटअप ईमेल खाता है</value>
+	</item>
+	<item>
+		<key>You must go to Settings/ Mail, Contact, Calendars and choose Add Account.</key>
+		<value>आप सेटिंग / मेल, संपर्क, कैलेंडर के लिए जाने के लिए और खाता जोड़ें का चयन करना होगा।</value>
+	</item>
+	<item>
+		<key>Your Email was sent succesfully.</key>
+		<value>आपका ई - मेल सफलतापूर्वक भेजा गया।</value>
+	</item>
+	<item>
+		<key>Failed</key>
+		<value>अनुत्तीर्ण होना</value>
+	</item>
+	<item>
+		<key>Your mail was not sent</key>
+		<value>आपका मेल नहीं भेजा गया</value>
+	</item>
+	<item>
+		<key>Company</key>
+		<value>कंपनी</value>
+	</item>
+	<item>
+		<key>Fax</key>
+		<value>फैक्स</value>
+	</item>
+	<item>
+		<key>Select Phone</key>
+		<value>फ़ोन का चयन</value>
+	</item>
+	<item>
+		<key>Select phone number</key>
+		<value>चुनें फोन नंबर</value>
+	</item>
+	<item>
+		<key>Confirm Address</key>
+		<value>पते की पुष्टि</value>
+	</item>
+	<item>
+		<key>Address Confirmation</key>
+		<value>पता पुष्टिकरण</value>
+	</item>
+	<item>
+		<key>Please select shipping method</key>
+		<value>कृपया शिपिंग विधि का चयन</value>
+	</item>
+	<item>
+		<key>Paypal Checkout</key>
+		<value>पेपैल चेकआउट</value>
+	</item>
+	<item>
+		<key>km</key>
+		<value>किमी</value>
+	</item>
+	<item>
+		<key>Map</key>
+		<value>नक्शा</value>
+	</item>
+	<item>
+		<key>Alert</key>
+		<value>चेतावनी</value>
+	</item>
+	<item>
+		<key>Affiliates Discount</key>
+		<value>सहयोगी कंपनियों के डिस्काउंट</value>
+	</item>
+	<item>
+		<key>Your order is under review</key>
+		<value>अपने आदेश की समीक्षा के अधीन है</value>
+	</item>
+	<item>
+		<key>CCAvenue</key>
+		<value>CCAvenue</value>
+	</item>
+	<item>
+		<key>Sorry, CCAvenue is not now available. Please try again later.</key>
+		<value>क्षमा करें, CCAvenue अब उपलब्ध नहीं है। बाद में पुन: प्रयास करें।</value>
+	</item>
+	<item>
+		<key>Checkout Failed</key>
+		<value>चेकआउट विफल</value>
+	</item>
+	<item>
+		<key>Your card number is not valid</key>
+		<value>अपना कार्ड नंबर मान्य नहीं है</value>
+	</item>
+	<item>
+		<key>Checkout.com</key>
+		<value>Checkout.com</value>
+	</item>
+	<item>
+		<key>Sorry, Checkout.com is not now available. Please try again later.</key>
+		<value>क्षमा करें, Checkout.com अब उपलब्ध नहीं है। बाद में पुन: प्रयास करें।</value>
+	</item>
+	<item>
+		<key>Sorry, PayPal is not now available. Please try again later.</key>
+		<value>क्षमा करें, पेपैल अब उपलब्ध नहीं है। बाद में पुन: प्रयास करें।</value>
+	</item>
+	<item>
+		<key>Ipay88</key>
+		<value>iPay88</value>
+	</item>
+	<item>
+		<key>Sorry, Ipay88 is not now available. Please try again later.</key>
+		<value>क्षमा करें, Ipay88 अब उपलब्ध नहीं है। बाद में पुन: प्रयास करें।</value>
+	</item>
+	<item>
+		<key>Invoice</key>
+		<value>बीजक</value>
+	</item>
+	<item>
+		<key>Get Directions</key>
+		<value>दिशा - निर्देश प्राप्त करें</value>
+	</item>
+	<item>
+		<key>Opening Hours</key>
+		<value>खुलने का समय</value>
+	</item>
+	<item>
+		<key>Open</key>
+		<value>खुला</value>
+	</item>
+	<item>
+		<key>Monday</key>
+		<value>सोमवार</value>
+	</item>
+	<item>
+		<key>Tuesday</key>
+		<value>मंगलवार</value>
+	</item>
+	<item>
+		<key>Wednesday</key>
+		<value>बुधवार</value>
+	</item>
+	<item>
+		<key>Thursday</key>
+		<value>गुरूवार</value>
+	</item>
+	<item>
+		<key>Friday</key>
+		<value>शुक्रवार</value>
+	</item>
+	<item>
+		<key>Saturday</key>
+		<value>शनिवार</value>
+	</item>
+	<item>
+		<key>Sunday</key>
+		<value>रविवार</value>
+	</item>
+	<item>
+		<key>Specials Day</key>
+		<value>स्पेशल डे</value>
+	</item>
+	<item>
+		<key>Holidays</key>
+		<value>छुट्टियां</value>
+	</item>
+	<item>
+		<key>Content</key>
+		<value>सामग्री</value>
+	</item>
+	<item>
+		<key>No Email Account</key>
+		<value>कोई ईमेल खाता</value>
+	</item>
+	<item>
+		<key>Open Settings app to set up an email account</key>
+		<value>ओपन सेटिंग्स एक ईमेल खाते को स्थापित करने के लिए एप्लिकेशन</value>
+	</item>
+	<item>
+		<key>Search Store</key>
+		<value>खोज स्टोर</value>
+	</item>
+	<item>
+		<key>Search By Area</key>
+		<value>क्षेत्र से खोजें</value>
+	</item>
+	<item>
+		<key>Zip Code</key>
+		<value>पिन कोड</value>
+	</item>
+	<item>
+		<key>Search By Tag</key>
+		<value>टैग द्वारा खोजें</value>
+	</item>
+	<item>
+		<key>All</key>
+		<value>सब</value>
+	</item>
+	<item>
+		<key>Store List Detail</key>
+		<value>स्टोर सूची विस्तार</value>
+	</item>
+	<item>
+		<key>Store Locator</key>
+		<value>भंडार खोजक</value>
+	</item>
+	<item>
+		<key>Sorry, 2Checkout is not now available. Please try again later.</key>
+		<value>क्षमा करें, 2Checkout अब उपलब्ध नहीं है। बाद में पुन: प्रयास करें।</value>
+	</item>
+	<item>
+		<key>Each of %@ gets %@ discount</key>
+		<value>% @ से प्रत्येक हो जाता है% @ छूट</value>
+	</item>
+	<item>
+		<key>You need to earn more %@ to use this rule.</key>
+		<value>आप और अधिक% @ इस नियम का उपयोग करने के लिए कमाने की जरूरत है।</value>
+	</item>
+	<item>
+		<key>Only %@ until %@</key>
+		<value>केवल% @% तक @</value>
+	</item>
+	<item>
+		<key>Only %@ until redeemable</key>
+		<value>प्रतिदेय तक केवल% @</value>
+	</item>
+	<item>
+		<key>Equal %@ to redeem</key>
+		<value>समान% @ एवज</value>
+	</item>
+	<item>
+		<key>You have %@ that are pending for approval</key>
+		<value>आप% @ कि अनुमोदन के लिए लंबित कर रहे हैं</value>
+	</item>
+	<item>
+		<key>Order #</key>
+		<value>आदेश #</value>
+	</item>
+	<item>
+		<key>Name=> A to Z</key>
+		<value>नाम => Z करने के लिए</value>
+	</item>
+	<item>
+		<key>Name=> Z to A</key>
+		<value>नाम => A से Z</value>
+	</item>
+	<item>
+		<key>Price=> Low to High</key>
+		<value>मूल्य => ज्यादा से कम</value>
+	</item>
+	<item>
+		<key>Price=> High to Low</key>
+		<value>मूल्य => कम करने के लिए उच्च</value>
+	</item>
+	<item>
+		<key>Shipping & Handling</key>
+		<value>शिपिंग और हैंडलिंग</value>
+	</item>
+	<item>
+		<key>You have placed an order successfully</key>
+		<value>आप एक आदेश को सफलतापूर्वक रखा है</value>
+	</item>
+	<item>
+		<key>Continue Shopping</key>
+		<value>खरीदारी जारी रखें</value>
+	</item>
+	<item>
+		<key>View detail of your order</key>
+		<value>अपने आदेश की विस्तार से देखें</value>
+	</item>
+	<item>
+		<key>Log in with Facebook</key>
+		<value>फेसबुक में जाये</value>
+	</item>
+	<item>
+		<key>Log out</key>
+		<value>लोग आउट</value>
+	</item>
+	<item>
+		<key>Welcome %@\!</key>
+		<value>स्वागत हे %@! अभी खरीदारी प्रारंभ</value>
+	</item>
+	<item>
+		<key>Expired=> MM/YY</key>
+		<value>समय सीमा समाप्त => MM / YY</value>
+	</item>
+</language>

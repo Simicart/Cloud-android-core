@@ -73,7 +73,7 @@ public class SearchHomeBlock extends SimiBlock {
 
 		et_search = (EditText) mView.findViewById(Rconfig.getInstance().id(
 				"et_search"));
-		et_search.setHint(Config.getInstance().getText("Search products"));
+		et_search.setHint(Config.getInstance().getText("Search"));
 		if (!mCatName.equals("")
 				&& !mCatName.equals(Config.getInstance()
 						.getText("all products"))) {

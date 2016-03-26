@@ -1,0 +1,1443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+	<item>
+		<key>Edit</key>
+		<value>தொகு</value>
+	</item>
+	<item>
+		<key>Done</key>
+		<value>முடிந்தது</value>
+	</item>
+	<item>
+		<key>Cancel</key>
+		<value>ரத்து</value>
+	</item>
+	<item>
+		<key>Save</key>
+		<value>சேமி</value>
+	</item>
+	<item>
+		<key>Back</key>
+		<value>மீண்டும்</value>
+	</item>
+	<item>
+		<key>Close</key>
+		<value>நெருக்கமான</value>
+	</item>
+	<item>
+		<key>Show</key>
+		<value>காட்டு</value>
+	</item>
+	<item>
+		<key>None</key>
+		<value>யாரும்</value>
+	</item>
+	<item>
+		<key>Reload</key>
+		<value>ஏற்றவும்</value>
+	</item>
+	<item>
+		<key>required</key>
+		<value>தேவையான</value>
+	</item>
+	<item>
+		<key>Loading</key>
+		<value>ஏற்றுகிறது</value>
+	</item>
+	<item>
+		<key>SUCCESS</key>
+		<value>வெற்றி</value>
+	</item>
+	<item>
+		<key>OK</key>
+		<value>சரி</value>
+	</item>
+	<item>
+		<key>Don't Accept</key>
+		<value>ஏற்க வேண்டாம்</value>
+	</item>
+	<item>
+		<key>Accept</key>
+		<value>ஏற்கவும்</value>
+	</item>
+	<item>
+		<key>Error</key>
+		<value>பிழை</value>
+	</item>
+	<item>
+		<key>FAIL</key>
+		<value>தோல்வி</value>
+	</item>
+	<item>
+		<key>Request Failed</key>
+		<value>கோரிக்கை தோல்வி</value>
+	</item>
+	<item>
+		<key>Network Error</key>
+		<value>பிணைய பிழை</value>
+	</item>
+	<item>
+		<key>Invalid</key>
+		<value>தவறான</value>
+	</item>
+	<item>
+		<key>Data Not Found</key>
+		<value>தரவு கிடைக்கவில்லை</value>
+	</item>
+	<item>
+		<key>Some errors occurred. Please try again later</key>
+		<value>சில பிழைகள் ஏற்பட்டுள்ளன. தயவுசெய்து மீண்டும் முயற்சிக்கவும்</value>
+	</item>
+	<item>
+		<key>Couldn't get shipping method information.</key>
+		<value>முறை தகவல் கப்பல் பெற முடியவில்லை.</value>
+	</item>
+	<item>
+		<key>Couldn't get payment method information.</key>
+		<value>பணம் செலுத்தும் முறை தகவலைப் பெற முடியவில்லை.</value>
+	</item>
+	<item>
+		<key>The Internet connection appears to be offline</key>
+		<value>இணைய இணைப்பு ஆஃப்லைனில்</value>
+	</item>
+	<item>
+		<key>The request timed out</key>
+		<value>கோரிக்கை நேரம்</value>
+	</item>
+	<item>
+		<key>A connection failure occurred</key>
+		<value>ஒரு இணைப்பு தோல்வி ஏற்பட்டது</value>
+	</item>
+	<item>
+		<key>Home</key>
+		<value>முகப்பு</value>
+	</item>
+	<item>
+		<key>Already a customer?</key>
+		<value>ஏற்கனவே ஒரு வாடிக்கையாளர்?</value>
+	</item>
+	<item>
+		<key>Sign In</key>
+		<value>உள்நுழையவும்</value>
+	</item>
+	<item>
+		<key>Hello</key>
+		<value>வணக்கம்</value>
+	</item>
+	<item>
+		<key>View Account</key>
+		<value>கணக்கு காண்க</value>
+	</item>
+	<item>
+		<key>Notification</key>
+		<value>அறிவித்தல்</value>
+	</item>
+	<item>
+		<key>Password</key>
+		<value>கடவுச்சொல்</value>
+	</item>
+	<item>
+		<key>Forgot your password?</key>
+		<value>உங்கள் கடவுச்சொல்லை மறந்து விட்டீர்களா?</value>
+	</item>
+	<item>
+		<key>Don't have an account?</key>
+		<value>ஒரு கணக்கு இல்லையா?</value>
+	</item>
+	<item>
+		<key>Create account</key>
+		<value>உங்கள் கணக்கை துவங்குங்கள்</value>
+	</item>
+	<item>
+		<key>Register</key>
+		<value>பதிவு</value>
+	</item>
+	<item>
+		<key>Full Name</key>
+		<value>முழு பெயர்</value>
+	</item>
+	<item>
+		<key>Confirm Password</key>
+		<value>கடவுச்சொல்லை உறுதிப்படுத்துக</value>
+	</item>
+	<item>
+		<key>By creating an account, you agree to Our Conditions of Use and Privacy Policy</key>
+		<value>ஒரு கணக்கை உருவாக்குவதன் மூலம், நீங்கள், எங்கள் பயன்பாட்டு நிபந்தனைகள் மற்றும் தனியுரிமை கொள்கையை ஏற்கிறீர்கள்</value>
+	</item>
+	<item>
+		<key>Password and Confirm password don't match.</key>
+		<value>கடவுச்சொல் மற்றும் கடவுச்சொல்லை உறுதிசெய்யவும் பொருந்தவில்லை.</value>
+	</item>
+	<item>
+		<key>Please select all (*) fields</key>
+		<value>(*) துறைகள் அனைத்து தேர்ந்தெடுக்கவும்</value>
+	</item>
+	<item>
+		<key>My Account</key>
+		<value>என் கணக்கு</value>
+	</item>
+	<item>
+		<key>Profile</key>
+		<value>பதிவு செய்தது</value>
+	</item>
+	<item>
+		<key>Address Book</key>
+		<value>முகவரி புத்தக</value>
+	</item>
+	<item>
+		<key>Order History</key>
+		<value>ஆர்டர் வரலாறு</value>
+	</item>
+	<item>
+		<key>Logout</key>
+		<value>வெளியேறு</value>
+	</item>
+	<item>
+		<key>Name</key>
+		<value>பெயர்</value>
+	</item>
+	<item>
+		<key>Email</key>
+		<value>மின்னஞ்சல்</value>
+	</item>
+	<item>
+		<key>Current Password</key>
+		<value>தற்போதைய கடவுச்சொல்</value>
+	</item>
+	<item>
+		<key>New Password</key>
+		<value>புதிய கடவுச்சொல்</value>
+	</item>
+	<item>
+		<key>Add an address</key>
+		<value>முகவரியைச் சேர்க்கவும்</value>
+	</item>
+	<item>
+		<key>Or choose an address for editing</key>
+		<value>அல்லது எடிட்டிங் ஒரு முகவரியை தேர்வு</value>
+	</item>
+	<item>
+		<key>Or choose an address</key>
+		<value>அல்லது முகவரி தேர்வு</value>
+	</item>
+	<item>
+		<key>New Address</key>
+		<value>புதிய முகவரி</value>
+	</item>
+	<item>
+		<key>Street</key>
+		<value>தெரு</value>
+	</item>
+	<item>
+		<key>City</key>
+		<value>சிட்டி</value>
+	</item>
+	<item>
+		<key>State</key>
+		<value>நிலை</value>
+	</item>
+	<item>
+		<key>Post/Zip Code</key>
+		<value>போஸ்ட் / ஜிப் குறியீடு</value>
+	</item>
+	<item>
+		<key>Country</key>
+		<value>நாடு</value>
+	</item>
+	<item>
+		<key>Phone</key>
+		<value>தொலைபேசி</value>
+	</item>
+	<item>
+		<key>All products</key>
+		<value>அனைத்து பொருட்கள்</value>
+	</item>
+	<item>
+		<key>Please choose a payment method</key>
+		<value>ஒரு கட்டண முறையை தேர்வு செய்க</value>
+	</item>
+	<item>
+		<key>Search</key>
+		<value>தேடல்</value>
+	</item>
+	<item>
+		<key>Refine</key>
+		<value>துல்லியப்படுத்தல்</value>
+	</item>
+	<item>
+		<key>Sort By</key>
+		<value>வரிசைப்படுத்து</value>
+	</item>
+	<item>
+		<key>In Stock</key>
+		<value>கையிருப்பில்</value>
+	</item>
+	<item>
+		<key>Out Stock</key>
+		<value>பங்கு அவுட்</value>
+	</item>
+	<item>
+		<key>Customer Reviews</key>
+		<value>வாடிக்கையாளர் விமர்சனங்கள்</value>
+	</item>
+	<item>
+		<key>Related Products</key>
+		<value>தொடர்புடைய தயாரிப்புகள்</value>
+	</item>
+	<item>
+		<key>Add To Cart</key>
+		<value>பெட்டகத்தில் சேர்</value>
+	</item>
+	<item>
+		<key>Special Price</key>
+		<value>சிறப்பு விலை</value>
+	</item>
+	<item>
+		<key>Regular Price</key>
+		<value>வழக்கமான விலை</value>
+	</item>
+	<item>
+		<key>Images</key>
+		<value>படங்கள்</value>
+	</item>
+	<item>
+		<key>Product Detail</key>
+		<value>தயாரிப்பு விரிவாக</value>
+	</item>
+	<item>
+		<key>Basic Info</key>
+		<value>அடிப்படை தகவல்</value>
+	</item>
+	<item>
+		<key>Description</key>
+		<value>விளக்கம்</value>
+	</item>
+	<item>
+		<key>Tech Specs</key>
+		<value>தொழில்நுட்ப விவரங்கள்</value>
+	</item>
+	<item>
+		<key>Reviews</key>
+		<value>விமர்சனங்கள்</value>
+	</item>
+	<item>
+		<key>Options</key>
+		<value>விருப்பங்கள்</value>
+	</item>
+	<item>
+		<key>Details</key>
+		<value>விவரங்கள்</value>
+	</item>
+	<item>
+		<key>Related</key>
+		<value>சம்பந்தப்பட்ட</value>
+	</item>
+	<item>
+		<key>Please specify the quantity of product(s)</key>
+		<value>தயவு செய்து தயாரிப்பு அளவு குறிப்பிட (கள்)</value>
+	</item>
+	<item>
+		<key>Cart</key>
+		<value>வண்டி</value>
+	</item>
+	<item>
+		<key>2Checkout</key>
+		<value>2Checkout</value>
+	</item>
+	<item>
+		<key>Your shopping cart is empty</key>
+		<value>உங்கள் வண்டியை காலியாக உள்ளது</value>
+	</item>
+	<item>
+		<key>Items to buy now</key>
+		<value>பொருட்கள் வாங்க</value>
+	</item>
+	<item>
+		<key>Qty</key>
+		<value>கொத்தமல்லி</value>
+	</item>
+	<item>
+		<key>Delete</key>
+		<value>அழி</value>
+	</item>
+	<item>
+		<key>Subtotal</key>
+		<value>கூட்டுத்தொகை</value>
+	</item>
+	<item>
+		<key>Review Order</key>
+		<value>விமர்சனம் ஆணை</value>
+	</item>
+	<item>
+		<key>Checkout as existing customer</key>
+		<value>ஏற்கனவே வாடிக்கையாளர் என வெளியேறுதல்</value>
+	</item>
+	<item>
+		<key>Checkout as new customer</key>
+		<value>புதிய வாடிக்கையாளர் வெளியேறுதல்</value>
+	</item>
+	<item>
+		<key>Checkout as guest</key>
+		<value>விருந்தினராக வெளியேறுதல்</value>
+	</item>
+	<item>
+		<key>Please add a billing address</key>
+		<value>ஒரு பில்லிங் முகவரி சேர்க்க தயவு செய்து</value>
+	</item>
+	<item>
+		<key>Please select a billing address</key>
+		<value>தயவு செய்து ஒரு பில்லிங் முகவரி தேர்வு</value>
+	</item>
+	<item>
+		<key>Confirm</key>
+		<value>உறுதிப்படுத்தவும்</value>
+	</item>
+	<item>
+		<key>Place Now</key>
+		<value>இப்போது வைக்கவும்</value>
+	</item>
+	<item>
+		<key>Fee Detail</key>
+		<value>கட்டணம் விபரம்</value>
+	</item>
+	<item>
+		<key>Discount</key>
+		<value>தள்ளுபடி</value>
+	</item>
+	<item>
+		<key>Total</key>
+		<value>மொத்த</value>
+	</item>
+	<item>
+		<key>Tax</key>
+		<value>வரி</value>
+	</item>
+	<item>
+		<key>Billing and Shipping Addresses</key>
+		<value>பில்லிங் மற்றும் கப்பல் முகவரிகள்</value>
+	</item>
+	<item>
+		<key>Payment</key>
+		<value>கொடுப்பனவு</value>
+	</item>
+	<item>
+		<key>Shipment Details</key>
+		<value>ஷிப்பிங் விவரங்கள்</value>
+	</item>
+	<item>
+		<key>Shipping Method</key>
+		<value>கப்பல் போக்குவரத்து முறை</value>
+	</item>
+	<item>
+		<key>Select a shipping method</key>
+		<value>ஒரு கப்பல் முறையை தேர்ந்தெடுக்க</value>
+	</item>
+	<item>
+		<key>is not available for now</key>
+		<value>இப்போது கிடைக்கவில்லை</value>
+	</item>
+	<item>
+		<key>Enter a coupon code</key>
+		<value>ஒரு கூப்பன் குறியீடு நுழைய</value>
+	</item>
+	<item>
+		<key>Order Status</key>
+		<value>ஆர்டர் நிலைமை</value>
+	</item>
+	<item>
+		<key>Order Date</key>
+		<value>ஆர்டர் தேதி</value>
+	</item>
+	<item>
+		<key>Order Total</key>
+		<value>ஒழுங்கு மொத்த</value>
+	</item>
+	<item>
+		<key>Recipient</key>
+		<value>பெறுநரின்</value>
+	</item>
+	<item>
+		<key>Items</key>
+		<value>பொருட்களை</value>
+	</item>
+	<item>
+		<key>Ship To</key>
+		<value>கப்பல்</value>
+	</item>
+	<item>
+		<key>Coupon code</key>
+		<value>கூப்பன் குறியீடு</value>
+	</item>
+	<item>
+		<key>Are you sure you want to exit?</key>
+		<value>நிச்சயமாக நீங்கள் வெளியேற வேண்டுமா?</value>
+	</item>
+	<item>
+		<key>CLOSE APPLICATION</key>
+		<value>செயலியை மூடுக</value>
+	</item>
+	<item>
+		<key>Service Unavailable</key>
+		<value>சேவை கிடைக்கவில்லை</value>
+	</item>
+	<item>
+		<key>Internal Server Error</key>
+		<value>உள்ளக சர்வர் பிழை</value>
+	</item>
+	<item>
+		<key>Shop by Category</key>
+		<value>பகுப்பு மூலம் கடை</value>
+	</item>
+	<item>
+		<key>Enter Your Email</key>
+		<value>மின்னஞ்சலை பதிவுசெய்</value>
+	</item>
+	<item>
+		<key>Invalid email address</key>
+		<value>தவறான மின்னஞ்சல் முகவரி</value>
+	</item>
+	<item>
+		<key>Expired</key>
+		<value>காலாவதியான</value>
+	</item>
+	<item>
+		<key>From</key>
+		<value>இருந்து</value>
+	</item>
+	<item>
+		<key>To</key>
+		<value>செய்ய</value>
+	</item>
+	<item>
+		<key>Send</key>
+		<value>அனுப்பு</value>
+	</item>
+	<item>
+		<key>The user canceled</key>
+		<value>பயனர் ரத்து</value>
+	</item>
+	<item>
+		<key>Please specify payment method</key>
+		<value>பணம் செலுத்தும் முறை குறிப்பிட தயவு செய்து</value>
+	</item>
+	<item>
+		<key>Please specify shipping method</key>
+		<value>கப்பல் முறையை குறிப்பிட தயவு செய்து</value>
+	</item>
+	<item>
+		<key>More</key>
+		<value>மேலும்</value>
+	</item>
+	<item>
+		<key>Price</key>
+		<value>விலை</value>
+	</item>
+	<item>
+		<key>Sign Out</key>
+		<value>வெளியேறு</value>
+	</item>
+	<item>
+		<key>Store View</key>
+		<value>ஸ்டோர் காண்க</value>
+	</item>
+	<item>
+		<key>Clear</key>
+		<value>தெளிவு</value>
+	</item>
+	<item>
+		<key>Update</key>
+		<value>புதுப்பிக்கப்பட்டது</value>
+	</item>
+	<item>
+		<key>Added to Cart</key>
+		<value>வண்டி சேர்க்கப்படும்</value>
+	</item>
+	<item>
+		<key>Select a Address</key>
+		<value>ஒரு முகவரி தேர்ந்தெடுக்கவும்</value>
+	</item>
+	<item>
+		<key>Shopping Cart</key>
+		<value>வண்டியில்</value>
+	</item>
+	<item>
+		<key>By</key>
+		<value>மூலம்</value>
+	</item>
+	<item>
+		<key>Star</key>
+		<value>ஸ்டார்</value>
+	</item>
+	<item>
+		<key>Show more</key>
+		<value>மேலும் காட்ட</value>
+	</item>
+	<item>
+		<key>Show less</key>
+		<value>காட்டு குறைவான</value>
+	</item>
+	<item>
+		<key>Sort</key>
+		<value>வரிசைப்படுத்த</value>
+	</item>
+	<item>
+		<key>results</key>
+		<value>முடிவு</value>
+	</item>
+	<item>
+		<key>results for</key>
+		<value>ஐந்து முடிவு</value>
+	</item>
+	<item>
+		<key>Grid</key>
+		<value>கட்டம்</value>
+	</item>
+	<item>
+		<key>List</key>
+		<value>பட்டியல்</value>
+	</item>
+	<item>
+		<key>Text</key>
+		<value>உரை</value>
+	</item>
+	<item>
+		<key>in</key>
+		<value>உள்ள</value>
+	</item>
+	<item>
+		<key>all categories</key>
+		<value>அனைத்து பிரிவுகள்</value>
+	</item>
+	<item>
+		<key>Shop by</key>
+		<value>மூலம் கடை</value>
+	</item>
+	<item>
+		<key>Prefix</key>
+		<value>முன்னொட்டு</value>
+	</item>
+	<item>
+		<key>Suffix</key>
+		<value>பின்னொட்டு</value>
+	</item>
+	<item>
+		<key>Gender</key>
+		<value>பாலினம்</value>
+	</item>
+	<item>
+		<key>Tax/VAT number</key>
+		<value>வரி / VAT எண்</value>
+	</item>
+	<item>
+		<key>Date of Birth</key>
+		<value>பிறந்த தேதி</value>
+	</item>
+	<item>
+		<key>Excl. Tax</key>
+		<value>Excl. வரி</value>
+	</item>
+	<item>
+		<key>Incl. Tax</key>
+		<value>உள்ளிட்ட. வரி</value>
+	</item>
+	<item>
+		<key>Excl.Tax</key>
+		<value>Excl.Tax</value>
+	</item>
+	<item>
+		<key>Incl.Tax</key>
+		<value>Incl.Tax</value>
+	</item>
+	<item>
+		<key>Price as configured</key>
+		<value>விலை கட்டமைக்கப்பட்ட</value>
+	</item>
+	<item>
+		<key>As Low As</key>
+		<value>மிக குறைந்த</value>
+	</item>
+	<item>
+		<key>Store List</key>
+		<value>ஸ்டோர் பட்டியல்</value>
+	</item>
+	<item>
+		<key>List Store</key>
+		<value>பட்டியல் ஸ்டோர்</value>
+	</item>
+	<item>
+		<key>Store List View</key>
+		<value>ஸ்டோர் பட்டியல் காட்சி</value>
+	</item>
+	<item>
+		<key>Map View</key>
+		<value>வரைபடம் காண்க</value>
+	</item>
+	<item>
+		<key>Best Seller</key>
+		<value>சிறந்த விற்பனையாளர்</value>
+	</item>
+	<item>
+		<key>Recently Added</key>
+		<value>சமீபத்தில் சேர்க்கப்பட்ட</value>
+	</item>
+	<item>
+		<key>Most View</key>
+		<value>பெரும்பாலான காட்டு</value>
+	</item>
+	<item>
+		<key>Newly Updated</key>
+		<value>புதிதாக மேம்படுத்தப்பட்ட</value>
+	</item>
+	<item>
+		<key>Grand Total</key>
+		<value>கிராண்ட் மொத்த</value>
+	</item>
+	<item>
+		<key>Starting at</key>
+		<value>தொடங்கி</value>
+	</item>
+	<item>
+		<key>Please agree to all the terms and conditions before placing the order.</key>
+		<value>வரிசையில் வைப்பது முன் விதிமுறைகள் மற்றும் நிபந்தனைகளை ஏற்று கொள்ளுங்கள்.</value>
+	</item>
+	<item>
+		<key>PRODUCTS</key>
+		<value>தயாரிப்புகள்</value>
+	</item>
+	<item>
+		<key>View now</key>
+		<value>இப்போது காண்க</value>
+	</item>
+	<item>
+		<key>View more</key>
+		<value>மேலும் பார்க்க</value>
+	</item>
+	<item>
+		<key>VIEW ALL CATEGORIES</key>
+		<value>எல்லா வகைகளையும் காட்டு</value>
+	</item>
+	<item>
+		<key>No payment information required</key>
+		<value>இல்லை கட்டணம் தகவல் தேவையான</value>
+	</item>
+	<item>
+		<key>Quantity</key>
+		<value>அளவு</value>
+	</item>
+	<item>
+		<key>Clear All</key>
+		<value>அனைத்தையும் அழி</value>
+	</item>
+	<item>
+		<key>VAT Number</key>
+		<value>VAT எண்</value>
+	</item>
+	<item>
+		<key>Order history is empty</key>
+		<value>ஆர்டர் வரலாறு காலியாக உள்ளது</value>
+	</item>
+	<item>
+		<key>Use Your Current Location</key>
+		<value>உங்களுடைய தற்போதைய இடத்தை பயன்படுத்த</value>
+	</item>
+	<item>
+		<key>Extension was disabled.</key>
+		<value>நீட்டிப்பு முடக்கப்பட்டது.</value>
+	</item>
+	<item>
+		<key>No store match with your searching</key>
+		<value>உங்கள் தேடல் கடையில் போட்டியில் இல்லை</value>
+	</item>
+	<item>
+		<key>Result</key>
+		<value>விளைவாக</value>
+	</item>
+	<item>
+		<key>First, You must update Google Maps.</key>
+		<value>முதல், நீங்கள் Google Maps புதுப்பிக்க வேண்டும்.</value>
+	</item>
+	<item>
+		<key>Setting</key>
+		<value>அமைக்கிறது</value>
+	</item>
+	<item>
+		<key>Ignore</key>
+		<value>புறக்கணி</value>
+	</item>
+	<item>
+		<key>needs access to your location. Please turn on location access.</key>
+		<value>உங்கள் இடம் அணுக வேண்டும். இடம் அணுகலை இயக்கவும்.</value>
+	</item>
+	<item>
+		<key>Location services disabled</key>
+		<value>இடம் சேவைகள் முடக்கப்பட்டுள்ளது</value>
+	</item>
+	<item>
+		<key>Location not available</key>
+		<value>இருப்பிடம் இல்லை</value>
+	</item>
+	<item>
+		<key>Category</key>
+		<value>பகுப்பு</value>
+	</item>
+	<item>
+		<key>You have no items in your shopping cart</key>
+		<value>நீங்கள் உங்கள் வண்டியை விடயமும் இல்லை</value>
+	</item>
+	<item>
+		<key>Forgot Password</key>
+		<value>கடவுச்சொல் மறந்து விட்டீர்களா</value>
+	</item>
+	<item>
+		<key>Searching</key>
+		<value>தேடி</value>
+	</item>
+	<item>
+		<key>Order Detail</key>
+		<value>ஆணை விபரம்</value>
+	</item>
+	<item>
+		<key>You have placed no orders.</key>
+		<value>நீங்கள் எந்த உத்தரவுகளை வைக்கப்படும்.</value>
+	</item>
+	<item>
+		<key>First Name</key>
+		<value>முதல் பெயர்</value>
+	</item>
+	<item>
+		<key>Last Name</key>
+		<value>கடைசி பெயர்</value>
+	</item>
+	<item>
+		<key>Remember password</key>
+		<value>கடவுச்சொல்லை நினைவில் கொள்க</value>
+	</item>
+	<item>
+		<key>New price</key>
+		<value>புதிய விலை</value>
+	</item>
+	<item>
+		<key>Old price</key>
+		<value>பழைய விலை</value>
+	</item>
+	<item>
+		<key>Searching for</key>
+		<value>தேடிக்கொண்டிருக்கிற</value>
+	</item>
+	<item>
+		<key>Edit Address</key>
+		<value>திருத்த முகவரி</value>
+	</item>
+	<item>
+		<key>Customer is not exist</key>
+		<value>வாடிக்கையாளர் இல்லை உள்ளது</value>
+	</item>
+	<item>
+		<key>There are no products matching the selection.</key>
+		<value>தேர்வை பொருந்தும் எந்த பொருட்கள் உள்ளன.</value>
+	</item>
+	<item>
+		<key>If there is an account associated with %s you will receive an email with a link to reset your password.</key>
+		<value>% S உடன் தொடர்புடைய ஒரு கணக்கை இல்லை என்றால் நீங்கள் உங்கள் கடவுச்சொல்லை மீட்டமைக்க ஒரு இணைப்பை ஒரு மின்னஞ்சல் பெறுவீர்கள்.</value>
+	</item>
+	<item>
+		<key>Please enter 6 or more characters.</key>
+		<value>6 அல்லது அதற்கு மேற்பட்ட எழுத்துக்கள் உள்ளிடவும்.</value>
+	</item>
+	<item>
+		<key>App Setting</key>
+		<value>ஆப் அமைக்கிறது</value>
+	</item>
+	<item>
+		<key>Filter</key>
+		<value>வடிகட்டி</value>
+	</item>
+	<item>
+		<key>Call</key>
+		<value>அழைப்பு</value>
+	</item>
+	<item>
+		<key>Message</key>
+		<value>செய்தி</value>
+	</item>
+	<item>
+		<key>Website</key>
+		<value>வலைத்தளம்</value>
+	</item>
+	<item>
+		<key>Term and conditions</key>
+		<value>கால மற்றும் நிலைமைகள்</value>
+	</item>
+	<item>
+		<key>Contact Us</key>
+		<value>எங்களை தொடர்பு</value>
+	</item>
+	<item>
+		<key>Feature Products</key>
+		<value>அம்சம் தயாரிப்புகள்</value>
+	</item>
+	<item>
+		<key>Thank you for your purchase</key>
+		<value>தாங்கள் வாங்கியமைக்கு நன்றி</value>
+	</item>
+	<item>
+		<key>Show notification</key>
+		<value>அறிவிப்பு காட்டு</value>
+	</item>
+	<item>
+		<key>Enable</key>
+		<value>இயக்கு</value>
+	</item>
+	<item>
+		<key>Disable</key>
+		<value>முடக்கு</value>
+	</item>
+	<item>
+		<key>Location Setting</key>
+		<value>இடம் அமைப்பதில்</value>
+	</item>
+	<item>
+		<key>Reorder</key>
+		<value>மறுவரிசைப்படுத்துக</value>
+	</item>
+	<item>
+		<key>Cancel this purchase</key>
+		<value>இந்த கொள்முதல் ரத்து</value>
+	</item>
+	<item>
+		<key>Recently viewed</key>
+		<value>சமீபத்தில் பார்த்தது</value>
+	</item>
+	<item>
+		<key>Share</key>
+		<value>பகிர்</value>
+	</item>
+	<item>
+		<key>Account</key>
+		<value>கணக்கு</value>
+	</item>
+	<item>
+		<key>View all</key>
+		<value>View all</value>
+	</item>
+	<item>
+		<key>Credit Card</key>
+		<value>கடன் அட்டை</value>
+	</item>
+	<item>
+		<key>Card Type</key>
+		<value>அட்டை வகை</value>
+	</item>
+	<item>
+		<key>Card Number</key>
+		<value>அட்டை எண்</value>
+	</item>
+	<item>
+		<key>CVV</key>
+		<value>CVV</value>
+	</item>
+	<item>
+		<key>Activated</key>
+		<value>இயக்கப்பட்டது</value>
+	</item>
+	<item>
+		<key>Select a filter</key>
+		<value>ஒரு வடிகட்டி தேர்வு</value>
+	</item>
+	<item>
+		<key>Male</key>
+		<value>ஆண்</value>
+	</item>
+	<item>
+		<key>Female</key>
+		<value>பெண்</value>
+	</item>
+	<item>
+		<key>Login</key>
+		<value>உள் நுழை</value>
+	</item>
+	<item>
+		<key>Menu</key>
+		<value>பட்டி</value>
+	</item>
+	<item>
+		<key>Privacy</key>
+		<value>தனியுரிமை</value>
+	</item>
+	<item>
+		<key>Your account</key>
+		<value>உங்கள் கணக்கு</value>
+	</item>
+	<item>
+		<key>Your password</key>
+		<value>தங்களது கடவுச்சொல்</value>
+	</item>
+	<item>
+		<key>Remember me</key>
+		<value>என்னை நினைவில்</value>
+	</item>
+	<item>
+		<key>Taxvat</key>
+		<value>Taxvat</value>
+	</item>
+	<item>
+		<key>Reordering Completed</key>
+		<value>நிறைவு மறுசீர்மைக்கிறது</value>
+	</item>
+	<item>
+		<key>Shipping</key>
+		<value>கப்பல்</value>
+	</item>
+	<item>
+		<key>Billing Address</key>
+		<value>பில்லிங் முகவரி</value>
+	</item>
+	<item>
+		<key>Shipping Address</key>
+		<value>சேரும் முகவரி</value>
+	</item>
+	<item>
+		<key>Do you want to cancel this coupon code?</key>
+		<value>இந்த கூப்பன் குறியீடு ரத்து செய்ய விரும்புகிறீர்களா?</value>
+	</item>
+	<item>
+		<key>Configured</key>
+		<value>கட்டமைக்கப்பட்ட</value>
+	</item>
+	<item>
+		<key>Search On</key>
+		<value>மீது தேட</value>
+	</item>
+	<item>
+		<key>Search On All Products</key>
+		<value>அனைத்து தயாரிப்புகளிலும் தேடல்</value>
+	</item>
+	<item>
+		<key>Product</key>
+		<value>தயாரிப்பு</value>
+	</item>
+	<item>
+		<key>Review</key>
+		<value>விமர்சனம்</value>
+	</item>
+	<item>
+		<key>Option</key>
+		<value>விருப்பம்</value>
+	</item>
+	<item>
+		<key>Password must be least 6 characters</key>
+		<value>கடவுச்சொல் குறைந்தது இருக்க வேண்டும் 6 எழுத்துக்கள்</value>
+	</item>
+	<item>
+		<key>Check your email and try again.</key>
+		<value>உங்கள் மின்னஞ்சலை சரிபார்த்து மீண்டும் முயற்சிக்கவும்.</value>
+	</item>
+	<item>
+		<key>Language</key>
+		<value>மொழி</value>
+	</item>
+	<item>
+		<key>Currency</key>
+		<value>நாணய</value>
+	</item>
+	<item>
+		<key>ConnectionFailed</key>
+		<value>இணைப்பு தோல்வியடைந்தது</value>
+	</item>
+	<item>
+		<key>QR Barcode</key>
+		<value>க்யூ பார்கோடு</value>
+	</item>
+	<item>
+		<key>Thank your for purchase</key>
+		<value>வாங்குவதற்கு உங்கள் நன்றி</value>
+	</item>
+	<item>
+		<key>Have some errors, please try again</key>
+		<value>சில பிழைகள் உள்ளன, மீண்டும் முயற்சிக்கவும்</value>
+	</item>
+	<item>
+		<key>Your order has been canceled</key>
+		<value>உங்கள் ஆர்டர் ரத்து செய்யப்பட்டது</value>
+	</item>
+	<item>
+		<key>Rewards Card</key>
+		<value>வெகுமதி அட்டை</value>
+	</item>
+	<item>
+		<key>BALANCE</key>
+		<value>சமநிலை</value>
+	</item>
+	<item>
+		<key>Rewards History</key>
+		<value>வெகுமதிகள் வரலாறு</value>
+	</item>
+	<item>
+		<key>You currently have no activity</key>
+		<value>நீங்கள் தற்சமயம் செயல்பாடு எதுவும் இல்லை</value>
+	</item>
+	<item>
+		<key>Expire on=></key>
+		<value>=> அன்று காலாவதியாகும்</value>
+	</item>
+	<item>
+		<key>Spending</key>
+		<value>பணத்தை சிக்கனமாக செலவு</value>
+	</item>
+	<item>
+		<key>My Rewards</key>
+		<value>என் வெகுமதிகளை</value>
+	</item>
+	<item>
+		<key>Spend my Points</key>
+		<value>என் புள்ளிகள் செலவிட</value>
+	</item>
+	<item>
+		<key>Please login before using points to spend</key>
+		<value>செலவிட புள்ளிகள் பயன்படுத்தி முன் உள்நுழையவும்</value>
+	</item>
+	<item>
+		<key>You will earn</key>
+		<value>நீங்கள் சம்பாதிக்க வேண்டும்</value>
+	</item>
+	<item>
+		<key>You will spend</key>
+		<value>நீங்கள் செலவிட வேண்டும்</value>
+	</item>
+	<item>
+		<key>Settings</key>
+		<value>அமைப்புகள்</value>
+	</item>
+	<item>
+		<key>Email Subscriptions</key>
+		<value>மின்னஞ்சல் சந்தா</value>
+	</item>
+	<item>
+		<key>Subscribe to receive updates on your point balance</key>
+		<value>உங்கள் புள்ளி சமநிலை மேம்படுத்தல்கள் பெற குழுசேர்</value>
+	</item>
+	<item>
+		<key>Point Balance Update</key>
+		<value>புள்ளி மீதி புதுப்பிக்கப்பட்டது</value>
+	</item>
+	<item>
+		<key>Subscribe to receive notifications of expiring points in advance</key>
+		<value>முன்கூட்டியே காலாவதியாகும் புள்ளிகள் அறிவிப்புகளை பெற குழுசேர்</value>
+	</item>
+	<item>
+		<key>Expired Point Transaction</key>
+		<value>காலாவதியான புள்ளி பரிவர்த்தனை</value>
+	</item>
+	<item>
+		<key>Our policies</key>
+		<value>எங்கள் கொள்கைகளை</value>
+	</item>
+	<item>
+		<key>Login or Signup</key>
+		<value>செய் அல்லது இணைந்ததற்கு</value>
+	</item>
+	<item>
+		<key>My Wishlist</key>
+		<value>எனது விருப்பப் பட்டியல்</value>
+	</item>
+	<item>
+		<key>Share Wishlist</key>
+		<value>பகிர் பட்டியல்</value>
+	</item>
+	<item>
+		<key>Your Wishlist is empty</key>
+		<value>உங்கள் விருப்பப் பட்டியல் காலியாக உள்ளது</value>
+	</item>
+	<item>
+		<key>Are you sure want to remove?</key>
+		<value>நிச்சயமாக நீக்க வேண்டுமா?</value>
+	</item>
+	<item>
+		<key>Yes</key>
+		<value>ஆம்</value>
+	</item>
+	<item>
+		<key>Call facility is not available\!</key>
+		<value>கால் வசதி கிடைக்கவில்லை !!!</value>
+	</item>
+	<item>
+		<key>You haven’t setup email account</key>
+		<value>நீங்கள் இல்லை அமைப்பு மின்னஞ்சல் கணக்கை வேண்டும்</value>
+	</item>
+	<item>
+		<key>You must go to Settings/ Mail, Contact, Calendars and choose Add Account.</key>
+		<value>நீங்கள் அமைப்புகள் / மெயில், தொடர்பு, நாள்காட்டி சென்று கணக்கு சேர் தேர்ந்தெடுக்க வேண்டும்.</value>
+	</item>
+	<item>
+		<key>Your Email was sent succesfully.</key>
+		<value>உங்கள் மின்னஞ்சல் வெற்றிகரமாகப் அனுப்பப்பட்டது.</value>
+	</item>
+	<item>
+		<key>Failed</key>
+		<value>தோல்வி</value>
+	</item>
+	<item>
+		<key>Your mail was not sent</key>
+		<value>உங்கள் மின்னஞ்சல் அனுப்பப்படவில்லை</value>
+	</item>
+	<item>
+		<key>Company</key>
+		<value>நிறுவனத்தின்</value>
+	</item>
+	<item>
+		<key>Fax</key>
+		<value>தொலைநகல்</value>
+	</item>
+	<item>
+		<key>Select Phone</key>
+		<value>தேர்வு தொலைபேசி</value>
+	</item>
+	<item>
+		<key>Select phone number</key>
+		<value>தொலைபேசி எண் தேர்வு</value>
+	</item>
+	<item>
+		<key>Confirm Address</key>
+		<value>முகவரி உறுதிப்படுத்தவும்</value>
+	</item>
+	<item>
+		<key>Address Confirmation</key>
+		<value>முகவரி உறுதிப்படுத்தல்</value>
+	</item>
+	<item>
+		<key>Please select shipping method</key>
+		<value>கப்பல் முறையை தேர்ந்தெடுக்கவும்</value>
+	</item>
+	<item>
+		<key>Paypal Checkout</key>
+		<value>பேபால் வெளியேறுதல்</value>
+	</item>
+	<item>
+		<key>km</key>
+		<value>கி.மீ.</value>
+	</item>
+	<item>
+		<key>Map</key>
+		<value>வரைபடம்</value>
+	</item>
+	<item>
+		<key>Alert</key>
+		<value>எச்சரிக்கை</value>
+	</item>
+	<item>
+		<key>Affiliates Discount</key>
+		<value>இணைக்கப்பெற்ற தள்ளுபடி</value>
+	</item>
+	<item>
+		<key>Your order is under review</key>
+		<value>உங்கள் பொருட்டு ஆய்வு கீழ் உள்ளது</value>
+	</item>
+	<item>
+		<key>CCAvenue</key>
+		<value>CCAvenue</value>
+	</item>
+	<item>
+		<key>Sorry, CCAvenue is not now available. Please try again later.</key>
+		<value>மன்னிக்கவும், CCAvenue இப்போது கிடைக்கவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.</value>
+	</item>
+	<item>
+		<key>Checkout Failed</key>
+		<value>வெளியேறுதல் தோல்வி</value>
+	</item>
+	<item>
+		<key>Your card number is not valid</key>
+		<value>உங்கள் அட்டை எண் தவறானது</value>
+	</item>
+	<item>
+		<key>Checkout.com</key>
+		<value>Checkout.com</value>
+	</item>
+	<item>
+		<key>Sorry, Checkout.com is not now available. Please try again later.</key>
+		<value>மன்னிக்கவும், Checkout.com இப்போது கிடைக்கவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.</value>
+	</item>
+	<item>
+		<key>Sorry, PayPal is not now available. Please try again later.</key>
+		<value>மன்னிக்கவும், பேபால் இப்போது கிடைக்கவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.</value>
+	</item>
+	<item>
+		<key>Ipay88</key>
+		<value>iPay88</value>
+	</item>
+	<item>
+		<key>Sorry, Ipay88 is not now available. Please try again later.</key>
+		<value>மன்னிக்கவும், Ipay88 இப்போது கிடைக்கவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.</value>
+	</item>
+	<item>
+		<key>Invoice</key>
+		<value>விலைப்பட்டியல்</value>
+	</item>
+	<item>
+		<key>Get Directions</key>
+		<value>திசைகள்</value>
+	</item>
+	<item>
+		<key>Opening Hours</key>
+		<value>தொடக்க நேரம்</value>
+	</item>
+	<item>
+		<key>Open</key>
+		<value>திறந்த</value>
+	</item>
+	<item>
+		<key>Monday</key>
+		<value>திங்கள்</value>
+	</item>
+	<item>
+		<key>Tuesday</key>
+		<value>செவ்வாய்க்கிழமை</value>
+	</item>
+	<item>
+		<key>Wednesday</key>
+		<value>புதன்கிழமை</value>
+	</item>
+	<item>
+		<key>Thursday</key>
+		<value>வியாழக்கிழமை</value>
+	</item>
+	<item>
+		<key>Friday</key>
+		<value>வெள்ளி</value>
+	</item>
+	<item>
+		<key>Saturday</key>
+		<value>சனிக்கிழமை</value>
+	</item>
+	<item>
+		<key>Sunday</key>
+		<value>ஞாயிறு</value>
+	</item>
+	<item>
+		<key>Specials Day</key>
+		<value>சிறப்பு நாள்</value>
+	</item>
+	<item>
+		<key>Holidays</key>
+		<value>விடுமுறை</value>
+	</item>
+	<item>
+		<key>Content</key>
+		<value>உள்ளடக்க</value>
+	</item>
+	<item>
+		<key>No Email Account</key>
+		<value>மின்னஞ்சல் கணக்கு இல்லை</value>
+	</item>
+	<item>
+		<key>Open Settings app to set up an email account</key>
+		<value>திறந்த அமைப்புகள் அமைக்க ஒரு மின்னஞ்சல் கணக்கை பயன்பாட்டை</value>
+	</item>
+	<item>
+		<key>Search Store</key>
+		<value>தேடல் ஸ்டோர்</value>
+	</item>
+	<item>
+		<key>Search By Area</key>
+		<value>பகுதி மூலம் தேடல்</value>
+	</item>
+	<item>
+		<key>Zip Code</key>
+		<value>ZIP குறியீடு</value>
+	</item>
+	<item>
+		<key>Search By Tag</key>
+		<value>குறிச்சொல் மூலம் தேடல்</value>
+	</item>
+	<item>
+		<key>All</key>
+		<value>அனைத்து</value>
+	</item>
+	<item>
+		<key>Store List Detail</key>
+		<value>ஸ்டோர் பட்டியல் விபரம்</value>
+	</item>
+	<item>
+		<key>Store Locator</key>
+		<value>ஸ்டோர் லொக்கேட்டர்</value>
+	</item>
+	<item>
+		<key>Sorry, 2Checkout is not now available. Please try again later.</key>
+		<value>மன்னிக்கவும், 2Checkout இப்போது கிடைக்கவில்லை. தயவுசெய்து மீண்டும் முயற்சிக்கவும்.</value>
+	</item>
+	<item>
+		<key>Each of %@ gets %@ discount</key>
+		<value>% @ ஒவ்வொரு% @ தள்ளுபடி பெறுகிறார்</value>
+	</item>
+	<item>
+		<key>You need to earn more %@ to use this rule.</key>
+		<value>நீங்கள் இந்த ஆட்சி பயன்படுத்த இன்னும்% @ சம்பாதிக்க வேண்டும்.</value>
+	</item>
+	<item>
+		<key>Only %@ until %@</key>
+		<value>% வரை மட்டுமே% @ @</value>
+	</item>
+	<item>
+		<key>Only %@ until redeemable</key>
+		<value>மீட்கக்கூடிய வரை மட்டுமே% @</value>
+	</item>
+	<item>
+		<key>Equal %@ to redeem</key>
+		<value>மீட்டு சம% @ வேண்டும்</value>
+	</item>
+	<item>
+		<key>You have %@ that are pending for approval</key>
+		<value>நீங்கள் ஒப்புதல் நிலுவையில் உள்ளன என்று% @ வேண்டும்</value>
+	</item>
+	<item>
+		<key>Order #</key>
+		<value>ஒழுங்குமுறை #</value>
+	</item>
+	<item>
+		<key>Name=> A to Z</key>
+		<value>பெயர் => A டு Z</value>
+	</item>
+	<item>
+		<key>Name=> Z to A</key>
+		<value>பெயர் => ஒரு இசட்</value>
+	</item>
+	<item>
+		<key>Price=> Low to High</key>
+		<value>விலை உயர் => குறைந்த</value>
+	</item>
+	<item>
+		<key>Price=> High to Low</key>
+		<value>விலை குறைந்த வேண்டிய => உயர்</value>
+	</item>
+	<item>
+		<key>Shipping & Handling</key>
+		<value>கப்பல் மற்றும் கையாளுதல்</value>
+	</item>
+	<item>
+		<key>You have placed an order successfully</key>
+		<value>நீங்கள் வெற்றிகரமாக ஒரு ஆர்டரை வேண்டும்</value>
+	</item>
+	<item>
+		<key>Continue Shopping</key>
+		<value>ஷாப்பிங் தொடர</value>
+	</item>
+	<item>
+		<key>View detail of your order</key>
+		<value>உங்கள் பொருட்டு விரிவான பார்வை</value>
+	</item>
+	<item>
+		<key>Log in with Facebook</key>
+		<value>பேஸ்புக் கொண்டு உள்நுழைய</value>
+	</item>
+	<item>
+		<key>Log out</key>
+		<value>வெளியேறு</value>
+	</item>
+	<item>
+		<key>Welcome %@\!</key>
+		<value>வரவேற்கிறோம்% @! இப்போது ஷாப்பிங் தொடங்க</value>
+	</item>
+	<item>
+		<key>Expired=> MM/YY</key>
+		<value>காலாவதியான => MM / YY</value>
+	</item>
+</language>

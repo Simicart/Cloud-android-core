@@ -1,0 +1,1443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<language>
+	<item>
+		<key>Edit</key>
+		<value>మార్చు</value>
+	</item>
+	<item>
+		<key>Done</key>
+		<value>పూర్తి</value>
+	</item>
+	<item>
+		<key>Cancel</key>
+		<value>రద్దు</value>
+	</item>
+	<item>
+		<key>Save</key>
+		<value>సేవ్</value>
+	</item>
+	<item>
+		<key>Back</key>
+		<value>తిరిగి</value>
+	</item>
+	<item>
+		<key>Close</key>
+		<value>క్లోజ్</value>
+	</item>
+	<item>
+		<key>Show</key>
+		<value>షో</value>
+	</item>
+	<item>
+		<key>None</key>
+		<value>గమనిక</value>
+	</item>
+	<item>
+		<key>Reload</key>
+		<value>Reload</value>
+	</item>
+	<item>
+		<key>required</key>
+		<value>అవసరం</value>
+	</item>
+	<item>
+		<key>Loading</key>
+		<value>లోడ్</value>
+	</item>
+	<item>
+		<key>SUCCESS</key>
+		<value>SUCCESS</value>
+	</item>
+	<item>
+		<key>OK</key>
+		<value>అలాగే</value>
+	</item>
+	<item>
+		<key>Don't Accept</key>
+		<value>అంగీకరించు లేదు</value>
+	</item>
+	<item>
+		<key>Accept</key>
+		<value>అంగీకరించు</value>
+	</item>
+	<item>
+		<key>Error</key>
+		<value>లోపం</value>
+	</item>
+	<item>
+		<key>FAIL</key>
+		<value>విఫలమైంది</value>
+	</item>
+	<item>
+		<key>Request Failed</key>
+		<value>అభ్యర్థన విఫలమైంది</value>
+	</item>
+	<item>
+		<key>Network Error</key>
+		<value>నెట్వర్క్ లోపం</value>
+	</item>
+	<item>
+		<key>Invalid</key>
+		<value>చెల్లని</value>
+	</item>
+	<item>
+		<key>Data Not Found</key>
+		<value>డేటా దొరకలేదు</value>
+	</item>
+	<item>
+		<key>Some errors occurred. Please try again later</key>
+		<value>కొన్ని దోషాలు సంభవించాయి. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి</value>
+	</item>
+	<item>
+		<key>Couldn't get shipping method information.</key>
+		<value>షిప్పింగ్ విధానం సమాచారాన్ని పొందడం సాధ్యం కాలేదు.</value>
+	</item>
+	<item>
+		<key>Couldn't get payment method information.</key>
+		<value>చెల్లింపు పద్ధతి సమాచారాన్ని పొందడం సాధ్యం కాలేదు.</value>
+	</item>
+	<item>
+		<key>The Internet connection appears to be offline</key>
+		<value>ఇంటర్నెట్ కనెక్షన్ ఆఫ్లైన్లో ఉన్నట్లుగా కనిపిస్తోంది</value>
+	</item>
+	<item>
+		<key>The request timed out</key>
+		<value>అభ్యర్థన సమయం ముగిసింది</value>
+	</item>
+	<item>
+		<key>A connection failure occurred</key>
+		<value>కనెక్షన్ వైఫల్యం బయటపడింది</value>
+	</item>
+	<item>
+		<key>Home</key>
+		<value>హోమ్</value>
+	</item>
+	<item>
+		<key>Already a customer?</key>
+		<value>ఇప్పటికే ఒక కస్టమర్?</value>
+	</item>
+	<item>
+		<key>Sign In</key>
+		<value>సైన్ ఇన్</value>
+	</item>
+	<item>
+		<key>Hello</key>
+		<value>హలో</value>
+	</item>
+	<item>
+		<key>View Account</key>
+		<value>ఖాతా చూడండి</value>
+	</item>
+	<item>
+		<key>Notification</key>
+		<value>నోటిఫికేషన్</value>
+	</item>
+	<item>
+		<key>Password</key>
+		<value>పాస్వర్డ్</value>
+	</item>
+	<item>
+		<key>Forgot your password?</key>
+		<value>మీ పాస్వర్డ్ను మర్చిపోయారా?</value>
+	</item>
+	<item>
+		<key>Don't have an account?</key>
+		<value>ఒక ఖాతా లేదా?</value>
+	</item>
+	<item>
+		<key>Create account</key>
+		<value>ఖాతా సృష్టించు</value>
+	</item>
+	<item>
+		<key>Register</key>
+		<value>నమోదు</value>
+	</item>
+	<item>
+		<key>Full Name</key>
+		<value>పూర్తి పేరు</value>
+	</item>
+	<item>
+		<key>Confirm Password</key>
+		<value>పాస్వర్డ్ని నిర్ధారించండి</value>
+	</item>
+	<item>
+		<key>By creating an account, you agree to Our Conditions of Use and Privacy Policy</key>
+		<value>ఒక ఖాతాను సృష్టించడం ద్వారా, మీరు మా వినియోగ నిబంధనలు మరియు గోప్యతా విధానాన్ని అంగీకరిస్తున్నారు</value>
+	</item>
+	<item>
+		<key>Password and Confirm password don't match.</key>
+		<value>పాస్వర్డ్ మరియు పాస్వర్డ్ని నిర్ధారించండి సరిపోలడం లేదు.</value>
+	</item>
+	<item>
+		<key>Please select all (*) fields</key>
+		<value>దయచేసి అన్నీ (*) ఖాళీలను ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>My Account</key>
+		<value>నా ఖాతా</value>
+	</item>
+	<item>
+		<key>Profile</key>
+		<value>ప్రొఫైల్</value>
+	</item>
+	<item>
+		<key>Address Book</key>
+		<value>చిరునామా పుస్తకం</value>
+	</item>
+	<item>
+		<key>Order History</key>
+		<value>ఆర్డర్ చరిత్ర</value>
+	</item>
+	<item>
+		<key>Logout</key>
+		<value>లాగౌట్</value>
+	</item>
+	<item>
+		<key>Name</key>
+		<value>పేరు</value>
+	</item>
+	<item>
+		<key>Email</key>
+		<value>ఇమెయిల్</value>
+	</item>
+	<item>
+		<key>Current Password</key>
+		<value>ప్రస్తుత పాస్వర్డ్</value>
+	</item>
+	<item>
+		<key>New Password</key>
+		<value>కొత్త పాస్వర్డ్</value>
+	</item>
+	<item>
+		<key>Add an address</key>
+		<value>ఒక చిరునామాను జోడించండి</value>
+	</item>
+	<item>
+		<key>Or choose an address for editing</key>
+		<value>లేదా సవరించడం కోసం ఒక చిరునామా ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>Or choose an address</key>
+		<value>లేదా ఒక చిరునామా ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>New Address</key>
+		<value>న్యూ అడ్రస్</value>
+	</item>
+	<item>
+		<key>Street</key>
+		<value>వీధి</value>
+	</item>
+	<item>
+		<key>City</key>
+		<value>సిటీ</value>
+	</item>
+	<item>
+		<key>State</key>
+		<value>రాష్ట్రం</value>
+	</item>
+	<item>
+		<key>Post/Zip Code</key>
+		<value>పోస్ట్ / జిప్ కోడ్</value>
+	</item>
+	<item>
+		<key>Country</key>
+		<value>దేశం</value>
+	</item>
+	<item>
+		<key>Phone</key>
+		<value>ఫోన్</value>
+	</item>
+	<item>
+		<key>All products</key>
+		<value>అన్ని ఉత్పత్తులు</value>
+	</item>
+	<item>
+		<key>Please choose a payment method</key>
+		<value>ఒక చెల్లింపు పద్దతి ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>Search</key>
+		<value>శోధన</value>
+	</item>
+	<item>
+		<key>Refine</key>
+		<value>మెరుగుపర్చండి</value>
+	</item>
+	<item>
+		<key>Sort By</key>
+		<value>ఆమరిక</value>
+	</item>
+	<item>
+		<key>In Stock</key>
+		<value>అందుబాటులో ఉంది</value>
+	</item>
+	<item>
+		<key>Out Stock</key>
+		<value>స్టాక్ అవుట్</value>
+	</item>
+	<item>
+		<key>Customer Reviews</key>
+		<value>కస్టమర్ సమీక్షలు</value>
+	</item>
+	<item>
+		<key>Related Products</key>
+		<value>Related ఉత్పత్తులు</value>
+	</item>
+	<item>
+		<key>Add To Cart</key>
+		<value>కార్ట్ జోడించు</value>
+	</item>
+	<item>
+		<key>Special Price</key>
+		<value>ప్రత్యేక ధర</value>
+	</item>
+	<item>
+		<key>Regular Price</key>
+		<value>రెగ్యులర్ ధర</value>
+	</item>
+	<item>
+		<key>Images</key>
+		<value>చిత్రాలు</value>
+	</item>
+	<item>
+		<key>Product Detail</key>
+		<value>ఉత్పత్తి వివరాలు</value>
+	</item>
+	<item>
+		<key>Basic Info</key>
+		<value>ప్రాథమిక సమాచారం</value>
+	</item>
+	<item>
+		<key>Description</key>
+		<value>వివరణ</value>
+	</item>
+	<item>
+		<key>Tech Specs</key>
+		<value>టెక్ నిర్దేశాలు</value>
+	</item>
+	<item>
+		<key>Reviews</key>
+		<value>సమీక్షలు</value>
+	</item>
+	<item>
+		<key>Options</key>
+		<value>ఎంపికలు</value>
+	</item>
+	<item>
+		<key>Details</key>
+		<value>వివరాలు</value>
+	</item>
+	<item>
+		<key>Related</key>
+		<value>సంబంధిత</value>
+	</item>
+	<item>
+		<key>Please specify the quantity of product(s)</key>
+		<value>దయచేసి ఉత్పత్తి పరిమాణం పేర్కొనండి (లు)</value>
+	</item>
+	<item>
+		<key>Cart</key>
+		<value>కార్ట్</value>
+	</item>
+	<item>
+		<key>2Checkout</key>
+		<value>2Checkout</value>
+	</item>
+	<item>
+		<key>Your shopping cart is empty</key>
+		<value>మీ షాపింగ్ కార్ట్ ఖాళీగా ఉంది</value>
+	</item>
+	<item>
+		<key>Items to buy now</key>
+		<value>అంశాలు ఇప్పుడు కొనుగోలు</value>
+	</item>
+	<item>
+		<key>Qty</key>
+		<value>ప్యాక్ చేసిన అంశాల</value>
+	</item>
+	<item>
+		<key>Delete</key>
+		<value>తొలగించు</value>
+	</item>
+	<item>
+		<key>Subtotal</key>
+		<value>పూర్తికాని</value>
+	</item>
+	<item>
+		<key>Review Order</key>
+		<value>రివ్యూ ఆర్డర్</value>
+	</item>
+	<item>
+		<key>Checkout as existing customer</key>
+		<value>ఉన్న కస్టమర్ గా చెక్అవుట్</value>
+	</item>
+	<item>
+		<key>Checkout as new customer</key>
+		<value>క్రొత్త వినియోగదారుగా చెక్అవుట్</value>
+	</item>
+	<item>
+		<key>Checkout as guest</key>
+		<value>అతిథిగా చెక్అవుట్</value>
+	</item>
+	<item>
+		<key>Please add a billing address</key>
+		<value>దయచేసి బిల్లింగ్ చిరునామా జోడించండి</value>
+	</item>
+	<item>
+		<key>Please select a billing address</key>
+		<value>దయచేసి బిల్లింగ్ చిరునామా ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>Confirm</key>
+		<value>నిర్ధారించండి</value>
+	</item>
+	<item>
+		<key>Place Now</key>
+		<value>ఇప్పుడు ఉంచండి</value>
+	</item>
+	<item>
+		<key>Fee Detail</key>
+		<value>ఫీజు వివరాలు</value>
+	</item>
+	<item>
+		<key>Discount</key>
+		<value>డిస్కౌంట్</value>
+	</item>
+	<item>
+		<key>Total</key>
+		<value>మొత్తం</value>
+	</item>
+	<item>
+		<key>Tax</key>
+		<value>పన్ను</value>
+	</item>
+	<item>
+		<key>Billing and Shipping Addresses</key>
+		<value>బిల్లింగ్ మరియు షిప్పింగ్ చిరునామాలను</value>
+	</item>
+	<item>
+		<key>Payment</key>
+		<value>చెల్లింపు</value>
+	</item>
+	<item>
+		<key>Shipment Details</key>
+		<value>రవాణా వివరాలు</value>
+	</item>
+	<item>
+		<key>Shipping Method</key>
+		<value>చేరవేయు విధానం</value>
+	</item>
+	<item>
+		<key>Select a shipping method</key>
+		<value>ఒక షిప్పింగ్ పద్ధతి ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>is not available for now</key>
+		<value>ఇప్పుడు అందుబాటులో లేదు</value>
+	</item>
+	<item>
+		<key>Enter a coupon code</key>
+		<value>ఒక కూపన్ కోడ్ ను నమోదు చేయండి</value>
+	</item>
+	<item>
+		<key>Order Status</key>
+		<value>ఆర్డర్ స్థితి</value>
+	</item>
+	<item>
+		<key>Order Date</key>
+		<value>ఆర్డర్ తేదీ</value>
+	</item>
+	<item>
+		<key>Order Total</key>
+		<value>ఆర్డర్ మొత్తం</value>
+	</item>
+	<item>
+		<key>Recipient</key>
+		<value>గ్రహీత</value>
+	</item>
+	<item>
+		<key>Items</key>
+		<value>అంశాలు</value>
+	</item>
+	<item>
+		<key>Ship To</key>
+		<value>బదిలీ</value>
+	</item>
+	<item>
+		<key>Coupon code</key>
+		<value>కూపన్ కోడ్</value>
+	</item>
+	<item>
+		<key>Are you sure you want to exit?</key>
+		<value>మీరు ఖచ్చితంగా నుండి నిష్క్రమించాలనుకుంటున్నారా?</value>
+	</item>
+	<item>
+		<key>CLOSE APPLICATION</key>
+		<value>దగ్గరగా అప్లికేషన్</value>
+	</item>
+	<item>
+		<key>Service Unavailable</key>
+		<value>సహాయము అందించుట వీలుకాదు</value>
+	</item>
+	<item>
+		<key>Internal Server Error</key>
+		<value>అంతర్గత సర్వర్ లోపం</value>
+	</item>
+	<item>
+		<key>Shop by Category</key>
+		<value>వర్గం ద్వారా షాప్</value>
+	</item>
+	<item>
+		<key>Enter Your Email</key>
+		<value>మీ ఇమెయిల్ ఎంటర్</value>
+	</item>
+	<item>
+		<key>Invalid email address</key>
+		<value>చెల్లని ఇమెయిల్ చిరునామా</value>
+	</item>
+	<item>
+		<key>Expired</key>
+		<value>గడువు</value>
+	</item>
+	<item>
+		<key>From</key>
+		<value>నుండి</value>
+	</item>
+	<item>
+		<key>To</key>
+		<value>టు</value>
+	</item>
+	<item>
+		<key>Send</key>
+		<value>పంపండి</value>
+	</item>
+	<item>
+		<key>The user canceled</key>
+		<value>యూజర్ రద్దు</value>
+	</item>
+	<item>
+		<key>Please specify payment method</key>
+		<value>చెల్లింపు పద్ధతి పేర్కొనవచ్చు</value>
+	</item>
+	<item>
+		<key>Please specify shipping method</key>
+		<value>దయచేసి షిప్పింగ్ పద్ధతి పేర్కొనవచ్చు</value>
+	</item>
+	<item>
+		<key>More</key>
+		<value>మరింత</value>
+	</item>
+	<item>
+		<key>Price</key>
+		<value>ధర</value>
+	</item>
+	<item>
+		<key>Sign Out</key>
+		<value>సైన్ ఔట్</value>
+	</item>
+	<item>
+		<key>Store View</key>
+		<value>స్టోర్ చూడండి</value>
+	</item>
+	<item>
+		<key>Clear</key>
+		<value>ప్రశాంతంగా</value>
+	</item>
+	<item>
+		<key>Update</key>
+		<value>నవీకరణ</value>
+	</item>
+	<item>
+		<key>Added to Cart</key>
+		<value>కార్ట్ చేర్చబడింది</value>
+	</item>
+	<item>
+		<key>Select a Address</key>
+		<value>ఒక అడ్రస్ ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>Shopping Cart</key>
+		<value>షాపింగ్ కార్ట్</value>
+	</item>
+	<item>
+		<key>By</key>
+		<value>ద్వారా</value>
+	</item>
+	<item>
+		<key>Star</key>
+		<value>స్టార్</value>
+	</item>
+	<item>
+		<key>Show more</key>
+		<value>ఇంకా చూపించు</value>
+	</item>
+	<item>
+		<key>Show less</key>
+		<value>తక్కువ చూపించు</value>
+	</item>
+	<item>
+		<key>Sort</key>
+		<value>క్రమీకరించు</value>
+	</item>
+	<item>
+		<key>results</key>
+		<value>ఫలితాలు</value>
+	</item>
+	<item>
+		<key>results for</key>
+		<value>కోసం ఫలితాలు</value>
+	</item>
+	<item>
+		<key>Grid</key>
+		<value>గ్రిడ్</value>
+	</item>
+	<item>
+		<key>List</key>
+		<value>జాబితా</value>
+	</item>
+	<item>
+		<key>Text</key>
+		<value>టెక్స్ట్</value>
+	</item>
+	<item>
+		<key>in</key>
+		<value>లో</value>
+	</item>
+	<item>
+		<key>all categories</key>
+		<value>అన్ని కెటగిరీలు</value>
+	</item>
+	<item>
+		<key>Shop by</key>
+		<value>ద్వారా షాప్</value>
+	</item>
+	<item>
+		<key>Prefix</key>
+		<value>ఉపసర్గ</value>
+	</item>
+	<item>
+		<key>Suffix</key>
+		<value>ప్రత్యయం</value>
+	</item>
+	<item>
+		<key>Gender</key>
+		<value>లింగ</value>
+	</item>
+	<item>
+		<key>Tax/VAT number</key>
+		<value>పన్ను / VAT సంఖ్య</value>
+	</item>
+	<item>
+		<key>Date of Birth</key>
+		<value>పుట్టిన తేది</value>
+	</item>
+	<item>
+		<key>Excl. Tax</key>
+		<value>విశిష్ట. పన్ను</value>
+	</item>
+	<item>
+		<key>Incl. Tax</key>
+		<value>కలిపి. పన్ను</value>
+	</item>
+	<item>
+		<key>Excl.Tax</key>
+		<value>Excl.Tax</value>
+	</item>
+	<item>
+		<key>Incl.Tax</key>
+		<value>Incl.Tax</value>
+	</item>
+	<item>
+		<key>Price as configured</key>
+		<value>కాన్ఫిగర్ ధర</value>
+	</item>
+	<item>
+		<key>As Low As</key>
+		<value>తక్కువ గా</value>
+	</item>
+	<item>
+		<key>Store List</key>
+		<value>స్టోర్ జాబితా</value>
+	</item>
+	<item>
+		<key>List Store</key>
+		<value>జాబితా స్టోర్</value>
+	</item>
+	<item>
+		<key>Store List View</key>
+		<value>స్టోర్ జాబితా వీక్షణ</value>
+	</item>
+	<item>
+		<key>Map View</key>
+		<value>మాప్ వ్యూ</value>
+	</item>
+	<item>
+		<key>Best Seller</key>
+		<value>బెస్ట్ సెల్లర్</value>
+	</item>
+	<item>
+		<key>Recently Added</key>
+		<value>ఇటీవల జోడించిన</value>
+	</item>
+	<item>
+		<key>Most View</key>
+		<value>అత్యంత వ్యూ</value>
+	</item>
+	<item>
+		<key>Newly Updated</key>
+		<value>కొత్తగా నవీకరించబడింది</value>
+	</item>
+	<item>
+		<key>Grand Total</key>
+		<value>సంపూర్ణ మొత్తము</value>
+	</item>
+	<item>
+		<key>Starting at</key>
+		<value>ప్రారంభిస్తోంది</value>
+	</item>
+	<item>
+		<key>Please agree to all the terms and conditions before placing the order.</key>
+		<value>ఆర్డరును ముందు అన్ని నిబంధనలను అంగీకరించండి.</value>
+	</item>
+	<item>
+		<key>PRODUCTS</key>
+		<value>PRODUCTS</value>
+	</item>
+	<item>
+		<key>View now</key>
+		<value>ఇప్పుడు వీక్షణ</value>
+	</item>
+	<item>
+		<key>View more</key>
+		<value>మరింత చూడండి</value>
+	</item>
+	<item>
+		<key>VIEW ALL CATEGORIES</key>
+		<value>అన్ని వర్గాలను వీక్షించండి</value>
+	</item>
+	<item>
+		<key>No payment information required</key>
+		<value>చెల్లింపు సమాచారం అవసరం</value>
+	</item>
+	<item>
+		<key>Quantity</key>
+		<value>మొత్తము</value>
+	</item>
+	<item>
+		<key>Clear All</key>
+		<value>అన్నింటినీ క్లియర్</value>
+	</item>
+	<item>
+		<key>VAT Number</key>
+		<value>వ్యాట్ సంఖ్య</value>
+	</item>
+	<item>
+		<key>Order history is empty</key>
+		<value>ఆర్డర్ చరిత్ర ఖాళీగా ఉంది</value>
+	</item>
+	<item>
+		<key>Use Your Current Location</key>
+		<value>మీ ప్రస్తుత స్థానాన్ని ఉపయోగించు</value>
+	</item>
+	<item>
+		<key>Extension was disabled.</key>
+		<value>పొడిగింపు నిలిపివేయబడింది.</value>
+	</item>
+	<item>
+		<key>No store match with your searching</key>
+		<value>మీ శోధించడం ఏ స్టోర్ మ్యాచ్</value>
+	</item>
+	<item>
+		<key>Result</key>
+		<value>ఫలితం</value>
+	</item>
+	<item>
+		<key>First, You must update Google Maps.</key>
+		<value>మొదటి, మీరు Google మ్యాప్స్ అప్డేట్ చేసుకోవాలి.</value>
+	</item>
+	<item>
+		<key>Setting</key>
+		<value>సెట్టింగు</value>
+	</item>
+	<item>
+		<key>Ignore</key>
+		<value>విస్మరించు</value>
+	</item>
+	<item>
+		<key>needs access to your location. Please turn on location access.</key>
+		<value>మీ స్థానాన్ని ప్రాప్యత చేయాలి. స్థానం ప్రాప్యత ఆన్ చేయండి.</value>
+	</item>
+	<item>
+		<key>Location services disabled</key>
+		<value>స్థానం సేవలు నిలిపివేయబడ్డాయి</value>
+	</item>
+	<item>
+		<key>Location not available</key>
+		<value>స్థానం అందుబాటులో లేదు</value>
+	</item>
+	<item>
+		<key>Category</key>
+		<value>వర్గం</value>
+	</item>
+	<item>
+		<key>You have no items in your shopping cart</key>
+		<value>మీరు మీ షాపింగ్ కార్ట్ లో ఏ అంశాలను కలిగి</value>
+	</item>
+	<item>
+		<key>Forgot Password</key>
+		<value>పాస్వర్డ్ మరిచిపోయారా</value>
+	</item>
+	<item>
+		<key>Searching</key>
+		<value>శోధించండి</value>
+	</item>
+	<item>
+		<key>Order Detail</key>
+		<value>ఆర్డర్ వివరాలు</value>
+	</item>
+	<item>
+		<key>You have placed no orders.</key>
+		<value>మీరు ఏ ఆర్డర్లు ఉంచారు.</value>
+	</item>
+	<item>
+		<key>First Name</key>
+		<value>మొదటి పేరు</value>
+	</item>
+	<item>
+		<key>Last Name</key>
+		<value>చివరి పేరు</value>
+	</item>
+	<item>
+		<key>Remember password</key>
+		<value>పాస్వర్డ్ గుర్తుంచుకో</value>
+	</item>
+	<item>
+		<key>New price</key>
+		<value>కొత్త ధర</value>
+	</item>
+	<item>
+		<key>Old price</key>
+		<value>పాత ధర</value>
+	</item>
+	<item>
+		<key>Searching for</key>
+		<value>కొరకు వెతుకుట</value>
+	</item>
+	<item>
+		<key>Edit Address</key>
+		<value>చిరునామా సవరించు</value>
+	</item>
+	<item>
+		<key>Customer is not exist</key>
+		<value>కస్టమర్ ఉనికిలో లేదు</value>
+	</item>
+	<item>
+		<key>There are no products matching the selection.</key>
+		<value>ఎంపిక సరిపోయే ఉత్పత్తులు ఉన్నాయి.</value>
+	</item>
+	<item>
+		<key>If there is an account associated with %s you will receive an email with a link to reset your password.</key>
+		<value>% S తో సంబంధం ఒక ఖాతా ఉంటే మీరు మీ పాస్వర్డ్ను రీసెట్ చేయడానికి లింక్ తో ఒక ఇమెయిల్ అందుకుంటారు.</value>
+	</item>
+	<item>
+		<key>Please enter 6 or more characters.</key>
+		<value>6 లేదా ఎక్కువ అక్షరాలు ఎంటర్ చెయ్యండి.</value>
+	</item>
+	<item>
+		<key>App Setting</key>
+		<value>అనువర్తనం సెట్టింగు</value>
+	</item>
+	<item>
+		<key>Filter</key>
+		<value>వడపోత</value>
+	</item>
+	<item>
+		<key>Call</key>
+		<value>కాల్</value>
+	</item>
+	<item>
+		<key>Message</key>
+		<value>సందేశం</value>
+	</item>
+	<item>
+		<key>Website</key>
+		<value>వెబ్సైట్</value>
+	</item>
+	<item>
+		<key>Term and conditions</key>
+		<value>పదం మరియు పరిస్థితులు</value>
+	</item>
+	<item>
+		<key>Contact Us</key>
+		<value>మమ్మల్ని సంప్రదించండి</value>
+	</item>
+	<item>
+		<key>Feature Products</key>
+		<value>ఫీచర్ ఉత్పత్తులు</value>
+	</item>
+	<item>
+		<key>Thank you for your purchase</key>
+		<value>మీరు కొనుగోలు చేసినందుకు ధన్య వాదములు</value>
+	</item>
+	<item>
+		<key>Show notification</key>
+		<value>ప్రకటనను చూపించు</value>
+	</item>
+	<item>
+		<key>Enable</key>
+		<value>ప్రారంభించు</value>
+	</item>
+	<item>
+		<key>Disable</key>
+		<value>డిసేబుల్</value>
+	</item>
+	<item>
+		<key>Location Setting</key>
+		<value>స్థానం సెట్టింగు</value>
+	</item>
+	<item>
+		<key>Reorder</key>
+		<value>క్రమాన్ని మార్చు</value>
+	</item>
+	<item>
+		<key>Cancel this purchase</key>
+		<value>ఈ కొనుగోలును రద్దు</value>
+	</item>
+	<item>
+		<key>Recently viewed</key>
+		<value>ఇటీవల చూచుటకు</value>
+	</item>
+	<item>
+		<key>Share</key>
+		<value>వాటా</value>
+	</item>
+	<item>
+		<key>Account</key>
+		<value>ఖాతా</value>
+	</item>
+	<item>
+		<key>View all</key>
+		<value>అన్ని చూడు</value>
+	</item>
+	<item>
+		<key>Credit Card</key>
+		<value>క్రెడిట్ కార్డ్</value>
+	</item>
+	<item>
+		<key>Card Type</key>
+		<value>కార్డ్ టైప్</value>
+	</item>
+	<item>
+		<key>Card Number</key>
+		<value>కార్డ్ సంఖ్య</value>
+	</item>
+	<item>
+		<key>CVV</key>
+		<value>CVV</value>
+	</item>
+	<item>
+		<key>Activated</key>
+		<value>ఉత్తేజపరిచిన</value>
+	</item>
+	<item>
+		<key>Select a filter</key>
+		<value>ఒక ఫిల్టర్ ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>Male</key>
+		<value>మగ</value>
+	</item>
+	<item>
+		<key>Female</key>
+		<value>పురుషుడు</value>
+	</item>
+	<item>
+		<key>Login</key>
+		<value>లాగిన్</value>
+	</item>
+	<item>
+		<key>Menu</key>
+		<value>మెనూ</value>
+	</item>
+	<item>
+		<key>Privacy</key>
+		<value>గోప్యతా</value>
+	</item>
+	<item>
+		<key>Your account</key>
+		<value>మీ ఖాతా</value>
+	</item>
+	<item>
+		<key>Your password</key>
+		<value>మీ పాస్వర్డు</value>
+	</item>
+	<item>
+		<key>Remember me</key>
+		<value>నన్ను గుర్తు పెట్టుకో</value>
+	</item>
+	<item>
+		<key>Taxvat</key>
+		<value>Taxvat</value>
+	</item>
+	<item>
+		<key>Reordering Completed</key>
+		<value>పూర్తయింది వరుస క్రమాన్ని</value>
+	</item>
+	<item>
+		<key>Shipping</key>
+		<value>షిప్పింగ్</value>
+	</item>
+	<item>
+		<key>Billing Address</key>
+		<value>రశీదు చిరునామా</value>
+	</item>
+	<item>
+		<key>Shipping Address</key>
+		<value>షిప్పింగ్ చిరునామా</value>
+	</item>
+	<item>
+		<key>Do you want to cancel this coupon code?</key>
+		<value>మీరు ఈ కూపన్ కోడ్ రద్దు చేయాలనుకుంటున్నారా?</value>
+	</item>
+	<item>
+		<key>Configured</key>
+		<value>కాన్ఫిగర్</value>
+	</item>
+	<item>
+		<key>Search On</key>
+		<value>న శోధన</value>
+	</item>
+	<item>
+		<key>Search On All Products</key>
+		<value>అన్ని ఉత్పత్తులు న శోధన</value>
+	</item>
+	<item>
+		<key>Product</key>
+		<value>ఉత్పత్తి</value>
+	</item>
+	<item>
+		<key>Review</key>
+		<value>సమీక్ష</value>
+	</item>
+	<item>
+		<key>Option</key>
+		<value>ఎంపిక</value>
+	</item>
+	<item>
+		<key>Password must be least 6 characters</key>
+		<value>పాస్వర్డ్ కనీసం ఉండాలి 6 అక్షరాలు</value>
+	</item>
+	<item>
+		<key>Check your email and try again.</key>
+		<value>మీ ఇమెయిల్ తనిఖీ మరియు మళ్ళీ ప్రయత్నించండి.</value>
+	</item>
+	<item>
+		<key>Language</key>
+		<value>భాషా</value>
+	</item>
+	<item>
+		<key>Currency</key>
+		<value>కరెన్సీ</value>
+	</item>
+	<item>
+		<key>ConnectionFailed</key>
+		<value>సంధానము విఫలమైనది</value>
+	</item>
+	<item>
+		<key>QR Barcode</key>
+		<value>QR బార్కోడ్</value>
+	</item>
+	<item>
+		<key>Thank your for purchase</key>
+		<value>కొనుగోలు కోసం ధన్యవాదాలు</value>
+	</item>
+	<item>
+		<key>Have some errors, please try again</key>
+		<value>కొన్ని లోపాలు ఉన్నాయి, దయచేసి మళ్ళీ ప్రయత్నించండి</value>
+	</item>
+	<item>
+		<key>Your order has been canceled</key>
+		<value>మీ ఆర్డర్ రద్దు చేయబడింది</value>
+	</item>
+	<item>
+		<key>Rewards Card</key>
+		<value>రివార్డ్స్ కార్డ్</value>
+	</item>
+	<item>
+		<key>BALANCE</key>
+		<value>సంతులనం</value>
+	</item>
+	<item>
+		<key>Rewards History</key>
+		<value>రివార్డ్స్ చరిత్ర</value>
+	</item>
+	<item>
+		<key>You currently have no activity</key>
+		<value>మీరు ప్రస్తుతం కార్యాచరణలు లేవు</value>
+	</item>
+	<item>
+		<key>Expire on=></key>
+		<value>=> ముగియనుంది</value>
+	</item>
+	<item>
+		<key>Spending</key>
+		<value>వ్యయము</value>
+	</item>
+	<item>
+		<key>My Rewards</key>
+		<value>నా రివార్డ్స్</value>
+	</item>
+	<item>
+		<key>Spend my Points</key>
+		<value>నా పాయింట్లు కేటాయిస్తున్నారు</value>
+	</item>
+	<item>
+		<key>Please login before using points to spend</key>
+		<value>ఖర్చు పాయింట్లు ఉపయోగించి ముందు లాగిన్ దయచేసి</value>
+	</item>
+	<item>
+		<key>You will earn</key>
+		<value>మీరు పొందుతారు</value>
+	</item>
+	<item>
+		<key>You will spend</key>
+		<value>మీరు గడుపుతారు</value>
+	</item>
+	<item>
+		<key>Settings</key>
+		<value>సెట్టింగులు</value>
+	</item>
+	<item>
+		<key>Email Subscriptions</key>
+		<value>ఇమెయిల్ చందాలు</value>
+	</item>
+	<item>
+		<key>Subscribe to receive updates on your point balance</key>
+		<value>మీ పాయింట్ బ్యాలెన్స్ నవీకరణలను అందుకోవడానికి సబ్స్క్రయిబ్</value>
+	</item>
+	<item>
+		<key>Point Balance Update</key>
+		<value>పాయింట్ సంతులనం నవీకరణ</value>
+	</item>
+	<item>
+		<key>Subscribe to receive notifications of expiring points in advance</key>
+		<value>ముందుగానే పాంక్రేట్ పాయింట్లు నోటిఫికేషన్లు అందుకోవడానికి సబ్స్క్రయిబ్</value>
+	</item>
+	<item>
+		<key>Expired Point Transaction</key>
+		<value>గడువు పాయింట్ లావాదేవీ</value>
+	</item>
+	<item>
+		<key>Our policies</key>
+		<value>మా విధానాలను</value>
+	</item>
+	<item>
+		<key>Login or Signup</key>
+		<value>లాగిన్ లేదా సైన్ అప్</value>
+	</item>
+	<item>
+		<key>My Wishlist</key>
+		<value>నా కోరికల</value>
+	</item>
+	<item>
+		<key>Share Wishlist</key>
+		<value>వాటా కోరికల</value>
+	</item>
+	<item>
+		<key>Your Wishlist is empty</key>
+		<value>మీ కోరికల ఖాళీగా ఉంది</value>
+	</item>
+	<item>
+		<key>Are you sure want to remove?</key>
+		<value>మీరు ఖచ్చితంగా తొలగించాలని నిశ్చయించుకున్నారా?</value>
+	</item>
+	<item>
+		<key>Yes</key>
+		<value>అవును</value>
+	</item>
+	<item>
+		<key>Call facility is not available\!</key>
+		<value>కాల్ సౌకర్యం అందుబాటులో లేదు !!!</value>
+	</item>
+	<item>
+		<key>You haven’t setup email account</key>
+		<value>మీరు సెటప్ ఇమెయిల్ ఖాతాను కలిగి</value>
+	</item>
+	<item>
+		<key>You must go to Settings/ Mail, Contact, Calendars and choose Add Account.</key>
+		<value>మీకు సెట్టింగులు / మెయిల్, సంప్రదింపులు, క్యాలెండర్లు వెళ్ళి ఎంచుకోండి ఖాతాను జోడించాలి.</value>
+	</item>
+	<item>
+		<key>Your Email was sent succesfully.</key>
+		<value>మీ ఇమెయిల్ విజయవంతానికి పంపబడింది.</value>
+	</item>
+	<item>
+		<key>Failed</key>
+		<value>విఫలమైంది</value>
+	</item>
+	<item>
+		<key>Your mail was not sent</key>
+		<value>మీ మెయిల్ పంపలేదు</value>
+	</item>
+	<item>
+		<key>Company</key>
+		<value>కంపెనీ</value>
+	</item>
+	<item>
+		<key>Fax</key>
+		<value>ఫ్యాక్స్</value>
+	</item>
+	<item>
+		<key>Select Phone</key>
+		<value>ఫోన్ ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>Select phone number</key>
+		<value>ఫోన్ నంబర్ ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>Confirm Address</key>
+		<value>చిరునామా ధృవీకరించండి</value>
+	</item>
+	<item>
+		<key>Address Confirmation</key>
+		<value>చిరునామా నిర్ధారణ</value>
+	</item>
+	<item>
+		<key>Please select shipping method</key>
+		<value>దయచేసి షిప్పింగ్ పద్ధతి ఎంచుకోండి</value>
+	</item>
+	<item>
+		<key>Paypal Checkout</key>
+		<value>పేపాల్ Checkout</value>
+	</item>
+	<item>
+		<key>km</key>
+		<value>కి.మీ.</value>
+	</item>
+	<item>
+		<key>Map</key>
+		<value>మ్యాప్</value>
+	</item>
+	<item>
+		<key>Alert</key>
+		<value>హెచ్చరిక</value>
+	</item>
+	<item>
+		<key>Affiliates Discount</key>
+		<value>అనుబంధాలు డిస్కౌంట్</value>
+	</item>
+	<item>
+		<key>Your order is under review</key>
+		<value>మీ ఆర్డర్ సమీక్షలో ఉంది</value>
+	</item>
+	<item>
+		<key>CCAvenue</key>
+		<value>CCAvenue</value>
+	</item>
+	<item>
+		<key>Sorry, CCAvenue is not now available. Please try again later.</key>
+		<value>క్షమించాలి, CCAvenue ఇప్పుడు లభ్యం కావడం లేదు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</value>
+	</item>
+	<item>
+		<key>Checkout Failed</key>
+		<value>హోటల్ నుంచి బయటకు వెళ్లడం లేకపొయాను</value>
+	</item>
+	<item>
+		<key>Your card number is not valid</key>
+		<value>మీ కార్డు నంబర్ చెల్లదు</value>
+	</item>
+	<item>
+		<key>Checkout.com</key>
+		<value>Checkout.com</value>
+	</item>
+	<item>
+		<key>Sorry, Checkout.com is not now available. Please try again later.</key>
+		<value>క్షమించాలి, Checkout.com ఇప్పుడు లభ్యం కావడం లేదు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</value>
+	</item>
+	<item>
+		<key>Sorry, PayPal is not now available. Please try again later.</key>
+		<value>క్షమించాలి, పేపాల్ ఇప్పుడు అందుబాటులో లేదు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</value>
+	</item>
+	<item>
+		<key>Ipay88</key>
+		<value>iPay88</value>
+	</item>
+	<item>
+		<key>Sorry, Ipay88 is not now available. Please try again later.</key>
+		<value>క్షమించాలి, Ipay88 ఇప్పుడు లభ్యం కావడం లేదు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</value>
+	</item>
+	<item>
+		<key>Invoice</key>
+		<value>వాయిస్</value>
+	</item>
+	<item>
+		<key>Get Directions</key>
+		<value>దిశలను పొందండి</value>
+	</item>
+	<item>
+		<key>Opening Hours</key>
+		<value>తెరచు వేళలు</value>
+	</item>
+	<item>
+		<key>Open</key>
+		<value>ఓపెన్</value>
+	</item>
+	<item>
+		<key>Monday</key>
+		<value>సోమవారం</value>
+	</item>
+	<item>
+		<key>Tuesday</key>
+		<value>మంగళవారం</value>
+	</item>
+	<item>
+		<key>Wednesday</key>
+		<value>బుధవారం</value>
+	</item>
+	<item>
+		<key>Thursday</key>
+		<value>గురువారం</value>
+	</item>
+	<item>
+		<key>Friday</key>
+		<value>శుక్రవారం</value>
+	</item>
+	<item>
+		<key>Saturday</key>
+		<value>శనివారం</value>
+	</item>
+	<item>
+		<key>Sunday</key>
+		<value>ఆదివారం</value>
+	</item>
+	<item>
+		<key>Specials Day</key>
+		<value>స్పెషల్స్ డే</value>
+	</item>
+	<item>
+		<key>Holidays</key>
+		<value>సెలవులు</value>
+	</item>
+	<item>
+		<key>Content</key>
+		<value>కంటెంట్</value>
+	</item>
+	<item>
+		<key>No Email Account</key>
+		<value>సంఖ్య ఇమెయిల్ ఖాతా</value>
+	</item>
+	<item>
+		<key>Open Settings app to set up an email account</key>
+		<value>ఓపెన్ సెట్టింగులు ఒక ఇమెయిల్ ఖాతాను సెటప్ app</value>
+	</item>
+	<item>
+		<key>Search Store</key>
+		<value>శోధన స్టోర్</value>
+	</item>
+	<item>
+		<key>Search By Area</key>
+		<value>ఏరియా ద్వారా శోధన</value>
+	</item>
+	<item>
+		<key>Zip Code</key>
+		<value>మెయిలింగ్ జిప్ కోడ్</value>
+	</item>
+	<item>
+		<key>Search By Tag</key>
+		<value>ట్యాగ్ ద్వారా శోధన</value>
+	</item>
+	<item>
+		<key>All</key>
+		<value>అన్ని</value>
+	</item>
+	<item>
+		<key>Store List Detail</key>
+		<value>స్టోర్ జాబితా వివరాలు</value>
+	</item>
+	<item>
+		<key>Store Locator</key>
+		<value>స్టోర్ గుర్తింపుదారుడు</value>
+	</item>
+	<item>
+		<key>Sorry, 2Checkout is not now available. Please try again later.</key>
+		<value>క్షమించాలి, 2Checkout ఇప్పుడు లభ్యం కావడం లేదు. దయచేసి తర్వాత మళ్లీ ప్రయత్నించండి.</value>
+	</item>
+	<item>
+		<key>Each of %@ gets %@ discount</key>
+		<value>% @ ప్రతి% @ డిస్కౌంట్ గెట్స్</value>
+	</item>
+	<item>
+		<key>You need to earn more %@ to use this rule.</key>
+		<value>మీరు ఈ నియమం ఉపయోగించడానికి మరింత% @ సంపాదించడానికి అవసరం.</value>
+	</item>
+	<item>
+		<key>Only %@ until %@</key>
+		<value>% వరకు మాత్రమే% @ @</value>
+	</item>
+	<item>
+		<key>Only %@ until redeemable</key>
+		<value>మాత్రమే% @ మార్చుకోగలిగినవిగా వరకు</value>
+	</item>
+	<item>
+		<key>Equal %@ to redeem</key>
+		<value>పొందటం సమాన% @</value>
+	</item>
+	<item>
+		<key>You have %@ that are pending for approval</key>
+		<value>మీరు ఆమోదం కోసం పెండింగ్లో% @ కలిగి</value>
+	</item>
+	<item>
+		<key>Order #</key>
+		<value>ఆర్డర్ #</value>
+	</item>
+	<item>
+		<key>Name=> A to Z</key>
+		<value>పేరు => జెడ్</value>
+	</item>
+	<item>
+		<key>Name=> Z to A</key>
+		<value>పేరు => ఒక Z కు</value>
+	</item>
+	<item>
+		<key>Price=> Low to High</key>
+		<value>ధర => హై తక్కువ</value>
+	</item>
+	<item>
+		<key>Price=> High to Low</key>
+		<value>ధర => తక్కువకు</value>
+	</item>
+	<item>
+		<key>Shipping & Handling</key>
+		<value>షిప్పింగ్ & హ్యాండ్లింగ్</value>
+	</item>
+	<item>
+		<key>You have placed an order successfully</key>
+		<value>మీరు విజయవంతంగా ఒక ఆర్డర్</value>
+	</item>
+	<item>
+		<key>Continue Shopping</key>
+		<value>షాపింగ్ కొనసాగించడానికి</value>
+	</item>
+	<item>
+		<key>View detail of your order</key>
+		<value>మీ ఆర్డర్ వివరాలు చూడండి</value>
+	</item>
+	<item>
+		<key>Log in with Facebook</key>
+		<value>ఫేస్బుక్ తో లాగిన్</value>
+	</item>
+	<item>
+		<key>Log out</key>
+		<value>లాగ్ అవుట్</value>
+	</item>
+	<item>
+		<key>Welcome %@\!</key>
+		<value>% @ స్వాగతం! ఇప్పుడు షాపింగ్ ప్రారంభించండి</value>
+	</item>
+	<item>
+		<key>Expired=> MM/YY</key>
+		<value>గడువు => MM / YY</value>
+	</item>
+</language>
