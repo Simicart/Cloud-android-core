@@ -68,37 +68,12 @@ public class MainActivity extends FragmentActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName("Home");
-        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withName("Category");
 
-        Drawer result = new DrawerBuilder()
-                .withActivity(this)
-                .addDrawerItems(
-                        item1,
-                        new DividerDrawerItem(),
-                        item2,
-                        new SecondaryDrawerItem().withName("OrderHistory")
-                )
-                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
+        ManageDrawer manageDrawer = new ManageDrawer();
 
-                        SimiManager.getIntance().showToast("   " + position);
-                        return true;
-                    }
-                })
-                .build();
-        result.setSelection(1);
+        Drawer drawer = manageDrawer.initDrawer();
+        manageDrawer.createData();
 
-
-        Drawer drawer = (new ManageDrawer()).initDrawer();
-
-
-//        mNavigationDrawerFragment = (SlideMenuFragment) getSupportFragmentManager()
-//                .findFragmentById(R.id.navigation_drawer);
-//
-//        mNavigationDrawerFragment.setup(R.id.navigation_drawer,
-//                (DrawerLayout) findViewById(R.id.drawer_layout));
         changeFont();
         notification = new NotificationController(this);
         notification.registerNotification();
@@ -107,7 +82,7 @@ public class MainActivity extends FragmentActivity {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         FragmentMenuTop fragment = FragmentMenuTop
-                .newInstance(result);
+                .newInstance(drawer);
         ft.replace(Rconfig.getInstance().id("menu_top"), fragment);
         ft.commit();
 
