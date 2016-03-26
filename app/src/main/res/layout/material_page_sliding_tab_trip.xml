@@ -8,7 +8,7 @@
     app:pstsIndicatorColor="#FFF"
     app:pstsIndicatorHeight="2dp"
     app:pstsPaddingMiddle="true"
-    app:pstsShouldExpand="true"
+    app:pstsShouldExpand="false"
     app:pstsTabPaddingLeftRight="10dp"
     app:pstsTabTextAllCaps="true"
-    tools:background="#A333" />
+    tools:background="#FFF" />
