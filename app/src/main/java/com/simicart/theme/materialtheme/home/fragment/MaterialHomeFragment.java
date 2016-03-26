@@ -33,8 +33,10 @@ public class MaterialHomeFragment extends SimiFragment {
         mBlock.initView();
         if (mController == null) {
             mController = new MaterialHomeController();
+            mController.setDelegate(mBlock);
             mController.onStart();
         } else {
+            mController.setDelegate(mBlock);
             mController.onResume();
         }
         mBlock.setOnClickTitleViewPager(mController.getOnClickTitleViewPager());
