@@ -19,6 +19,7 @@ import com.simicart.theme.materialtheme.home.fragment.MaterialHomeFragment;
 public class MaterialTheme {
     public MaterialTheme()
     {
+        //
         IntentFilter filter = new IntentFilter("com.simicart.core.home.fragment.HomeFragment");
         final BroadcastReceiver receiver = new BroadcastReceiver() {
             @Override
