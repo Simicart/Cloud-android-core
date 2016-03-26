@@ -1,6 +1,8 @@
 package com.simicart.core.adapter;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -12,12 +14,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.simicart.R;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.common.DrawableManager;
 import com.simicart.core.common.Utils;
@@ -26,6 +32,8 @@ import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.event.block.SimiEventBlockEntity;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 @SuppressLint("ViewHolder")
 public class ProductBaseAdapter extends BaseAdapter {
@@ -35,6 +43,7 @@ public class ProductBaseAdapter extends BaseAdapter {
     protected boolean isHome;
     private double mPrice;
     private double mSalePrice;
+    ViewHolder holder;
 
     public ProductBaseAdapter(Context context, ArrayList<ProductEntity> ProductList) {
         this.mContext = context;
@@ -71,7 +80,7 @@ public class ProductBaseAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+
         if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(
@@ -131,8 +140,26 @@ public class ProductBaseAdapter extends BaseAdapter {
                 String urlImage = array.get(0);
                 Log.e("ProductBaseAdapter ",urlImage);
                 if (urlImage != null) {
-                    DrawableManager.fetchDrawableOnThread(urlImage,
-                            holder.img_avartar);
+//                    DrawableManager.fetchDrawableOnThread(urlImage,
+//                            holder.img_avartar);
+
+                    final AtomicBoolean playAnimation = new AtomicBoolean(true);
+                    Picasso.with(mContext).load(urlImage).into(holder.img_avartar, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            if (playAnimation.get()) {
+                                Animation fadeOut = AnimationUtils.loadAnimation(mContext,
+                                        R.anim.appear_from_center);
+                                holder.img_avartar.startAnimation(fadeOut);
+                            }
+                        }
+
+                        @Override
+                        public void onError() {
+                            holder.img_avartar.setImageResource(Rconfig.getInstance().drawable("default_logo"));
+                        }
+                    });
+                    playAnimation.set(false);
                 }else{
                     holder.img_avartar.setImageResource(Rconfig.getInstance().drawable("default_logo"));
                 }
