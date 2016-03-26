@@ -1,5 +1,7 @@
 package com.simicart.core.catalog.categorydetail.controller;
 
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -72,7 +74,13 @@ public class CategoryDetailController extends SimiController implements
     private int position = -1;
     //  protected int firstPos = -1;
 
-    protected  RecyclerView.OnScrollListener mRecyclerListener;
+    protected int mCurrentTotalSize = 0;
+
+    protected RecyclerView.OnScrollListener mRecyclerListener;
+
+    public RecyclerView.OnScrollListener getRecyclerLister() {
+        return mRecyclerListener;
+    }
 
     public void setList_Param(Map<String, String> list_query) {
         this.list_param = list_query;
@@ -198,6 +206,10 @@ public class CategoryDetailController extends SimiController implements
                 mDelegate.setQty(resultNumber);
                 mDelegate.updateView(collection);
                 isOnscroll = true;
+                mCurrentTotalSize = collection.getCollection().size();
+                Log.e("CategoryDetailController ", "=====> REQUEST PRODUCT " + isOnscroll);
+
+
             }
         });
         mModel.request();
@@ -223,9 +235,6 @@ public class CategoryDetailController extends SimiController implements
         mOnTouchChangeViewData = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Log.e("CategoryDetailController", "-----------> TOUCH CHANGE " + tag_search);
-
                 if (tag_search.equals(TagSearch.TAG_LISTVIEW)) {
                     mDelegate.onChangeTypeViewShow(true);
                     tag_search = TagSearch.TAG_GRIDVIEW;
@@ -236,25 +245,25 @@ public class CategoryDetailController extends SimiController implements
             }
         };
 
-        mOnTouchToFilter = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        mOnTouchToFilter = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        };
 
-            }
-        };
+        //   mOnTouchToSort = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                toSortLayout(mQuery);
+//            }
+//        };
 
-        mOnTouchToSort = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                toSortLayout(mQuery);
-            }
-        };
-
-        initScrollGrid();
-
-        initScrollList();
-
-        initTouchScroll();
+//        initScrollGrid();
+//
+//        initScrollList();
+//
+//        initTouchScroll();
     }
 
     protected void initScrollList() {
@@ -271,6 +280,8 @@ public class CategoryDetailController extends SimiController implements
                     if (scrollState == SCROLL_STATE_IDLE) {
                         if ((view.getLastVisiblePosition() >= count - threshold)
                                 && Integer.parseInt(resultNumber) > current_size) {
+
+
                             if (isOnscroll) {
                                 mCurrentOffset += limit;
                                 isOnscroll = false;
@@ -305,12 +316,30 @@ public class CategoryDetailController extends SimiController implements
         };
     }
 
-    protected  void createRecyclerListener()
-    {
+    protected void createRecyclerListener() {
         mRecyclerListener = new RecyclerView.OnScrollListener() {
+            int lastVisibleItem;
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                int current_size = ((CategoryDetailModel) mModel).getCurrentSize();
+                RecyclerView.LayoutManager manager = recyclerView.getLayoutManager();
+                if (manager instanceof GridLayoutManager) {
+                    lastVisibleItem = ((GridLayoutManager) manager).findLastVisibleItemPosition();
+                } else {
+                    lastVisibleItem = ((LinearLayoutManager) manager).findLastVisibleItemPosition();
+                }
+                if (lastVisibleItem >= (mCurrentTotalSize - 1) && Integer.parseInt(resultNumber) > current_size) {
+
+                    if (isOnscroll) {
+                        mCurrentOffset += limit;
+                        isOnscroll = false;
+                        mDelegate.addFooterView();
+                        requestProduct();
+                    }
+                }
+
             }
         };
     }

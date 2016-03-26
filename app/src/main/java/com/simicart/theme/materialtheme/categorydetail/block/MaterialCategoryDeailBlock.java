@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
@@ -32,6 +33,13 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
     private GridLayoutManager mGridManager;
     private ImageButton imb_changeType;
     private ArrayList<ProductEntity> mProducts;
+    private ProgressBar prb_load_more;
+    private boolean isList;
+
+    public void setRecyclerListener(RecyclerView.OnScrollListener listener) {
+        rv_cateDetail.addOnScrollListener(listener);
+    }
+
 
     public void setChangeTypeListener(View.OnClickListener listener) {
         imb_changeType.setOnClickListener(listener);
@@ -46,8 +54,9 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
         rv_cateDetail = (RecyclerView) mView.findViewById(Rconfig.getInstance().id("rcv_category_detail"));
         mLinearManager = new LinearLayoutManager(mContext);
         mGridManager = new GridLayoutManager(mContext, 2);
-        rv_cateDetail.setLayoutManager(mLinearManager);
+
         imb_changeType = (ImageButton) mView.findViewById(Rconfig.getInstance().id("imb_change_type"));
+        prb_load_more = (ProgressBar) mView.findViewById(Rconfig.getInstance().id("prb_load_more"));
     }
 
     @Override
@@ -59,11 +68,42 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
                 ProductEntity product = (ProductEntity) entities.get(i);
                 mProducts.add(product);
             }
+            if (null == mListAdapter) {
+                mListAdapter = new MaterialCateDetailAdapter(mProducts);
+            } else {
+                mListAdapter.setListProduct(mProducts);
+            }
+
+            if (null == mGridAdapter) {
+                mGridAdapter = new MaterialCateDetailAdapterGrid(mProducts);
+            } else {
+                mGridAdapter.setListProduct(mProducts);
+            }
+
+            int lastPosition = 0;
+
+            RecyclerView.LayoutManager manager = rv_cateDetail.getLayoutManager();
+            if (null != manager) {
+                if (manager instanceof LinearLayoutManager) {
+                    lastPosition = ((LinearLayoutManager) manager).findFirstVisibleItemPosition();
+                } else {
+                    lastPosition = ((GridLayoutManager) manager).findFirstVisibleItemPosition();
+                }
+            }
+
+            if (isList) {
+                rv_cateDetail.setLayoutManager(mLinearManager);
+                rv_cateDetail.setAdapter(mListAdapter);
+                mListAdapter.notifyDataSetChanged();
+                mLinearManager.scrollToPosition(lastPosition);
+            } else {
+                rv_cateDetail.setLayoutManager(mGridManager);
+                rv_cateDetail.setAdapter(mGridAdapter);
+                mGridAdapter.notifyDataSetChanged();
+                mGridManager.scrollToPosition(lastPosition);
+            }
 
 
-            mListAdapter = new MaterialCateDetailAdapter(mProducts);
-            mGridAdapter = new MaterialCateDetailAdapterGrid(mProducts);
-            rv_cateDetail.setAdapter(mListAdapter);
         }
     }
 
@@ -74,12 +114,13 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
 
     @Override
     public void removeFooterView() {
+        prb_load_more.setVisibility(View.GONE);
 
     }
 
     @Override
     public void addFooterView() {
-
+        prb_load_more.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -135,18 +176,33 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
     @Override
     public String onChangeTypeViewShow(boolean isList) {
         String tag_search;
+        int lastPosition = 0;
+        this.isList = isList;
+
+        RecyclerView.LayoutManager manager = rv_cateDetail.getLayoutManager();
+        if (null != manager) {
+            if (manager instanceof LinearLayoutManager) {
+                lastPosition = ((LinearLayoutManager) manager).findFirstVisibleItemPosition();
+            } else {
+                lastPosition = ((GridLayoutManager) manager).findFirstVisibleItemPosition();
+            }
+        }
+
+
         if (isList) {
             mListAdapter.setListProduct(mProducts);
             rv_cateDetail.setLayoutManager(mLinearManager);
             rv_cateDetail.setAdapter(mListAdapter);
             tag_search = TagSearch.TAG_LISTVIEW;
             mListAdapter.notifyDataSetChanged();
+            mLinearManager.scrollToPosition(lastPosition);
         } else {
             mGridAdapter.setListProduct(mProducts);
             rv_cateDetail.setLayoutManager(mGridManager);
             rv_cateDetail.setAdapter(mGridAdapter);
             tag_search = TagSearch.TAG_GRIDVIEW;
             mGridAdapter.notifyDataSetChanged();
+            mGridManager.scrollToPosition(lastPosition);
         }
 
         return tag_search;

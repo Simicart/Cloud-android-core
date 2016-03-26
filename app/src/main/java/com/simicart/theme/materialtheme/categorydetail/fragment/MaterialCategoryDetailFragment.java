@@ -61,6 +61,7 @@ public class MaterialCategoryDetailFragment extends SimiFragment {
         mController.onStart();
 
         block.setChangeTypeListener(mController.getmOnTouchChangeViewData());
+        block.setRecyclerListener(mController.getRecyclerLister());
 
         return rootView;
     }
