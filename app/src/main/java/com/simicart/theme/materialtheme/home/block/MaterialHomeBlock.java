@@ -10,6 +10,7 @@ import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
+import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.home.entity.SpotProductEntity;
 import com.simicart.theme.materialtheme.home.adapter.MaterialTabAdapter;
@@ -61,6 +62,7 @@ public class MaterialHomeBlock extends SimiBlock {
 
                 mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
                 mViewPager.getPagerTitleStrip().setTextColor(Color.WHITE);
+                mViewPager.getPagerTitleStrip().setBackgroundColor(Config.getInstance().getKey_color());
                 mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
             }
         }

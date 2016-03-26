@@ -12,6 +12,7 @@ import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.common.Utils;
+import com.simicart.core.config.Config;
 import com.simicart.core.home.entity.SpotProductEntity;
 import com.simicart.core.home.model.SpotProductModel;
 
@@ -42,7 +43,7 @@ public class MaterialHomeController extends SimiController {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
                 return HeaderDesign.fromColorAndUrl(
-                        Color.GREEN,
+                        Config.getInstance().getKey_color(),
                         listSportProduct.get(page).getPhoneImage());
             }
         };
