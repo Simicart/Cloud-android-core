@@ -1,6 +1,7 @@
 package com.simicart.core.catalog.categorydetail.adapter;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +14,15 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.common.DrawableManager;
@@ -28,6 +32,8 @@ import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.event.block.SimiEventBlockEntity;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 public class GridViewCategoryDetailApdapter extends BaseAdapter {
 
@@ -59,7 +65,7 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
     LinearLayout.LayoutParams paramsLayout4Phone;
     LinearLayout.LayoutParams paramsLayout4Tablet;
     LinearLayout.LayoutParams paramsLayout6;
-
+    ViewHolder holder;
 
     public GridViewCategoryDetailApdapter(Context context,
                                           ArrayList<ProductEntity> listProduct,
@@ -118,7 +124,7 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
     public View getView(int pos, View convertView, ViewGroup parent) {
         mInflater = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        ViewHolder holder;
+
         if (convertView == null) {
             if (numColum == 4) {
                 if (DataLocal.isTablet) {
@@ -221,8 +227,24 @@ public class GridViewCategoryDetailApdapter extends BaseAdapter {
 
         if (product.getImages() != null) {
             if (product.getImages().size() > 0) {
-                DrawableManager.fetchDrawableOnThread(product.getImages().get(0),
-                        holder.img_avartar);
+//                DrawableManager.fetchDrawableOnThread(product.getImages().get(0),
+//                        holder.img_avartar);
+
+
+                Picasso.with(mContext).load(product.getImages().get(0)).into(holder.img_avartar, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        Animation fadeOut = AnimationUtils.loadAnimation(mContext,
+                                R.anim.appear_from_center);
+                        holder.img_avartar.startAnimation(fadeOut);
+
+                    }
+
+                    @Override
+                    public void onError() {
+                        holder.img_avartar.setImageResource(Rconfig.getInstance().drawable("default_logo"));
+                    }
+                });
             }
         }
 

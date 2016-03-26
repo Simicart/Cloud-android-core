@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.mikepenz.materialdrawer.Drawer;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.catalog.categorydetail.fragment.CategoryDetailFragment;
 import com.simicart.core.config.Constants;
 import com.simicart.core.event.fragment.SimiEventFragmentEntity;
+import com.simicart.core.menutop.fragment.FragmentMenuTop;
 import com.simicart.theme.materialtheme.categorydetail.fragment.MaterialCategoryDetailFragment;
 import com.simicart.theme.materialtheme.home.fragment.MaterialHomeFragment;
+import com.simicart.theme.materialtheme.menutop.fragment.MaterialMenuTopFragment;
 
 /**
  * Created by MSI on 26/03/2016.
@@ -62,6 +65,25 @@ public class MaterialTheme {
             }
         };
         LocalBroadcastManager.getInstance(context).registerReceiver(receiver_cateDetail, filter_cateDetail);
+
+        // register event of menutop
+        IntentFilter filter_menutop = new IntentFilter("com.simicart.core.menutop.fragment.FragmentMenuTop");
+        final BroadcastReceiver receiver_menutop = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Bundle bundle = intent.getBundleExtra(Constants.DATA);
+                SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
+
+                Log.e("MaterialTheme", "===============> Open MaterialMenuTopFragment");
+
+                FragmentMenuTop menuTopFragment = (FragmentMenuTop) entity.getFragment();
+                Drawer mDrawer = menuTopFragment.getDrawer();
+                MaterialMenuTopFragment fragment = MaterialMenuTopFragment.newInstance();
+                fragment.setDrawer(mDrawer);
+                entity.setFragmetn(fragment);
+            }
+        };
+        LocalBroadcastManager.getInstance(context).registerReceiver(receiver_menutop, filter_menutop);
 
     }
 }

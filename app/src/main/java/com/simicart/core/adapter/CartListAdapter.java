@@ -11,12 +11,15 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simicart.R;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.checkout.delegate.CartAdapterDelegate;
 import com.simicart.core.checkout.entity.Option;
@@ -24,6 +27,8 @@ import com.simicart.core.common.DrawableManager;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 @SuppressLint({"DefaultLocale", "ClickableViewAccessibility", "ViewHolder"})
 public class CartListAdapter extends BaseAdapter {
@@ -79,11 +84,25 @@ public class CartListAdapter extends BaseAdapter {
         tv_id.setText("" + cart.getID());
 
         // image
-        ImageView img_item = (ImageView) convertView.findViewById(Rconfig
+        final ImageView img_item = (ImageView) convertView.findViewById(Rconfig
                 .getInstance().id("item_cart_image"));
         if (cart.getImages() != null && cart.getImages().size() > 0) {
             String img = cart.getImages().get(0);
-            DrawableManager.fetchDrawableOnThread(img, img_item);
+            //DrawableManager.fetchDrawableOnThread(img, img_item);
+
+            Picasso.with(mContext).load(img).into(img_item, new Callback() {
+                @Override
+                public void onSuccess() {
+                    Animation fadeOut = AnimationUtils.loadAnimation(mContext,
+                            R.anim.appear_from_center);
+                    img_item.startAnimation(fadeOut);
+                }
+
+                @Override
+                public void onError() {
+                    img_item.setImageResource(Rconfig.getInstance().drawable("default_logo"));
+                }
+            });
         } else {
             img_item.setImageResource(Rconfig.getInstance().drawable("default_logo"));
         }
