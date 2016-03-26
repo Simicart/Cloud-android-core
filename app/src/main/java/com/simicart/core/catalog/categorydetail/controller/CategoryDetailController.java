@@ -1,5 +1,7 @@
 package com.simicart.core.catalog.categorydetail.controller;
 
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -16,15 +18,15 @@ import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.catalog.category.delegate.FilterRequestDelegate;
 import com.simicart.core.catalog.category.fragment.SortFragment;
+import com.simicart.core.catalog.categorydetail.delegate.CategoryDetailDelegate;
+import com.simicart.core.catalog.categorydetail.entity.TagSearch;
 import com.simicart.core.catalog.categorydetail.model.CategoryDetailModel;
+import com.simicart.core.catalog.categorydetail.model.ConstantsSearch;
 import com.simicart.core.catalog.filter.entity.FilterEntity;
 import com.simicart.core.catalog.filter.entity.FilterState;
 import com.simicart.core.catalog.filter.entity.ValueFilterEntity;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.catalog.product.fragment.ProductDetailParentFragment;
-import com.simicart.core.catalog.categorydetail.delegate.CategoryDetailDelegate;
-import com.simicart.core.catalog.categorydetail.entity.TagSearch;
-import com.simicart.core.catalog.categorydetail.model.ConstantsSearch;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.DataLocal;
 
@@ -70,6 +72,8 @@ public class CategoryDetailController extends SimiController implements
     private int position = -1;
     //  protected int firstPos = -1;
 
+    protected  RecyclerView.OnScrollListener mRecyclerListener;
+
     public void setList_Param(Map<String, String> list_query) {
         this.list_param = list_query;
     }
@@ -81,8 +85,11 @@ public class CategoryDetailController extends SimiController implements
 
     @Override
     public void onStart() {
+
         createListener();
         requestProduct();
+
+        createRecyclerListener();
     }
 
     private void requestProduct() {
@@ -216,7 +223,16 @@ public class CategoryDetailController extends SimiController implements
         mOnTouchChangeViewData = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tag_search = mDelegate.onChangeTypeViewShow();
+
+                Log.e("CategoryDetailController", "-----------> TOUCH CHANGE " + tag_search);
+
+                if (tag_search.equals(TagSearch.TAG_LISTVIEW)) {
+                    mDelegate.onChangeTypeViewShow(true);
+                    tag_search = TagSearch.TAG_GRIDVIEW;
+                } else {
+                    mDelegate.onChangeTypeViewShow(false);
+                    tag_search = TagSearch.TAG_LISTVIEW;
+                }
             }
         };
 
@@ -285,6 +301,16 @@ public class CategoryDetailController extends SimiController implements
                 } catch (Exception e) {
                     System.err.println(e.getMessage());
                 }
+            }
+        };
+    }
+
+    protected  void createRecyclerListener()
+    {
+        mRecyclerListener = new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
             }
         };
     }

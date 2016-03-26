@@ -37,11 +37,12 @@ public interface CategoryDetailDelegate extends SimiDelegate {
 	public ArrayList<ProductEntity> getListProduct();
 
 	public ArrayList<String> getListProductId();
-	//public Context getmContext();
 	public void setCurrentPosition(int position);
 	public void setCheckFilter(boolean filter);
 	public void setIsLoadMore(boolean loadmore);
 	public void showSort(boolean isCheck);
 
-	public String onChangeTypeViewShow();
+	public String onChangeTypeViewShow(boolean isList);
+
+
 }

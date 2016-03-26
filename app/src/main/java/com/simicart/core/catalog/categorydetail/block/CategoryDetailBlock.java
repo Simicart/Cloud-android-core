@@ -757,7 +757,7 @@ public class CategoryDetailBlock extends SimiBlock implements CategoryDetailDele
     }
 
     @Override
-    public String onChangeTypeViewShow() {
+    public String onChangeTypeViewShow(boolean is_list) {
         if (null != listProduct && listProduct.size() > 0) {
             if (tag_search.equals(TagSearch.TAG_LISTVIEW)) {
                 img_change_view.setBackgroundResource(

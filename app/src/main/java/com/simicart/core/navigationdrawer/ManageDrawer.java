@@ -203,6 +203,8 @@ public class ManageDrawer {
                         .getCurrentContext().getResources();
                 if (bitmap != null) {
                     Drawable d = new BitmapDrawable(resources, bitmap);
+                    d.setColorFilter(Color.parseColor("#000000"),
+                            PorterDuff.Mode.SRC_ATOP);
                     item_cms.withIcon(d);
                     mDrawer.updateItem(item_cms);
                 } else {
@@ -210,6 +212,8 @@ public class ManageDrawer {
                             .getInstance().drawable("default_icon"));
                     bitmap = Bitmap.createScaledBitmap(bitmap, 80, 80, true);
                     Drawable d = new BitmapDrawable(resources, bitmap);
+                    d.setColorFilter(Color.parseColor("#000000"),
+                            PorterDuff.Mode.SRC_ATOP);
                     item_cms.withIcon(d);
                     mDrawer.updateItem(item_cms);
                 }

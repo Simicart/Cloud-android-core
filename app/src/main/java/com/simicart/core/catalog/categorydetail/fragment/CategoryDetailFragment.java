@@ -40,6 +40,20 @@ public class CategoryDetailFragment extends SimiFragment {
     protected String idsFeature = "";
     protected Map<String, String> list_param = new HashMap<String, String>();
 
+
+    public String getCateID()
+    {
+        return mCatID;
+    }
+
+    public String getCateName()
+    {
+        return mCatName;
+    }
+
+
+
+
     public static CategoryDetailFragment newInstance() {
         CategoryDetailFragment fragment = new CategoryDetailFragment();
         fragment.setTargetFragment(fragment, ConfigCheckout.TARGET_LISTPRODUCT);
@@ -75,13 +89,16 @@ public class CategoryDetailFragment extends SimiFragment {
         mCategoryDetailBlock.setCate_id(mCatID);
         mCategoryDetailBlock.initView();
         if (mCategoryDetailController == null) {
+            mCategoryDetailBlock.setCateName(mCatName);
+            mCategoryDetailBlock.setFilterEvent(filterEvent);
+            mCategoryDetailBlock.setmQuery(mQuery);
+
             mCategoryDetailController = new CategoryDetailController(mCatName, mCatID);
             filterEvent = new FilterEvent(mCategoryDetailController);
-            mCategoryDetailBlock.setFilterEvent(filterEvent);
             mCategoryDetailController.setTag_search(tag_search);
-            mCategoryDetailBlock.setmQuery(mQuery);
+
             mCategoryDetailController.setQuery(mQuery);
-            mCategoryDetailBlock.setCateName(mCatName);
+
             mCategoryDetailController.setTypeSearch(typeSearch);
             mCategoryDetailController.setmSortType(mSortID);
             mCategoryDetailController.setDelegate(mCategoryDetailBlock);
@@ -113,6 +130,9 @@ public class CategoryDetailFragment extends SimiFragment {
     public void onResume() {
         super.onResume();
         if (mCategoryDetailController != null) {
+
+            Log.e("CategoryDetailFragment","=============> onResume");
+
             mCategoryDetailController.setDelegate(mCategoryDetailBlock);
             filterEvent = new FilterEvent(mCategoryDetailController);
             mCategoryDetailBlock.setmQuery(mQuery);

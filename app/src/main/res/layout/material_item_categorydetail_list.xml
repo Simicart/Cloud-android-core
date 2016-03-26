@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    >
 
     <android.support.v7.widget.CardView
         android:id="@+id/cv_categorydetail_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        card_view:cardElevation="1dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardUseCompatPadding="true"
+        android:layout_marginBottom="10dp"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,12 +29,15 @@
 
                 <ImageView
                     android:id="@+id/img_item"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/default_icon" />
+                    android:background="#f7f7f7"
+                    android:src="@drawable/default_logo" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -71,12 +82,16 @@
                 </LinearLayout>
 
                 <Button
+                    android:background="@null"
+                    android:textColor="#f67c2d"
+                    android:id="@+id/btn_addtocart"
                     android:layout_below="@id/ll_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ADD TO CART"
+                    android:text="Add to cart"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="2dp"
+                    android:padding="2dp"
                     />
 
 
