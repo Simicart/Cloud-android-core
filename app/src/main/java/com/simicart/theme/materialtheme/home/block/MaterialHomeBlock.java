@@ -9,7 +9,7 @@ import android.view.View;
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.config.Rconfig;
-import com.simicart.theme.materialtheme.home.adapter.MaterialAdapter;
+import com.simicart.theme.materialtheme.home.adapter.MaterialTabAdapter;
 
 /**
  * Created by Sony on 3/26/2016.
@@ -38,7 +38,7 @@ public class MaterialHomeBlock extends SimiBlock {
         if(toolbar != null){
             toolbar.setVisibility(View.GONE);
         }
-        MaterialAdapter mAdapter = new MaterialAdapter(mFragmentManager);
+        MaterialTabAdapter mAdapter = new MaterialTabAdapter(mFragmentManager);
         mViewPager.getViewPager().setAdapter(mAdapter);
 
         mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
