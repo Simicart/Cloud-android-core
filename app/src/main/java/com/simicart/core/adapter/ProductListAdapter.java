@@ -1,23 +1,35 @@
 package com.simicart.core.adapter;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.simicart.R;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.common.DrawableManager;
 import com.simicart.core.common.Utils;
@@ -26,6 +38,8 @@ import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.event.block.SimiEventBlockEntity;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 public class ProductListAdapter extends BaseAdapter {
 
@@ -33,6 +47,7 @@ public class ProductListAdapter extends BaseAdapter {
     protected Context mContext;
     private double mPrice;
     private double mSalePrice;
+    ViewHolder holder;
 
     public ProductListAdapter(Context context, ArrayList<ProductEntity> ProductList) {
         mContext = context;
@@ -47,7 +62,7 @@ public class ProductListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ProductEntity product = (ProductEntity) getItem(position);
-        ViewHolder holder;
+        //ViewHolder holder;
         if (convertView == null) {
             LayoutInflater inflater =
                     (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -95,13 +110,28 @@ public class ProductListAdapter extends BaseAdapter {
         if (holder.imageView != null) {
             if (null != images && images.size() > 0) {
                 String link_image = images.get(0);
-                DrawableManager.fetchDrawableOnThread(link_image, holder.imageView);
+                //DrawableManager.fetchDrawableOnThread(link_image, holder.imageView);
+
+                Picasso.with(mContext).load(link_image).into(holder.imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                            Animation fadeOut = AnimationUtils.loadAnimation(mContext,
+                                    R.anim.appear_from_center);
+                            holder.imageView.startAnimation(fadeOut);
+                    }
+
+                    @Override
+                    public void onError() {
+                        holder.imageView.setImageResource(Rconfig.getInstance().drawable("default_logo"));
+                    }
+                });
             } else {
                 holder.imageView.setImageResource(Rconfig.getInstance().drawable("default_logo"));
             }
         } else {
             holder.imageView.setImageResource(Rconfig.getInstance().drawable("default_logo"));
         }
+
 
         createPriceWithoutTax(holder, product);
 
