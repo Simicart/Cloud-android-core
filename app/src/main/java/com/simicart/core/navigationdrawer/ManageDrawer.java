@@ -22,4 +22,8 @@ public class ManageDrawer {
         mDrawer = new DrawerBuilder().withActivity(mContext).build();
         return mDrawer;
     }
+
+
+
+
 }

@@ -11,8 +11,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.devsmart.android.ui.HorizontalListView;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
@@ -142,7 +140,6 @@ public class CategoryHomeBlock extends SimiBlock implements
                 RelativeLayout.LayoutParams.MATCH_PARENT, 1);
         ll_category.addView(view, lp_view);
 
-        YoYo.with(Techniques.Shake).duration(2000).playOn(listview_category);
 
     }
 

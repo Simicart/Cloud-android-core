@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.devsmart.android.ui.HorizontalListView;
 import com.simicart.core.adapter.ProductBaseAdapter;
 import com.simicart.core.base.block.SimiBlock;
@@ -163,8 +161,6 @@ public class CategoryDetailBlock extends SimiBlock implements SimiDelegate {
 							.createTouchProductList());
 					ll_listParent.addView(listview_spotproduct);
 
-					YoYo.with(Techniques.Shake).duration(2000)
-							.playOn(listview_spotproduct);
 					layout_category.setVisibility(View.VISIBLE);
 				}
 

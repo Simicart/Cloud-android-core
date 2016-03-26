@@ -12,8 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.devsmart.android.ui.HorizontalListView;
 import com.simicart.MainActivity;
 import com.simicart.core.adapter.ProductBaseAdapter;
@@ -158,8 +156,6 @@ public class SpotProductBlock extends SimiBlock implements SpotProductDelegate {
                                 llspot.addView(listview_spotproduct);
                                 ll_sport_child.addView(llspot);
                                 ll_spot.addView(ll_sport_child);
-                                YoYo.with(Techniques.Shake).duration(2000)
-                                        .playOn(listview_spotproduct);
                             }
                         }
                     }

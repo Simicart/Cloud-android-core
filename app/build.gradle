@@ -43,8 +43,6 @@ dependencies {
     compile project(':devsmartAndroid')
     compile project(':wheel')
     compile files('libs/httpcore-4.0.1.jar')
-    compile files('libs/AndroidViewAnimations-1.1.3.jar')
-    compile files('libs/AndroidEasingFunctions-1.0.0.jar')
     compile files('libs/httpclient-4.0.jar')
     compile 'org.apache:apache:17'
     compile 'com.google.android.gms:play-services-gcm:8.3.0'
