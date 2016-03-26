@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
+
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Constants;
 import com.simicart.core.event.fragment.SimiEventFragmentEntity;
@@ -21,6 +23,7 @@ public class MaterialTheme {
         final BroadcastReceiver receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
+                Log.e("MaterialTheme", "Event MaterialTheme");
                 Bundle bundle = intent.getBundleExtra(Constants.DATA);
                 SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
                 MaterialHomeFragment fragment = MaterialHomeFragment.newInstance();
