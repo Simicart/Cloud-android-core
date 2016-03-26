@@ -67,23 +67,23 @@ public class MaterialTheme {
         LocalBroadcastManager.getInstance(context).registerReceiver(receiver_cateDetail, filter_cateDetail);
 
         // register event of menutop
-        IntentFilter filter_menutop = new IntentFilter("com.simicart.core.menutop.fragment.FragmentMenuTop");
-        final BroadcastReceiver receiver_menutop = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Bundle bundle = intent.getBundleExtra(Constants.DATA);
-                SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
-
-                Log.e("MaterialTheme", "===============> Open MaterialMenuTopFragment");
-
-                FragmentMenuTop menuTopFragment = (FragmentMenuTop) entity.getFragment();
-                Drawer mDrawer = menuTopFragment.getDrawer();
-                MaterialMenuTopFragment fragment = MaterialMenuTopFragment.newInstance();
-                fragment.setDrawer(mDrawer);
-                entity.setFragmetn(fragment);
-            }
-        };
-        LocalBroadcastManager.getInstance(context).registerReceiver(receiver_menutop, filter_menutop);
+//        IntentFilter filter_menutop = new IntentFilter("com.simicart.core.menutop.fragment.FragmentMenuTop");
+//        final BroadcastReceiver receiver_menutop = new BroadcastReceiver() {
+//            @Override
+//            public void onReceive(Context context, Intent intent) {
+//                Bundle bundle = intent.getBundleExtra(Constants.DATA);
+//                SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
+//
+//                Log.e("MaterialTheme", "===============> Open MaterialMenuTopFragment");
+//
+//                FragmentMenuTop menuTopFragment = (FragmentMenuTop) entity.getFragment();
+//                Drawer mDrawer = menuTopFragment.getDrawer();
+//                MaterialMenuTopFragment fragment = MaterialMenuTopFragment.newInstance();
+//                fragment.setDrawer(mDrawer);
+//                entity.setFragmetn(fragment);
+//            }
+//        };
+//        LocalBroadcastManager.getInstance(context).registerReceiver(receiver_menutop, filter_menutop);
 
     }
 }

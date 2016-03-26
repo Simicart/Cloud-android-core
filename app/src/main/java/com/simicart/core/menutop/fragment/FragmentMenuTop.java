@@ -69,14 +69,6 @@ public class FragmentMenuTop extends SimiFragment {
         mBlock.setOnTouchMenu(mController.getTouchMenu());
         SimiManager.getIntance().setMenuTopController(mController);
 
-        Intent intent = new Intent("com.simicart.core.menutop.fragment.FragmentMenuTop");
-        SimiEventFragmentEntity fragmentEntity = new SimiEventFragmentEntity();
-        fragmentEntity.setFragmetn(this);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.ENTITY, fragmentEntity);
-        intent.putExtra(Constants.DATA, bundle);
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
-
         return rootView;
     }
 

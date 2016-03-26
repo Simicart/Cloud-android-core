@@ -42,9 +42,28 @@ public class MaterialHomeController extends SimiController {
         onClickTitleViewPager = new MaterialViewPager.Listener() {
             @Override
             public HeaderDesign getHeaderDesign(int page) {
-                return HeaderDesign.fromColorAndUrl(
-                        Config.getInstance().getKey_color(),
-                        listSportProduct.get(page).getPhoneImage());
+                switch (page){
+                    case 0 :
+                        return HeaderDesign.fromColorAndUrl(
+                                Config.getInstance().getKey_color(),
+                                "https://cdn.jajahub.com/png/b/a/banner4_2.jpg");
+                    case 1 :
+                        return HeaderDesign.fromColorAndUrl(
+                                Config.getInstance().getKey_color(),
+                                "https://cdn.jajahub.com/png/b/a/banner_2_11.jpg");
+                    case 2 :
+                        return HeaderDesign.fromColorAndUrl(
+                                Config.getInstance().getKey_color(),
+                                "https://cdn.jajahub.com/png/b/a/banner3_15.jpg");
+                    case 3 :
+                        return HeaderDesign.fromColorAndUrl(
+                                Config.getInstance().getKey_color(),
+                                "https://cdn.jajahub.com/png/b/a/banner4_2.jpg");
+                    default:
+                        return HeaderDesign.fromColorAndUrl(
+                                Config.getInstance().getKey_color(),
+                                listSportProduct.get(page).getPhoneImage());
+                }
             }
         };
     }

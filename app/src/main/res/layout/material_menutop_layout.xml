@@ -2,9 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
+    android:background="@color/transparent"
     android:orientation="horizontal">
 
     <RelativeLayout
@@ -20,7 +18,7 @@
             android:layout_centerVertical="true"
             android:contentDescription="@null"
             android:padding="5dp"
-            android:src="@drawable/ic_menu" />
+            android:src="@drawable/ic_drawer2" />
 
         <RelativeLayout
             android:id="@+id/layout_cart"
@@ -76,15 +74,14 @@
 
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/img_logo"
+        <TextView
+            android:id="@+id/txt_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:textSize="25dp"
             android:layout_toLeftOf="@+id/layout_cart"
-            android:layout_toRightOf="@+id/img_menu"
-            android:contentDescription="@null"
-            android:src="@drawable/default_logo" />
+            android:layout_toRightOf="@+id/img_menu" />
 
     </RelativeLayout>
 
