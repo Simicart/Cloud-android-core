@@ -8,18 +8,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.github.ksoichiro.android.observablescrollview.ObservableWebView;
-import com.simicart.R;
+import com.simicart.MainActivity;
 import com.simicart.core.base.fragment.SimiFragment;
-import com.simicart.core.base.manager.SimiManager;
+import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.config.Rconfig;
-import com.simicart.theme.materialtheme.home.adapter.MaterialCategoryBlock;
 import com.simicart.theme.materialtheme.home.adapter.MaterialCateogryAdapter;
+import com.simicart.theme.materialtheme.home.block.MaterialCategoryBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,7 @@ public class MaterialCategoryFragment extends SimiFragment {
     private static final int ITEM_COUNT = 100;
     private List<Object> mContentItems = new ArrayList<>();
     private ObservableWebView mWebView;
+    protected ObservableRecyclerView mListCategory;
 
     public static MaterialCategoryFragment newInstance(){
         MaterialCategoryFragment fragment = new MaterialCategoryFragment();
@@ -43,32 +43,36 @@ public class MaterialCategoryFragment extends SimiFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 Rconfig.getInstance().layout("material_category_layout"), container, false);
-        Context mContext = getActivity();
+//        Context mContext = getActivity();
 //        mBlock = new MaterialCategoryBlock(rootView, mContext);
 //        mBlock.setActivity(getActivity());
 //        mBlock.initView();
-        mWebView = (ObservableWebView) rootView.findViewById(R.id.webView);
-
-        //must be called before loadUrl()
-        MaterialViewPagerHelper.preLoadInjectHeader(mWebView);
-
-        //have to inject header when WebView page loaded
-        mWebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                MaterialViewPagerHelper.injectHeader(mWebView, true);
-            }
-
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-
-        mWebView.loadUrl("http://mobile.francetvinfo.fr/");
-
-        MaterialViewPagerHelper.registerWebView(getActivity(), mWebView, null);
         return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mListCategory = (ObservableRecyclerView) view.findViewById(Rconfig.getInstance().id("listCategory"));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mListCategory.setLayoutManager(layoutManager);
+        mListCategory.setHasFixedSize(true);
+
+        ArrayList<ProductEntity> listProduct = new ArrayList<>();
+        for (int i = 0; i < 30; i++) {
+            ProductEntity productEntity = new ProductEntity();
+            productEntity.setName("Product");
+            productEntity.setPrice(1.25);
+            productEntity.setIsStatus(true);
+            productEntity.setMangerStock(true);
+            listProduct.add(productEntity);
+        }
+
+        mAdapter = new RecyclerViewMaterialAdapter(new MaterialCateogryAdapter(listProduct, getActivity()));
+        mListCategory.setAdapter(mAdapter);
+
+        MaterialViewPagerHelper.registerRecyclerView(getActivity(), mListCategory, null);
     }
 }
