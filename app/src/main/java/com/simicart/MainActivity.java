@@ -12,6 +12,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 
+import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.common.FontsOverride;
 import com.simicart.core.common.entity.IntentEntity;
@@ -60,7 +61,7 @@ public class MainActivity extends FragmentActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-
+        new DrawerBuilder().withActivity(this).build();
 
         mNavigationDrawerFragment = (SlideMenuFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.navigation_drawer);
