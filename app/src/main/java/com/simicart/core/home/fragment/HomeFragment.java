@@ -3,6 +3,7 @@ package com.simicart.core.home.fragment;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +50,18 @@ public class HomeFragment extends SimiFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
+
         rootView = inflater.inflate(
                 Rconfig.getInstance().layout("core_home_layout"), container,
                 false);
         Context context = getActivity();
+
+
+        Log.e("HomeFragment", "==============> CREATE VIEW  ");
+
+
         // init search
         View searchView = rootView.findViewById(Rconfig.getInstance().id(
                 "rlt_search"));

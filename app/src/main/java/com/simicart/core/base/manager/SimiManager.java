@@ -33,6 +33,7 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 import com.simicart.core.home.fragment.HomeFragment;
 import com.simicart.core.menutop.controller.MenuTopController;
+import com.simicart.core.navigationdrawer.ManageDrawer;
 import com.simicart.core.slidemenu.controller.PhoneSlideMenuController;
 import com.simicart.core.splashscreen.SplashActivity;
 import com.simicart.core.style.FragmentDialogHandle;
@@ -50,6 +51,7 @@ public class SimiManager {
     protected SimiRequestQueue mRequestQueue;
     protected Boolean isShowedNotify = false;
     protected int mQtyCartPrevious;
+    protected ManageDrawer mManageDrawer;
 
     public SimiRequestQueue getRequestQueue() {
         return mRequestQueue;
@@ -66,6 +68,10 @@ public class SimiManager {
         }
 
         return instance;
+    }
+
+    public void setManageDrawer(ManageDrawer drawer) {
+        mManageDrawer = drawer;
     }
 
     public Activity getCurrentActivity() {
@@ -155,8 +161,11 @@ public class SimiManager {
     }
 
     public void onUpdateItemSignIn() {
-        if (null != mSlideMenuController) {
-            mSlideMenuController.updateSignIn();
+//        if (null != mSlideMenuController) {
+//            mSlideMenuController.updateSignIn();
+//        }
+        if (null != mManageDrawer) {
+            mManageDrawer.updateSignIn();
         }
     }
 
