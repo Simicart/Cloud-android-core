@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+import com.mikepenz.materialdrawer.Drawer;
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
@@ -15,115 +16,119 @@ import com.simicart.core.menutop.delegate.MenuTopDelegate;
 import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
 
 public class MenuTopController extends SimiController {
-	protected OnTouchListener mTouchCart;
-	protected OnTouchListener mTouchMenu;
-	protected SearchView.OnQueryTextListener mSearchListener;
-	protected MenuTopDelegate mDelegate;
-	protected SlideMenuFragment mNavigationDrawerFragment;
+    protected OnTouchListener mTouchCart;
+    protected OnTouchListener mTouchMenu;
+    protected SearchView.OnQueryTextListener mSearchListener;
+    protected MenuTopDelegate mDelegate;
+    //	protected SlideMenuFragment mNavigationDrawerFragment;
+    protected Drawer mDrawer;
 
-	public void setDelegate(MenuTopDelegate delegate) {
-		mDelegate = delegate;
-	}
+    public void setDelegate(MenuTopDelegate delegate) {
+        mDelegate = delegate;
+    }
 
-	@Override
-	public void onStart() {
-		init();
-	}
+    @Override
+    public void onStart() {
+        init();
+    }
 
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
+    @Override
+    public void onResume() {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	public void init() {
-		mTouchCart = new OnTouchListener() {
+    public void init() {
+        mTouchCart = new OnTouchListener() {
 
-			@SuppressLint("ClickableViewAccessibility")
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN: {
-					mDelegate.updateBackground(0x80CACACA);
-					break;
-				}
-				case MotionEvent.ACTION_UP: {
-						clickCart();
-				}
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        mDelegate.updateBackground(0x80CACACA);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+                        clickCart();
+                    }
 
-				case MotionEvent.ACTION_CANCEL: {
-					mDelegate.updateBackground(0);
-					break;
-				}
-				default:
-					break;
-				}
-				return true;
-			}
-		};
+                    case MotionEvent.ACTION_CANCEL: {
+                        mDelegate.updateBackground(0);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                return true;
+            }
+        };
 
-		mTouchMenu = new OnTouchListener() {
+        mTouchMenu = new OnTouchListener() {
 
-			@SuppressLint("ClickableViewAccessibility")
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				switch (event.getAction()) {
-				case MotionEvent.ACTION_DOWN: {
-					v.setBackgroundColor(0x80CACACA);
-					break;
-				}
-				case MotionEvent.ACTION_UP: {
-					mNavigationDrawerFragment.openMenu();
-				}
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        v.setBackgroundColor(0x80CACACA);
+                        break;
+                    }
+                    case MotionEvent.ACTION_UP: {
+//					mNavigationDrawerFragment.openMenu();
+                        mDrawer.openDrawer();
+                    }
 
-				case MotionEvent.ACTION_CANCEL: {
-					v.setBackgroundColor(0);
-					break;
-				}
-				default:
-					break;
-				}
-				return true;
-			}
-		};
-	}
+                    case MotionEvent.ACTION_CANCEL: {
+                        v.setBackgroundColor(0);
+                        break;
+                    }
+                    default:
+                        break;
+                }
+                return true;
+            }
+        };
+    }
 
-	public void updateCartQty(String qty) {
-		mDelegate.updateCartQty(qty);
-	}
+    public void updateCartQty(String qty) {
+        mDelegate.updateCartQty(qty);
+    }
 
-	private void clickCart() {
-		SimiFragment fragment = null;
-		// initial fragment cart
-		fragment = CartFragment.newInstance();
-		if (null != fragment) {
-			SimiManager.getIntance().replaceFragment(fragment);
-		}
-	}
+    private void clickCart() {
+        SimiFragment fragment = null;
+        // initial fragment cart
+        fragment = CartFragment.newInstance();
+        if (null != fragment) {
+            SimiManager.getIntance().replaceFragment(fragment);
+        }
+    }
 
-	public OnTouchListener getTouchCart() {
-		return mTouchCart;
-	}
-
-
-
-
-	public OnTouchListener getTouchMenu() {
-		return mTouchMenu;
-	}
-
-	public void setSlideMenu(SlideMenuFragment mNavigationDrawerFragment) {
-		this.mNavigationDrawerFragment = mNavigationDrawerFragment;
-
-	}
-
-	public void showCartLayout(boolean show) {
-		mDelegate.showCartLayout(show);
-	}
+    public OnTouchListener getTouchCart() {
+        return mTouchCart;
+    }
 
 
-	public void hideMenuTop(boolean isHiden)
-	{
-		mDelegate.hideMenuTop(isHiden);
-	}
+    public OnTouchListener getTouchMenu() {
+        return mTouchMenu;
+    }
+
+    public void setDrawer(Drawer drawer)
+    {
+        mDrawer = drawer;
+    }
+
+    public void setSlideMenu(SlideMenuFragment mNavigationDrawerFragment) {
+//		this.mNavigationDrawerFragment = mNavigationDrawerFragment;
+
+    }
+
+    public void showCartLayout(boolean show) {
+        mDelegate.showCartLayout(show);
+    }
+
+
+    public void hideMenuTop(boolean isHiden) {
+        mDelegate.hideMenuTop(isHiden);
+    }
 }

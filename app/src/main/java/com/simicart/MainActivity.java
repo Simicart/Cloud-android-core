@@ -11,8 +11,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.common.FontsOverride;
 import com.simicart.core.common.entity.IntentEntity;
@@ -23,6 +29,7 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.controller.AutoGetQtyNotSignInController;
 import com.simicart.core.customer.controller.AutoSignInController;
 import com.simicart.core.menutop.fragment.FragmentMenuTop;
+import com.simicart.core.navigationdrawer.ManageDrawer;
 import com.simicart.core.notification.NotificationActivity;
 import com.simicart.core.notification.controller.NotificationController;
 import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
@@ -30,7 +37,7 @@ import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
 public class MainActivity extends FragmentActivity {
 
     public final static int PAUSE = 2;
-    private SlideMenuFragment mNavigationDrawerFragment;
+    //    private SlideMenuFragment mNavigationDrawerFragment;
     public static Activity context;
     private NotificationController notification;
     public static int state = 0;
@@ -61,13 +68,37 @@ public class MainActivity extends FragmentActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
 
-        new DrawerBuilder().withActivity(this).build();
+        PrimaryDrawerItem item1 = new PrimaryDrawerItem().withName("Home");
+        SecondaryDrawerItem item2 = new SecondaryDrawerItem().withName("Category");
 
-        mNavigationDrawerFragment = (SlideMenuFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.navigation_drawer);
+        Drawer result = new DrawerBuilder()
+                .withActivity(this)
+                .addDrawerItems(
+                        item1,
+                        new DividerDrawerItem(),
+                        item2,
+                        new SecondaryDrawerItem().withName("OrderHistory")
+                )
+                .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(View view, int position, IDrawerItem drawerItem) {
 
-        mNavigationDrawerFragment.setup(R.id.navigation_drawer,
-                (DrawerLayout) findViewById(R.id.drawer_layout));
+                        SimiManager.getIntance().showToast("   " + position);
+                        return true;
+                    }
+                })
+                .build();
+        result.setSelection(1);
+
+
+        Drawer drawer = (new ManageDrawer()).initDrawer();
+
+
+//        mNavigationDrawerFragment = (SlideMenuFragment) getSupportFragmentManager()
+//                .findFragmentById(R.id.navigation_drawer);
+//
+//        mNavigationDrawerFragment.setup(R.id.navigation_drawer,
+//                (DrawerLayout) findViewById(R.id.drawer_layout));
         changeFont();
         notification = new NotificationController(this);
         notification.registerNotification();
@@ -76,7 +107,7 @@ public class MainActivity extends FragmentActivity {
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         FragmentMenuTop fragment = FragmentMenuTop
-                .newInstance(mNavigationDrawerFragment);
+                .newInstance(result);
         ft.replace(Rconfig.getInstance().id("menu_top"), fragment);
         ft.commit();
 
