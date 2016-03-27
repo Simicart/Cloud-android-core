@@ -50,7 +50,7 @@ public class MaterialHomeController extends SimiController {
                     case 1 :
                         return HeaderDesign.fromColorAndUrl(
                                 Config.getInstance().getKey_color(),
-                                "https://cdn.jajahub.com/png/b/a/banner_2_11.jpg");
+                                "http://www.birdsandblooms.com/wp-content/uploads/2013/09/Freezing-Vegetables.jpg");
                     case 2 :
                         return HeaderDesign.fromColorAndUrl(
                                 Config.getInstance().getKey_color(),

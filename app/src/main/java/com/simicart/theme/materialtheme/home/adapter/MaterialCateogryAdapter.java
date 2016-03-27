@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +17,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
+import com.simicart.core.catalog.product.fragment.ProductDetailParentFragment;
 import com.simicart.core.common.DrawableManager;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.event.block.SimiEventBlockEntity;
+
 import java.util.ArrayList;
 
 /**
@@ -33,10 +38,12 @@ public class MaterialCateogryAdapter extends RecyclerView.Adapter<MaterialCateog
     protected Context mContext;
     private double mPrice;
     private double mSalePrice;
+    private ArrayList<String> mListID;
 
     public MaterialCateogryAdapter(ArrayList<ProductEntity> listProduct, Context mContext) {
         this.listProduct = listProduct;
         this.mContext = mContext;
+        mListID = getListIDProduct();
     }
 
     @Override
@@ -53,7 +60,7 @@ public class MaterialCateogryAdapter extends RecyclerView.Adapter<MaterialCateog
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        ProductEntity product = listProduct.get(position);
+        final ProductEntity product = listProduct.get(position);
 
         holder.txtName.setText(product.getName());
 
@@ -81,9 +88,17 @@ public class MaterialCateogryAdapter extends RecyclerView.Adapter<MaterialCateog
         bundle.putSerializable(Constants.ENTITY, blockEntity);
         intent.putExtra(Constants.DATA, bundle);
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openProductDetail(product);
+            }
+        });
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        public CardView cardView;
         public ImageView imageView;
         public TextView txtName;
         public LinearLayout layoutStock;
@@ -94,7 +109,8 @@ public class MaterialCateogryAdapter extends RecyclerView.Adapter<MaterialCateog
 
         public ViewHolder(View v) {
             super(v);
-
+            cardView = (CardView) v.findViewById(Rconfig.getInstance().id("card_view"));
+            cardView.setElevation(20);
             txtName = (TextView) v.findViewById(Rconfig
                     .getInstance().id("tv_productItemName"));
             txtName
@@ -149,5 +165,29 @@ public class MaterialCateogryAdapter extends RecyclerView.Adapter<MaterialCateog
                 holder.tv_first.setText(Config.getInstance().getPrice(mPrice));
             }
         }
+    }
+
+    protected void openProductDetail(ProductEntity product) {
+        String productId = product.getID();
+        if (productId != null) {
+            ProductDetailParentFragment fragment = ProductDetailParentFragment
+                    .newInstance();
+            fragment.setProductID(productId);
+            fragment.setListIDProduct(mListID);
+            SimiManager.getIntance().replaceFragment(fragment);
+        }
+
+    }
+
+    protected ArrayList<String> getListIDProduct() {
+        ArrayList<String> listID = new ArrayList<>();
+
+        for (int i = 0; i < listProduct.size(); i++) {
+            ProductEntity product = listProduct.get(i);
+            String id = product.getID();
+            listID.add(id);
+        }
+
+        return listID;
     }
 }
