@@ -2,9 +2,12 @@ package com.simicart.theme.materialtheme.categorydetail.adapter;
 
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.catalog.product.fragment.ProductDetailParentFragment;
@@ -70,7 +74,7 @@ public class MaterialCateDetailAdapter extends RecyclerView.Adapter<MaterialCate
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ProductEntity product = mListProduct.get(position);
 
         // image
@@ -102,7 +106,7 @@ public class MaterialCateDetailAdapter extends RecyclerView.Adapter<MaterialCate
         holder.cv_categorydetail_list.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openProductDetail(product);
+                openProductDetail(product, holder, position);
             }
         });
     }
@@ -163,14 +167,41 @@ public class MaterialCateDetailAdapter extends RecyclerView.Adapter<MaterialCate
     }
 
 
-    protected void openProductDetail(ProductEntity product) {
+    protected void openProductDetail(ProductEntity product, ViewHolder holder, int position) {
         String productId = product.getID();
         if (productId != null) {
+            String transitionName = "image" + position;
+            Log.e("b", "++" + holder.img_item.getId());
+            holder.img_item.setTransitionName(transitionName);
+            Log.e("c", "++" + transitionName);
+
             ProductDetailParentFragment fragment = ProductDetailParentFragment
                     .newInstance();
             fragment.setProductID(productId);
             fragment.setListIDProduct(mListID);
-            SimiManager.getIntance().replaceFragment(fragment);
+            fragment.setItemTransitionName(transitionName);
+            //SimiManager.getIntance().replaceFragment(fragment);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Log.e("abc", "LOLIPOP");
+                fragment.setSharedElementReturnTransition(TransitionInflater
+                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform));
+                fragment.setExitTransition(TransitionInflater
+                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(android.R.transition.explode));
+
+                fragment.setSharedElementEnterTransition(TransitionInflater
+                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform));
+                fragment.setEnterTransition(TransitionInflater
+                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(android.R.transition.explode));
+
+                SimiManager.getIntance().getManager().beginTransaction()
+                        .addSharedElement(holder.img_item, transitionName)
+                        .replace(Rconfig.getInstance().id("container"), fragment)
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                Log.e("abc", "NO LOLIPOP");
+                SimiManager.getIntance().replaceFragment(fragment);
+            }
         }
 
     }
