@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
@@ -40,6 +39,7 @@ public class MaterialHomeBlock extends SimiBlock {
     @Override
     public void initView() {
         mViewPager = (MaterialViewPager) mView.findViewById(Rconfig.getInstance().id("materialViewPager"));
+        mViewPager.setBackgroundColor(Config.getInstance().getApp_backrground());
         toolbar = mViewPager.getToolbar();
         if(toolbar != null){
             toolbar.setVisibility(View.GONE);
