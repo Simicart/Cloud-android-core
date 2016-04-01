@@ -39,7 +39,7 @@ public class MaterialHomeBlock extends SimiBlock {
     @Override
     public void initView() {
         mViewPager = (MaterialViewPager) mView.findViewById(Rconfig.getInstance().id("materialViewPager"));
-        mViewPager.setBackgroundColor(Config.getInstance().getApp_backrground());
+        mViewPager.setBackgroundColor(Color.WHITE);
         toolbar = mViewPager.getToolbar();
         if(toolbar != null){
             toolbar.setVisibility(View.GONE);
