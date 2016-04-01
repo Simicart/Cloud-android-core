@@ -36,6 +36,7 @@ public class MaterialCategoryController extends SimiController {
 
     @Override
     public void onStart() {
+        mDelegate.showLoading();
         String type = sportProduct.getType();
         String limit = sportProduct.getLimit();
         if (type.equals("1")) {
@@ -62,6 +63,7 @@ public class MaterialCategoryController extends SimiController {
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
+                mDelegate.dismissLoading();
                 if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
@@ -69,6 +71,7 @@ public class MaterialCategoryController extends SimiController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoading();
                 mDelegate.updateView(collection);
             }
         });
@@ -87,6 +90,7 @@ public class MaterialCategoryController extends SimiController {
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
+                mDelegate.dismissLoading();
                 if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
@@ -94,6 +98,7 @@ public class MaterialCategoryController extends SimiController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoading();
                 mDelegate.updateView(collection);
             }
         });
@@ -112,6 +117,7 @@ public class MaterialCategoryController extends SimiController {
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
+                mDelegate.dismissLoading();
                 if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
@@ -119,6 +125,7 @@ public class MaterialCategoryController extends SimiController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoading();
                 mDelegate.updateView(collection);
             }
         });
@@ -155,6 +162,7 @@ public class MaterialCategoryController extends SimiController {
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
+                mDelegate.dismissLoading();
                 if (error != null) {
                     SimiManager.getIntance().showNotify(null, error.getMessage(), "OK");
                 }
@@ -162,6 +170,7 @@ public class MaterialCategoryController extends SimiController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
+                mDelegate.dismissLoading();
                 mDelegate.updateView(collection);
             }
         });
