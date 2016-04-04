@@ -242,6 +242,7 @@ public class CategoryDetailController extends SimiController implements
         mOnTouchChangeViewData = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Log.e("CategoryDetailController", "-----------> TOUCH CHANGE " + tag_search);
                 if (tag_search.equals(TagSearch.TAG_LISTVIEW)) {
                     mDelegate.onChangeTypeViewShow(true);
                     tag_search = TagSearch.TAG_GRIDVIEW;
@@ -574,6 +575,11 @@ public class CategoryDetailController extends SimiController implements
                 mDelegate.setQty(resultNumber.trim());
             }
             mDelegate.setVisibilityMenuBotton(true);
+            if (tag_search.equals(TagSearch.TAG_LISTVIEW)) {
+                mDelegate.onChangeTypeViewShow(true);
+            } else {
+                mDelegate.onChangeTypeViewShow(false);
+            }
         }
     }
 

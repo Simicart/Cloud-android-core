@@ -4,12 +4,18 @@ import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Display;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
@@ -44,6 +50,7 @@ import com.simicart.core.style.VerticalViewPager2;
 public class ProductDetailParentBlock extends SimiBlock implements
         ProductDelegate {
     // protected LinearLayout ll_top;
+    ViewPager pager_parent;
     protected RelativeLayout rlt_top;
     protected LinearLayout ll_bottom;
     protected LinearLayout ll_more;
@@ -56,10 +63,15 @@ public class ProductDetailParentBlock extends SimiBlock implements
     protected OnClickListener onDoneOption;
     protected String mTransitionname = "";
     ImageView img;
+    Bitmap btm;
 
     public ProductDetailParentBlock(View view, Context context) {
         super(view, context);
 
+    }
+
+    public void setBitmapTransition(Bitmap bm) {
+        this.btm = bm;
     }
 
     public void setImageTransitionName(String transitionName) {
@@ -156,32 +168,46 @@ public class ProductDetailParentBlock extends SimiBlock implements
         // rlt_rlt_left_overlayleft_overlay.setLayoutParams(rlt_param_left);
         // // rlt_right_overlay.setLayoutParams(rlt_param_right);
 
+        pager_parent = (ViewPager) mView.findViewById(Rconfig
+                .getInstance().id("pager_parent"));
+
         img = (ImageView) mView.findViewById(R.id.transition_img);
         img.setTransitionName(mTransitionname);
-        Log.e("d", "++" + mTransitionname);
+
+        Display display = SimiManager.getIntance().getCurrentActivity()
+                .getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        final int w = (size.x * 4) / 5;
+        final int h = (size.y * 4) / 5;
+        Bitmap bMapRotate = Utils.scaleToFill(btm, w, h);
+        img.setImageBitmap(bMapRotate);
+        img.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void drawView(SimiCollection collection) {
-
         if (null != collection) {
             mProduct = getProductFromCollection(collection);
             if (null != mProduct) {
-                ll_bottom.setVisibility(View.VISIBLE);
-                rlt_top.setVisibility(View.VISIBLE);
-
-                ArrayList<String> images = mProduct.getImages();
-                if (null != images && images.size() > 0) {
-                    String url = images.get(0);
-                    DrawableManager.fetchDrawableOnThread(url, img);
-                }
 
                 showNameProduct();
                 initButton();
                 showAddToCart();
             }
         }
-        ll_more.setVisibility(View.VISIBLE);
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                img.setVisibility(View.GONE);
+                ll_bottom.setVisibility(View.VISIBLE);
+                rlt_top.setVisibility(View.VISIBLE);
+                ll_more.setVisibility(View.VISIBLE);
+                pager_parent.setVisibility(View.VISIBLE);
+                mIndicator.setVisibility(View.VISIBLE);
+            }
+        }, 1000);
     }
 
     protected void showNameProduct() {

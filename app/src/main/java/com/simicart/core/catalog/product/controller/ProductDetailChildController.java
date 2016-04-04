@@ -64,7 +64,7 @@ public class ProductDetailChildController extends SimiController {
     }
 
     protected void requestData(final String id) {
-        mDelegate.showLoading();
+        //mDelegate.showLoading();
         if (productDelegate != null) {
             productDelegate.getLayoutMore().setVisibility(View.GONE);
         }
@@ -72,14 +72,14 @@ public class ProductDetailChildController extends SimiController {
         ModelDelegate delegate = new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
-                mDelegate.dismissLoading();
+                //mDelegate.dismissLoading();
                 Log.e("Detail Child Controller ", "Request Error");
             }
 
             @SuppressLint("LongLogTag")
             @Override
             public void onSuccess(SimiCollection collection) {
-                mDelegate.dismissLoading();
+                //mDelegate.dismissLoading();
                 if (productDelegate != null) {
                     productDelegate.getLayoutMore().setVisibility(View.VISIBLE);
                 }

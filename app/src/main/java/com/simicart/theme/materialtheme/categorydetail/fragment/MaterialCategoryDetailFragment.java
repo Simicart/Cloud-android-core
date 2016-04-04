@@ -53,7 +53,7 @@ public class MaterialCategoryDetailFragment extends SimiFragment {
         MaterialCategoryDeailBlock block = new MaterialCategoryDeailBlock(rootView, context);
         block.initView();
 
-        if (null == mController) {
+        if(mController == null) {
             mController = new CategoryDetailController(mCateName, mCateID);
             mController.setTag_search(tag_search);
             mController.setList_Param(list_param);
@@ -65,6 +65,7 @@ public class MaterialCategoryDetailFragment extends SimiFragment {
             mController.setDelegate(block);
             mController.onResume();
         }
+
         block.setChangeTypeListener(mController.getmOnTouchChangeViewData());
         block.setRecyclerListener(mController.getRecyclerLister());
 
