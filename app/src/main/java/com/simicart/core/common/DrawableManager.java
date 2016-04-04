@@ -27,10 +27,13 @@ import android.os.Message;
 import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.view.Display;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simicart.MainActivity;
+import com.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
@@ -347,7 +350,9 @@ public class DrawableManager {
     public static void fetchDrawableOnThreadForZTheme(final String urlString,
                                                       final ImageView imageView) {
         init();
-
+        Context context = SimiManager.getIntance().getCurrentContext();
+        final Animation fadeOut = AnimationUtils.loadAnimation(context,
+                R.anim.appear_from_center);
         Bitmap cache_bitMap = getBitmapFromMemCache(urlString);
 
         Display display = SimiManager.getIntance().getCurrentActivity()
@@ -372,9 +377,12 @@ public class DrawableManager {
                         try {
                             Bitmap bMapRotate = Utils.scaleToFill(bitmap, w, h);
                             imageView.setImageBitmap(bMapRotate);
+
+                            imageView.startAnimation(fadeOut);
                             addBitmapToMemoryCache(urlString, bitmap);
                             bitmap = null;
                             bMapRotate = null;
+
                         } catch (Exception e) {
 
                         }
@@ -427,6 +435,9 @@ public class DrawableManager {
 
         // Context context = imageView.getContext();
         // Glide.with(context).load(urlString).into(imageView);
+        Context context = SimiManager.getIntance().getCurrentContext();
+        final Animation fadeOut = AnimationUtils.loadAnimation(context,
+                R.anim.appear_from_center);
 
         final Handler handler = new Handler() {
             @Override
@@ -437,6 +448,7 @@ public class DrawableManager {
                 if (bitmap != null) {
                     Drawable drawable = new BitmapDrawable(resource, bitmap);
                     imageView.setImageDrawable(drawable);
+                    imageView.startAnimation(fadeOut);
                 } else {
                     bitmap = BitmapFactory.decodeResource(resource, Rconfig
                             .getInstance().drawable("default_icon"));

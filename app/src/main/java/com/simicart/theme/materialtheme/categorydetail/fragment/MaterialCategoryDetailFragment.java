@@ -53,13 +53,18 @@ public class MaterialCategoryDetailFragment extends SimiFragment {
         MaterialCategoryDeailBlock block = new MaterialCategoryDeailBlock(rootView, context);
         block.initView();
 
-
-        mController = new CategoryDetailController(mCateName, mCateID);
-        mController.setTag_search(tag_search);
-        mController.setList_Param(list_param);
-        mController.setDelegate(block);
-        mController.onStart();
-
+        if (null == mController) {
+            mController = new CategoryDetailController(mCateName, mCateID);
+            mController.setTag_search(tag_search);
+            mController.setList_Param(list_param);
+            mController.setDelegate(block);
+            mController.onStart();
+        } else {
+            mController.setTag_search(tag_search);
+            mController.setList_Param(list_param);
+            mController.setDelegate(block);
+            mController.onResume();
+        }
         block.setChangeTypeListener(mController.getmOnTouchChangeViewData());
         block.setRecyclerListener(mController.getRecyclerLister());
 

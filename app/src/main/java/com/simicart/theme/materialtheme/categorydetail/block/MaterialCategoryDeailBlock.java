@@ -34,7 +34,7 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
     private ImageButton imb_changeType;
     private ArrayList<ProductEntity> mProducts;
     private ProgressBar prb_load_more;
-    private boolean isList;
+    private boolean isList = true;
 
     public void setRecyclerListener(RecyclerView.OnScrollListener listener) {
         rv_cateDetail.addOnScrollListener(listener);

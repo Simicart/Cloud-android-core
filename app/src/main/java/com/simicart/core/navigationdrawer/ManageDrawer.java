@@ -190,6 +190,12 @@ public class ManageDrawer {
     private void drawCMSItem(Cms cms) {
         final String name = cms.getTitle();
         final SecondaryDrawerItem item_cms = new SecondaryDrawerItem();
+
+        Drawable ic_cms = mContext.getResources().getDrawable(R.drawable.ic_cms);
+        ic_cms.setColorFilter(Color.parseColor("#000000"),
+                PorterDuff.Mode.SRC_ATOP);
+        item_cms.withIcon(ic_cms);
+
         item_cms.withName(name);
         item_cms.withIdentifier(CMS);
 
@@ -203,8 +209,6 @@ public class ManageDrawer {
                         .getCurrentContext().getResources();
                 if (bitmap != null) {
                     Drawable d = new BitmapDrawable(resources, bitmap);
-                    d.setColorFilter(Color.parseColor("#000000"),
-                            PorterDuff.Mode.SRC_ATOP);
                     item_cms.withIcon(d);
                     mDrawer.updateItem(item_cms);
                 } else {
@@ -291,15 +295,17 @@ public class ManageDrawer {
 
     private void addItemForPersonal() {
         int pos_cate = mDrawer.getPosition(CATEGORY);
-
-        SecondaryDrawerItem item_history = new SecondaryDrawerItem();
-        item_history.withName("Order History");
-        item_history.withIdentifier(ORDER_HISTORY);
-        Drawable ic_order = mContext.getResources().getDrawable(R.drawable.ic_menu_order_history);
-        ic_order.setColorFilter(Color.parseColor("#000000"),
-                PorterDuff.Mode.SRC_ATOP);
-        item_history.withIcon(ic_order);
-        mDrawer.addItemAtPosition(item_history, pos_cate + 1);
+        int pos_order = mDrawer.getPosition(ORDER_HISTORY);
+        if (pos_order < 0) {
+            SecondaryDrawerItem item_history = new SecondaryDrawerItem();
+            item_history.withName("Order History");
+            item_history.withIdentifier(ORDER_HISTORY);
+            Drawable ic_order = mContext.getResources().getDrawable(R.drawable.ic_menu_order_history);
+            ic_order.setColorFilter(Color.parseColor("#000000"),
+                    PorterDuff.Mode.SRC_ATOP);
+            item_history.withIcon(ic_order);
+            mDrawer.addItemAtPosition(item_history, pos_cate + 1);
+        }
     }
 
     private void removeItemForpersonal() {

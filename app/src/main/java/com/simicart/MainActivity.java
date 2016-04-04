@@ -28,6 +28,7 @@ import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.controller.AutoGetQtyNotSignInController;
 import com.simicart.core.customer.controller.AutoSignInController;
+import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 import com.simicart.core.menutop.fragment.FragmentMenuTop;
 import com.simicart.core.navigationdrawer.ManageDrawer;
 import com.simicart.core.notification.NotificationActivity;
@@ -83,6 +84,17 @@ public class MainActivity extends FragmentActivity {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         FragmentMenuTop fragment = FragmentMenuTop
                 .newInstance(drawer);
+
+        // event MenuTop
+        Intent intent = new Intent("com.simicart.core.menutop.fragment.FragmentMenuTop");
+        SimiEventFragmentEntity fragmentEntity = new SimiEventFragmentEntity();
+        fragmentEntity.setFragmetn(fragment);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ENTITY, fragmentEntity);
+        intent.putExtra(Constants.DATA, bundle);
+        LocalBroadcastManager.getInstance(this).sendBroadcastSync(intent);
+        fragment = (FragmentMenuTop) fragmentEntity.getFragment();
+
         ft.replace(Rconfig.getInstance().id("menu_top"), fragment);
         ft.commit();
 
