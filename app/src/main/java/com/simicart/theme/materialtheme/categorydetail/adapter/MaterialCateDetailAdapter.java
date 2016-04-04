@@ -1,7 +1,9 @@
 package com.simicart.theme.materialtheme.categorydetail.adapter;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -78,6 +80,7 @@ public class MaterialCateDetailAdapter extends RecyclerView.Adapter<MaterialCate
         final ProductEntity product = mListProduct.get(position);
 
         // image
+        holder.img_item.setTransitionName("image" + position);
         ArrayList<String> images = product.getImages();
         if (null != images && images.size() > 0) {
             String url = images.get(0);
@@ -172,7 +175,7 @@ public class MaterialCateDetailAdapter extends RecyclerView.Adapter<MaterialCate
         if (productId != null) {
             String transitionName = "image" + position;
             Log.e("b", "++" + holder.img_item.getId());
-            holder.img_item.setTransitionName(transitionName);
+            //holder.img_item.setTransitionName(transitionName);
             Log.e("c", "++" + transitionName);
 
             ProductDetailParentFragment fragment = ProductDetailParentFragment
@@ -180,18 +183,20 @@ public class MaterialCateDetailAdapter extends RecyclerView.Adapter<MaterialCate
             fragment.setProductID(productId);
             fragment.setListIDProduct(mListID);
             fragment.setItemTransitionName(transitionName);
+            Bitmap bitmap = ((BitmapDrawable)holder.img_item.getDrawable()).getBitmap();
+            fragment.setImageTransition(bitmap);
             //SimiManager.getIntance().replaceFragment(fragment);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Log.e("abc", "LOLIPOP");
-                fragment.setSharedElementReturnTransition(TransitionInflater
-                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform));
-                fragment.setExitTransition(TransitionInflater
-                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(android.R.transition.explode));
+//                fragment.setSharedElementReturnTransition(TransitionInflater
+//                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
+//                fragment.setExitTransition(TransitionInflater
+//                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
 
                 fragment.setSharedElementEnterTransition(TransitionInflater
-                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform));
+                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
                 fragment.setEnterTransition(TransitionInflater
-                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(android.R.transition.explode));
+                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
 
                 SimiManager.getIntance().getManager().beginTransaction()
                         .addSharedElement(holder.img_item, transitionName)

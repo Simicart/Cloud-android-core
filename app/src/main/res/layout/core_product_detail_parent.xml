@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" >
+        android:layout_centerVertical="true"
+        android:visibility="invisible">
     </android.support.v4.view.ViewPager>
 
     <com.simicart.core.style.CirclePageIndicator
@@ -20,7 +21,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:padding="10dp"
-        app:fillColor="@color/orange" />
+        app:fillColor="@color/orange"
+        android:visibility="invisible"/>
 
     <RelativeLayout
         android:id="@+id/ll_top_product_detatil"
@@ -156,6 +158,7 @@
     <ImageView
         android:id="@+id/transition_img"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scaleType="center"/>
 
 </RelativeLayout>

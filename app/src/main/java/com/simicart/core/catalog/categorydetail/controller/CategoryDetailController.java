@@ -230,7 +230,7 @@ public class CategoryDetailController extends SimiController implements
             @Override
             public void onClick(View v) {
 
-                Log.e("CategoryDetailController", "-----------> TOUCH CHANGE " + tag_search);
+                //Log.e("CategoryDetailController", "-----------> TOUCH CHANGE " + tag_search);
 
                 if (tag_search.equals(TagSearch.TAG_LISTVIEW)) {
                     mDelegate.onChangeTypeViewShow(true);
@@ -544,6 +544,11 @@ public class CategoryDetailController extends SimiController implements
                 mDelegate.setQty(resultNumber.trim());
             }
             mDelegate.setVisibilityMenuBotton(true);
+            if (tag_search.equals(TagSearch.TAG_LISTVIEW)) {
+                mDelegate.onChangeTypeViewShow(true);
+            } else {
+                mDelegate.onChangeTypeViewShow(false);
+            }
         }
     }
 

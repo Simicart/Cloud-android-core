@@ -3,10 +3,12 @@ package com.simicart.core.catalog.product.fragment;
 import java.util.ArrayList;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,10 +34,15 @@ public class ProductDetailParentFragment extends SimiFragment {
 	protected  boolean isFromScan = false;
 	protected  boolean isShownOption = true;
 	protected String transitionName = "";
+	protected Bitmap btm;
 
 	public static ProductDetailParentFragment newInstance() {
 		ProductDetailParentFragment fragment = new ProductDetailParentFragment();
 		return fragment;
+	}
+
+	public void setImageTransition(Bitmap bm) {
+		this.btm = bm;
 	}
 
 	public void setItemTransitionName(String transitionName) {
@@ -68,6 +75,7 @@ public class ProductDetailParentFragment extends SimiFragment {
 				container, false);
 		mBlock = new ProductDetailParentBlock(view, getActivity());
 		mBlock.setImageTransitionName(transitionName);
+		mBlock.setBitmapTransition(btm);
 		mBlock.initView();
 		if (null == mController) {
 			mController = new ProductDetailParentController();
@@ -101,6 +109,7 @@ public class ProductDetailParentFragment extends SimiFragment {
 
 		final ViewPager pager_parent = (ViewPager) view.findViewById(Rconfig
 				.getInstance().id("pager_parent"));
+		//pager_parent.setVisibility(View.GONE);
 
 		if (DataLocal.isTablet) {
 			try {
