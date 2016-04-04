@@ -1,8 +1,11 @@
 package com.simicart.core.catalog.categorydetail.controller;
 
+
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
+import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,7 +15,9 @@ import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 
+import com.simicart.R;
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -31,6 +36,7 @@ import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.catalog.product.fragment.ProductDetailParentFragment;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.DataLocal;
+import com.simicart.core.config.Rconfig;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -228,7 +234,8 @@ public class CategoryDetailController extends SimiController implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                selectemItem(position - 1);
+                Log.e("a", "++" + id);
+                selectemItem(position - 1, view);
             }
         };
 
@@ -414,7 +421,8 @@ public class CategoryDetailController extends SimiController implements
                             // scroll down
                             if (distance < 50) {
                                 if (clickDetected == false) {
-                                    selectemItem(position);
+                                    Log.e("a1", "here");
+                                    selectemItem(position, v);
                                 }
                             } else {
                                 if (checkZoom == false) {
@@ -423,12 +431,14 @@ public class CategoryDetailController extends SimiController implements
                                 }
                             }
                         } else if (value == 0.0) {
-                            selectemItem(position);
+                            Log.e("a2", "here");
+                            selectemItem(position, v);
                         } else {
                             // scroll up
                             if (distance < 50) {
                                 if (clickDetected == false) {
-                                    selectemItem(position);
+                                    Log.e("a3", "here");
+                                    selectemItem(position, v);
                                 }
                             } else {
                                 if (checkZoom == false) {
@@ -478,14 +488,21 @@ public class CategoryDetailController extends SimiController implements
     }
 
 
-    private void selectemItem(int position) {
+    private void selectemItem(int position, View v) {
         if (position != -1) {
             ArrayList<ProductEntity> listProduct = mDelegate.getListProduct();
             String productId = listProduct.get(position).getID();
             if (productId != null) {
+                ImageView img = (ImageView) v.findViewById(Rconfig.getInstance().id("img_item"));
+                String transitionName = "image" + position;
+                Log.e("b", "++" + img.getId());
+                img.setTransitionName(transitionName);
+                Log.e("c", "++" + transitionName);
+
                 ProductDetailParentFragment fragment = ProductDetailParentFragment
                         .newInstance();
                 fragment.setProductID(productId);
+                fragment.setItemTransitionName(transitionName);
                 ArrayList<String> listID = ((CategoryDetailModel) mModel).getListProducID();
                 if (null != listID && listID.size() > 0) {
                     fragment.setListIDProduct(listID);
@@ -495,7 +512,29 @@ public class CategoryDetailController extends SimiController implements
                         fragment.setListIDProduct(list_id);
                     }
                 }
-                SimiManager.getIntance().replaceFragment(fragment);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    Log.e("abc", "LOLIPOP");
+                    fragment.setSharedElementReturnTransition(TransitionInflater
+                            .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform));
+                    fragment.setExitTransition(TransitionInflater
+                            .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(android.R.transition.explode));
+
+                    fragment.setSharedElementEnterTransition(TransitionInflater
+                            .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform));
+                    fragment.setEnterTransition(TransitionInflater
+                            .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(android.R.transition.explode));
+
+                    SimiManager.getIntance().getManager().beginTransaction()
+                            .addSharedElement(img, transitionName)
+                            .replace(Rconfig.getInstance().id("container"), fragment)
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    Log.e("abc", "NO LOLIPOP");
+                    SimiManager.getIntance().replaceFragment(fragment);
+                }
+
             }
         }
         SimiManager.getIntance().hideKeyboard();

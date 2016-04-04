@@ -110,7 +110,6 @@ public class MaterialCateogryAdapter extends RecyclerView.Adapter<MaterialCateog
         public ViewHolder(View v) {
             super(v);
             cardView = (CardView) v.findViewById(Rconfig.getInstance().id("card_view"));
-            cardView.setElevation(20);
             txtName = (TextView) v.findViewById(Rconfig
                     .getInstance().id("tv_productItemName"));
             txtName

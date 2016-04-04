@@ -31,10 +31,15 @@ public class ProductDetailParentFragment extends SimiFragment {
 	protected ProductDetailParentController mController;
 	protected  boolean isFromScan = false;
 	protected  boolean isShownOption = true;
+	protected String transitionName = "";
 
 	public static ProductDetailParentFragment newInstance() {
 		ProductDetailParentFragment fragment = new ProductDetailParentFragment();
 		return fragment;
+	}
+
+	public void setItemTransitionName(String transitionName) {
+		this.transitionName = transitionName;
 	}
 
 	public void setProductID(String id) {
@@ -62,6 +67,7 @@ public class ProductDetailParentFragment extends SimiFragment {
 				Rconfig.getInstance().layout("core_product_detail_parent"),
 				container, false);
 		mBlock = new ProductDetailParentBlock(view, getActivity());
+		mBlock.setImageTransitionName(transitionName);
 		mBlock.initView();
 		if (null == mController) {
 			mController = new ProductDetailParentController();

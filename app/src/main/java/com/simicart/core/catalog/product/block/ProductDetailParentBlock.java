@@ -19,6 +19,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simicart.R;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
@@ -30,6 +31,7 @@ import com.simicart.core.catalog.product.entity.productEnity.VariantEntity;
 import com.simicart.core.catalog.product.entity.productEnity.VariantsAttributeEntity;
 import com.simicart.core.catalog.product.options.customoption.Custom.entity.CustomOptionEntity;
 import com.simicart.core.catalog.product.options.groupitem.ItemGroupEntity;
+import com.simicart.core.common.DrawableManager;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
@@ -52,11 +54,16 @@ public class ProductDetailParentBlock extends SimiBlock implements
     protected ProductEntity mProduct;
     protected CirclePageIndicator mIndicator;
     protected OnClickListener onDoneOption;
-
+    protected String mTransitionname = "";
+    ImageView img;
 
     public ProductDetailParentBlock(View view, Context context) {
         super(view, context);
 
+    }
+
+    public void setImageTransitionName(String transitionName) {
+        this.mTransitionname = transitionName;
     }
 
     public void setOnDoneOption(OnClickListener onDoneOption) {
@@ -148,6 +155,10 @@ public class ProductDetailParentBlock extends SimiBlock implements
         // // rlt_param_right.setMargins(0, Utils.getValueDp(50), 0, 0);
         // rlt_rlt_left_overlayleft_overlay.setLayoutParams(rlt_param_left);
         // // rlt_right_overlay.setLayoutParams(rlt_param_right);
+
+        img = (ImageView) mView.findViewById(R.id.transition_img);
+        img.setTransitionName(mTransitionname);
+        Log.e("d", "++" + mTransitionname);
     }
 
     @Override
@@ -158,6 +169,12 @@ public class ProductDetailParentBlock extends SimiBlock implements
             if (null != mProduct) {
                 ll_bottom.setVisibility(View.VISIBLE);
                 rlt_top.setVisibility(View.VISIBLE);
+
+                ArrayList<String> images = mProduct.getImages();
+                if (null != images && images.size() > 0) {
+                    String url = images.get(0);
+                    DrawableManager.fetchDrawableOnThread(url, img);
+                }
 
                 showNameProduct();
                 initButton();

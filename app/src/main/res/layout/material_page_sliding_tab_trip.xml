@@ -10,5 +10,5 @@
     app:pstsPaddingMiddle="true"
     app:pstsShouldExpand="false"
     app:pstsTabPaddingLeftRight="10dp"
-    app:pstsTabTextAllCaps="true"
+    app:pstsTabTextAllCaps="false"
     tools:background="#FFF" />
