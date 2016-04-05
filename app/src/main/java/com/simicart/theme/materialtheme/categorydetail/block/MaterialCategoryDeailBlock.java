@@ -190,8 +190,8 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
 
 
         if (isList == true) {
-//            imb_changeType.setBackgroundResource(
-//                    Rconfig.getInstance().drawable("ic_to_listview"));
+            imb_changeType.setImageResource(
+                    Rconfig.getInstance().drawable("ic_to_listview"));
             mGridAdapter.setListProduct(mProducts);
             rv_cateDetail.setLayoutManager(mGridManager);
             rv_cateDetail.setAdapter(mGridAdapter);
@@ -199,8 +199,8 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
             mGridAdapter.notifyDataSetChanged();
             mGridManager.scrollToPosition(lastPosition);
         } else {
-//            imb_changeType.setBackgroundResource(
-//                    Rconfig.getInstance().drawable("ic_to_gridview"));
+            imb_changeType.setImageResource(
+                    Rconfig.getInstance().drawable("ic_to_gridview"));
             mListAdapter.setListProduct(mProducts);
             rv_cateDetail.setLayoutManager(mLinearManager);
             rv_cateDetail.setAdapter(mListAdapter);

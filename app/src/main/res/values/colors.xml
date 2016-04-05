@@ -7,5 +7,6 @@
     <color name="fb_connect_default">#ffffff</color>
     <color name="fb_connect_pressed">#ebebeb</color>
     <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="material_page_background">#f0f0f0</color>
 
 </resources>

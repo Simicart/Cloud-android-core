@@ -166,9 +166,7 @@ public class MaterialCateDetailAdapterGrid extends RecyclerView.Adapter<Material
         String productId = product.getID();
         if (productId != null) {
             String transitionName = "imageg" + position;
-            Log.e("b", "++" + holder.img_item.getId());
             //holder.img_item.setTransitionName(transitionName);
-            Log.e("c", "++" + transitionName);
 
             ProductDetailParentFragment fragment = ProductDetailParentFragment
                     .newInstance();
@@ -180,15 +178,15 @@ public class MaterialCateDetailAdapterGrid extends RecyclerView.Adapter<Material
             //SimiManager.getIntance().replaceFragment(fragment);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 Log.e("abc", "LOLIPOP");
-//                fragment.setSharedElementReturnTransition(TransitionInflater
-//                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
+                fragment.setSharedElementReturnTransition(TransitionInflater
+                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(android.R.transition.fade).setDuration(500));
 //                fragment.setExitTransition(TransitionInflater
 //                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
 
                 fragment.setSharedElementEnterTransition(TransitionInflater
                         .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
-                fragment.setEnterTransition(TransitionInflater
-                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
+//                fragment.setEnterTransition(TransitionInflater
+//                        .from(SimiManager.getIntance().getCurrentContext()).inflateTransition(R.transition.change_image_transform).setDuration(500));
 
                 SimiManager.getIntance().getManager().beginTransaction()
                         .addSharedElement(holder.img_item, transitionName)
