@@ -27,14 +27,8 @@ public class MaterialHomeFragment extends SimiFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 Rconfig.getInstance().layout("material_home_layout"), container, false);
-        return rootView;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         Context context = getActivity();
-        mBlock = new MaterialHomeBlock(view, context);
+        mBlock = new MaterialHomeBlock(rootView, context);
         mBlock.setFragmentManager(getChildFragmentManager());
         mBlock.initView();
         if (mController == null) {
@@ -46,5 +40,6 @@ public class MaterialHomeFragment extends SimiFragment {
             mController.onResume();
         }
         mBlock.setOnClickTitleViewPager(mController.getOnClickTitleViewPager());
+        return rootView;
     }
 }

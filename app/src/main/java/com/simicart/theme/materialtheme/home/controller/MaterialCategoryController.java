@@ -55,7 +55,7 @@ public class MaterialCategoryController extends SimiController {
 
     @Override
     public void onResume() {
-
+        mDelegate.updateView(mModel.getCollection());
     }
 
     private void requestBestSeller(String limit) {
