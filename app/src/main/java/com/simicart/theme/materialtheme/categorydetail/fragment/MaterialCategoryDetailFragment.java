@@ -2,6 +2,7 @@ package com.simicart.theme.materialtheme.categorydetail.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.catalog.categorydetail.controller.CategoryDetailController;
 import com.simicart.core.catalog.categorydetail.entity.TagSearch;
 import com.simicart.core.catalog.categorydetail.model.ConstantsSearch;
+import com.simicart.core.config.Config;
+import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.theme.materialtheme.categorydetail.block.MaterialCategoryDeailBlock;
 
@@ -23,6 +26,7 @@ public class MaterialCategoryDetailFragment extends SimiFragment {
 
     protected CategoryDetailController mController;
 
+    protected String tag_search;
     protected String mCateName;
     protected String mCateID;
     protected String mUrl;
@@ -48,7 +52,14 @@ public class MaterialCategoryDetailFragment extends SimiFragment {
                 Rconfig.getInstance().layout("material_category_detail_layout"),
                 container, false);
         Context context = getActivity();
-        String tag_search = TagSearch.TAG_GRIDVIEW;
+
+        if (tag_search == null) {
+            if (DataLocal.isTablet) {
+                tag_search = TagSearch.TAG_GRIDVIEW;
+            } else {
+                tag_search = TagSearch.TAG_LISTVIEW;
+            }
+        }
 
         MaterialCategoryDeailBlock block = new MaterialCategoryDeailBlock(rootView, context);
         block.initView();
@@ -60,7 +71,6 @@ public class MaterialCategoryDetailFragment extends SimiFragment {
             mController.setDelegate(block);
             mController.onStart();
         } else {
-            mController.setTag_search(tag_search);
             mController.setList_Param(list_param);
             mController.setDelegate(block);
             mController.onResume();

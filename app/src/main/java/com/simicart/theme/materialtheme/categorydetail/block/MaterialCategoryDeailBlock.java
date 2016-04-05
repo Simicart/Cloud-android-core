@@ -189,20 +189,24 @@ public class MaterialCategoryDeailBlock extends SimiBlock implements CategoryDet
         }
 
 
-        if (isList) {
-            mListAdapter.setListProduct(mProducts);
-            rv_cateDetail.setLayoutManager(mLinearManager);
-            rv_cateDetail.setAdapter(mListAdapter);
-            tag_search = TagSearch.TAG_LISTVIEW;
-            mListAdapter.notifyDataSetChanged();
-            mLinearManager.scrollToPosition(lastPosition);
-        } else {
+        if (isList == true) {
+//            imb_changeType.setBackgroundResource(
+//                    Rconfig.getInstance().drawable("ic_to_listview"));
             mGridAdapter.setListProduct(mProducts);
             rv_cateDetail.setLayoutManager(mGridManager);
             rv_cateDetail.setAdapter(mGridAdapter);
             tag_search = TagSearch.TAG_GRIDVIEW;
             mGridAdapter.notifyDataSetChanged();
             mGridManager.scrollToPosition(lastPosition);
+        } else {
+//            imb_changeType.setBackgroundResource(
+//                    Rconfig.getInstance().drawable("ic_to_gridview"));
+            mListAdapter.setListProduct(mProducts);
+            rv_cateDetail.setLayoutManager(mLinearManager);
+            rv_cateDetail.setAdapter(mListAdapter);
+            tag_search = TagSearch.TAG_LISTVIEW;
+            mListAdapter.notifyDataSetChanged();
+            mLinearManager.scrollToPosition(lastPosition);
         }
 
         return tag_search;

@@ -66,7 +66,7 @@ public class CategoryDetailController extends SimiController implements
             mOnTouchToSort;
     protected OnTouchListener mOnTouchGridview;
     protected boolean is_back_filter;
-    protected String typeSearch = "0";
+    protected String typeSearch = "1";
     // protected String type_search;
     private Map<String, String> list_param = new HashMap<String, String>();
 
@@ -576,9 +576,9 @@ public class CategoryDetailController extends SimiController implements
             }
             mDelegate.setVisibilityMenuBotton(true);
             if (tag_search.equals(TagSearch.TAG_LISTVIEW)) {
-                mDelegate.onChangeTypeViewShow(true);
-            } else {
                 mDelegate.onChangeTypeViewShow(false);
+            } else {
+                mDelegate.onChangeTypeViewShow(true);
             }
         }
     }
