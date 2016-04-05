@@ -6,8 +6,12 @@ import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 import com.github.florent37.materialviewpager.MaterialViewPagerHelper;
 import com.github.florent37.materialviewpager.adapter.RecyclerViewMaterialAdapter;
+import com.simicart.R;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
@@ -66,6 +70,10 @@ public class MaterialCategoryBlock extends SimiBlock implements MaterialCategory
                         mAdapter = new RecyclerViewMaterialAdapter(new MaterialCateogryAdapter(listProduct, mActivity));
                         mListCategory.setAdapter(mAdapter);
                         MaterialViewPagerHelper.registerRecyclerView(mActivity, mListCategory, null);
+
+                        Animation anim = AnimationUtils.loadAnimation(mContext, R.anim.slide_bottom_to_top);
+                        anim.setDuration(1000);
+                        mListCategory.startAnimation(anim);
                     }
                 }
             } catch (JSONException e) {
