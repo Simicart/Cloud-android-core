@@ -41,7 +41,7 @@ public class ManageVariantAttributeView implements ManageVariantAttributeDelegat
         Log.e("ManageAttView", "ListAttribute Size " + mListAttribute.size());
         for (int i = 0; i < mListAttribute.size(); i++) {
             VariantsAttributeEntity attributeEntity = mListAttribute.get(i);
-            VariantAttributeView viewAtt = new VariantAttributeView(attributeEntity, mContext,mListVariant,this);
+            VariantAttributeView viewAtt = new VariantAttributeView(attributeEntity, mContext, mListVariant, this);
             View view = viewAtt.createView();
             if (null != view) {
                 Log.e("ManageAttView", "View " + i);
@@ -57,7 +57,7 @@ public class ManageVariantAttributeView implements ManageVariantAttributeDelegat
     @Override
     public void onSend(String valueAttOfItemSend, ArrayList<VariantEntity> listIDVariantAvaiable, String idItemSend) {
 
-        ArrayList<VariantEntity> listVariant = null;
+        ArrayList<VariantEntity> listVariant = listIDVariantAvaiable;
 
         for (int i = 0; i < mListAttributeDelegate.size(); i++) {
             VariantAttributeDelegate delegate = mListAttributeDelegate.get(i);
