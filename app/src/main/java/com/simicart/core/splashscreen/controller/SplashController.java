@@ -1,6 +1,7 @@
 package com.simicart.core.splashscreen.controller;
 
 import android.content.Context;
+
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;

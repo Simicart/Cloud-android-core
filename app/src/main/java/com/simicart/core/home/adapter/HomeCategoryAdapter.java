@@ -75,7 +75,7 @@ public class HomeCategoryAdapter extends BaseAdapter {
 		if (DataLocal.isLanguageRTL) {
 			txt_name.setGravity(Gravity.RIGHT);
 		} else {
-			txt_name.setGravity(Gravity.LEFT);
+			txt_name.setGravity(Gravity.CENTER);
 		}
 
 		ImageView img_category = (ImageView) convertView.findViewById(Rconfig
