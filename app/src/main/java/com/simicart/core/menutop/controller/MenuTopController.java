@@ -12,6 +12,7 @@ import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.controller.ConfigCheckout;
 import com.simicart.core.checkout.fragment.CartFragment;
+import com.simicart.core.common.Utils;
 import com.simicart.core.menutop.delegate.MenuTopDelegate;
 import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
 
@@ -50,6 +51,7 @@ public class MenuTopController extends SimiController {
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
+                        Utils.hideKeyboard(v);
                         clickCart();
                     }
 
@@ -76,6 +78,7 @@ public class MenuTopController extends SimiController {
                     }
                     case MotionEvent.ACTION_UP: {
 //					mNavigationDrawerFragment.openMenu();
+                        Utils.hideKeyboard(v);
                         mDrawer.openDrawer();
                     }
 
@@ -93,6 +96,22 @@ public class MenuTopController extends SimiController {
 
     public void updateCartQty(String qty) {
         mDelegate.updateCartQty(qty);
+    }
+
+    public void showSearch(boolean show) {
+        if(show == true) {
+            mDelegate.showSearchView();
+        } else {
+            mDelegate.hideSearchView();
+        }
+    }
+
+    public void querySearch(String query) {
+        mDelegate.showSearchScreen(query);
+    }
+
+    public void refreshSearchField() {
+        mDelegate.clearSearchField();
     }
 
     private void clickCart() {

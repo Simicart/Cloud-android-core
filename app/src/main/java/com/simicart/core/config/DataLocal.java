@@ -2,10 +2,16 @@ package com.simicart.core.config;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.entity.CreditcardEntity;
@@ -343,6 +349,27 @@ public class DataLocal {
             e.printStackTrace();
         }
         return creditCard;
+    }
+
+    public static List<String> getRecentSearch() {
+        String serialized = mSharedPre.getString("recent_search", null);
+        if(serialized != null) {
+            List<String> list = Arrays.asList(TextUtils.split(serialized, ","));
+            return list;
+        }
+        return null;
+    }
+
+    public static void addRecentSearch(String searchQuery) {
+        List<String> list;
+        if(getRecentSearch() != null) {
+            list = new ArrayList<>(getRecentSearch());
+            list.add(searchQuery);
+        } else {
+            list = new ArrayList<>();
+            list.add(searchQuery);
+        }
+        mSharedPre.edit().putString("recent_search", TextUtils.join(",", list)).commit();
     }
 
 }

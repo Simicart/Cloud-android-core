@@ -123,6 +123,18 @@ public class SimiManager {
         mMenuTopController.hideMenuTop(isHiden);
     }
 
+    public void onUpdateSearchView(boolean show) {
+        mMenuTopController.showSearch(show);
+    }
+
+    public void openSearchScreen(String query) {
+        mMenuTopController.querySearch(query);
+    }
+
+    public void clearSearchText() {
+        mMenuTopController.refreshSearchField();
+    }
+
     public void onUpdateCartQty(String qty) {
         int i_qty = 0;
         if (null != qty) {

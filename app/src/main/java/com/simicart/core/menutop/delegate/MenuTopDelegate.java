@@ -12,4 +12,12 @@ public interface MenuTopDelegate extends SimiDelegate {
 
 	public void hideMenuTop(boolean isHide);
 
+	public void showSearchView();
+
+	public void hideSearchView();
+
+	public void showSearchScreen(String query);
+
+	public void clearSearchField();
+
 }
