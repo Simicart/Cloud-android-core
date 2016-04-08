@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView.OnItemClickListener;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.simicart.R;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
@@ -52,7 +54,6 @@ public class AddressBookBlock extends SimiBlock {
     @Override
     public void initView() {
 
-
         rlt_layout_addadress = (RelativeLayout) mView.findViewById(Rconfig
                 .getInstance().id("layout_addadress"));
         rlt_layout_addadress.setBackgroundColor(Config.getInstance()
@@ -61,10 +62,10 @@ public class AddressBookBlock extends SimiBlock {
         // title
         TextView tv_chooseAddress = (TextView) mView.findViewById(Rconfig
                 .getInstance().id("tv_chooseAddress"));
-        tv_chooseAddress.setBackgroundColor(Color.parseColor(Config
-                .getInstance().getSection_color()));
-        tv_chooseAddress.setTextColor(Config.getInstance()
-                .getSection_text_color());
+//        lv_listAddress.setBackgroundColor(Color.parseColor(Config
+//                .getInstance().getSection_color()));
+//        tv_chooseAddress.setTextColor(Config.getInstance()
+//                .getSection_text_color());
         if (isCheckout) {
             tv_chooseAddress.setText(Config.getInstance().getText(
                     "OR CHOOSE AN ADDRESS"));
@@ -90,10 +91,10 @@ public class AddressBookBlock extends SimiBlock {
         // list address
         lv_Address = (ListView) mView.findViewById(Rconfig.getInstance().id(
                 "lv_listAddress"));
-        ColorDrawable sage = new ColorDrawable(Config.getInstance()
-                .getLine_color());
-        lv_Address.setDivider(sage);
-        lv_Address.setDividerHeight(1);
+//        ColorDrawable sage = new ColorDrawable(Config.getInstance()
+//                .getLine_color());
+//        lv_Address.setDivider(sage);
+//        lv_Address.setDividerHeight(1);
     }
 
     @Override

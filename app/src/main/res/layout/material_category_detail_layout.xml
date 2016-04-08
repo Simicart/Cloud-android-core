@@ -87,9 +87,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_top_cate_detail"
         android:background="@color/material_page_background"
-        android:scrollbars="none"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:scrollbars="none">
     </android.support.v7.widget.RecyclerView>
 
     <ProgressBar

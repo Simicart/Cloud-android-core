@@ -68,7 +68,7 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
         imv_menu = (ImageView) mView.findViewById(Rconfig.getInstance().id(
                 "img_menu"));
         Drawable ic_menu = mContext.getResources().getDrawable(
-                Rconfig.getInstance().drawable("ic_drawer2"));
+                Rconfig.getInstance().drawable("ic_menu"));
         ic_menu.setColorFilter(Config.getInstance().getTop_menu_icon_color(),
                 PorterDuff.Mode.SRC_ATOP);
         imv_menu.setImageDrawable(ic_menu);

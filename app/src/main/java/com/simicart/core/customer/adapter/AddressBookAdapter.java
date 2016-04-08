@@ -79,7 +79,7 @@ public class AddressBookAdapter extends BaseAdapter {
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
-		convertView.setBackgroundColor(Config.getInstance().getApp_backrground());
+//		convertView.setBackgroundColor(Config.getInstance().getApp_backrground());
 		Utils.changeColorTextView(holder.tv_name);
 		Utils.changeColorTextView(holder.tv_street);
 		Utils.changeColorTextView(holder.tv_city);

@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EBEBEB"
-    android:orientation="vertical" >
+    android:background="@color/material_page_background"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:background="@color/material_page_background"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/lable_address"
@@ -21,56 +23,70 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
-        <RelativeLayout
-            android:id="@+id/layout_addadress"
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/core_line_border_white"
-            android:padding="7dp" >
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            card_view:cardCornerRadius="4dp"
+            card_view:cardElevation="2dp"
+            card_view:cardUseCompatPadding="true">
 
-            <ImageView
-                android:id="@+id/iv_extend"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_extend" />
-
-            <ImageView
-                android:id="@+id/iv_add"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_action_add" />
-
-            <TextView
-                android:id="@+id/addAddress"
+            <RelativeLayout
+                android:id="@+id/layout_addadress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/iv_extend"
-                android:layout_toRightOf="@+id/iv_add"
-                android:gravity="center"
-                android:textSize="18sp" />
-        </RelativeLayout>
+                android:background="@null"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/iv_extend"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_extend" />
+
+                <ImageView
+                    android:id="@+id/iv_add"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_action_add" />
+
+                <TextView
+                    android:id="@+id/addAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/iv_extend"
+                    android:layout_toRightOf="@+id/iv_add"
+                    android:gravity="center"
+                    android:textSize="18sp" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
 
         <TextView
             android:id="@+id/tv_chooseAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@null"
             android:padding="10dp"
-            android:textColor="#CACACA"
-            android:textSize="15sp" />
+            android:textColor="#000000"
+            android:textSize="15sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/lv_listAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/core_line_border_white" >
-    </ListView>
+        android:background="@null"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:scrollbars="none"></ListView>
 
 </LinearLayout>
