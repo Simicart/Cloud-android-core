@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
-
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
@@ -23,7 +22,6 @@ import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.theme.materialtheme.checkout.MaterialCartAdapter;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialCartDelegate;
-import com.simicart.theme.materialtheme.common.CustomLinearLayoutManager;
 
 import java.util.ArrayList;
 
@@ -42,7 +40,7 @@ public class MaterialCartBlock extends SimiBlock implements MaterialCartDelegate
     @Override
     public void initView() {
         rcv_cart = (RecyclerView) mView.findViewById(Rconfig.getInstance().id("rcv_cart"));
-        CustomLinearLayoutManager linearLayoutManager = new CustomLinearLayoutManager(mView.getContext(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mView.getContext(), LinearLayoutManager.VERTICAL, false);
         rcv_cart.setHasFixedSize(true);
         rcv_cart.setLayoutManager(linearLayoutManager);
         layoutPrice = (TableLayout) mView.findViewById(Rconfig.getInstance()
