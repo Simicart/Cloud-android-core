@@ -1,6 +1,7 @@
 package com.simicart.theme.materialtheme.checkout.block;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +19,10 @@ import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 import com.simicart.core.checkout.entity.QuoteEntity;
 import com.simicart.core.common.price.TotalPriceView;
 import com.simicart.core.config.Config;
+import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
+import com.simicart.core.material.ButtonRectangle;
 import com.simicart.theme.materialtheme.checkout.MaterialCartAdapter;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialCartDelegate;
 
@@ -32,6 +35,11 @@ public class MaterialCartBlock extends SimiBlock implements MaterialCartDelegate
     protected TableLayout layoutPrice;
     protected RecyclerView rcv_cart;
     protected MaterialCartAdapter mAdapter;
+    protected ButtonRectangle btn_Checkout;
+
+    public void setCheckoutClicker(View.OnClickListener clicker) {
+        btn_Checkout.setOnClickListener(clicker);
+    }
 
     public MaterialCartBlock(View view, Context context) {
         super(view, context);
@@ -45,6 +53,13 @@ public class MaterialCartBlock extends SimiBlock implements MaterialCartDelegate
         rcv_cart.setLayoutManager(linearLayoutManager);
         layoutPrice = (TableLayout) mView.findViewById(Rconfig.getInstance()
                 .id("ll_pricetotal"));
+
+        btn_Checkout = (ButtonRectangle) mView.findViewById(Rconfig
+                .getInstance().id("checkout"));
+        btn_Checkout.setText(Config.getInstance().getText("Proceed to checkout"));
+        btn_Checkout.setTextColor(Config.getInstance().getButton_text_color());
+        btn_Checkout.setBackgroundColor(Config.getInstance().getButton_background());
+        btn_Checkout.setTextSize(Constants.SIZE_TEXT_BUTTON);
     }
 
     @Override

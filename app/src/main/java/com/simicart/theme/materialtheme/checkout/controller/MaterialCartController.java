@@ -1,5 +1,7 @@
 package com.simicart.theme.materialtheme.checkout.controller;
 
+import android.view.View;
+
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -16,6 +18,8 @@ import com.simicart.theme.materialtheme.checkout.delegate.MaterialCartDelegate;
  */
 public class MaterialCartController extends SimiController{
     protected MaterialCartDelegate mDelegate;
+    protected View.OnClickListener mCartListener;
+
     public void setDelegate(MaterialCartDelegate mDelegate) {
         this.mDelegate = mDelegate;
     }
@@ -27,6 +31,13 @@ public class MaterialCartController extends SimiController{
         } else {
             mDelegate.visibleAllView();
         }
+
+        mCartListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        };
     }
 
     @Override
