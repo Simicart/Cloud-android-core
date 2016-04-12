@@ -1,6 +1,5 @@
-package com.simicart.theme.materialtheme.checkout;
+package com.simicart.theme.materialtheme.checkout.adapter;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;

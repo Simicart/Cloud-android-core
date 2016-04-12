@@ -1,7 +1,6 @@
 package com.simicart.theme.materialtheme.checkout.block;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +22,7 @@ import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.material.ButtonRectangle;
-import com.simicart.theme.materialtheme.checkout.MaterialCartAdapter;
+import com.simicart.theme.materialtheme.checkout.adapter.MaterialCartAdapter;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialCartDelegate;
 
 import java.util.ArrayList;
