@@ -12,6 +12,7 @@ import com.simicart.core.checkout.model.CartModel;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialCartDelegate;
+import com.simicart.theme.materialtheme.checkout.fragment.MaterialReviewOrderFragment;
 
 /**
  * Created by Sony on 4/11/2016.
@@ -22,6 +23,10 @@ public class MaterialCartController extends SimiController{
 
     public void setDelegate(MaterialCartDelegate mDelegate) {
         this.mDelegate = mDelegate;
+    }
+
+    public View.OnClickListener getCartListener() {
+        return mCartListener;
     }
 
     @Override
@@ -35,7 +40,8 @@ public class MaterialCartController extends SimiController{
         mCartListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                MaterialReviewOrderFragment fragment = MaterialReviewOrderFragment.newInstance();
+                SimiManager.getIntance().replaceFragment(fragment);
             }
         };
     }
