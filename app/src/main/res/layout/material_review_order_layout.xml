@@ -16,15 +16,15 @@
 
             <include
                 android:id="@+id/inc_checkout_method"
-                layout="@layout/material_include_checkout_method"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                layout="@layout/material_include_checkout_method"/>
 
             <include
                 android:id="@+id/inc_billing_infomation"
-                layout="@layout/material_include_checkout_method"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                layout="@layout/material_include_billing_information"/>
 
             <include
                 android:id="@+id/inc_shipping_infomation"

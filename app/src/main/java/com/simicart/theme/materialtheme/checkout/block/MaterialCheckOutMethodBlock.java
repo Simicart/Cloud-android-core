@@ -37,7 +37,7 @@ public class MaterialCheckOutMethodBlock extends SimiBlock {
 
     @Override
     public void initView() {
-        tv_checkout_information = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_checkout_information"));
+        tv_checkout_information = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_checkout_method"));
         tv_checkout_information.setText("1" + " " + Config.getInstance().getText("Checkout Method"));
         tv_checkout_information.setTextColor(Config.getInstance().getSection_text_color());
         tv_checkout_information.setBackgroundColor((Color.parseColor(Config.getInstance().getSection_color())));

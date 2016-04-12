@@ -10,19 +10,23 @@ import android.widget.LinearLayout;
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Rconfig;
+import com.simicart.theme.materialtheme.checkout.block.MaterialBillingInformationBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialCheckOutMethodBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialReviewOrderBlock;
+import com.simicart.theme.materialtheme.checkout.controller.MaterialBillingInformationController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialCheckOutMethodController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialReviewOrderController;
 
 /**
  * Created by Sony on 4/12/2016.
  */
-public class MaterialReviewOrderFragment extends SimiFragment{
+public class MaterialReviewOrderFragment extends SimiFragment {
     protected MaterialReviewOrderController mController;
     protected MaterialReviewOrderBlock mBlock;
     protected MaterialCheckOutMethodBlock mCheckOutMethodBlock;
     protected MaterialCheckOutMethodController mCheckOutMethodController;
+    protected MaterialBillingInformationBlock mBillingInformationBlock;
+    protected MaterialBillingInformationController mBillingInformationController;
 
     public static MaterialReviewOrderFragment newInstance() {
         MaterialReviewOrderFragment fragment = new MaterialReviewOrderFragment();
@@ -54,10 +58,21 @@ public class MaterialReviewOrderFragment extends SimiFragment{
         if (mCheckOutMethodController == null) {
             mCheckOutMethodController = new MaterialCheckOutMethodController();
             mCheckOutMethodController.onStart();
-        }else{
+        } else {
             mCheckOutMethodController.onResume();
         }
         mCheckOutMethodBlock.setOnClickCheckoutExistingCustomer(mCheckOutMethodController.getOnClickCheckoutExistingCustomer());
+
+        // Billing Information
+        View view_billing_information = (View) rootView.findViewById(Rconfig.getInstance().id("include_billing_information"));
+        mBillingInformationBlock = new MaterialBillingInformationBlock(view_billing_information, context);
+        mBillingInformationBlock.initView();
+        if (mBillingInformationController == null) {
+            mBillingInformationController = new MaterialBillingInformationController();
+            mBillingInformationController.onStart();
+        } else {
+            mBillingInformationController.onResume();
+        }
 
         return rootView;
     }
