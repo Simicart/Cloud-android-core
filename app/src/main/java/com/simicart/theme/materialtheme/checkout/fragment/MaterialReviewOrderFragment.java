@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
 import com.simicart.core.base.fragment.SimiFragment;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Rconfig;
+import com.simicart.theme.materialtheme.checkout.block.MaterialCheckOutMethodBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialReviewOrderBlock;
+import com.simicart.theme.materialtheme.checkout.controller.MaterialCheckOutMethodController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialReviewOrderController;
 
 /**
@@ -17,6 +21,8 @@ import com.simicart.theme.materialtheme.checkout.controller.MaterialReviewOrderC
 public class MaterialReviewOrderFragment extends SimiFragment{
     protected MaterialReviewOrderController mController;
     protected MaterialReviewOrderBlock mBlock;
+    protected MaterialCheckOutMethodBlock mCheckOutMethodBlock;
+    protected MaterialCheckOutMethodController mCheckOutMethodController;
 
     public static MaterialReviewOrderFragment newInstance() {
         MaterialReviewOrderFragment fragment = new MaterialReviewOrderFragment();
@@ -28,6 +34,8 @@ public class MaterialReviewOrderFragment extends SimiFragment{
         View rootView = inflater.inflate(
                 Rconfig.getInstance().layout("material_review_order_layout"), container, false);
         Context context = getActivity();
+
+        // Review Order
         mBlock = new MaterialReviewOrderBlock(rootView, context);
         mBlock.initView();
         if (mController == null) {
@@ -38,6 +46,19 @@ public class MaterialReviewOrderFragment extends SimiFragment{
             mController.setDelegate(mBlock);
             mController.onResume();
         }
+
+        // CheckOut Method
+        View view_checkout_method = (View) rootView.findViewById(Rconfig.getInstance().id("inc_checkout_method"));
+        mCheckOutMethodBlock = new MaterialCheckOutMethodBlock(view_checkout_method, context);
+        mCheckOutMethodBlock.initView();
+        if (mCheckOutMethodController == null) {
+            mCheckOutMethodController = new MaterialCheckOutMethodController();
+            mCheckOutMethodController.onStart();
+        }else{
+            mCheckOutMethodController.onResume();
+        }
+        mCheckOutMethodBlock.setOnClickCheckoutExistingCustomer(mCheckOutMethodController.getOnClickCheckoutExistingCustomer());
+
         return rootView;
     }
 
