@@ -64,7 +64,7 @@ public class MaterialReviewOrderFragment extends SimiFragment {
         mCheckOutMethodBlock.setOnClickCheckoutExistingCustomer(mCheckOutMethodController.getOnClickCheckoutExistingCustomer());
 
         // Billing Information
-        View view_billing_information = (View) rootView.findViewById(Rconfig.getInstance().id("include_billing_information"));
+        View view_billing_information = (View) rootView.findViewById(Rconfig.getInstance().id("inc_billing_infomation"));
         mBillingInformationBlock = new MaterialBillingInformationBlock(view_billing_information, context);
         mBillingInformationBlock.initView();
         if (mBillingInformationController == null) {
