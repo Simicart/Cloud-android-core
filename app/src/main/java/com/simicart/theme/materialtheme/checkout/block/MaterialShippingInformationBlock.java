@@ -23,7 +23,6 @@ import java.util.ArrayList;
  * Created by Sony on 4/12/2016.
  */
 public class MaterialShippingInformationBlock extends SimiBlock implements MaterialShippingInformationDelegate{
-    protected TextView tv_shipping_information;
     protected Spinner sp_shipping_information;
     protected TextView tv_use_billing_address;
     protected TextView tv_continue;
@@ -35,11 +34,6 @@ public class MaterialShippingInformationBlock extends SimiBlock implements Mater
 
     @Override
     public void initView() {
-        tv_shipping_information = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_billing_information"));
-        tv_shipping_information.setText("3" + " " + Config.getInstance().getText("Shipping Information"));
-        tv_shipping_information.setTextColor(Config.getInstance().getSection_text_color());
-        tv_shipping_information.setBackgroundColor((Color.parseColor(Config.getInstance().getSection_color())));
-
         sp_shipping_information = (Spinner) mView.findViewById(Rconfig.getInstance().id("sp_billing_information"));
 
         tv_use_billing_address = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_choose_ship_to_address"));

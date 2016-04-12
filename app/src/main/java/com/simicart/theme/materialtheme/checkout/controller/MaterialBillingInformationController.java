@@ -27,6 +27,9 @@ public class MaterialBillingInformationController extends SimiController {
     protected View.OnClickListener mOnClickShipToAddress;
     protected View.OnClickListener mOnClickShipToDifferentAdress;
 
+    private int SHIP_TO_ADDRESS = 0;
+    private int SHIP_TO_DIFFERENT_ADDRESS = 1;
+
     public void setDelegate(SimiDelegate mDelegate) {
         this.mDelegate = mDelegate;
     }
@@ -57,6 +60,9 @@ public class MaterialBillingInformationController extends SimiController {
 
         // Click to Ship to Address
         actionClickShipToAddress();
+
+        // Click to Ship different Address
+        actionClickShipToDifferentAddress();
     }
 
     @Override
@@ -110,7 +116,16 @@ public class MaterialBillingInformationController extends SimiController {
         mOnClickShipToAddress = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mBillingManagerDelegate.chooseShipToAddress(SHIP_TO_ADDRESS);
+            }
+        };
+    }
 
+    private void actionClickShipToDifferentAddress(){
+        mOnClickShipToDifferentAdress = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBillingManagerDelegate.chooseShipToAddress(SHIP_TO_DIFFERENT_ADDRESS);
             }
         };
     }

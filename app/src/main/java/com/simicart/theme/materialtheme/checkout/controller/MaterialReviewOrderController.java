@@ -30,4 +30,9 @@ public class MaterialReviewOrderController extends SimiController implements Mat
     public void onSelectedBilling(MyAddress address) {
         mBillingAddress = address;
     }
+
+    @Override
+    public void chooseShipToAddress(int type) {
+
+    }
 }

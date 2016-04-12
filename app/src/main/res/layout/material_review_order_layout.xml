@@ -14,23 +14,71 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <include
-                android:id="@+id/inc_checkout_method"
+            <TextView
+                android:id="@+id/tv_checkout_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/material_include_checkout_method"/>
+                android:background="@drawable/core_review_line_border"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <include
+                android:id="@+id/inc_checkout_method"
+                layout="@layout/material_include_checkout_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_billing_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/core_review_line_border"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <include
                 android:id="@+id/inc_billing_infomation"
+                layout="@layout/material_include_billing_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_shipping_information"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/material_include_billing_information"/>
+                android:background="@drawable/core_review_line_border"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <include
                 android:id="@+id/inc_shipping_infomation"
+                layout="@layout/material_include_billing_information"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_shipping_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/material_include_billing_information"/>
+                android:background="@drawable/core_review_line_border"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <include
                 android:id="@+id/inc_shipping_method"
@@ -38,11 +86,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/tv_payment_infomation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/core_review_line_border"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
             <include
                 android:id="@+id/inc_payment_infomation"
                 layout="@layout/material_include_checkout_method"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_order_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/core_review_line_border"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <include
                 android:id="@+id/inc_order_reivew"

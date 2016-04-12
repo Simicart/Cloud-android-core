@@ -21,7 +21,6 @@ import java.util.ArrayList;
  * Created by Sony on 4/12/2016.
  */
 public class MaterialBillingInformationBlock extends SimiBlock {
-    protected TextView tv_billing_information;
     protected Spinner sp_billing_information;
     protected TextView tv_choose_ship_to_address;
     protected TextView tv_ship_to_different_address;
@@ -45,11 +44,6 @@ public class MaterialBillingInformationBlock extends SimiBlock {
 
     @Override
     public void initView() {
-        tv_billing_information = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_billing_information"));
-        tv_billing_information.setText("2" + " " + Config.getInstance().getText("Billing Information"));
-        tv_billing_information.setTextColor(Config.getInstance().getSection_text_color());
-        tv_billing_information.setBackgroundColor((Color.parseColor(Config.getInstance().getSection_color())));
-
         sp_billing_information = (Spinner) mView.findViewById(Rconfig.getInstance().id("sp_billing_information"));
 
         tv_choose_ship_to_address = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_choose_ship_to_address"));
