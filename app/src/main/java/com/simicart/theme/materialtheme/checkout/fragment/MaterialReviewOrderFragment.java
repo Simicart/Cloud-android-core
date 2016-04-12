@@ -40,6 +40,18 @@ public class MaterialReviewOrderFragment extends SimiFragment {
         Context context = getActivity();
 
         // Review Order
+        initReviewOrder(rootView, context);
+
+        // CheckOut Method
+        initCheckOutMethod(rootView, context);
+
+        // Billing Information
+        initBillingInformation(rootView, context);
+
+        return rootView;
+    }
+
+    private void initReviewOrder(View rootView, Context context){
         mBlock = new MaterialReviewOrderBlock(rootView, context);
         mBlock.initView();
         if (mController == null) {
@@ -50,8 +62,9 @@ public class MaterialReviewOrderFragment extends SimiFragment {
             mController.setDelegate(mBlock);
             mController.onResume();
         }
+    }
 
-        // CheckOut Method
+    private void initCheckOutMethod(View rootView, Context context){
         View view_checkout_method = (View) rootView.findViewById(Rconfig.getInstance().id("inc_checkout_method"));
         mCheckOutMethodBlock = new MaterialCheckOutMethodBlock(view_checkout_method, context);
         mCheckOutMethodBlock.initView();
@@ -62,19 +75,20 @@ public class MaterialReviewOrderFragment extends SimiFragment {
             mCheckOutMethodController.onResume();
         }
         mCheckOutMethodBlock.setOnClickCheckoutExistingCustomer(mCheckOutMethodController.getOnClickCheckoutExistingCustomer());
+    }
 
-        // Billing Information
+    private void initBillingInformation(View rootView, Context context){
         View view_billing_information = (View) rootView.findViewById(Rconfig.getInstance().id("inc_billing_infomation"));
         mBillingInformationBlock = new MaterialBillingInformationBlock(view_billing_information, context);
         mBillingInformationBlock.initView();
         if (mBillingInformationController == null) {
             mBillingInformationController = new MaterialBillingInformationController();
+            mBillingInformationController.setDelegate(mBillingInformationBlock);
             mBillingInformationController.onStart();
         } else {
+            mBillingInformationController.setDelegate(mBillingInformationBlock);
             mBillingInformationController.onResume();
         }
-
-        return rootView;
     }
 
     @Override

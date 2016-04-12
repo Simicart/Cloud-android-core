@@ -8,11 +8,12 @@ import android.widget.TextView;
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
+import com.simicart.theme.materialtheme.checkout.delegate.MaterialBillingInformationDelegate;
 
 /**
  * Created by Sony on 4/12/2016.
  */
-public class MaterialBillingInformationBlock extends SimiBlock{
+public class MaterialBillingInformationBlock extends SimiBlock implements MaterialBillingInformationDelegate{
     protected TextView tv_billing_information;
     protected TextView tv_choose_ship_to_address;
     protected TextView tv_ship_to_different_address;
