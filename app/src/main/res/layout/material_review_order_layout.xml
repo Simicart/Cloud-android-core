@@ -30,7 +30,8 @@
                 android:id="@+id/inc_checkout_method"
                 layout="@layout/material_include_checkout_method"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_billing_information"
@@ -48,7 +49,8 @@
                 android:id="@+id/inc_billing_infomation"
                 layout="@layout/material_include_billing_information"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_shipping_information"
@@ -66,7 +68,8 @@
                 android:id="@+id/inc_shipping_infomation"
                 layout="@layout/material_include_billing_information"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_shipping_method"
@@ -84,7 +87,8 @@
                 android:id="@+id/inc_shipping_method"
                 layout="@layout/material_include_checkout_method"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_payment_infomation"
@@ -102,7 +106,8 @@
                 android:id="@+id/inc_payment_infomation"
                 layout="@layout/material_include_checkout_method"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_order_review"
@@ -120,7 +125,8 @@
                 android:id="@+id/inc_order_reivew"
                 layout="@layout/material_include_checkout_method"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

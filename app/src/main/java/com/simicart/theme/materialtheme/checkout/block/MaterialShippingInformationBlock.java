@@ -1,13 +1,10 @@
 package com.simicart.theme.materialtheme.checkout.block;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.simicart.core.base.block.SimiBlock;
-import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.config.Config;
@@ -15,20 +12,18 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.entity.MyAddress;
 import com.simicart.core.customer.entity.ProfileEntity;
 import com.simicart.theme.materialtheme.checkout.adapter.MaterialAddressAdapter;
-import com.simicart.theme.materialtheme.checkout.delegate.MaterialShippingInformationDelegate;
-
 import java.util.ArrayList;
 
 /**
  * Created by Sony on 4/12/2016.
  */
-public class MaterialShippingInformationBlock extends SimiBlock implements MaterialShippingInformationDelegate{
+public class MaterialShippingInformationBlock extends SimiBlock {
     protected Spinner sp_shipping_information;
     protected TextView tv_use_billing_address;
     protected TextView tv_continue;
     protected MaterialAddressAdapter mAdapter;
 
-    public MaterialShippingInformationBlock(View view, Context context){
+    public MaterialShippingInformationBlock(View view, Context context) {
         super(view, context);
     }
 
@@ -56,11 +51,11 @@ public class MaterialShippingInformationBlock extends SimiBlock implements Mater
                             listAddress.add(myAddress);
                         }
                         if (listAddress.size() > 0) {
-                            if(mAdapter == null){
+                            if (mAdapter == null) {
                                 mAdapter = new MaterialAddressAdapter(mContext, listAddress);
                                 sp_shipping_information.setAdapter(mAdapter);
                                 sp_shipping_information.setSelection(0);
-                            }else{
+                            } else {
                                 mAdapter.setListAddress(listAddress);
                                 mAdapter.notifyDataSetChanged();
                             }

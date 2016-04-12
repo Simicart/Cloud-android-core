@@ -28,6 +28,8 @@ public class MaterialReviewOrderBlock extends SimiBlock implements MaterialRevie
     protected TextView tv_order_review;
     protected View inc_order_reivew;
 
+    private int SHIP_TO_ADDRESS = 0;
+    private int SHIP_TO_DIFFERENT_ADDRESS = 1;
 
     public MaterialReviewOrderBlock(View view, Context context) {
         super(view, context);
@@ -107,9 +109,22 @@ public class MaterialReviewOrderBlock extends SimiBlock implements MaterialRevie
 
     private void checkShowCheckOutMethod(){
         if (DataLocal.isSignInComplete()){
+            tv_checkout_information.setVisibility(View.GONE);
             inc_checkout_method.setVisibility(View.GONE);
+            inc_billing_infomation.setVisibility(View.VISIBLE);
         }else{
+            tv_checkout_information.setVisibility(View.VISIBLE);
             inc_checkout_method.setVisibility(View.VISIBLE);
+            inc_billing_infomation.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void showShippingInformation(int type) {
+        if(type == SHIP_TO_ADDRESS) {
+            inc_shipping_infomation.setVisibility(View.VISIBLE);
+        }else if (type == SHIP_TO_DIFFERENT_ADDRESS){
+            inc_shipping_infomation.setVisibility(View.GONE);
         }
     }
 }

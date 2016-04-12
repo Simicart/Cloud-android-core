@@ -1,7 +1,6 @@
 package com.simicart.theme.materialtheme.checkout.block;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;

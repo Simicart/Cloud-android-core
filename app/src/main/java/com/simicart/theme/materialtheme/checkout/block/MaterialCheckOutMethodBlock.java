@@ -1,11 +1,8 @@
 package com.simicart.theme.materialtheme.checkout.block;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
-
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;

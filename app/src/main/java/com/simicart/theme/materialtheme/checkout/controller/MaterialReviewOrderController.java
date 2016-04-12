@@ -33,6 +33,6 @@ public class MaterialReviewOrderController extends SimiController implements Mat
 
     @Override
     public void chooseShipToAddress(int type) {
-
+        mDelegate.showShippingInformation(type);
     }
 }
