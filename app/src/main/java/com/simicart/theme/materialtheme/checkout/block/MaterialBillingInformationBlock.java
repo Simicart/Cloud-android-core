@@ -3,9 +3,9 @@ package com.simicart.theme.materialtheme.checkout.block;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.simicart.core.base.block.SimiBlock;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
@@ -14,14 +14,13 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.entity.MyAddress;
 import com.simicart.core.customer.entity.ProfileEntity;
 import com.simicart.theme.materialtheme.checkout.adapter.MaterialAddressAdapter;
-import com.simicart.theme.materialtheme.checkout.delegate.MaterialBillingInformationDelegate;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sony on 4/12/2016.
  */
-public class MaterialBillingInformationBlock extends SimiBlock implements MaterialBillingInformationDelegate {
+public class MaterialBillingInformationBlock extends SimiBlock {
     protected TextView tv_billing_information;
     protected Spinner sp_billing_information;
     protected TextView tv_choose_ship_to_address;
@@ -30,6 +29,18 @@ public class MaterialBillingInformationBlock extends SimiBlock implements Materi
 
     public MaterialBillingInformationBlock(View view, Context context) {
         super(view, context);
+    }
+
+    public void setOnSelectedBilling(AdapterView.OnItemSelectedListener listener){
+        sp_billing_information.setOnItemSelectedListener(listener);
+    }
+
+    public void setOnClickShipToAddress(View.OnClickListener listener){
+        tv_choose_ship_to_address.setOnClickListener(listener);
+    }
+
+    public void setOnClickShipToDifferentAdress(View.OnClickListener listener){
+        tv_ship_to_different_address.setOnClickListener(listener);
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.View;
 
 import com.simicart.core.base.block.SimiBlock;
+import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialReviewOrderDelegate;
 
@@ -30,5 +31,15 @@ public class MaterialReviewOrderBlock extends SimiBlock implements MaterialRevie
         inc_shipping_method = (View) mView.findViewById(Rconfig.getInstance().id("inc_shipping_method"));
         inc_payment_infomation = (View) mView.findViewById(Rconfig.getInstance().id("inc_payment_infomation"));
         inc_order_reivew = (View) mView.findViewById(Rconfig.getInstance().id("inc_order_reivew"));
+
+        checkShowCheckOutMethod();
+    }
+
+    private void checkShowCheckOutMethod(){
+        if (DataLocal.isSignInComplete()){
+            inc_checkout_method.setVisibility(View.GONE);
+        }else{
+            inc_checkout_method.setVisibility(View.VISIBLE);
+        }
     }
 }

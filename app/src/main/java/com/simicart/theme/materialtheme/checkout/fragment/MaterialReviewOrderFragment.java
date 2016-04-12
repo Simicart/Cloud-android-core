@@ -91,11 +91,17 @@ public class MaterialReviewOrderFragment extends SimiFragment {
         if (mBillingInformationController == null) {
             mBillingInformationController = new MaterialBillingInformationController();
             mBillingInformationController.setDelegate(mBillingInformationBlock);
+            mBillingInformationController.setBillingManagerDelegate(mController);
             mBillingInformationController.onStart();
         } else {
             mBillingInformationController.setDelegate(mBillingInformationBlock);
+            mBillingInformationController.setBillingManagerDelegate(mController);
             mBillingInformationController.onResume();
         }
+
+        mBillingInformationBlock.setOnSelectedBilling(mBillingInformationController.getOnSelectedBilling());
+        mBillingInformationBlock.setOnClickShipToAddress(mBillingInformationController.getOnClickShipToAddress());
+        mBillingInformationBlock.setOnClickShipToDifferentAdress(mBillingInformationController.getOnClickShipToDifferentAdress());
     }
 
     private void initShippingInformation(View rootView, Context context){
@@ -104,8 +110,10 @@ public class MaterialReviewOrderFragment extends SimiFragment {
         mShippingInformationBlock.initView();
         if (mShippingInformationController == null) {
             mShippingInformationController = new MaterialShippingInformationController();
+            mShippingInformationController.setDelegate(mShippingInformationBlock);
             mShippingInformationController.onStart();
         } else {
+            mShippingInformationController.setDelegate(mShippingInformationBlock);
             mShippingInformationController.onResume();
         }
     }

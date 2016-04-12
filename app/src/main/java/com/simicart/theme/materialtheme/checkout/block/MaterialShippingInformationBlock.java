@@ -15,13 +15,14 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.entity.MyAddress;
 import com.simicart.core.customer.entity.ProfileEntity;
 import com.simicart.theme.materialtheme.checkout.adapter.MaterialAddressAdapter;
+import com.simicart.theme.materialtheme.checkout.delegate.MaterialShippingInformationDelegate;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sony on 4/12/2016.
  */
-public class MaterialShippingInformationBlock extends SimiBlock {
+public class MaterialShippingInformationBlock extends SimiBlock implements MaterialShippingInformationDelegate{
     protected TextView tv_shipping_information;
     protected Spinner sp_shipping_information;
     protected TextView tv_use_billing_address;
