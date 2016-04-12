@@ -26,7 +26,7 @@ public class MaterialReviewOrderFragment extends SimiFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
-                Rconfig.getInstance().layout("material_cart_layout"), container, false);
+                Rconfig.getInstance().layout("material_review_order_layout"), container, false);
         Context context = getActivity();
         mBlock = new MaterialReviewOrderBlock(rootView, context);
         mBlock.initView();
