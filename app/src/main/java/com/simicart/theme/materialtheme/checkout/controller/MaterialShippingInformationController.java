@@ -6,16 +6,16 @@ import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.config.DataLocal;
-import com.simicart.theme.materialtheme.checkout.delegate.MaterialBillingInformationDelegate;
+import com.simicart.theme.materialtheme.checkout.delegate.MaterialShippingInformationDelegate;
 import com.simicart.theme.materialtheme.checkout.model.MaterialAddressModel;
 
 /**
  * Created by Sony on 4/12/2016.
  */
-public class MaterialBillingInformationController extends SimiController {
-    protected MaterialBillingInformationDelegate mDelegate;
+public class MaterialShippingInformationController extends SimiController {
+    MaterialShippingInformationDelegate mDelegate;
 
-    public void setDelegate(MaterialBillingInformationDelegate mDelegate) {
+    public void setDelegate(MaterialShippingInformationDelegate mDelegate) {
         this.mDelegate = mDelegate;
     }
 

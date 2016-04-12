@@ -7,6 +7,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.simicart.core.base.block.SimiBlock;
+import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.config.Config;
@@ -14,38 +15,37 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.entity.MyAddress;
 import com.simicart.core.customer.entity.ProfileEntity;
 import com.simicart.theme.materialtheme.checkout.adapter.MaterialAddressAdapter;
-import com.simicart.theme.materialtheme.checkout.delegate.MaterialBillingInformationDelegate;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sony on 4/12/2016.
  */
-public class MaterialBillingInformationBlock extends SimiBlock implements MaterialBillingInformationDelegate {
-    protected TextView tv_billing_information;
-    protected Spinner sp_billing_information;
-    protected TextView tv_choose_ship_to_address;
-    protected TextView tv_ship_to_different_address;
+public class MaterialShippingInformationBlock extends SimiBlock {
+    protected TextView tv_shipping_information;
+    protected Spinner sp_shipping_information;
+    protected TextView tv_use_billing_address;
+    protected TextView tv_continue;
     protected MaterialAddressAdapter mAdapter;
 
-    public MaterialBillingInformationBlock(View view, Context context) {
+    public MaterialShippingInformationBlock(View view, Context context){
         super(view, context);
     }
 
     @Override
     public void initView() {
-        tv_billing_information = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_billing_information"));
-        tv_billing_information.setText("2" + " " + Config.getInstance().getText("Billing Information"));
-        tv_billing_information.setTextColor(Config.getInstance().getSection_text_color());
-        tv_billing_information.setBackgroundColor((Color.parseColor(Config.getInstance().getSection_color())));
+        tv_shipping_information = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_billing_information"));
+        tv_shipping_information.setText("3" + " " + Config.getInstance().getText("Shipping Information"));
+        tv_shipping_information.setTextColor(Config.getInstance().getSection_text_color());
+        tv_shipping_information.setBackgroundColor((Color.parseColor(Config.getInstance().getSection_color())));
 
-        sp_billing_information = (Spinner) mView.findViewById(Rconfig.getInstance().id("sp_billing_information"));
+        sp_shipping_information = (Spinner) mView.findViewById(Rconfig.getInstance().id("sp_billing_information"));
 
-        tv_choose_ship_to_address = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_choose_ship_to_address"));
-        tv_choose_ship_to_address.setText(Config.getInstance().getText("Ship to this address"));
+        tv_use_billing_address = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_choose_ship_to_address"));
+        tv_use_billing_address.setText(Config.getInstance().getText("Use Billing Address"));
 
-        tv_ship_to_different_address = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_ship_to_different_address"));
-        tv_ship_to_different_address.setText(Config.getInstance().getText("Ship to different address"));
+        tv_continue = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_ship_to_different_address"));
+        tv_continue.setText(Config.getInstance().getText("Continue"));
     }
 
     @Override
@@ -63,8 +63,8 @@ public class MaterialBillingInformationBlock extends SimiBlock implements Materi
                         if (listAddress.size() > 0) {
                             if(mAdapter == null){
                                 mAdapter = new MaterialAddressAdapter(mContext, listAddress);
-                                sp_billing_information.setAdapter(mAdapter);
-                                sp_billing_information.setSelection(0);
+                                sp_shipping_information.setAdapter(mAdapter);
+                                sp_shipping_information.setSelection(0);
                             }else{
                                 mAdapter.setListAddress(listAddress);
                                 mAdapter.notifyDataSetChanged();
