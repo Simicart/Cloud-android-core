@@ -25,6 +25,7 @@ public class MaterialShippingInformationController extends SimiController {
     protected SimiDelegate mDelegate;
     protected MaterialShippingManagerDelegate mShippingManagerDelegater;
     protected AdapterView.OnItemSelectedListener onSelectedShipping;
+    protected View.OnClickListener onClickContinue;
 
     public void setDelegate(SimiDelegate mDelegate) {
         this.mDelegate = mDelegate;
@@ -45,6 +46,9 @@ public class MaterialShippingInformationController extends SimiController {
 
         // Choose Shipping
         actionSelectedShipping();
+
+        // Click Continue
+        actionClickContinue();
     }
 
     @Override
@@ -89,6 +93,15 @@ public class MaterialShippingInformationController extends SimiController {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+    }
+
+    private void actionClickContinue(){
+        onClickContinue = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         };
