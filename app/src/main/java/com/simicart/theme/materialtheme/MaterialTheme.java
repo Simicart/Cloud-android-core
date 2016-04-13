@@ -17,6 +17,7 @@ import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 import com.simicart.core.menutop.fragment.FragmentMenuTop;
 import com.simicart.theme.materialtheme.categorydetail.fragment.MaterialCategoryDetailFragment;
 import com.simicart.theme.materialtheme.customer.signin.fragment.MaterialSignInFragment;
+import com.simicart.theme.materialtheme.checkout.fragment.MaterialCartFragment;
 import com.simicart.theme.materialtheme.home.fragment.MaterialHomeFragment;
 import com.simicart.theme.materialtheme.menutop.fragment.MaterialMenuTopFragment;
 
@@ -67,6 +68,22 @@ public class MaterialTheme {
             }
         };
         LocalBroadcastManager.getInstance(context).registerReceiver(receiver_cateDetail, filter_cateDetail);
+
+        //register event of cart
+        IntentFilter filter_cart = new IntentFilter("com.simicart.core.checkout.fragment.CartFragment");
+        final BroadcastReceiver receiver_cart = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Bundle bundle = intent.getBundleExtra(Constants.DATA);
+                SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
+
+                Log.e("MaterialTheme", "===============> Open MaterialCartFragment");
+
+                MaterialCartFragment fragment = new MaterialCartFragment();
+                entity.setFragmetn(fragment);
+            }
+        };
+        LocalBroadcastManager.getInstance(context).registerReceiver(receiver_cart, filter_cart);
 
         // register event of menutop
 //        IntentFilter filter_menutop = new IntentFilter("com.simicart.core.menutop.fragment.FragmentMenuTop");
