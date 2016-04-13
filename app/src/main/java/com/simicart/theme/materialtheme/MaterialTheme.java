@@ -18,6 +18,8 @@ import com.simicart.core.menutop.fragment.FragmentMenuTop;
 import com.simicart.theme.materialtheme.categorydetail.fragment.MaterialCategoryDetailFragment;
 import com.simicart.theme.materialtheme.customer.signin.fragment.MaterialSignInFragment;
 import com.simicart.theme.materialtheme.checkout.fragment.MaterialCartFragment;
+import com.simicart.theme.materialtheme.checkout.fragment.MaterialCartFragment;
+import com.simicart.theme.materialtheme.customer.signin.fragment.MaterialSignInFragment;
 import com.simicart.theme.materialtheme.home.fragment.MaterialHomeFragment;
 import com.simicart.theme.materialtheme.menutop.fragment.MaterialMenuTopFragment;
 
