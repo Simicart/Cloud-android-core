@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFF"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <RelativeLayout
             android:id="@+id/relative"
@@ -17,14 +17,14 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:orientation="vertical"
-            android:paddingTop="5dp" >
+            android:paddingTop="5dp">
 
             <LinearLayout
                 android:id="@+id/ll_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <EditText
                     android:id="@+id/edt_first_name"
@@ -59,29 +59,33 @@
                     android:inputType="textEmailAddress"
                     android:textSize="16sp" />
 
-
-                <EditText
-                    android:id="@+id/et_street"
+                <RelativeLayout
+                    android:id="@+id/rl_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background_edittext"
-                    android:ems="16"
-                    android:inputType="textPersonName"
-                    android:textSize="16sp" />
+                    android:paddingRight="5dp">
 
+                    <TextView
+                        android:id="@+id/tv_country"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/imv_extend_ct"
+                        android:gravity="center_vertical"
+                        android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/et_city"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp"
-                    android:background="@drawable/background_edittext"
-                    android:ems="16"
-                    android:inputType="text"
-                    android:textSize="16sp" />
+                    <ImageView
+                        android:id="@+id/imv_extend_ct"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_extend" />
+                </RelativeLayout>
 
                 <EditText
                     android:id="@+id/et_state"
@@ -101,7 +105,7 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background_edittext"
-                    android:paddingRight="5dp" >
+                    android:paddingRight="5dp">
 
                     <TextView
                         android:id="@+id/tv_state"
@@ -122,33 +126,28 @@
                         android:src="@drawable/ic_extend" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/rl_country"
+                <EditText
+                    android:id="@+id/et_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:layout_marginTop="5dp"
                     android:background="@drawable/background_edittext"
-                    android:paddingRight="5dp" >
+                    android:ems="16"
+                    android:inputType="text"
+                    android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/tv_country"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_toLeftOf="@+id/imv_extend_ct"
-                        android:gravity="center_vertical"
-                        android:textSize="16sp" />
+                <EditText
+                    android:id="@+id/et_street"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/background_edittext"
+                    android:ems="16"
+                    android:inputType="textPersonName"
+                    android:textSize="16sp" />
 
-                    <ImageView
-                        android:id="@+id/imv_extend_ct"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_extend" />
-                </RelativeLayout>
 
                 <EditText
                     android:id="@+id/et_zipcode"

@@ -71,7 +71,6 @@ public class NewAddressBookBlock extends SimiBlock implements
 
     @Override
     public void initView() {
-
         edt_first_name = (EditText) mView.findViewById(Rconfig.getInstance().id(
                 "edt_first_name"));
         edt_last_name = (EditText) mView.findViewById(Rconfig.getInstance().id(
@@ -342,9 +341,9 @@ public class NewAddressBookBlock extends SimiBlock implements
     public void updateState(String state) {
         if (Utils.validateString(state)) {
             edt_state.setVisibility(View.GONE);
-            if (rl_state.getVisibility() == View.VISIBLE) {
-                tv_state.setText(state);
-            }
+            rl_state.setVisibility(View.VISIBLE);
+            tv_state.setVisibility(View.VISIBLE);
+            tv_state.setText(state);
         } else {
             edt_state.setVisibility(View.GONE);
             edt_state.setHint(Config.getInstance().getText("State"));

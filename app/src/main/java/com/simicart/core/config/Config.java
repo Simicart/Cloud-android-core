@@ -1,13 +1,11 @@
 package com.simicart.core.config;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.util.Log;
 
 import com.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
@@ -17,15 +15,28 @@ import com.simicart.core.splashscreen.entity.BaseCurrencyEntity;
 import com.simicart.core.splashscreen.entity.ConfigEntity;
 import com.simicart.core.splashscreen.entity.CurrencyEntity;
 import com.simicart.core.splashscreen.entity.FormatConfigEntity;
+import com.simicart.core.splashscreen.entity.GeneralConfigEntity;
 import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
 import com.simicart.core.splashscreen.entity.TaxConfigEntity;
 import com.simicart.core.splashscreen.entity.ThemeConfigEntity;
 
+import org.json.JSONObject;
+
 @SuppressLint("DefaultLocale")
 public class Config {
+
+//    private String mBaseUrl = "BASE_URL";
+//    private String mSecretKey = "SECRET_KEY";
+//    private String mDemoEnable = "DEMO_ENABLE";
+//    private String mColorSplashScreen = "SCREEN_COLOR";
+
+
     private String mBaseUrl = "http://dev-api.jajahub.com/rest/";
     // Android account
     private String mSecretKey = "096a00bc5958983da94aebebfb78e92fd5cbbaf1";
+
+    private String mDemoEnable = "DEMO_ENABLE11";
+    private String mColorSplashScreen = "#FFFFFF";
     // Zara account
 //    private String mSecretKey = "5ed6a808a6142d936196cb4f69a781f7af02fb3a";
     // key site live : c843176d88b6e9a21f848482044503ea7ae82e85, api.jajahub.com/rest/
@@ -55,9 +66,9 @@ public class Config {
     private String search_icon_color = "#8b8b8b";
     private String config_theme = "default";
     private String mCurrencyCode;
-    private String mDemoEnable = "DEMO_ENABLE11";
+
     private String mSenderID = "";
-    private String mColorSplashScreen = "#FFFFFF";
+
     private String mFontCustom = "fonts/ProximaNovaLight.ttf";
     private String mDefaulList = "0";
     private String mStoreName;
@@ -78,7 +89,11 @@ public class Config {
     private boolean isLeft;
     private boolean hasSpace;
     private int mTheme = 0; // 0 : default, 1 : matrix , 2 ztheme
+    private String mDefaultCountryName;
+    private String mDefaultCountryCode;
+
     private static Config instance;
+
 
     private Config() {
         mLanguages = new HashMap<String, String>();
@@ -92,6 +107,21 @@ public class Config {
         return instance;
     }
 
+    public String getDefaultCountryName() {
+        return mDefaultCountryName;
+    }
+
+    public void setDefaultCountryName(String mDefaultCountryName) {
+        this.mDefaultCountryName = mDefaultCountryName;
+    }
+
+    public String getDefaultCountryCode() {
+        return mDefaultCountryCode;
+    }
+
+    public void setDefaultCountryCode(String mDefaultCountryCode) {
+        this.mDefaultCountryCode = mDefaultCountryCode;
+    }
 
     public void setNumberDecimal(int number) {
         numberDecimal = number;
@@ -420,8 +450,8 @@ public class Config {
         }
     }
 
-    public void clearLanguages(){
-        if(mLanguages != null){
+    public void clearLanguages() {
+        if (mLanguages != null) {
             mLanguages.clear();
         }
     }
@@ -463,13 +493,11 @@ public class Config {
     }
 
     public String getCurrency_code() {
-        Log.e("CONFIG  ","------> GET CURRENCY CODE " + mCurrencyCode);
         return mCurrencyCode;
     }
 
     public void setCurrency_code(String currency_code) {
         mCurrencyCode = currency_code;
-        Log.e("CONFIG  ","------> SET CURRENCY CODE " + mCurrencyCode);
     }
 
     public String getConnectorUrl() {
@@ -488,7 +516,6 @@ public class Config {
     public int getColorSplash() {
         return Color.parseColor(mColorSplashScreen);
     }
-
 
 
     public String getFontCustom() {
@@ -559,8 +586,8 @@ public class Config {
 
     public boolean isRTLLanguage(String locale) {
         String[] rtl = SimiManager.getIntance().getCurrentContext().getResources().getStringArray(R.array.rtl);
-        for(int i=0;i<rtl.length;i++) {
-            if(locale.equals(rtl[i]))
+        for (int i = 0; i < rtl.length; i++) {
+            if (locale.equals(rtl[i]))
                 return true;
         }
         return false;
@@ -570,7 +597,6 @@ public class Config {
         FormatConfigEntity formatEntity = configEntity.getFormatOption();
         CurrencyEntity currency = formatEntity.getCurrency();
 
-        Log.e("CONFIG ", "-------> CODE " + currency.getBaseCurrency().getCode());
 
         instance.setCurrency_code(currency.getBaseCurrency().getCode());
         instance.setStore_name(configEntity.getGeneral().getStoreName());
@@ -618,7 +644,25 @@ public class Config {
             instance.setTaxCart(taxConfig.isTaxCart());
         }
 
-        ArrayList<LocaleConfigEntity> listLocale = configEntity.getGeneral().getLocaleApp();
+        GeneralConfigEntity general = configEntity.getGeneral();
+
+        JSONObject js_general = general.getJSONObject();
+        if (js_general.has("country")) {
+            try {
+                JSONObject js_country = js_general.getJSONObject("country");
+                if (js_country.has("code")) {
+                    mDefaultCountryCode = js_country.getString("code");
+                }
+
+                if (js_country.has("name")) {
+                    mDefaultCountryName = js_country.getString("name");
+                }
+            } catch (Exception e) {
+
+            }
+        }
+
+        ArrayList<LocaleConfigEntity> listLocale = general.getLocaleApp();
         if (listLocale != null && listLocale.size() > 0) {
             DataLocal.listLocale = listLocale;
             String preLocale = DataLocal.getLocale();
@@ -626,9 +670,7 @@ public class Config {
                 String locale = listLocale.get(0).getCode();
                 if (Utils.validateString(locale)) {
                     instance.setLocale_identifier(locale);
-                    Log.e("Config", "++" + locale);
-                    if(isRTLLanguage(locale) == true) {
-                        Log.e("Config", "is RTL language");
+                    if (isRTLLanguage(locale) == true) {
                         DataLocal.isLanguageRTL = true;
                     }
                 }
@@ -641,16 +683,14 @@ public class Config {
                 }
                 if (checkLocale) {
                     instance.setLocale_identifier(preLocale);
-                    if(isRTLLanguage(preLocale) == true) {
-                        Log.e("Config", "is RTL language");
+                    if (isRTLLanguage(preLocale) == true) {
                         DataLocal.isLanguageRTL = true;
                     }
                 } else {
                     String locale = listLocale.get(0).getCode();
                     if (Utils.validateString(locale)) {
                         instance.setLocale_identifier(locale);
-                        if(isRTLLanguage(locale) == true) {
-                            Log.e("Config", "is RTL language");
+                        if (isRTLLanguage(locale) == true) {
                             DataLocal.isLanguageRTL = true;
                         }
                     }

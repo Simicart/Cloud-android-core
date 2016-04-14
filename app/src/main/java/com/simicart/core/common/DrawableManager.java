@@ -296,9 +296,6 @@ public class DrawableManager {
     public static void fetchDrawableOnThread(final String urlString,
                                              final ImageView imageView) {
 
-        // Context context = imageView.getContext();
-        // Glide.with(context).load(urlString).into(imageView);
-
         init();
 
         Bitmap cache_bitMap = getBitmapFromMemCache(urlString);
@@ -499,11 +496,11 @@ public class DrawableManager {
                 // conn.disconnect();
                 return bitMap;
             } else {
-                Log.e("Drawable Manager ", "STATUS CODE " + status);
+                Log.e("Drawable Manager ", "------------> STATUS CODE " + status);
                 return null;
             }
         } catch (Exception e) {
-            Log.e("Drawable Manager ", e.toString());
+            Log.e("Drawable Manager ","---------------->"+ e.toString());
             return null;
         }
 

@@ -71,7 +71,7 @@ public class ManageCustomOptionView implements ManageCustomOptionDelegate {
                 }
             }
             // single choice type
-            else if (type.equals(radio) || type.equals(checkbox) || type.equals(drop_down)) {
+            else if (type.equals(radio)  || type.equals(drop_down)) {
                 SingleCustomOptionView singleView = new SingleCustomOptionView(customEntity);
                 singleView.setDelegate(this);
                 View view = singleView.initOptionsView();
@@ -83,7 +83,7 @@ public class ManageCustomOptionView implements ManageCustomOptionDelegate {
             }
 
             // multi choice type
-            else if (type.equals(multiple)) {
+            else if (type.equals(multiple) || type.equals(checkbox)) {
                 MultiCustomOptionView multiView = new MultiCustomOptionView(customEntity);
                 multiView.setDelegate(this);
                 View view = multiView.initOptionsView();

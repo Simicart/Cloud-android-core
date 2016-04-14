@@ -106,6 +106,7 @@ public class VariantAttributeView implements VariantAttributeDelegate {
     @Override
     public ArrayList<VariantEntity> onReceive(ArrayList<VariantEntity> listVariantAvaiable) {
 
+
         // kiem tra neu nguoi dung da chon 1 gia tri va gia tri nay phu hop voi list variant thi khong can chon nua
 
         ArrayList<String> listValue = new ArrayList<String>();

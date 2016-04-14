@@ -133,6 +133,7 @@ public class NewAddressBookController extends SimiController implements
             }
         };
 
+
         mDelegate.createView(mAfterController);
     }
 
@@ -292,6 +293,7 @@ public class NewAddressBookController extends SimiController implements
 
                         mDelegate.updateState(mCurrentState);
                         mDelegate.updateView(mModel.getCollection());
+                        selectDefaultCountry();
                     }
                 }
             }
@@ -299,6 +301,15 @@ public class NewAddressBookController extends SimiController implements
 
         mModel.request();
     }
+
+
+    protected void selectDefaultCountry() {
+        String default_country = Config.getInstance().getDefaultCountryName();
+        if (Utils.validateString(default_country)) {
+            chooseCountry(TYPE_SELECT_COUNTRY, default_country);
+        }
+    }
+
 
     protected void OnRequestChangeAddress(final MyAddress address) {
         mDelegate.showLoading();
@@ -515,7 +526,9 @@ public class NewAddressBookController extends SimiController implements
                                                  ArrayList<CountryAllowed> listCountry) {
         ArrayList<String> states = new ArrayList<String>();
         for (CountryAllowed countryAllowed : listCountry) {
-            if (countryAllowed.getName().equals(country)) {
+
+            String current_name = countryAllowed.getName();
+            if (current_name.equals(country)) {
                 if (countryAllowed.getState() != null) {
                     for (StateOfCountry state : countryAllowed.getState()) {
                         states.add(state.getName());
@@ -539,6 +552,7 @@ public class NewAddressBookController extends SimiController implements
             } else {
                 mCurrentState = "";
             }
+
             mDelegate.updateState(mCurrentState);
 
         } else if (type == TYPE_SELECT_STATE) {

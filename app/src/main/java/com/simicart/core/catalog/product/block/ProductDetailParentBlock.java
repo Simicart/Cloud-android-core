@@ -222,18 +222,10 @@ public class ProductDetailParentBlock extends SimiBlock implements
                     && ll_bottom.getVisibility() == View.VISIBLE) {
                 tv_name_product.setVisibility(View.GONE);
                 rlt_top.setVisibility(View.GONE);
-                // rlt_param_left.setMargins(0, 0, 0, 0);
-                // rlt_param_right.setMargins(0, 0, 0, 0);
-                // rlt_left_overlay.setLayoutParams(rlt_param_left);
-                // rlt_right_overlay.setLayoutParams(rlt_param_right);
                 ll_bottom.setVisibility(View.GONE);
             } else {
                 tv_name_product.setVisibility(View.VISIBLE);
                 rlt_top.setVisibility(View.VISIBLE);
-                // rlt_param_left.setMargins(0, Utils.getValueDp(50), 0, 0);
-                // rlt_param_right.setMargins(0, Utils.getValueDp(50), 0, 0);
-                // rlt_left_overlay.setLayoutParams(rlt_param_left);
-                // rlt_right_overlay.setLayoutParams(rlt_param_right);
                 ll_bottom.setVisibility(View.VISIBLE);
                 showNameProduct();
             }

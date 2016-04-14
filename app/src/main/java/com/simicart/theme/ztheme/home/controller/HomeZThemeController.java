@@ -58,17 +58,15 @@ public class HomeZThemeController extends SimiController {
 						.getCollection();
 				if (null != entity && entity.size() > 0) {
 					for (SimiEntity simiEntity : entity) {
-						//Category category = (Category) simiEntity;
 						CategoryZTheme cat = new CategoryZTheme();
 						cat.setJSONObject(simiEntity.getJSONObject());
 						cat.parse();
-						if(cat == null)
-							Log.e("abc", "null");
 						if(cat.hasChild()) {
 							mListChild = new ArrayList<CategoryZTheme>();
 							getGroupChild(cat);
 							cat.setmCategories(mListChild);
 						}
+						cat.setType(CategoryZTheme.TYPE_CAT);
 						mDelegate.updateData(cat);
 						mCategories.add(cat);
 					}
@@ -102,6 +100,7 @@ public class HomeZThemeController extends SimiController {
 						spot.parse();
 						CategoryZTheme cat = new CategoryZTheme();
 						cat.setSpotProductZTheme(spot);
+						cat.setType(CategoryZTheme.TYPE_SPOT);
 						mDelegate.updateData(cat);
 						mCategories.add(cat);
 					}
@@ -132,8 +131,6 @@ public class HomeZThemeController extends SimiController {
 						CategoryZTheme cat = new CategoryZTheme();
 						cat.setJSONObject(simiEntity.getJSONObject());
 						cat.parse();
-						if (cat == null)
-							Log.e("abc", "null");
 						mListChild.add(cat);
 					}
 				}
@@ -151,15 +148,17 @@ public class HomeZThemeController extends SimiController {
 			@Override
 			public boolean onGroupClick(ExpandableListView parent, View v,
 					int groupPosition, long id) {
-				switch (((CategoryZTheme)mCategories.get(groupPosition)).getType()) {
+
+				CategoryZTheme cate =(CategoryZTheme)mCategories.get(groupPosition);
+				int type = cate.getType();
+				switch (type) {
 				case CategoryZTheme.TYPE_CAT:
-					if (!mCategories.get(groupPosition).hasChild()) {
-						selectCat(mCategories.get(groupPosition), false);
+					if (!cate.hasChild()) {
+						selectCat(cate, false);
 					}
 					break;
 				case CategoryZTheme.TYPE_SPOT:
-					selectSpot(((CategoryZTheme) mCategories.get(groupPosition))
-							.getSpotProductZTheme());
+					selectSpot(cate.getSpotProductZTheme());
 					break;
 				default:
 					break;
@@ -214,7 +213,6 @@ public class HomeZThemeController extends SimiController {
 				}
 			}
 		}
-		Log.e("CateogryCustomAdapter", "arrToString " + builder.toString());
 		return builder.toString();
 	}
 
@@ -234,12 +232,11 @@ public class HomeZThemeController extends SimiController {
 			if(isChild == false)
 				catID = category.getCategoryID();
 			else
-				catID = category.getID();
+			catID = category.getID();
 			CategoryDetailFragment fragment = CategoryDetailFragment
 					.newInstance();
 			fragment.setCategoryId(catID);
 			fragment.setCategoryName(category.getCategoryName());
-			Log.e("CategoryID", "++" + catID);
 			if (catID.equals("-1")) {
 				fragment.setUrlSearch("products");
 			} else {
