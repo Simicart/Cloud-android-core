@@ -96,7 +96,11 @@ public class ValueSingleChoice extends ValueView {
             });
 
         } else {
-            checkSaved();
+            if (!checkSaved()) {
+                if (mValue.isDefault()) {
+                    selectOption(true);
+                }
+            }
             ll_option.setOnClickListener(new OnClickListener() {
 
                 @Override
@@ -145,6 +149,6 @@ public class ValueSingleChoice extends ValueView {
 
         Log.e("ValueSingleChoice ", "======> CHECK " + mValue.isChecked());
 
-        return  mValue.isChecked();
+        return mValue.isChecked();
     }
 }

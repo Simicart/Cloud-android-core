@@ -50,7 +50,7 @@ public class ManageBundleItemView implements ManageCustomOptionDelegate {
         for (int i = 0; i < mListBundle.size(); i++) {
             CustomOptionEntity bundleItem = mListBundle.get(i);
             String type = bundleItem.getType();
-            if (type.equals(radio) || type.equals(checkbox) || type.equals(drop_down)) {
+            if (type.equals(radio) || type.equals(drop_down)) {
                 SingleBundleItemView singleView = new SingleBundleItemView(bundleItem);
                 singleView.setDelegate(this);
                 View view = singleView.initOptionsView();
@@ -58,7 +58,7 @@ public class ManageBundleItemView implements ManageCustomOptionDelegate {
                     ll_bundle.addView(view, params);
                     mListBundleView.add(singleView);
                 }
-            } else if (type.equals(multiple)) {
+            } else if (type.equals(multiple) || type.equals(checkbox) ) {
                 MultiBundleItemView multiView = new MultiBundleItemView(bundleItem);
                 multiView.setDelegate(this);
                 View view = multiView.initOptionsView();

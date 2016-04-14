@@ -61,7 +61,11 @@ public class ValueMultiChoice extends ValueView {
             tv_price.setVisibility(View.INVISIBLE);
         }
 
-        checkSaved();
+        if (!checkSaved()) {
+            if (mValue.isDefault()) {
+                selectOption(true);
+            }
+        }
 
         ll_option.setOnClickListener(new OnClickListener() {
 
@@ -113,46 +117,11 @@ public class ValueMultiChoice extends ValueView {
             mValue.setChecked(true);
             mDelegate.updateStateCacheOption(mValue.getID(), true);
 
-//                mDelegate
-//                        .updatePriceForHeader(""
-//                                + Config.getInstance()
-//                                .getPrice(
-//                                        ""
-//                                                + ((CustomOptionDelegate) mDelegate)
-//                                                .getPriceMulti()));
-//            }
-
-
             mDelegate.updatePriceParent(mValue, CustomOptionView.ADD_OPERATOR);
 
         } else {
             updateView(false);
-//            ((CustomOptionDelegate) mDelegate).updatePriceMulti(
-//                    optionPrice, CustomOptionView.SUB_OPERATOR);
             mDelegate.updateStateCacheOption(mValue.getID(), false);
-
-//            if (((CustomOptionDelegate) mDelegate).getPriceMulti() == 0
-//                    && !((CustomOptionDelegate) mDelegate).isCheckedAll()) {
-//                if (((CustomOptionDelegate) mDelegate).isRequired()) {
-//                    mDelegate.updatePriceForHeader(Config.getInstance()
-//                            .getText("*"));
-//                } else {
-//                    mDelegate.updatePriceForHeader("");
-//                }
-//            } else {
-//                mDelegate
-//                        .updatePriceForHeader(""
-//                                + Config.getInstance()
-//                                .getPrice(
-//                                        ""
-//                                                + ((CustomOptionDelegate) mDelegate)
-//                                                .getPriceMulti()));
-//                if (!Config.getInstance().isShow_zero_price()
-//                        && ((CustomOptionDelegate) mDelegate)
-//                        .getPriceMulti() == 0) {
-//                    mDelegate.updatePriceForHeader("");
-//                }
-//            }
             mValue.setChecked(false);
             mDelegate.updatePriceParent(mValue, CustomOptionView.SUB_OPERATOR);
         }
