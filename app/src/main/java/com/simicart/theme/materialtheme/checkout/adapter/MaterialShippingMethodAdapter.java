@@ -32,8 +32,9 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
     private Context mContext;
     protected int mIDIconNormal;
     protected int mIDIconChecked;
+    private OnItemClickListener listener;
 
-    public MaterialShippingMethodAdapter(ArrayList<ShippingMethod> listShippingMethod, Context mContext){
+    public MaterialShippingMethodAdapter(ArrayList<ShippingMethod> listShippingMethod, Context mContext) {
         this.mContext = mContext;
         this.listShippingMethod = listShippingMethod;
         mIDIconNormal = Rconfig.getInstance().drawable("core_radiobox");
@@ -42,6 +43,14 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
 
     public void setListShippingMethod(ArrayList<ShippingMethod> listShippingMethod) {
         this.listShippingMethod = listShippingMethod;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(ShippingMethod item, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -53,8 +62,8 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        ShippingMethod shippingMethod = listShippingMethod.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final ShippingMethod shippingMethod = listShippingMethod.get(position);
 
         Drawable icon = null;
         if (shippingMethod.getIsSelected()) {
@@ -71,9 +80,9 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
         holder.shipping_checkbox.setId(ViewIdGenerator.generateViewId());
 
         holder.shipping_title.setText(shippingMethod.getServiceName());
-        if(!DataLocal.isLanguageRTL){
+        if (!DataLocal.isLanguageRTL) {
             holder.shipping_title.setGravity(Gravity.LEFT);
-        }else{
+        } else {
             holder.shipping_title.setGravity(Gravity.RIGHT);
         }
 
@@ -109,6 +118,15 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
                     + Config.getInstance().getPrice(incl_tax) + "</font>)";
             holder.shipping_price.setText(Html.fromHtml(price_method));
         }
+
+        holder.cv_shipping_method.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(shippingMethod, position);
+                }
+            }
+        });
 
     }
 

@@ -21,6 +21,7 @@ public class MaterialReviewOrderController extends SimiController implements Mat
     protected MyAddress mShippingAddress;
     protected MaterialShippingMethodController mShippingMethodController;
     protected ArrayList<ShippingMethod> listShippingMethod;
+    protected ShippingMethod shippingMethod;
 
     public void setDelegate(MaterialReviewOrderDelegate mDelegate) {
         this.mDelegate = mDelegate;
@@ -69,5 +70,11 @@ public class MaterialReviewOrderController extends SimiController implements Mat
     public void showShippingMethod(ArrayList<ShippingMethod> listShippingMethod) {
         this.listShippingMethod = listShippingMethod;
         mDelegate.showShippingMethod();
+    }
+
+    @Override
+    public void selectedShippingMethod(ShippingMethod shippingMethod) {
+        this.shippingMethod = shippingMethod;
+        Log.e("MaterialReviewOrderController", "ShippingMethod: " + shippingMethod.getServiceName());
     }
 }

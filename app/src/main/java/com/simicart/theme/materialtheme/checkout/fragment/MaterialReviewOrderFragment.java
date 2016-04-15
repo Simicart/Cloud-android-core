@@ -146,6 +146,7 @@ public class MaterialReviewOrderFragment extends SimiFragment {
             mShippingMethodController.onResume();
         }
         mController.setShippingMethodController(mShippingMethodController);
+        mShippingMethodBlock.setOnItemClick(mShippingMethodController.getOnItemClick());
     }
 
     @Override

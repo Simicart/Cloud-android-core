@@ -20,9 +20,14 @@ import java.util.ArrayList;
 public class MaterialShippingMethodBlock extends SimiBlock {
     protected RecyclerView rcv_shipping_method;
     protected MaterialShippingMethodAdapter mAdapter;
+    MaterialShippingMethodAdapter.OnItemClickListener onSelectItemlistener;
 
     public MaterialShippingMethodBlock(View view, Context context) {
         super(view, context);
+    }
+
+    public void setOnItemClick(MaterialShippingMethodAdapter.OnItemClickListener listener){
+        this.onSelectItemlistener = listener;
     }
 
     @Override
@@ -52,7 +57,7 @@ public class MaterialShippingMethodBlock extends SimiBlock {
                         mAdapter.setListShippingMethod(shippingMethodsArr);
                         mAdapter.notifyDataSetChanged();
                     }
-
+                    mAdapter.setOnItemClickListener(onSelectItemlistener);
                     rcv_shipping_method.setNestedScrollingEnabled(false);
                 }
             }

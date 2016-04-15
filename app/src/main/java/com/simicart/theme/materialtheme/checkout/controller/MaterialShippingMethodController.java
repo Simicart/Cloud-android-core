@@ -11,6 +11,7 @@ import com.simicart.core.checkout.model.UpdateShippingToQuoteModel;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.customer.entity.MyAddress;
+import com.simicart.theme.materialtheme.checkout.adapter.MaterialShippingMethodAdapter;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialShippingMethodManagerDelegate;
 
 import org.json.JSONException;
@@ -25,6 +26,7 @@ public class MaterialShippingMethodController extends SimiController {
     protected SimiDelegate mDelegate;
     protected MaterialShippingMethodManagerDelegate mShippingMethodManagerDelegate;
     protected ArrayList<ShippingMethod> mShippingmethod;
+    protected MaterialShippingMethodAdapter.OnItemClickListener onItemClick;
 
     public void setDelegate(SimiDelegate mDelegate) {
         this.mDelegate = mDelegate;
@@ -34,9 +36,18 @@ public class MaterialShippingMethodController extends SimiController {
         this.mShippingMethodManagerDelegate = mShippingMethodManagerDelegate;
     }
 
+    public MaterialShippingMethodAdapter.OnItemClickListener getOnItemClick() {
+        return onItemClick;
+    }
+
     @Override
     public void onStart() {
-
+        onItemClick = new MaterialShippingMethodAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ShippingMethod item, int position) {
+                mShippingMethodManagerDelegate.selectedShippingMethod(item);
+            }
+        };
     }
 
     @Override

@@ -9,4 +9,6 @@ import java.util.ArrayList;
  */
 public interface MaterialShippingMethodManagerDelegate {
     public void showShippingMethod(ArrayList<ShippingMethod> listShippingMethod);
+
+    public void selectedShippingMethod(ShippingMethod shippingMethod);
 }
