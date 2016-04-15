@@ -8,4 +8,7 @@ import com.simicart.core.customer.entity.MyAddress;
  */
 public interface MaterialReviewOrderDelegate extends SimiDelegate{
     public void showShippingInformation(int type);
+
+    public void showShippingMethod();
+
 }

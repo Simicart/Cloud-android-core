@@ -25,6 +25,7 @@ public class MaterialShippingInformationController extends SimiController {
     protected SimiDelegate mDelegate;
     protected MaterialShippingManagerDelegate mShippingManagerDelegater;
     protected AdapterView.OnItemSelectedListener onSelectedShipping;
+    protected View.OnClickListener onUseBliingAddress;
     protected View.OnClickListener onClickContinue;
 
     public void setDelegate(SimiDelegate mDelegate) {
@@ -33,6 +34,14 @@ public class MaterialShippingInformationController extends SimiController {
 
     public void setShippingManagerDelegater(MaterialShippingManagerDelegate mShippingManagerDelegater) {
         this.mShippingManagerDelegater = mShippingManagerDelegater;
+    }
+
+    public View.OnClickListener getOnUseBliingAddress() {
+        return onUseBliingAddress;
+    }
+
+    public View.OnClickListener getOnClickContinue() {
+        return onClickContinue;
     }
 
     public AdapterView.OnItemSelectedListener getOnSelectedShipping() {
@@ -46,6 +55,9 @@ public class MaterialShippingInformationController extends SimiController {
 
         // Choose Shipping
         actionSelectedShipping();
+
+        // Use Billing Address;
+        actionUseBillingAddress();
 
         // Click Continue
         actionClickContinue();
@@ -98,11 +110,20 @@ public class MaterialShippingInformationController extends SimiController {
         };
     }
 
+    private void actionUseBillingAddress(){
+        onUseBliingAddress = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mShippingManagerDelegater.useBillingAddress();
+            }
+        };
+    }
+
     private void actionClickContinue(){
         onClickContinue = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mShippingManagerDelegater.continueShippingInformation();
             }
         };
     }

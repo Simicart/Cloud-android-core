@@ -7,4 +7,8 @@ import com.simicart.core.customer.entity.MyAddress;
  */
 public interface MaterialShippingManagerDelegate {
     public void onSelectedShipping(MyAddress address);
+
+    public void useBillingAddress();
+
+    public void continueShippingInformation();
 }

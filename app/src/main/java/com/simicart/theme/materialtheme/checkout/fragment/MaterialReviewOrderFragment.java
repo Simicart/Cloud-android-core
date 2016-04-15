@@ -125,6 +125,10 @@ public class MaterialReviewOrderFragment extends SimiFragment {
             mShippingInformationController.setDelegate(mShippingInformationBlock);
             mShippingInformationController.onResume();
         }
+
+        mShippingInformationBlock.setOnUseBillingAddress(mShippingInformationController.getOnUseBliingAddress());
+        mShippingInformationBlock.setOnContinue(mShippingInformationController.getOnClickContinue());
+        mShippingInformationBlock.setOnSelectedShipping(mShippingInformationController.getOnSelectedShipping());
     }
 
     private void initShippingMethod(View rootView, Context context) {
@@ -133,10 +137,15 @@ public class MaterialReviewOrderFragment extends SimiFragment {
         mShippingMethodBlock.initView();
         if (mShippingMethodController == null) {
             mShippingMethodController = new MaterialShippingMethodController();
+            mShippingMethodController.setDelegate(mShippingMethodBlock);
+            mShippingMethodController.setShippingMethodManagerDelegate(mController);
             mShippingMethodController.onStart();
         } else {
+            mShippingMethodController.setDelegate(mShippingMethodBlock);
+            mShippingMethodController.setShippingMethodManagerDelegate(mController);
             mShippingMethodController.onResume();
         }
+        mController.setShippingMethodController(mShippingMethodController);
     }
 
     @Override

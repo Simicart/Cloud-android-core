@@ -127,4 +127,9 @@ public class MaterialReviewOrderBlock extends SimiBlock implements MaterialRevie
             inc_shipping_infomation.setVisibility(View.GONE);
         }
     }
+
+    @Override
+    public void showShippingMethod() {
+        inc_shipping_method.setVisibility(View.VISIBLE);
+    }
 }

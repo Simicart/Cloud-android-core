@@ -2,6 +2,7 @@ package com.simicart.theme.materialtheme.checkout.block;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.simicart.core.base.block.SimiBlock;
@@ -22,6 +23,18 @@ public class MaterialShippingInformationBlock extends SimiBlock {
     protected TextView tv_use_billing_address;
     protected TextView tv_continue;
     protected MaterialAddressAdapter mAdapter;
+
+    public void setOnSelectedShipping(AdapterView.OnItemSelectedListener listener){
+        sp_shipping_information.setOnItemSelectedListener(listener);
+    }
+
+    public void setOnUseBillingAddress(View.OnClickListener listener){
+        tv_use_billing_address.setOnClickListener(listener);
+    }
+
+    public void setOnContinue(View.OnClickListener listener){
+        tv_continue.setOnClickListener(listener);
+    }
 
     public MaterialShippingInformationBlock(View view, Context context) {
         super(view, context);
