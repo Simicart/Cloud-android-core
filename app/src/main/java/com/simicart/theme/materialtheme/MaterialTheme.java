@@ -12,10 +12,14 @@ import com.mikepenz.materialdrawer.Drawer;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.catalog.categorydetail.fragment.CategoryDetailFragment;
 import com.simicart.core.config.Constants;
+import com.simicart.core.customer.fragment.SignInFragment;
 import com.simicart.core.event.fragment.SimiEventFragmentEntity;
 import com.simicart.core.menutop.fragment.FragmentMenuTop;
 import com.simicart.theme.materialtheme.categorydetail.fragment.MaterialCategoryDetailFragment;
+import com.simicart.theme.materialtheme.customer.signin.fragment.MaterialSignInFragment;
 import com.simicart.theme.materialtheme.checkout.fragment.MaterialCartFragment;
+import com.simicart.theme.materialtheme.checkout.fragment.MaterialCartFragment;
+import com.simicart.theme.materialtheme.customer.signin.fragment.MaterialSignInFragment;
 import com.simicart.theme.materialtheme.home.fragment.MaterialHomeFragment;
 import com.simicart.theme.materialtheme.menutop.fragment.MaterialMenuTopFragment;
 
@@ -101,6 +105,22 @@ public class MaterialTheme {
 //            }
 //        };
 //        LocalBroadcastManager.getInstance(context).registerReceiver(receiver_menutop, filter_menutop);
+
+//         register event of menutop
+        IntentFilter filter_menutop = new IntentFilter("com.simicart.core.customer.fragment.SignInFragment");
+        final BroadcastReceiver receiver_menutop = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Bundle bundle = intent.getBundleExtra(Constants.DATA);
+                SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
+
+                Log.e("MaterialTheme", "===============> Open MaterialSignInFragment");
+
+                MaterialSignInFragment fragment = MaterialSignInFragment.newInstance();
+                entity.setFragmetn(fragment);
+            }
+        };
+        LocalBroadcastManager.getInstance(context).registerReceiver(receiver_menutop, filter_menutop);
 
     }
 }
