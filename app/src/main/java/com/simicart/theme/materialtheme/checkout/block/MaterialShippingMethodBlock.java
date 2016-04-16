@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MaterialShippingMethodBlock extends SimiBlock {
     protected RecyclerView rcv_shipping_method;
     protected MaterialShippingMethodAdapter mAdapter;
-    MaterialShippingMethodAdapter.OnItemClickListener onSelectItemlistener;
+    protected MaterialShippingMethodAdapter.OnItemClickListener onSelectItemlistener;
 
     public MaterialShippingMethodBlock(View view, Context context) {
         super(view, context);

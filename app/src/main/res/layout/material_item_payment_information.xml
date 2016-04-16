@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/cv_shipping_method"
+        android:id="@+id/cv_payment_method"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -20,7 +20,7 @@
             android:padding="10dp">
 
             <ImageView
-                android:id="@+id/shipping_checkbox"
+                android:id="@+id/payment_checkbox"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
@@ -30,38 +30,27 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/shipping_checkbox">
+                android:layout_toRightOf="@+id/payment_checkbox">
 
                 <LinearLayout
-                    android:id="@+id/ll_shipping_body"
+                    android:id="@+id/ll_payment_body"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/shipping_price"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/shipping_title"
+                        android:id="@+id/payment_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:id="@+id/shipping_description"
+                        android:id="@+id/payment_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/shipping_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp" />
             </RelativeLayout>
         </RelativeLayout>
-
     </android.support.v7.widget.CardView>
-
 
 </LinearLayout>

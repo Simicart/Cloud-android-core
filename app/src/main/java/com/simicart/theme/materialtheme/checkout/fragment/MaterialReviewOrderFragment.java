@@ -12,11 +12,13 @@ import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Rconfig;
 import com.simicart.theme.materialtheme.checkout.block.MaterialBillingInformationBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialCheckOutMethodBlock;
+import com.simicart.theme.materialtheme.checkout.block.MaterialPaymentInformationBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialReviewOrderBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialShippingInformationBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialShippingMethodBlock;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialBillingInformationController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialCheckOutMethodController;
+import com.simicart.theme.materialtheme.checkout.controller.MaterialPaymentInformationController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialReviewOrderController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialShippingInformationController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialShippingMethodController;
@@ -35,6 +37,8 @@ public class MaterialReviewOrderFragment extends SimiFragment {
     protected MaterialShippingInformationController mShippingInformationController;
     protected MaterialShippingMethodBlock mShippingMethodBlock;
     protected MaterialShippingMethodController mShippingMethodController;
+    protected MaterialPaymentInformationBlock mPaymentInformationBlock;
+    protected MaterialPaymentInformationController mPaymentInformationController;
 
     public static MaterialReviewOrderFragment newInstance() {
         MaterialReviewOrderFragment fragment = new MaterialReviewOrderFragment();
@@ -61,6 +65,9 @@ public class MaterialReviewOrderFragment extends SimiFragment {
 
         // Init Shipping Method
         initShippingMethod(rootView, context);
+
+        // Init Payment Information
+        initPaymentInformation(rootView, context);
 
         return rootView;
     }
@@ -147,6 +154,24 @@ public class MaterialReviewOrderFragment extends SimiFragment {
         }
         mController.setShippingMethodController(mShippingMethodController);
         mShippingMethodBlock.setOnItemClick(mShippingMethodController.getOnItemClick());
+    }
+
+    private void initPaymentInformation(View rootView, Context context) {
+        View view_payment_information = (View) rootView.findViewById(Rconfig.getInstance().id("inc_payment_infomation"));
+        mPaymentInformationBlock = new MaterialPaymentInformationBlock(view_payment_information, context);
+        mPaymentInformationBlock.initView();
+        if (mPaymentInformationController == null) {
+            mPaymentInformationController = new MaterialPaymentInformationController();
+            mPaymentInformationController.setDelegate(mPaymentInformationBlock);
+            mPaymentInformationController.setPaymentInformationManagerDelegate(mController);
+            mPaymentInformationController.onStart();
+        } else {
+            mPaymentInformationController.setDelegate(mPaymentInformationBlock);
+            mPaymentInformationController.setPaymentInformationManagerDelegate(mController);
+            mPaymentInformationController.onResume();
+        }
+        mController.setPaymentMethodController(mPaymentInformationController);
+        mPaymentInformationBlock.setOnItemClick(mPaymentInformationController.getOnItemClick());
     }
 
     @Override

@@ -132,4 +132,9 @@ public class MaterialReviewOrderBlock extends SimiBlock implements MaterialRevie
     public void showShippingMethod() {
         inc_shipping_method.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void showPaymentInformation() {
+        inc_payment_infomation.setVisibility(View.VISIBLE);
+    }
 }

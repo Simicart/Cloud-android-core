@@ -11,7 +11,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -77,9 +76,8 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
         icon.setColorFilter(Config.getInstance().getContent_color(),
                 PorterDuff.Mode.SRC_ATOP);
         holder.shipping_checkbox.setImageDrawable(icon);
-        holder.shipping_checkbox.setId(ViewIdGenerator.generateViewId());
 
-        holder.shipping_title.setText(shippingMethod.getServiceName());
+        holder.shipping_title.setText(shippingMethod.getServiceName(), TextView.BufferType.SPANNABLE);
         if (!DataLocal.isLanguageRTL) {
             holder.shipping_title.setGravity(Gravity.LEFT);
         } else {
@@ -87,10 +85,10 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
         }
 
         String name = shippingMethod.getDescription();
-        if (name == null || name.equals("null")) {
-            holder.shipping_name.setVisibility(View.GONE);
+        if (Utils.validateString(name)) {
+            holder.shipping_description.setText(name, TextView.BufferType.SPANNABLE);
         } else {
-            holder.shipping_name.setText(name);
+            holder.shipping_description.setVisibility(View.GONE);
         }
 
         String s_incl_tax = shippingMethod.getS_method_fee_incl_tax();
@@ -140,7 +138,7 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
         private CardView cv_shipping_method;
         private ImageView shipping_checkbox;
         private TextView shipping_title;
-        private TextView shipping_name;
+        private TextView shipping_description;
         private TextView shipping_price;
 
         public ViewHolder(View v) {
@@ -149,16 +147,16 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
             cv_shipping_method = (CardView) v.findViewById(Rconfig.getInstance().id("cv_shipping_method"));
             shipping_checkbox = (ImageView) v.findViewById(Rconfig.getInstance().id("shipping_checkbox"));
             shipping_title = (TextView) v.findViewById(Rconfig.getInstance().id("shipping_title"));
-            shipping_name = (TextView) v.findViewById(Rconfig.getInstance().id("shipping_name"));
+            shipping_description = (TextView) v.findViewById(Rconfig.getInstance().id("shipping_description"));
             shipping_price = (TextView) v.findViewById(Rconfig.getInstance().id("shipping_price"));
         }
     }
 
-    public void updateCheck(ShippingMethod cShippingMethod){
+    public void updateCheck(ShippingMethod cShippingMethod) {
         cShippingMethod.setIsSelected(true);
-        for (int i = 0; i < listShippingMethod.size(); i++){
+        for (int i = 0; i < listShippingMethod.size(); i++) {
             ShippingMethod shippingItem = listShippingMethod.get(i);
-            if(!cShippingMethod.equals(shippingItem)){
+            if (!cShippingMethod.equals(shippingItem)) {
                 shippingItem.setIsSelected(false);
             }
         }

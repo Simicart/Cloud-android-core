@@ -11,4 +11,6 @@ public interface MaterialReviewOrderDelegate extends SimiDelegate{
 
     public void showShippingMethod();
 
+    public void showPaymentInformation();
+
 }

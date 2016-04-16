@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class MaterialShippingMethodController extends SimiController {
     protected SimiDelegate mDelegate;
     protected MaterialShippingMethodManagerDelegate mShippingMethodManagerDelegate;
-    protected ArrayList<ShippingMethod> mShippingmethod;
+    protected ArrayList<ShippingMethod> mListShippingmethod;
     protected MaterialShippingMethodAdapter.OnItemClickListener onItemClick;
 
     public void setDelegate(SimiDelegate mDelegate) {
@@ -87,7 +87,7 @@ public class MaterialShippingMethodController extends SimiController {
 //                                    }
 //                                }
 //                            }
-                            mShippingmethod = shippingMethodsArr;
+                            mListShippingmethod = shippingMethodsArr;
                             mShippingMethodManagerDelegate.showShippingMethod(shippingMethodsArr);
                         }
                     }
