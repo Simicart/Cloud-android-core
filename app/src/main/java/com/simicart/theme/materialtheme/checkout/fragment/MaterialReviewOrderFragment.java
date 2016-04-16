@@ -16,12 +16,14 @@ import com.simicart.theme.materialtheme.checkout.block.MaterialPaymentInformatio
 import com.simicart.theme.materialtheme.checkout.block.MaterialReviewOrderBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialShippingInformationBlock;
 import com.simicart.theme.materialtheme.checkout.block.MaterialShippingMethodBlock;
+import com.simicart.theme.materialtheme.checkout.block.MaterialViewOrderBlock;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialBillingInformationController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialCheckOutMethodController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialPaymentInformationController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialReviewOrderController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialShippingInformationController;
 import com.simicart.theme.materialtheme.checkout.controller.MaterialShippingMethodController;
+import com.simicart.theme.materialtheme.checkout.controller.MaterialViewOrderController;
 
 /**
  * Created by Sony on 4/12/2016.
@@ -39,6 +41,8 @@ public class MaterialReviewOrderFragment extends SimiFragment {
     protected MaterialShippingMethodController mShippingMethodController;
     protected MaterialPaymentInformationBlock mPaymentInformationBlock;
     protected MaterialPaymentInformationController mPaymentInformationController;
+    protected MaterialViewOrderBlock mViewOrderBlock;
+    protected MaterialViewOrderController mViewOrderController;
 
     public static MaterialReviewOrderFragment newInstance() {
         MaterialReviewOrderFragment fragment = new MaterialReviewOrderFragment();
@@ -68,6 +72,9 @@ public class MaterialReviewOrderFragment extends SimiFragment {
 
         // Init Payment Information
         initPaymentInformation(rootView, context);
+
+        // Init View Order
+        initViewOrder(rootView, context);
 
         return rootView;
     }
@@ -172,6 +179,23 @@ public class MaterialReviewOrderFragment extends SimiFragment {
         }
         mController.setPaymentMethodController(mPaymentInformationController);
         mPaymentInformationBlock.setOnItemClick(mPaymentInformationController.getOnItemClick());
+    }
+
+    private void initViewOrder(View rootView, Context context) {
+        View view_order = (View) rootView.findViewById(Rconfig.getInstance().id("inc_order_reivew"));
+        mViewOrderBlock = new MaterialViewOrderBlock(view_order, context);
+        mViewOrderBlock.initView();
+        if (mViewOrderController == null) {
+            mViewOrderController = new MaterialViewOrderController();
+            mViewOrderController.setDelegate(mViewOrderBlock);
+            mViewOrderController.setViewOrderManagerDelegate(mController);
+            mViewOrderController.onStart();
+        } else {
+            mViewOrderController.setDelegate(mViewOrderBlock);
+            mViewOrderController.setViewOrderManagerDelegate(mController);
+            mViewOrderController.onResume();
+        }
+        mController.setViewOrderController(mViewOrderController);
     }
 
     @Override

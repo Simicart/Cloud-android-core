@@ -137,4 +137,9 @@ public class MaterialReviewOrderBlock extends SimiBlock implements MaterialRevie
     public void showPaymentInformation() {
         inc_payment_infomation.setVisibility(View.VISIBLE);
     }
+
+    @Override
+    public void showViewOrder() {
+        inc_order_reivew.setVisibility(View.VISIBLE);
+    }
 }

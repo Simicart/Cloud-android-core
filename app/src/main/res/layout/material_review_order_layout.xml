@@ -125,7 +125,7 @@
                 android:id="@+id/inc_order_reivew"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                layout="@layout/material_include_checkout_method"
+                layout="@layout/material_include_view_order"
                 android:visibility="gone" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>

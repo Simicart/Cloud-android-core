@@ -9,13 +9,14 @@ import com.simicart.theme.materialtheme.checkout.delegate.MaterialPaymentInforma
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialReviewOrderDelegate;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialShippingManagerDelegate;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialShippingMethodManagerDelegate;
+import com.simicart.theme.materialtheme.checkout.delegate.MaterialViewOrderManagerDelegate;
 
 import java.util.ArrayList;
 
 /**
  * Created by Sony on 4/12/2016.
  */
-public class MaterialReviewOrderController extends SimiController implements MaterialBillingManagerDelegate, MaterialShippingManagerDelegate, MaterialShippingMethodManagerDelegate, MaterialPaymentInformationManagerDelegate {
+public class MaterialReviewOrderController extends SimiController implements MaterialBillingManagerDelegate, MaterialShippingManagerDelegate, MaterialShippingMethodManagerDelegate, MaterialPaymentInformationManagerDelegate, MaterialViewOrderManagerDelegate {
     protected MaterialReviewOrderDelegate mDelegate;
     protected MyAddress mBillingAddress;
     protected MyAddress mShippingAddress;
@@ -25,6 +26,7 @@ public class MaterialReviewOrderController extends SimiController implements Mat
     protected MaterialPaymentInformationController mPaymentInformationController;
     protected ArrayList<PaymentMethod> listPaymentMethod;
     protected PaymentMethod paymentMethod;
+    protected MaterialViewOrderController mViewOrderController;
 
     public void setDelegate(MaterialReviewOrderDelegate mDelegate) {
         this.mDelegate = mDelegate;
@@ -34,8 +36,12 @@ public class MaterialReviewOrderController extends SimiController implements Mat
         this.mShippingMethodController = mShippingMethodController;
     }
 
-    public void setPaymentMethodController(MaterialPaymentInformationController mPaymentInformationController){
+    public void setPaymentMethodController(MaterialPaymentInformationController mPaymentInformationController) {
         this.mPaymentInformationController = mPaymentInformationController;
+    }
+
+    public void setViewOrderController(MaterialViewOrderController mViewOrderController) {
+        this.mViewOrderController = mViewOrderController;
     }
 
     @Override
@@ -61,6 +67,7 @@ public class MaterialReviewOrderController extends SimiController implements Mat
     @Override
     public void useBillingAddress() {
         mShippingAddress = mBillingAddress;
+        mShippingMethodController.requestGetShippingMethod(mShippingAddress);
     }
 
     @Override
@@ -94,5 +101,11 @@ public class MaterialReviewOrderController extends SimiController implements Mat
     @Override
     public void selectedPaymentMethod(PaymentMethod paymentMethod) {
         this.paymentMethod = paymentMethod;
+        mViewOrderController.getOrderInformation();
+    }
+
+    @Override
+    public void showViewOrder() {
+        mDelegate.showViewOrder();
     }
 }

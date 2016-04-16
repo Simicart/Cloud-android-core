@@ -61,6 +61,7 @@ public class MaterialPaymentInformationController extends SimiController {
         mModel.setDelegate(new ModelDelegate() {
             @Override
             public void onFail(SimiError error) {
+                mDelegate.dismissDialogLoading();
 //                showPaymentMethod(null);
             }
 
