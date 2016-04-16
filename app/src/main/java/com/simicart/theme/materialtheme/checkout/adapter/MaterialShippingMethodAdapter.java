@@ -123,6 +123,7 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
             @Override
             public void onClick(View v) {
                 if (listener != null) {
+                    updateCheck(shippingMethod);
                     listener.onItemClick(shippingMethod, position);
                 }
             }
@@ -151,5 +152,16 @@ public class MaterialShippingMethodAdapter extends RecyclerView.Adapter<Material
             shipping_name = (TextView) v.findViewById(Rconfig.getInstance().id("shipping_name"));
             shipping_price = (TextView) v.findViewById(Rconfig.getInstance().id("shipping_price"));
         }
+    }
+
+    public void updateCheck(ShippingMethod cShippingMethod){
+        cShippingMethod.setIsSelected(true);
+        for (int i = 0; i < listShippingMethod.size(); i++){
+            ShippingMethod shippingItem = listShippingMethod.get(i);
+            if(!cShippingMethod.equals(shippingItem)){
+                shippingItem.setIsSelected(false);
+            }
+        }
+        notifyDataSetChanged();
     }
 }
