@@ -53,7 +53,11 @@ public class MaterialCartFragment extends SimiFragment {
             mController.onResume();
         }
 
+        mBlock.setOnClickItemListener(mController.getOnClickItemListener());
+        mBlock.setOnClickDeleteListener(mController.getOnClickDeleteListener());
+        mBlock.setOnChangeQtyListener(mController.getOnChangeQtyListener());
         mBlock.setCheckoutClicker(mController.getCartListener());
+
         return rootView;
     }
 

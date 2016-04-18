@@ -35,9 +35,24 @@ public class MaterialCartBlock extends SimiBlock implements MaterialCartDelegate
     protected RecyclerView rcv_cart;
     protected MaterialCartAdapter mAdapter;
     protected ButtonRectangle btn_Checkout;
+    protected MaterialCartAdapter.onItemClickListener onClickItemListener;
+    protected MaterialCartAdapter.onClickDeleteItemCart onClickDeleteListener;
+    protected MaterialCartAdapter.onChangeQtyItemCart onChangeQtyListener;
 
     public void setCheckoutClicker(View.OnClickListener clicker) {
         btn_Checkout.setOnClickListener(clicker);
+    }
+
+    public void setOnClickItemListener(MaterialCartAdapter.onItemClickListener onClickListener) {
+        this.onClickItemListener = onClickListener;
+    }
+
+    public void setOnClickDeleteListener(MaterialCartAdapter.onClickDeleteItemCart onClickDeleteListener) {
+        this.onClickDeleteListener = onClickDeleteListener;
+    }
+
+    public void setOnChangeQtyListener(MaterialCartAdapter.onChangeQtyItemCart onChangeQtyListener) {
+        this.onChangeQtyListener = onChangeQtyListener;
     }
 
     public MaterialCartBlock(View view, Context context) {
@@ -81,6 +96,9 @@ public class MaterialCartBlock extends SimiBlock implements MaterialCartDelegate
                         mAdapter.setListProduct(productEntity);
                         mAdapter.notifyDataSetChanged();
                     }
+                    mAdapter.setOnClickListener(onClickItemListener);
+                    mAdapter.setOnClickDeleteListener(onClickDeleteListener);
+                    mAdapter.setOnChangeQtyListener(onChangeQtyListener);
                     rcv_cart.setNestedScrollingEnabled(false);
                 } else {
                     visiableView();

@@ -24,6 +24,9 @@ import java.util.ArrayList;
  */
 public class MaterialCartAdapter extends RecyclerView.Adapter<MaterialCartAdapter.ViewHolder> {
     private ArrayList<ProductEntity> mListProduct;
+    private onItemClickListener onClickListener;
+    private onClickDeleteItemCart onClickDeleteListener;
+    private onChangeQtyItemCart onChangeQtyListener;
 
     public MaterialCartAdapter(ArrayList<ProductEntity> listProduct) {
         mListProduct = listProduct;
@@ -31,6 +34,30 @@ public class MaterialCartAdapter extends RecyclerView.Adapter<MaterialCartAdapte
 
     public void setListProduct(ArrayList<ProductEntity> products) {
         mListProduct = products;
+    }
+
+    public void setOnClickListener(onItemClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
+
+    public void setOnClickDeleteListener(onClickDeleteItemCart onClickDeleteListener) {
+        this.onClickDeleteListener = onClickDeleteListener;
+    }
+
+    public void setOnChangeQtyListener(onChangeQtyItemCart onChangeQtyListener) {
+        this.onChangeQtyListener = onChangeQtyListener;
+    }
+
+    public interface onClickDeleteItemCart{
+        void onItemDelete(ProductEntity item, int position);
+    }
+
+    public interface onItemClickListener {
+        void onItemClick(ArrayList<ProductEntity> mListProduct, ProductEntity item, int position);
+    }
+
+    public interface onChangeQtyItemCart{
+        void onChangeQty(int Qty, ProductEntity item, int position);
     }
 
     @Override
@@ -42,7 +69,7 @@ public class MaterialCartAdapter extends RecyclerView.Adapter<MaterialCartAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         final ProductEntity product = mListProduct.get(position);
 
         ArrayList<String> images = product.getImages();
@@ -63,7 +90,28 @@ public class MaterialCartAdapter extends RecyclerView.Adapter<MaterialCartAdapte
         holder.rl_item_cart_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(onClickDeleteListener != null){
+                    onClickDeleteListener.onItemDelete(product, position);
+                }
+            }
+        });
 
+        holder.item_cart_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onClickListener != null){
+                    onClickListener.onItemClick(mListProduct, product, position);
+                }
+            }
+        });
+
+        holder.item_cart_qty.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onChangeQtyListener != null){
+                    int Qty = product.getQty();
+                    onChangeQtyListener.onChangeQty(Qty, product, position);
+                }
             }
         });
     }
