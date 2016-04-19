@@ -20,6 +20,7 @@ import com.simicart.core.common.price.TotalPriceView;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 import com.simicart.theme.materialtheme.checkout.adapter.MaterialViewOrderAdapter;
+import com.simicart.theme.materialtheme.checkout.adapter.MaterialViewOrderTermConditionAdapter;
 import com.simicart.theme.materialtheme.checkout.delegate.MaterialViewOrderDelegate;
 
 import java.util.ArrayList;
@@ -35,6 +36,8 @@ public class MaterialViewOrderBlock extends SimiBlock implements MaterialViewOrd
     protected ImageView image_remove_coupon;
     private int SHOW_REMOVE_COUPONCODE = 0;
     private int HIDEN_REMOVE_COUPONCODE = 1;
+    protected RecyclerView rcv_term_and_condition;
+    protected MaterialViewOrderTermConditionAdapter mConditionAdapter;
 
     public MaterialViewOrderBlock(View view, Context context) {
         super(view, context);
@@ -68,6 +71,12 @@ public class MaterialViewOrderBlock extends SimiBlock implements MaterialViewOrd
                 "Enter a coupon code"));
         image_remove_coupon = (ImageView) mView.findViewById(Rconfig.getInstance().id("image_remove_couponcode"));
         image_remove_coupon.setVisibility(View.GONE);
+
+        rcv_term_and_condition = (RecyclerView) mView.findViewById(Rconfig.getInstance().id("rcv_term_and_condition"));
+        LinearLayoutManager linearLayoutManager_term = new LinearLayoutManager(mView.getContext(), LinearLayoutManager.VERTICAL, false);
+        rcv_term_and_condition.setHasFixedSize(true);
+        rcv_term_and_condition.setLayoutManager(linearLayoutManager_term);
+        rcv_term_and_condition.setVisibility(View.GONE);
     }
 
     @Override
@@ -83,6 +92,9 @@ public class MaterialViewOrderBlock extends SimiBlock implements MaterialViewOrd
 
             // show Total Price
             showTotalPrice(entity);
+
+            // show Term and Condition
+            showTermAndCondition(entity);
         }
     }
 
@@ -115,6 +127,10 @@ public class MaterialViewOrderBlock extends SimiBlock implements MaterialViewOrd
         }
     }
 
+    private void showTermAndCondition(QuoteEntity quote){
+
+    }
+
     @Override
     public void removeTextCouponCode() {
         edt_couponCode.setText("");
@@ -129,4 +145,5 @@ public class MaterialViewOrderBlock extends SimiBlock implements MaterialViewOrd
             image_remove_coupon.setVisibility(View.GONE);
         }
     }
+
 }
