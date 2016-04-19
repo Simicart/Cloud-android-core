@@ -196,6 +196,9 @@ public class MaterialReviewOrderFragment extends SimiFragment {
             mViewOrderController.onResume();
         }
         mController.setViewOrderController(mViewOrderController);
+        mViewOrderBlock.setCouponCodeListener(mViewOrderController.getOnCouponCodeListener());
+        mViewOrderBlock.setCouponChange(mViewOrderController.getOnCouponCodeChange());
+        mViewOrderBlock.setOnClickRemoveListener(mViewOrderController.getOnRemoveCoupon());
     }
 
     @Override
