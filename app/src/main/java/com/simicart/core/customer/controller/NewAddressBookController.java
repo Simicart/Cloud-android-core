@@ -294,6 +294,7 @@ public class NewAddressBookController extends SimiController implements
                         mDelegate.updateState(mCurrentState);
                         mDelegate.updateView(mModel.getCollection());
                         selectDefaultCountry();
+                        selectDefaultState();
                     }
                 }
             }
@@ -310,6 +311,12 @@ public class NewAddressBookController extends SimiController implements
         }
     }
 
+    protected void selectDefaultState() {
+        String default_state = Config.getInstance().getDefaultStateName();
+        if (Utils.validateString(default_state)) {
+            chooseCountry(TYPE_SELECT_STATE, default_state);
+        }
+    }
 
     protected void OnRequestChangeAddress(final MyAddress address) {
         mDelegate.showLoading();
