@@ -55,10 +55,8 @@ public class ListLanguageController extends SimiController {
 					Config.getInstance().clearLanguages();
 					createLanguage();
 					if(Config.getInstance().isRTLLanguage(locale.getCode())) {
-						Log.e("ListLanguageController", "is RTL language");
 						DataLocal.isLanguageRTL = true;
 					} else {
-						Log.e("ListLanguageController", "not RTL language");
 						DataLocal.isLanguageRTL = false;
 					}
 					SimiManager.getIntance().notifiChangeAdapterSlideMenu();

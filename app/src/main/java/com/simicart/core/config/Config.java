@@ -6,6 +6,8 @@ import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
@@ -33,7 +35,7 @@ public class Config {
 
     private String mBaseUrl = "http://dev-api.jajahub.com/rest/";
     // Android account
-    private String mSecretKey = "096a00bc5958983da94aebebfb78e92fd5cbbaf1";
+    private String mSecretKey = "b80b768dbb68a2c039ea05b63d899ae344018301";
 
     private String mDemoEnable = "DEMO_ENABLE11";
     private String mColorSplashScreen = "#FFFFFF";
@@ -42,6 +44,7 @@ public class Config {
     // key site live : c843176d88b6e9a21f848482044503ea7ae82e85, api.jajahub.com/rest/
     // key zara: 5ed6a808a6142d936196cb4f69a781f7af02fb3a, dev-api.jajahub.com/rest/
     // key android: 096a00bc5958983da94aebebfb78e92fd5cbbaf1
+    // key multi language: b80b768dbb68a2c039ea05b63d899ae344018301
     private String key_color = "#3498DB";
     private String top_menu_icon_color = "#FFFFFF";
     private String button_background = "#0277BD";
@@ -670,6 +673,7 @@ public class Config {
                 String locale = listLocale.get(0).getCode();
                 if (Utils.validateString(locale)) {
                     instance.setLocale_identifier(locale);
+                    DataLocal.saveLocale(locale);
                     if (isRTLLanguage(locale) == true) {
                         DataLocal.isLanguageRTL = true;
                     }
@@ -725,6 +729,11 @@ public class Config {
         instance.setSpecial_price_color(themeConfig.getSpecialPriceColor());
         instance.setSearch_box_background(themeConfig.getSearchBoxBackground());
         instance.setSearch_text_color(themeConfig.getSearchTextColor());
+    }
+
+    private void selectDefaultLanguage()
+    {
+
     }
 
 }

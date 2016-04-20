@@ -53,8 +53,6 @@ public class SplashController {
     }
 
     private void getAvaiablePlugin() {
-        // http://dev-api.jajahub.com/rest/site-plugins
-        // lay ve danh sach id cua plugin enable
         final GetIDPluginsModel idsModel = new GetIDPluginsModel();
         idsModel.setDelegate(new ModelDelegate() {
             @Override
@@ -85,8 +83,6 @@ public class SplashController {
     }
 
     private void getSKUPlugin(String ids) {
-        // http://dev-api.jajahub.com/rest/public_plugins
-        // lay sku cua cac plugin enbale
 
         final GetSKUPluginModel skuModel = new GetSKUPluginModel();
         skuModel.setDelegate(new ModelDelegate() {

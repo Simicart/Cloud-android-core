@@ -51,12 +51,7 @@ public class SimiUrlConnection {
     }
 
     public HttpResponse makeUrlConnection(SimiRequest request) {
-
         String url_extended = request.getUrl();
-
-        Log.e("SimiUrlConnection ", "makeUrlConnection " + url_extended);
-
-
         String url = Config.getInstance().getBaseUrl() + url_extended;
 
         if (request.getTypeMethod() == Method.GET) {
@@ -102,8 +97,6 @@ public class SimiUrlConnection {
                 }
             }
 
-
-            Log.e("SimiUrlConnection ", "Type " + type);
 
             // set type method for request
             if (type == Method.GET) {
@@ -185,9 +178,7 @@ public class SimiUrlConnection {
     }
 
     protected String getParameterURL_GET(HashMap<String, String> dataExtend) {
-//        Log.e("SimiUrlConnection", "getParameterURL_GET 001");
         if (null != dataExtend && dataExtend.size() > 0) {
-//            Log.e("SimiUrlConnection", "getParameterURL_GET 002");
             Iterator<Entry<String, String>> iterator = dataExtend.entrySet()
                     .iterator();
             boolean isFirst = true;
@@ -195,7 +186,6 @@ public class SimiUrlConnection {
             while (iterator.hasNext()) {
                 Entry<String, String> entry = iterator.next();
                 String parameter = getAParameter(entry);
-//                Log.e("SimiUrlConnection", "getParameterURL_GET " + parameter);
                 if (Utils.validateString(parameter)) {
                     if (isFirst) {
                         isFirst = false;
@@ -222,15 +212,6 @@ public class SimiUrlConnection {
         return param;
     }
 
-//    protected String getEntity(JSONObject json)
-//            throws UnsupportedEncodingException {
-//        StringBuilder result = new StringBuilder();
-//        result.append(URLEncoder.encode("data", "UTF-8"));
-//        result.append("=");
-//        result.append(URLEncoder.encode(json.toString(), "UTF-8"));
-//
-//        return result.toString();
-//    }
 
     protected HttpEntity entityFromConnection(HttpURLConnection connection) {
         BasicHttpEntity entity = new BasicHttpEntity();
