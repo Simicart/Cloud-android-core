@@ -491,17 +491,8 @@ public class PhoneSlideMenuController {
     }
 
     public void updateSignIn() {
-        String name = Config.getInstance().getText("My Account");
-
-        if (DataLocal.isSignInComplete()) {
-            name = DataLocal.getUsername();
-            addItemRelatedPersonal();
-        } else {
-            name = Config.getInstance().getText("Sign in");
-            removeItemRelatedPersonal();
-        }
-        mDelegate.setUpdateSignIn(name);
-        mDelegate.setAdapter(mItems);
+        mItems.clear();
+        initial();
     }
 
     public void notifiChangeAdapterSlideMenu() {

@@ -53,6 +53,7 @@ public class ListLanguageFragment extends SimiFragment {
 		mBlock.setList(mList);
 		mBlock.setItemChecked(current_item);
 		mController = new ListLanguageController();
+		mController.setDelegate(mBlock);
 		mController.onStart();
 		mController.setListLanguage(mList);
 		mBlock.initView();

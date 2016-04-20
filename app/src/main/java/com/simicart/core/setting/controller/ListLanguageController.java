@@ -12,19 +12,30 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.simicart.MainActivity;
 import com.simicart.core.base.controller.SimiController;
+import com.simicart.core.base.delegate.ModelDelegate;
+import com.simicart.core.base.delegate.SimiDelegate;
 import com.simicart.core.base.manager.SimiManager;
+import com.simicart.core.base.model.collection.SimiCollection;
+import com.simicart.core.base.model.entity.SimiEntity;
+import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.common.ReadXMLLanguage;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.customer.delegate.ChooseCountryDelegate;
 import com.simicart.core.customer.entity.MyAddress;
+import com.simicart.core.splashscreen.entity.CMSPageEntity;
 import com.simicart.core.splashscreen.entity.LocaleConfigEntity;
+import com.simicart.core.splashscreen.model.CMSPagesModel;
 
 public class ListLanguageController extends SimiController {
 	protected OnItemClickListener mClicker;
 	ArrayList<String> list_lag;
 	MyAddress addressBookDetail;
-	ChooseCountryDelegate mDelegate;
+	SimiDelegate mDelegate;
+
+	public void setDelegate(SimiDelegate mDelegate) {
+		this.mDelegate = mDelegate;
+	}
 
 	public OnItemClickListener getClicker() {
 		return mClicker;
@@ -59,9 +70,8 @@ public class ListLanguageController extends SimiController {
 					} else {
 						DataLocal.isLanguageRTL = false;
 					}
-					SimiManager.getIntance().notifiChangeAdapterSlideMenu();
-					SimiManager.getIntance().onUpdateItemSignIn();
-					SimiManager.getIntance().backToHomeFragment();
+
+					getCMSPage();
 				}
 			}
 		}
@@ -85,5 +95,34 @@ public class ListLanguageController extends SimiController {
 			Map<String, String> languages = new HashMap<String, String>();
 			Config.getInstance().setLanguages(languages);
 		}
+	}
+
+	private void getCMSPage(){
+		mDelegate.showDialogLoading();
+		CMSPagesModel model = new CMSPagesModel();
+		model.setDelegate(new ModelDelegate() {
+			@Override
+			public void onFail(SimiError error) {
+				mDelegate.dismissDialogLoading();
+				if (error != null) {
+					SimiManager.getIntance().showNotify(null, error.getMessage(), "Ok");
+				}
+			}
+
+			@Override
+			public void onSuccess(SimiCollection collection) {
+				mDelegate.dismissDialogLoading();
+				if(collection != null && collection.getCollection().size() > 0){
+					SimiEntity entity = collection.getCollection().get(0);
+					DataLocal.listCms = ((CMSPageEntity) entity).getPage();
+
+					SimiManager.getIntance().notifiChangeAdapterSlideMenu();
+					SimiManager.getIntance().onUpdateItemSignIn();
+					SimiManager.getIntance().backToHomeFragment();
+				}
+			}
+		});
+
+		model.request();
 	}
 }
