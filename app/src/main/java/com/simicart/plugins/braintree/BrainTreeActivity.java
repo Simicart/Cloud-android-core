@@ -109,6 +109,8 @@ public class BrainTreeActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == 123) {
+
+
             switch (resultCode) {
                 case RESULT_OK:
                     String paymentMethodNonce = data.getStringExtra(BraintreePaymentActivity.EXTRA_PAYMENT_METHOD_NONCE);
@@ -121,8 +123,11 @@ public class BrainTreeActivity extends Activity {
                         }
                     }
                     break;
-                default:
+                case RESULT_CANCELED:
                     confirmCancel();
+                    break;
+                default:
+
                     break;
             }
         }

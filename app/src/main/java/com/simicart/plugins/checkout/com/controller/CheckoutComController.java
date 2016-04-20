@@ -1,14 +1,19 @@
 package com.simicart.plugins.checkout.com.controller;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.checkout.CardValidator;
 import com.checkout.CheckoutKit;
@@ -18,6 +23,7 @@ import com.checkout.httpconnector.Response;
 import com.checkout.models.Card;
 import com.checkout.models.CardToken;
 import com.checkout.models.CardTokenResponse;
+import com.simicart.MainActivity;
 import com.simicart.core.base.controller.SimiController;
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
@@ -31,6 +37,7 @@ import com.simicart.core.customer.entity.OrderHisDetail;
 import com.simicart.plugins.checkout.com.CheckoutCom;
 import com.simicart.plugins.checkout.com.block.CheckoutComBlock;
 import com.simicart.plugins.checkout.com.entity.CheckoutComEntity;
+import com.simicart.plugins.checkout.com.model.CheckOutCancelModel;
 import com.simicart.plugins.checkout.com.model.GetPublicKeyModel;
 import com.simicart.plugins.checkout.com.model.UpdatePaymentModel;
 
@@ -85,6 +92,74 @@ public class CheckoutComController extends SimiController {
     @Override
     public void onResume() {
 
+    }
+
+    public View.OnKeyListener getOnKeyListener() {
+        return new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        showDialog();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        };
+    }
+
+    private void showDialog() {
+        new AlertDialog.Builder(SimiManager.getIntance().getCurrentActivity())
+                .setMessage(
+                        Config.getInstance()
+                                .getText(
+                                        "Are you sure that you want to cancel the order?"))
+                .setPositiveButton(Config.getInstance().getText("Yes"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                requestCancelOrder();
+                                showToastMessage("Your order has been canceled");
+                                SimiManager.getIntance().backToHomeFragment();
+                            }
+                        })
+                .setNegativeButton(Config.getInstance().getText("No"),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // do nothing
+                            }
+                        }).show();
+
+    }
+
+    private void requestCancelOrder() {
+        CheckOutCancelModel checkoutCancelModel = new CheckOutCancelModel();
+        checkoutCancelModel.setDelegate(new ModelDelegate() {
+            @Override
+            public void onFail(SimiError error) {
+                if (error != null) {
+                    showToastMessage(error.getMessage());
+                }
+            }
+
+            @Override
+            public void onSuccess(SimiCollection collection) {
+
+            }
+        });
+        checkoutCancelModel.addDataExtendURL(orderID);
+        checkoutCancelModel.addDataExtendURL("cancel");
+        checkoutCancelModel.request();
+    }
+
+    public void showToastMessage(String message) {
+        Toast toast = Toast.makeText(MainActivity.context, Config.getInstance()
+                .getText(message), Toast.LENGTH_LONG);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public void setmOrderEntity(OrderEntity mOrderEntity) {

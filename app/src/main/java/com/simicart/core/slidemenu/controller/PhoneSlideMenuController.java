@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -250,9 +253,19 @@ public class PhoneSlideMenuController {
         item.setSparator(true);
         item.setName(MORE);
         mItems.add(item);
+
+        SlideMenuData slideMenuData = new SlideMenuData();
+        slideMenuData.setItemNavigations(mItems);
+        slideMenuData.setPluginFragment(mPluginFragment);
+
+        Intent intent = new Intent("com.simicart.add.navigation.more.qrbarcode");
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Constants.ENTITY, slideMenuData);
+        intent.putExtra(Constants.DATA, bundle);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcastSync(intent);
+
         // CMS
         addCMS();
-
     }
 
     public void addCMS() {
@@ -292,6 +305,14 @@ public class PhoneSlideMenuController {
         ItemNavigation item = mItems.get(position);
         if (null != item) {
             if (!item.isSparator()) {
+                String nameItem = item.getName();
+
+                Intent intent = new Intent("com.simicart.leftmenu.slidemenucontroller.onnavigate.clickitem");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(Constants.ENTITY, nameItem);
+                intent.putExtra(Constants.DATA, bundle);
+                LocalBroadcastManager.getInstance(mContext).sendBroadcastSync(intent);
+
                 TypeItem type = item.getType();
                 SimiFragment fragment = null;
                 if (type == TypeItem.NORMAL) {

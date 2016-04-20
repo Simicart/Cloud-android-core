@@ -54,6 +54,8 @@ public class CartFragment extends SimiFragment {
 			mController.setDelegate(mBlock);
 			mController.onResume();
 		}
+
+		mBlock.setCheckoutClicker(mController.getCartListener());
 		return view;
 	}
 

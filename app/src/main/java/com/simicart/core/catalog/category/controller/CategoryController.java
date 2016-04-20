@@ -58,7 +58,6 @@ public class CategoryController extends SimiController {
         mModel = new CategoryModel();
         mModel.setDelegate(delegate);
         if (!mID.equals("-1")) {
-//            mModel.addDataBody("category_id", mID);
             mModel.addFilterDataParameter("parent", mID);
             mModel.addFilterDataParameter("status","1");
         }else{
@@ -74,7 +73,6 @@ public class CategoryController extends SimiController {
         CategoryEntity category = (CategoryEntity) mModel.getCollection().getCollection()
                 .get(position);
         SimiFragment fragment = null;
-        Log.e("CategoryController", category.isHasChild() + "");
         if (category.isHasChild()) {
             if (DataLocal.isTablet) {
                 fragment = CategoryFragment.newInstance(

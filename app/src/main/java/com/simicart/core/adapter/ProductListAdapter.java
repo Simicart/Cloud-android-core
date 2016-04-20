@@ -39,9 +39,6 @@ public class ProductListAdapter extends BaseAdapter {
         mProducts = ProductList;
     }
 
-    public ArrayList<ProductEntity> getProductList() {
-        return mProducts;
-    }
 
     public void setProductList(ArrayList<ProductEntity> products) {
         mProducts = products;
@@ -94,10 +91,11 @@ public class ProductListAdapter extends BaseAdapter {
 
         holder.txtName.setText(product.getName());
 
-        if (holder.imageView != null && product.getImages() != null) {
-            if (product != null && product.getImages().size() > 0) {
-                DrawableManager.fetchDrawableOnThread(product.getImages().get(0),
-                        holder.imageView);
+        ArrayList<String> images = product.getImages();
+        if (holder.imageView != null) {
+            if (null != images && images.size() > 0) {
+                String link_image = images.get(0);
+                DrawableManager.fetchDrawableOnThread(link_image, holder.imageView);
             } else {
                 holder.imageView.setImageResource(Rconfig.getInstance().drawable("default_logo"));
             }
@@ -111,7 +109,6 @@ public class ProductListAdapter extends BaseAdapter {
 
         RelativeLayout rl_product_list = (RelativeLayout) convertView
                 .findViewById(Rconfig.getInstance().id("rel_product_list"));
-
         Intent intent = new Intent("com.simicart.image.product.list");
         SimiEventBlockEntity blockEntity = new SimiEventBlockEntity();
         blockEntity.setView(rl_product_list);
@@ -160,23 +157,20 @@ public class ProductListAdapter extends BaseAdapter {
         mSalePrice = product.getSalePrice();
         if (mPrice == mSalePrice) {
             holder.tv_second.setVisibility(View.GONE);
-            String sPrice = getPrice(mPrice);
+            String sPrice = Config.getInstance().getPrice(mPrice);
             if (Utils.validateString(sPrice)) {
                 holder.tv_first.setText(sPrice);
             }
         } else {
             if (mSalePrice == -1) {
                 holder.tv_second.setVisibility(View.GONE);
-                holder.tv_first.setText(getPrice(mPrice));
+                holder.tv_first.setText(Config.getInstance().getPrice(mPrice));
             } else {
-                holder.tv_second.setText(getPrice(mSalePrice));
+                holder.tv_second.setText(Config.getInstance().getPrice(mSalePrice));
                 holder.tv_first.setPaintFlags(holder.tv_first.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                holder.tv_first.setText(getPrice(mPrice));
+                holder.tv_first.setText(Config.getInstance().getPrice(mPrice));
             }
         }
     }
 
-    protected String getPrice(double price) {
-        return Config.getInstance().getPrice(price);
-    }
 }

@@ -509,11 +509,11 @@ public class ReviewOrderBlock extends SimiBlock implements ReviewOrderDelegate {
         email.setTextColor(Config.getInstance().getContent_color());
 
         String fullname = "";
-        if (Utils.validateString(address.getPrefix())) {
-            if (Utils.validateString(address.getSuffix())) {
-                fullname = address.getPrefix() + " " + address.getSuffix();
+        if (Utils.validateString(address.getFirstName())) {
+            if (Utils.validateString(address.getLastName())) {
+                fullname = address.getFirstName() + " " + address.getLastName();
             } else {
-                fullname = address.getPrefix();
+                fullname = address.getFirstName();
             }
         }
         name.setText(fullname);
@@ -602,11 +602,11 @@ public class ReviewOrderBlock extends SimiBlock implements ReviewOrderDelegate {
         email.setTextColor(Config.getInstance().getContent_color());
 
         String fullname = "";
-        if (Utils.validateString(address.getPrefix())) {
-            if (Utils.validateString(address.getSuffix())) {
-                fullname = address.getPrefix() + " " + address.getSuffix();
+        if (Utils.validateString(address.getFirstName())) {
+            if (Utils.validateString(address.getLastName())) {
+                fullname = address.getFirstName() + " " + address.getLastName();
             } else {
-                fullname = address.getPrefix();
+                fullname = address.getFirstName();
             }
         }
         name.setText(fullname);

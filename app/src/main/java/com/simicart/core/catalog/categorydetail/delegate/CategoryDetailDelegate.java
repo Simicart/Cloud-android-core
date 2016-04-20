@@ -24,48 +24,24 @@ public interface CategoryDetailDelegate extends SimiDelegate {
 
 	public void addFooterView();
 
-	public boolean getTypeView();
 
 	public void setVisibilityMenuBotton(boolean temp);
 
-	public RelativeLayout getLayoutToGridview();
-
-	public RelativeLayout getLayoutToFilter();
-
-	public RelativeLayout getLayoutToSort();
-
-	public ListView getListView();
-
-	public GridView getGridView();
 	public String getTagSearch();
 	public void setTagSearch(String tag_search);
 
-	public GridViewCategoryDetailApdapter getAdapterGridview();
 
-	public void setGridviewAdapter(Context context, ArrayList<ProductEntity> list,
-			ArrayList<String> listId,int numcolumn);
-	
-	public void setListviewAdapter (Context context, ArrayList<ProductEntity> list);
+	public void onChangeNumberColumnGrid( boolean is_zoom_out);
 
-	public ProductListAdapter getAdapterProductList();
 
 	public ArrayList<ProductEntity> getListProduct();
 
-	public ArrayList<String> getmIDs();
-	
 	public ArrayList<String> getListProductId();
-	public Context getmContext();
-	public ImageView getImageChangeview();
-	public int getCurrentPosition();
+	//public Context getmContext();
 	public void setCurrentPosition(int position);
-	public String getQuery();
-	public Animation getZoomIn();
-	public Animation getZoomOut();
 	public void setCheckFilter(boolean filter);
-	public void setArrID(ArrayList<String> ids);
 	public void setIsLoadMore(boolean loadmore);
-	public EditText getEdittextSearch();
-	public int getTotalResult();
-
 	public void showSort(boolean isCheck);
+
+	public String onChangeTypeViewShow();
 }

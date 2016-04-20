@@ -135,6 +135,8 @@ public class PayUFragment extends SimiFragment {
             @Override
             public void onFail(SimiError error) {
                 mDelegate.dismissLoading();
+                String msg = error.getMessage();
+                SimiManager.getIntance().showNotify(msg);
             }
 
             @Override
@@ -211,6 +213,20 @@ public class PayUFragment extends SimiFragment {
                 webview.removeView(mImageView);
             }
 
+        });
+
+        webview.setOnKeyListener(new View.OnKeyListener() {
+
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                        showDialog();
+                        return true;
+                    }
+                }
+                return false;
+            }
         });
     }
 

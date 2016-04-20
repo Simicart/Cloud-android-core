@@ -28,7 +28,6 @@ public class CategoryDetailFragment extends SimiFragment {
 	protected View rootView;
 	protected String mQuery;
 	protected String tag_search;
-	protected SearchHomeBlock mSearchHomeBlock;
 	protected CategoryDetailBlock mCategoryDetailBlock;
 	protected CategoryDetailController mCategoryDetailController;
 	protected String mCatID = "-1";
@@ -148,7 +147,6 @@ public class CategoryDetailFragment extends SimiFragment {
 	}
 
 	public void setmSortID(String mSortID) {
-		Log.e("ListProFragment", mSortID);
 		this.mSortID = mSortID;
 	}
 

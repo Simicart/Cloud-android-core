@@ -51,15 +51,7 @@ public class SimiUrlConnection {
     }
 
     public HttpResponse makeUrlConnection(SimiRequest request) {
-
         String url_extended = request.getUrl();
-
-        Log.e("SimiUrlConnection ", "makeUrlConnection " + url_extended);
-
-        if (url_extended.equals(Constants.SIGN_IN)) {
-            request.onStopRequestQueue();
-        }
-
         String url = Config.getInstance().getBaseUrl() + url_extended;
 
         if (request.getTypeMethod() == Method.GET) {
@@ -106,17 +98,15 @@ public class SimiUrlConnection {
             }
 
 
-            Log.e("SimiUrlConnection ","Type " + type);
-
             // set type method for request
             if (type == Method.GET) {
                 urlConnection.setRequestMethod("GET");
             } else if (type == Method.POST) {
                 urlConnection.setRequestMethod("POST");
 
-                Log.e("SimiUrlConnection ","POSTTTTTTTTTTTTTTTT" + url);
+                Log.e("SimiUrlConnection ", "POSTTTTTTTTTTTTTTTT" + url);
 
-                        JSONObject postBody = request.getBody();
+                JSONObject postBody = request.getBody();
                 if (null != postBody) {
                     Log.e("SimiUrlConnection ", "PARAM " + postBody.toString());
                     OutputStream os = urlConnection.getOutputStream();
@@ -126,9 +116,7 @@ public class SimiUrlConnection {
                     writer.flush();
                     writer.close();
                     os.close();
-                }
-                else
-                {
+                } else {
                     Log.e("SimiUrlConnection ", "Data POST NULL");
                 }
             } else if (type == Method.PUT) {
@@ -144,7 +132,6 @@ public class SimiUrlConnection {
                     writer.close();
                     os.close();
                 }
-
 
 
             } else if (type == Method.DELETE) {
@@ -180,28 +167,18 @@ public class SimiUrlConnection {
                         response.addHeader(h);
                     }
                 }
-                if (url_extended.equals(Constants.SIGN_IN)) {
-                    request.onStartRequestQueue();
-                }
-                // Log.e("SimiURLConnection Finish ",
-                // url_extended + System.currentTimeMillis());
                 return response;
             }
 
         } catch (IOException e) {
             Log.e("SimiUrlStack ", "IOException " + e.getMessage());
         }
-        if (url_extended.equals(Constants.SIGN_IN)) {
-            request.onStartRequestQueue();
-        }
         request.cancel(true);
         return null;
     }
 
     protected String getParameterURL_GET(HashMap<String, String> dataExtend) {
-//        Log.e("SimiUrlConnection", "getParameterURL_GET 001");
         if (null != dataExtend && dataExtend.size() > 0) {
-//            Log.e("SimiUrlConnection", "getParameterURL_GET 002");
             Iterator<Entry<String, String>> iterator = dataExtend.entrySet()
                     .iterator();
             boolean isFirst = true;
@@ -209,7 +186,6 @@ public class SimiUrlConnection {
             while (iterator.hasNext()) {
                 Entry<String, String> entry = iterator.next();
                 String parameter = getAParameter(entry);
-//                Log.e("SimiUrlConnection", "getParameterURL_GET " + parameter);
                 if (Utils.validateString(parameter)) {
                     if (isFirst) {
                         isFirst = false;
@@ -236,15 +212,6 @@ public class SimiUrlConnection {
         return param;
     }
 
-//    protected String getEntity(JSONObject json)
-//            throws UnsupportedEncodingException {
-//        StringBuilder result = new StringBuilder();
-//        result.append(URLEncoder.encode("data", "UTF-8"));
-//        result.append("=");
-//        result.append(URLEncoder.encode(json.toString(), "UTF-8"));
-//
-//        return result.toString();
-//    }
 
     protected HttpEntity entityFromConnection(HttpURLConnection connection) {
         BasicHttpEntity entity = new BasicHttpEntity();

@@ -46,9 +46,6 @@ public class CategoryFragment extends SimiFragment {
 				container, false);
 		Context context = getActivity();
 
-		// request ListProduct
-		// LinearLayout ll_categoryParent = (LinearLayout) view
-		// .findViewById(Rconfig.getInstance().id("ll_categoryParent"));
 		mCategoryDetailBlock = new CategoryDetailBlock(view, context);
 		mCategoryDetailBlock.setCategoryName(mCategoryID, mCategoryName);
 		mCategoryDetailBlock.initView();

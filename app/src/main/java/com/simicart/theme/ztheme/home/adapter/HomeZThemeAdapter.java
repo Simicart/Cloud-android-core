@@ -126,6 +126,9 @@ public class HomeZThemeAdapter extends BaseExpandableListAdapter {
         } else {
             url = spotProductZTheme.getImage();
         }
+
+
+
         if (Utils.validateString(url)) {
             DrawableManager.fetchDrawableOnThread(url,
                     holder.img_category);

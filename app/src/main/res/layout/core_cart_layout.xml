@@ -55,6 +55,7 @@
         android:paddingLeft="2dp" >
 
         <com.simicart.core.material.ButtonRectangle
+            android:elevation="8dp"
             android:id="@+id/checkout"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_button"

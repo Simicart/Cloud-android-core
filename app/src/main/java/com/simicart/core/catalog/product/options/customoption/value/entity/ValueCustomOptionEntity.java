@@ -27,6 +27,7 @@ public class ValueCustomOptionEntity extends SimiEntity implements Comparable<Va
     private float mSalePrice;
     private float mSaleTaxPrice;
     private int mPosition;
+    private boolean isDefault;
 
 
     private String title = "title";
@@ -39,6 +40,7 @@ public class ValueCustomOptionEntity extends SimiEntity implements Comparable<Va
     private String name = "name";
     private String qty = "qty";
     private String position = "position";
+    private String is_default = "default";
 
     @Override
     public void parse() {
@@ -120,6 +122,17 @@ public class ValueCustomOptionEntity extends SimiEntity implements Comparable<Va
             }
         }
 
+        if (mJSON.has(this.is_default)) {
+            String is_default = getData(this.is_default);
+            if (Utils.validateString(is_default) && is_default.equals("1")) {
+                isDefault = true;
+            }
+        }
+
+    }
+
+    public boolean isDefault() {
+        return this.isDefault;
     }
 
     public String getContentText() {

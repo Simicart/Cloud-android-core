@@ -28,7 +28,6 @@ public class CategoryModel extends SimiModel {
     @Override
     protected void paserData() {
         super.paserData();
-        Log.e("CategoryModel", mJSONResult.toString());
         if (mJSONResult.has(categories)) {
             try {
                 JSONArray listCategory = mJSONResult.getJSONArray(categories);

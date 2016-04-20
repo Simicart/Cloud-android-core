@@ -6,13 +6,12 @@ import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.delegate.NetWorkDelegate;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
-import com.simicart.core.base.model.entity.SimiEntity;
 import com.simicart.core.base.network.request.multi.SimiJSONRequest;
 import com.simicart.core.base.network.request.multi.SimiRequest;
 import com.simicart.core.base.network.request.multi.SimiRequest.Priority;
 import com.simicart.core.base.network.response.CoreResponse;
 import com.simicart.core.common.Utils;
-import com.simicart.core.config.Constants;
+import com.simicart.core.config.DataLocal;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,7 +23,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 public class SimiModel {
 
@@ -148,7 +146,6 @@ public class SimiModel {
     public void addFilterDataParameter(String key, String value) {
         if (Utils.validateString(key) && Utils.validateString(value)) {
             String key_filter = "filter[" + key + "]";
-            Log.e("SimiModel", "Keyfilter" + key_filter + value);
             addDataParameter(key_filter, value);
         }
     }
@@ -251,7 +248,6 @@ public class SimiModel {
                 cache_key = cache_key + post_body;
             }
         }
-        Log.e("SimiModel ", "------> CACHE KEY " + cache_key);
         mRequest.setCacheKey(cache_key);
         if (mShouldCache) {
             boolean isRefreshCart = SimiManager.getIntance().isRereshCart();
@@ -280,6 +276,11 @@ public class SimiModel {
         setShowNotifi();
         setTypeMethod();
         setShouldCache();
+        String store_code = DataLocal.getLocale();
+        Log.e("SimiModel ","===================> STORE CODE " + store_code);
+        if(Utils.validateString(store_code)) {
+            addFilterDataParameter("language", store_code);
+        }
         mRequest = new SimiJSONRequest(url_action, mDelegate);
         mRequest.setPriority(mCurrentPriority);
         mRequest.setShowNotify(isShowNotify);
@@ -296,7 +297,6 @@ public class SimiModel {
                 .getDataFromCacheL1(mRequest);
         if (null != json) {
             CoreResponse coreResponse = new CoreResponse();
-            Log.e("SimiModel  DATA FROM CACHE ", json.toString());
             coreResponse.setData(json.toString());
             coreResponse.parse();
             mDelegate.callBack(coreResponse, true);
@@ -341,7 +341,6 @@ public class SimiModel {
                     Map.Entry entry = (Map.Entry) iter.next();
                     // key
                     String key = (String) entry.getKey();
-                    Log.e("SimiModel", "Key Entry " + key);
                     if (Utils.validateString(key)) {
                         builder.append("/");
                         builder.append(key);
@@ -349,7 +348,6 @@ public class SimiModel {
                     // value
                     String value = (String) entry.getValue();
                     if (Utils.validateString(value)) {
-                        Log.e("SimiModel", "Value Entry " + value);
                         builder.append("/");
                         builder.append(value);
                     }

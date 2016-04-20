@@ -9,7 +9,6 @@ import com.simicart.core.base.model.collection.SimiCollection;
 import com.simicart.core.base.network.request.error.SimiError;
 import com.simicart.core.catalog.category.entity.Category;
 import com.simicart.core.home.delegate.CategoryHomeDelegate;
-import com.simicart.core.home.model.CategoryHomeModel;
 import com.simicart.core.home.model.CategoryWidgetModel;
 
 public class CategoryHomeController extends SimiController {

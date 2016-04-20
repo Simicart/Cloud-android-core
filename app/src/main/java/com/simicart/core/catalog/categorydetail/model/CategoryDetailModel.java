@@ -15,9 +15,15 @@ public class CategoryDetailModel extends SimiModel {
 	private String url;
 	private int mTotalProduct;
 	private ArrayList<String> mListProducID;
+	private int mCurrentSize;
+
+	public int getCurrentSize()
+	{
+		return mCurrentSize;
+	}
+
 	@Override
 	protected void setUrlAction() {
-		Log.e("ModelSearch_URL", url);
 		addDataExtendURL(url);
 	}
 
@@ -32,7 +38,6 @@ public class CategoryDetailModel extends SimiModel {
 
 		mTotalProduct = mTotal;
 		if(mJSONResult != null){
-			Log.e("CategoryDetailModel", mJSONResult.toString());
 			if(mAllIDs != null && mAllIDs.size() > 0) {
 				mListProducID = mAllIDs;
 			}
@@ -40,6 +45,7 @@ public class CategoryDetailModel extends SimiModel {
 				JSONArray productArr = mJSONResult.getJSONArray("products");
 				if(productArr.length() > 0){
 					for (int i = 0; i < productArr.length(); i++){
+						mCurrentSize++;
 						ProductEntity productEntity = new ProductEntity();
 						productEntity.setJSONObject(productArr.getJSONObject(i));
 						productEntity.parse();

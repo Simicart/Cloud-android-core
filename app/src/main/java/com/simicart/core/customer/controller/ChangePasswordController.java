@@ -230,7 +230,7 @@ public class ChangePasswordController extends SimiController {
                     Utils.hideKeyboard(v);
                 }
                else {
-                    String msg = "Please enter current password and new password";
+                    String msg = "Current password or new password must has at least 6 characters";
                     SimiManager.getIntance().showNotify(null, msg, "Ok");
                 }
             }

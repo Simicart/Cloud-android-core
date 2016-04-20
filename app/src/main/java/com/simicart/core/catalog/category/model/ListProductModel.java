@@ -12,15 +12,11 @@ import com.simicart.core.catalog.product.entity.productEnity.ProductEntity;
 public class ListProductModel extends SimiModel {
 
     protected String mID = "-1";
-//	protected String mQty;
 
     public void setCategoryID(String id) {
         mID = id;
     }
 
-//	public String getQty() {
-//		return mQty;
-//	}
 
     @Override
     protected void setUrlAction() {
@@ -41,7 +37,6 @@ public class ListProductModel extends SimiModel {
         super.paserData();
 
         if (mJSONResult != null) {
-            Log.e("ListProductModel", mJSONResult.toString());
             try {
                 JSONArray productArr = mJSONResult.getJSONArray("products");
                 if (productArr.length() > 0) {
@@ -49,7 +44,6 @@ public class ListProductModel extends SimiModel {
                         ProductEntity productEntity = new ProductEntity();
                         productEntity.setJSONObject(productArr.getJSONObject(i));
                         productEntity.parse();
-                        Log.e("ListProductModelSt", productEntity.isStatus() + "");
                         if (productEntity.isStatus()) {
                             collection.addEntity(productEntity);
                         }

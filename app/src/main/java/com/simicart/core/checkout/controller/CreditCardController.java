@@ -29,6 +29,7 @@ import java.util.HashMap;
 
 public class CreditCardController extends SimiController {
 
+    protected CreditcardEntity entity;
     protected CreditCardDelegate mDelegate;
     protected boolean isCheckedMethod;
     protected int key = 0;
@@ -36,12 +37,14 @@ public class CreditCardController extends SimiController {
     OnTouchListener onCLickSave;
     OnClickListener onClickCardType;
     OnClickListener onClickExpiredDate;
-    protected int click = 0;
-    protected int click_date = 0;
+    OnTouchListener onClickCardName;
+    OnTouchListener onCLickCardNumber;
+    OnTouchListener onClickCVV;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onStart() {
+
         onCLickSave = new OnTouchListener() {
             @SuppressWarnings("deprecation")
             @Override
@@ -56,6 +59,7 @@ public class CreditCardController extends SimiController {
                         break;
                     }
                     case MotionEvent.ACTION_UP: {
+                        entity = mDelegate.getCreditCard();
                         onButtonSaveClicked();
                     }
 
@@ -76,24 +80,53 @@ public class CreditCardController extends SimiController {
         onClickCardType = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (click % 2 == 0) {
+                SimiManager.getIntance().hideKeyboard();
+                if (mDelegate.getWheelViewCardType().getVisibility() == View.GONE) {
+                    mDelegate.getCardDateLayout().setVisibility(View.GONE);
                     mDelegate.getWheelViewCardType().setVisibility(View.VISIBLE);
                 } else {
                     mDelegate.getWheelViewCardType().setVisibility(View.GONE);
                 }
-                click++;
             }
         };
 
         onClickExpiredDate = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (click_date % 2 == 0) {
+                SimiManager.getIntance().hideKeyboard();
+                if (mDelegate.getCardDateLayout().getVisibility() == View.GONE) {
+                    mDelegate.getWheelViewCardType().setVisibility(View.GONE);
                     mDelegate.getCardDateLayout().setVisibility(View.VISIBLE);
                 } else {
                     mDelegate.getCardDateLayout().setVisibility(View.GONE);
                 }
-                click_date++;
+            }
+        };
+
+        onClickCardName = new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDelegate.getWheelViewCardType().setVisibility(View.GONE);
+                mDelegate.getCardDateLayout().setVisibility(View.GONE);
+                return false;
+            }
+        };
+
+        onCLickCardNumber = new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDelegate.getWheelViewCardType().setVisibility(View.GONE);
+                mDelegate.getCardDateLayout().setVisibility(View.GONE);
+                return false;
+            }
+        };
+
+        onClickCVV = new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                mDelegate.getWheelViewCardType().setVisibility(View.GONE);
+                mDelegate.getCardDateLayout().setVisibility(View.GONE);
+                return false;
             }
         };
     }
@@ -146,7 +179,7 @@ public class CreditCardController extends SimiController {
         try {
             cc_types = new JSONArray(mDelegate.getPaymentMethod().getData("card_type"));
             for (int i = 0; i < cc_types.length(); i++) {
-                if (cc_types.getJSONObject(i).getString("title").equals(mDelegate.getCardType())) {
+                if (cc_types.getJSONObject(i).getString("title").equals(entity.getPaymentType())) {
                     key = i;
                     break;
                 }
@@ -158,23 +191,23 @@ public class CreditCardController extends SimiController {
             e1.printStackTrace();
         }
         model.addDataBody("card_type", card_type);
-        model.addDataBody("card_number", mDelegate.getCardNumber());
-        model.addDataBody("card_name", mDelegate.getCardName());
-        String ccid = mDelegate.getCVV();
-        model.addDataBody("card_digit", ccid);
-        String card_name = mDelegate.getCardName();
-        model.addDataBody("card_name", card_name);
+        model.addDataBody("card_number", entity.getPaymentNumber());
+        model.addDataBody("card_name", entity.getCardName());
+        String ccid = entity.getPaymentCvv();
+        if(mDelegate.getPaymentMethod().getData("digit_card").equals("1"))
+            model.addDataBody("card_digit", ccid);
+        model.addDataBody("expiration_date", entity.getExpired());
         model.request();
     }
 
     public void onButtonSaveClicked() {
         SimiManager.getIntance().hideKeyboard();
-        String my = mDelegate.getExpired();
+        String my = entity.getExpired();
         String[] split = my.split("/");
-        String number = mDelegate.getCardNumber();
-        String ccid = mDelegate.getCVV();
-        String card_type = mDelegate.getCardType();
-        String card_name = mDelegate.getCardName();
+        String number = entity.getPaymentNumber();
+        String ccid = entity.getPaymentCvv();
+        String card_type = entity.getPaymentType();
+        String card_name = entity.getCardName();
 
         if (validateInputData(number)) {
             String email = DataLocal.getEmailCreditCart();
@@ -244,6 +277,18 @@ public class CreditCardController extends SimiController {
 
     public OnClickListener getOnClickCardDate() {
         return onClickExpiredDate;
+    }
+
+    public OnTouchListener getOnClickCardName() {
+        return onClickCardName;
+    }
+
+    public OnTouchListener getOnCLickCardNumber() {
+        return onCLickCardNumber;
+    }
+
+    public OnTouchListener getOnClickCVV() {
+        return onClickCVV;
     }
 
 }

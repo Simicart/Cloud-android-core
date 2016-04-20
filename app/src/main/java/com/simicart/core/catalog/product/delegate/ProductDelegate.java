@@ -22,4 +22,6 @@ public interface ProductDelegate extends SimiDelegate {
 	
 	public LinearLayout getLayoutMore ();
 
+	public void setListenerBack(View.OnKeyListener listenerBack);
+
 }

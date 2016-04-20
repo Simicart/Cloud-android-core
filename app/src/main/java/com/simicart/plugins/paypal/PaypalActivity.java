@@ -57,6 +57,7 @@ public class PaypalActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SimiManager.getIntance().setCurrentActivity(this);
         rootView = new LinearLayout(getApplicationContext());
         setContentView(rootView, new LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -118,7 +119,6 @@ public class PaypalActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.e("PaypalActivity ", "onActivityResult =========> " + resultCode);
         if (resultCode == Activity.RESULT_OK) {
             PaymentConfirmation confirm = data
                     .getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
@@ -136,16 +136,7 @@ public class PaypalActivity extends Activity {
 
             showDialog();
 
-//            requestUpdatePaypalCancel(invoice_number, "2");
-//            Intent i = new Intent(PaypalActivity.this, MainActivity.class);
-//            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(i);
-//            finish();
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-            // requestUpdatePaypalCancel(invoice_number, "2");
-            Log.e("paymentExample 4",
-                    "An invalid Payment or PayPalConfiguration was submitted. Please see the docs.");
             setErrorConnection("Error",
                     "CurrencyCode is invalid. Please see the docs.");
         }
@@ -231,21 +222,6 @@ public class PaypalActivity extends Activity {
             public void onSuccess(SimiCollection collection) {
                 mDelegate.dismissLoading();
                 if (collection != null && collection.getCollection().size() > 0) {
-//					OrderEntity orderEntity = (OrderEntity) collection.getCollection().get(0);
-//					ThankyouFragment fragment = ThankyouFragment.newInstance();
-//					fragment.setMessage(Config.getInstance().getText("Thank you for your purchase!"));
-//					fragment.setInvoice_number(String.valueOf(orderEntity.getSeqNo()));
-//					OrderHisDetail orderHisDetail = new OrderHisDetail();
-//					orderHisDetail.setJSONObject(orderEntity.getJSONObject());
-//					orderHisDetail.parse();
-//					fragment.setOrderHisDetail(orderHisDetail);
-//					if (DataLocal.isTablet) {
-//						SimiManager.getIntance().replacePopupFragment(
-//								fragment);
-//					} else {
-//						SimiManager.getIntance().replaceFragment(
-//								fragment);
-//					}
                     showMessage("Thank you for your purchase!");
                     changeView();
                 }
@@ -254,49 +230,6 @@ public class PaypalActivity extends Activity {
         };
         mModel.setDelegate(delegate);
         mModel.addDataExtendURL("update-paypal-payment");
-        // get JSON
-
-//        JSONObject js_client = jsonObject.getJSONObject("client");
-//        String environment = js_client.getString("environment");
-//        String product_name = js_client.getString("product_name");
-//        String paypal_sdk_version = js_client.getString("paypal_sdk_version");
-//        String platform = js_client.getString("platform");
-//
-//        String response_type = jsonObject.getString("response_type");
-//
-//        JSONObject js_response = jsonObject.getJSONObject("response");
-//        String id = js_response.getString("id");
-//        String state = js_response.getString("state");
-//        String create_time = js_response.getString("create_time");
-//        String intent = js_response.getString("intent");
-//
-//        // put
-//        List<NameValuePair> param_response_type = new ArrayList<NameValuePair>();
-//        param_response_type.add(new BasicNameValuePair("response_type", ""
-//                + response_type + ""));
-//        JSONObject os_proof = endCode(param_response_type);
-//
-//        List<NameValuePair> o_client = new ArrayList<NameValuePair>();
-//        o_client.add(new BasicNameValuePair("environment", "" + environment
-//                + ""));
-//        o_client.add(new BasicNameValuePair("product_name", "" + product_name
-//                + ""));
-//        o_client.add(new BasicNameValuePair("paypal_sdk_version", ""
-//                + paypal_sdk_version + ""));
-//        o_client.add(new BasicNameValuePair("platform", "" + platform + ""));
-//        JSONObject os_client = endCode(o_client);
-//
-//        List<NameValuePair> o_response = new ArrayList<NameValuePair>();
-//        o_response.add(new BasicNameValuePair("id", "" + id + ""));
-//        o_response.add(new BasicNameValuePair("state", "" + state + ""));
-//        o_response.add(new BasicNameValuePair("create_time", "" + create_time
-//                + ""));
-//        o_response.add(new BasicNameValuePair("intent", "" + intent + ""));
-//        JSONObject os_response = endCode(o_response);
-//
-//        os_proof.put("client", os_client);
-//        os_proof.put("response", os_response);
-        // mModel.addDataBody("proof", os_proof);
 
 
         JSONObject data = new JSONObject();
@@ -320,11 +253,6 @@ public class PaypalActivity extends Activity {
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        // showDialog();
-    }
 
     private void showDialog() {
         new AlertDialog.Builder(this)
@@ -337,7 +265,9 @@ public class PaypalActivity extends Activity {
                             public void onClick(DialogInterface dialog,
                                                 int which) {
                                 requestUpdatePaypalCancel(invoice_number, "2");
-                                SimiManager.getIntance().backToHomeFragment();
+
+                                SimiManager.getIntance().toMainActivity();
+
                             }
                         })
                 .setNegativeButton(Config.getInstance().getText("No"),
