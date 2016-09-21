@@ -24,6 +24,7 @@ import com.simicart.core.catalog.categorydetail.fragment.CategoryDetailFragment;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
+import com.simicart.core.searchvoice.SearchVoice;
 
 public class SearchHomeBlock extends SimiBlock {
 
@@ -121,7 +122,7 @@ public class SearchHomeBlock extends SimiBlock {
 				imm.showSoftInput(et_search, InputMethodManager.SHOW_IMPLICIT);
 			}
 		});
-		super.initView();
+		new SearchVoice("addIconSearchVoice", null, mView);
 	}
 
 	public void showSearchScreen(String key, String tag) {

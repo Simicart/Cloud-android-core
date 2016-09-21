@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager.LayoutParams;
+import android.support.v7.widget.AppCompatSeekBar;
 import android.text.Html;
 import android.text.TextUtils.TruncateAt;
 import android.text.TextWatcher;
@@ -26,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
@@ -40,6 +42,7 @@ import com.simicart.core.checkout.entity.QuoteEntity;
 import com.simicart.core.checkout.entity.ShippingMethod;
 import com.simicart.core.checkout.entity.TotalPrice;
 import com.simicart.core.checkout.fragment.ConditionFragment;
+import com.simicart.core.common.SCDialog;
 import com.simicart.core.common.Utils;
 import com.simicart.core.common.ViewIdGenerator;
 import com.simicart.core.common.price.TotalPriceView;
@@ -50,6 +53,8 @@ import com.simicart.core.config.Rconfig;
 import com.simicart.core.customer.entity.MyAddress;
 import com.simicart.core.material.ButtonRectangle;
 import com.simicart.core.style.CustomScrollView;
+
+import org.w3c.dom.Text;
 
 @SuppressLint("DefaultLocale")
 public class ReviewOrderBlock extends SimiBlock implements ReviewOrderDelegate {
@@ -127,6 +132,9 @@ public class ReviewOrderBlock extends SimiBlock implements ReviewOrderDelegate {
 
         // label shpping
         initShippingView();
+
+        // add spend point reward point
+        initRewardPoint();
     }
 
     protected void initButtonPlaceNowView() {
@@ -260,6 +268,57 @@ public class ReviewOrderBlock extends SimiBlock implements ReviewOrderDelegate {
                         Utils.expand(view);
                     }
                 }
+            }
+        });
+    }
+
+    protected void initRewardPoint() {
+
+        TextView tvTitle = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_title"));
+        tvTitle.setTextColor(Config.getInstance().getSearch_text_color());
+        tvTitle.setBackgroundColor(Color.parseColor(Config.getInstance().getSection_color()));
+        tvTitle.setText(Config.getInstance().getText("SPEND MY POINTS"));
+
+        TextView tvLabel = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_label"));
+        tvLabel.setTextColor(Config.getInstance().getSearch_text_color());
+        tvLabel.setText("Each of one Point gets $10.00 discount");
+
+        TextView tvMin = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_min"));
+        tvMin.setTextColor(Config.getInstance().getSearch_text_color());
+        tvMin.setText(0 + "");
+
+     final   TextView tvSpending = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_spending"));
+        tvSpending.setTextColor(Config.getInstance().getSearch_text_color());
+        tvSpending.setText(("Spending: 0"));
+
+        TextView tvMax = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_max"));
+        tvMax.setTextColor(Config.getInstance().getSearch_text_color());
+        tvMax.setText(100 + "");
+
+        AppCompatSeekBar sbSpending = (AppCompatSeekBar) mView.findViewById(Rconfig.getInstance().id("sb_spend"));
+        sbSpending.setMax(100);
+        sbSpending.setProgress(0);
+        sbSpending.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                tvSpending.setText("");
+                int value = seekBar.getProgress();
+                tvSpending.setText(("Spending")
+                        + ":" + value);
+
+                SCDialog scDialog = new SCDialog();
+                scDialog.createDialog();
+                scDialog.show();
             }
         });
     }

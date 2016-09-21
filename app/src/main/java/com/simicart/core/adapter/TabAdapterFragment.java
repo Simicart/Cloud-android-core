@@ -17,6 +17,7 @@ import com.simicart.core.catalog.product.fragment.TechSpecsFragment;
 import com.simicart.core.common.Utils;
 import com.simicart.core.common.price.ProductDetailPriceView;
 import com.simicart.core.config.Config;
+import com.simicart.core.simivideo.SimiVideoFragment;
 
 public class TabAdapterFragment extends FragmentStatePagerAdapter {
     protected ProductEntity mProduct;
@@ -98,6 +99,10 @@ public class TabAdapterFragment extends FragmentStatePagerAdapter {
                 mListFragment.add(fragment_related);
             }
         }
+
+        SimiVideoFragment videoFragment = new SimiVideoFragment();
+        mListFragment.add(videoFragment);
+
     }
 
     private void addTitle() {
@@ -117,6 +122,9 @@ public class TabAdapterFragment extends FragmentStatePagerAdapter {
                 mListTitle.add(Config.getInstance().getText("Related Products"));
             }
         }
+
+        mListTitle.add("Video");
+
     }
 
     public void EventTabFragment() {

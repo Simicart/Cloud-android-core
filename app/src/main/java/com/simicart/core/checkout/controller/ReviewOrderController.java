@@ -56,6 +56,7 @@ import com.simicart.core.checkout.model.ReviewOrderModel;
 import com.simicart.core.checkout.model.ShippingMethodModel;
 import com.simicart.core.checkout.model.UpdateBillingToQuoteModel;
 import com.simicart.core.checkout.model.UpdateShippingToQuoteModel;
+import com.simicart.core.common.SCDialog;
 import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
@@ -689,11 +690,13 @@ public class ReviewOrderController extends SimiController implements PaymentDele
         int showtype = paymentMethod.getShow_type();
         switch (showtype) {
             case 2:
-                dispatchEventForPlaceOrder("com.simicart.paymentmethod.placeorder", orderEntity, paymentMethod);
+                showDialogDemo();
+                //dispatchEventForPlaceOrder("com.simicart.paymentmethod.placeorder", orderEntity, paymentMethod);
                 break;
             case 3:
                 Log.e("ReviewOrderController", "type 3 " + paymentMethod.getMethodCode());
-                dispatchEventForPlaceOrder("com.simicart.after.placeorder.webview", orderEntity, paymentMethod);
+                showDialogDemo();
+                //dispatchEventForPlaceOrder("com.simicart.after.placeorder.webview", orderEntity, paymentMethod);
                 break;
             default:
                 // type 1 & 4
@@ -713,6 +716,12 @@ public class ReviewOrderController extends SimiController implements PaymentDele
                 }
                 break;
         }
+    }
+
+    protected void showDialogDemo(){
+        SCDialog scDialog = new SCDialog();
+        scDialog.createDialog();
+        scDialog.show();
     }
 
     private void dispatchEventForPlaceOrder(String nameEvent, OrderEntity orderEntity, PaymentMethod paymentMethod) {

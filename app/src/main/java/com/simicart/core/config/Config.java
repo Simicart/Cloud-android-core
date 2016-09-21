@@ -6,8 +6,6 @@ import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.provider.ContactsContract;
-import android.util.Log;
 
 import com.simicart.R;
 import com.simicart.core.base.manager.SimiManager;
@@ -33,9 +31,9 @@ public class Config {
 //    private String mColorSplashScreen = "SCREEN_COLOR";
 
 
-    private String mBaseUrl = "http://dev-api.jajahub.com/rest/";
+    private String mBaseUrl = "https://api.jajahub.com/rest/";
     // Android account
-    private String mSecretKey = "b80b768dbb68a2c039ea05b63d899ae344018301";
+    private String mSecretKey = "6cb39477c46ed96c2671df7222aeaf3a28e2b861";
 
     private String mDemoEnable = "DEMO_ENABLE11";
     private String mColorSplashScreen = "#FFFFFF";

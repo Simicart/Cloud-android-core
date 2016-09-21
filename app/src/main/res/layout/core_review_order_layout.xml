@@ -383,10 +383,13 @@
                     android:paddingBottom="10dp"
                     android:visibility="gone"></LinearLayout>
 
-                <RelativeLayout
-                    android:id="@+id/rlt_layout_reward_revieworder"
+                <include
+
+                    layout="@layout/plugins_rewardpoint_item_review_order"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"></RelativeLayout>initShipmentDetailsView
+                    android:layout_height="wrap_content"/>
+
+
 
                 <!-- Shipment details -->
 

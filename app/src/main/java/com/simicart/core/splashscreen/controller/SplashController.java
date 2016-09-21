@@ -1,6 +1,8 @@
 package com.simicart.core.splashscreen.controller;
 
 import android.content.Context;
+import android.util.Log;
+
 import com.simicart.core.base.delegate.ModelDelegate;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.base.model.collection.SimiCollection;
@@ -19,6 +21,8 @@ import com.simicart.core.splashscreen.model.CMSPagesModel;
 import com.simicart.core.splashscreen.model.GetIDPluginsModel;
 import com.simicart.core.splashscreen.model.GetSKUPluginModel;
 import com.simicart.core.splashscreen.model.SettingModel;
+import com.simicart.theme.matrixtheme.MatrixTheme;
+import com.simicart.theme.ztheme.ZTheme;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +35,7 @@ public class SplashController {
     private String MATRIX_THEME = "matrix";
     private String ZARA_THEME = "zara";
 
-    public SplashController( Context context) {
+    public SplashController(Context context) {
         mContext = context;
     }
 
@@ -67,9 +71,7 @@ public class SplashController {
                 String ids = idsModel.getIDs();
                 if (Utils.validateString(ids)) {
                     getSKUPlugin(ids);
-                }
-                else
-                {
+                } else {
                     ArrayList<String> listSKU = new ArrayList<String>();
                     listSKU.add("simi_developer");
                     readXMLPlugins(listSKU);
@@ -106,6 +108,11 @@ public class SplashController {
     }
 
     private void readXMLPlugins(ArrayList<String> listSKU) {
+
+        for(int i = 0; i < listSKU.size(); i++){
+            Log.e("SplashController","=================> SKU " + listSKU.get(i));
+        }
+
         ReadXML readXml = new ReadXML(mContext, listSKU);
         readXml.read();
     }
@@ -152,7 +159,7 @@ public class SplashController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                if(collection != null && collection.getCollection().size() > 0){
+                if (collection != null && collection.getCollection().size() > 0) {
                     SimiEntity entity = collection.getCollection().get(0);
                     DataLocal.listCms = ((CMSPageEntity) entity).getPage();
                 }
@@ -174,7 +181,7 @@ public class SplashController {
 
             @Override
             public void onSuccess(SimiCollection collection) {
-                if(collection != null && collection.getCollection().size() > 0) {
+                if (collection != null && collection.getCollection().size() > 0) {
                     SimiEntity entity = collection.getCollection().get(0);
                     ConfigEntity configEntity = (ConfigEntity) entity;
                     Config.getInstance().parseConfigSetting(configEntity);
@@ -190,11 +197,22 @@ public class SplashController {
 
     private void getThemeAndPaypal() {
         String config_theme = Config.getInstance().getConfigTheme().toLowerCase();
+        if (Utils.validateString(DataLocal.THEME)) {
+            config_theme = DataLocal.THEME;
+        }
+        DataLocal.THEME = config_theme;
         ArrayList<String> ids = new ArrayList<String>();
+
+        Log.e("SplashController","======================> THEME " + config_theme);
+
         if (config_theme.equals(MATRIX_THEME)) {
             ids.add("simi_themeone");
         } else if (config_theme.equals(ZARA_THEME)) {
             ids.add("simi_ztheme");
+        }
+        else{
+            new MatrixTheme();
+            new ZTheme();
         }
         readXMLPlugins(ids);
     }

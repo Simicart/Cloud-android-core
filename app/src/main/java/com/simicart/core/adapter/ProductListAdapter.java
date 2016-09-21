@@ -26,6 +26,7 @@ import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.event.block.SimiEventBlockEntity;
+import com.simicart.core.productlabel.ProductLabel;
 
 public class ProductListAdapter extends BaseAdapter {
 
@@ -109,16 +110,8 @@ public class ProductListAdapter extends BaseAdapter {
 
         RelativeLayout rl_product_list = (RelativeLayout) convertView
                 .findViewById(Rconfig.getInstance().id("rel_product_list"));
-        Intent intent = new Intent("com.simicart.image.product.list");
-        SimiEventBlockEntity blockEntity = new SimiEventBlockEntity();
-        blockEntity.setView(rl_product_list);
-        blockEntity.setEntity(product);
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(Constants.ENTITY,blockEntity);
-        intent.putExtra(Constants.DATA, bundle);
-        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
 
-
+        new ProductLabel("addViewProductInList",rl_product_list);
         return convertView;
     }
 

@@ -24,6 +24,7 @@ import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.catalog.category.fragment.CategoryFragment;
 import com.simicart.core.cms.entity.Cms;
 import com.simicart.core.cms.fragment.CMSFragment;
+import com.simicart.core.common.SCDemoFragment;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
 import com.simicart.core.config.DataLocal;
@@ -34,7 +35,9 @@ import com.simicart.core.customer.fragment.SignInFragment;
 import com.simicart.core.event.slidemenu.EventSlideMenu;
 import com.simicart.core.event.slidemenu.SlideMenuData;
 import com.simicart.core.home.fragment.HomeFragment;
+import com.simicart.core.instantcontact.ContactUsFragment;
 import com.simicart.core.setting.fragment.SettingAppFragment;
+import com.simicart.core.setting.fragment.ThemeFragment;
 import com.simicart.core.slidemenu.adapter.TabSlideMenuAdapter;
 import com.simicart.core.slidemenu.delegate.CloseSlideMenuDelegate;
 import com.simicart.core.slidemenu.delegate.SlideMenuDelegate;
@@ -47,6 +50,10 @@ public class PhoneSlideMenuController {
     private final String HOME = "Home";
     private final String CATEGORY = "Category";
     private final String ORDER_HISTORY = "Order History";
+    private final String REWARDPOINT_MENU_ITEM = "My Rewards";
+    private final String WISHLIST_MENU_ITEM = "My WishList";
+    private final String STORE_LOCATOR = "Store Locator";
+    private final String CONTACT_US = "Contact Us";
     private final String MORE = "More";
     private final String SETTING = "Setting";
     protected HashMap<String, String> mPluginFragment;
@@ -243,7 +250,43 @@ public class PhoneSlideMenuController {
 
                 mItems.add(item);
             }
+
+            int indexReward = checkElement(REWARDPOINT_MENU_ITEM);
+            if (indexReward == -1) {
+                addRewardItem();
+            }
+
+            int indexWishList = checkElement(WISHLIST_MENU_ITEM);
+            if (indexWishList == -1) {
+                addWishList();
+            }
         }
+    }
+
+    protected void addRewardItem() {
+        // add reward point
+        ItemNavigation itemReward = new ItemNavigation();
+        itemReward.setType(TypeItem.NORMAL);
+        itemReward.setName(REWARDPOINT_MENU_ITEM);
+        int id_icon = Rconfig.getInstance().drawable("ic_reward");
+        Drawable icon = mContext.getResources().getDrawable(id_icon);
+        icon.setColorFilter(Color.parseColor("#ffffff"),
+                PorterDuff.Mode.SRC_ATOP);
+        itemReward.setIcon(icon);
+        mItems.add(itemReward);
+    }
+
+    protected void addWishList() {
+        // add wishlist
+        ItemNavigation itemWishList = new ItemNavigation();
+        itemWishList.setType(TypeItem.NORMAL);
+        itemWishList.setName(WISHLIST_MENU_ITEM);
+        int id_icon = Rconfig.getInstance().drawable("ic_wishlist");
+        Drawable icon = mContext.getResources().getDrawable(id_icon);
+        icon.setColorFilter(Color.parseColor("#ffffff"),
+                PorterDuff.Mode.SRC_ATOP);
+        itemWishList.setIcon(icon);
+        mItems.add(itemWishList);
     }
 
     public void addMoreItems() {
@@ -253,6 +296,9 @@ public class PhoneSlideMenuController {
         item.setSparator(true);
         item.setName(MORE);
         mItems.add(item);
+
+        //add store locator
+        addStoreLocator();
 
         SlideMenuData slideMenuData = new SlideMenuData();
         slideMenuData.setItemNavigations(mItems);
@@ -264,8 +310,36 @@ public class PhoneSlideMenuController {
         intent.putExtra(Constants.DATA, bundle);
         LocalBroadcastManager.getInstance(mContext).sendBroadcastSync(intent);
 
+        // add contact us
+        addContactUs();
+
+
         // CMS
         addCMS();
+    }
+
+    protected void addStoreLocator() {
+        ItemNavigation itemWishList = new ItemNavigation();
+        itemWishList.setType(TypeItem.NORMAL);
+        itemWishList.setName(STORE_LOCATOR);
+        int id_icon = Rconfig.getInstance().drawable("plugins_locator");
+        Drawable icon = mContext.getResources().getDrawable(id_icon);
+        icon.setColorFilter(Color.parseColor("#ffffff"),
+                PorterDuff.Mode.SRC_ATOP);
+        itemWishList.setIcon(icon);
+        mItems.add(itemWishList);
+    }
+
+    protected void addContactUs() {
+        ItemNavigation itemContactUs = new ItemNavigation();
+        itemContactUs.setType(TypeItem.NORMAL);
+        itemContactUs.setName(CONTACT_US);
+        int id_icon = Rconfig.getInstance().drawable("plugins_contactus_icon");
+        Drawable icon = mContext.getResources().getDrawable(id_icon);
+        icon.setColorFilter(Color.parseColor("#ffffff"),
+                PorterDuff.Mode.SRC_ATOP);
+        itemContactUs.setIcon(icon);
+        mItems.add(itemContactUs);
     }
 
     public void addCMS() {
@@ -287,6 +361,19 @@ public class PhoneSlideMenuController {
     }
 
     public void addSetting() {
+
+        ItemNavigation itemTheme = new ItemNavigation();
+        itemTheme.setExtended(true);
+        itemTheme.setType(TypeItem.NORMAL);
+        itemTheme.setName("Change Theme");
+        int id_icon_theme = Rconfig.getInstance().drawable("ic_change_theme");
+        Drawable iconTheme = mContext.getResources().getDrawable(id_icon_theme);
+        iconTheme.setColorFilter(Color.parseColor("#ffffff"),
+                PorterDuff.Mode.SRC_ATOP);
+        itemTheme.setIcon(iconTheme);
+        mItems.add(itemTheme);
+
+
         ItemNavigation item = new ItemNavigation();
         item.setExtended(true);
         item.setType(TypeItem.NORMAL);
@@ -367,6 +454,24 @@ public class PhoneSlideMenuController {
             case "Setting":
                 fragment = SettingAppFragment.newInstance();
                 fragment.setShowPopup(true);
+                break;
+            case "My Rewards":
+                fragment = new SCDemoFragment();
+                ((SCDemoFragment) fragment).setIdImage(Rconfig.getInstance().drawable("demo_rewardpoint"));
+                break;
+            case "My WishList":
+                fragment = new SCDemoFragment();
+                ((SCDemoFragment) fragment).setIdImage(Rconfig.getInstance().drawable("demo_wishlist"));
+                break;
+            case "Store Locator":
+                fragment = new SCDemoFragment();
+                ((SCDemoFragment) fragment).setIdImage(Rconfig.getInstance().drawable("demo_store_locator"));
+                break;
+            case "Contact Us":
+                fragment = new ContactUsFragment();
+                break;
+            case "Change Theme":
+                fragment = new ThemeFragment();
                 break;
             default:
                 break;

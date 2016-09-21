@@ -187,11 +187,14 @@ public class SimiManager {
     }
 
     public void changeStoreView() {
+
         Intent intent = new Intent(mCurrentActivity.getApplicationContext(),
                 SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mCurrentActivity.finish();
         mCurrentActivity.startActivity(intent);
+        instance = null;
+
     }
 
     public Fragment getCurrentFragment() {
@@ -211,6 +214,13 @@ public class SimiManager {
     public SimiFragment eventFragment(SimiFragment fragment, String method) {
 
         String nameFragment = fragment.getClass().getName();
+
+        if(nameFragment.contains("HomeFragment")){
+            if(Utils.validateString(DataLocal.THEME)) {
+                nameFragment = nameFragment + "." + DataLocal.THEME;
+            }
+        }
+
         Intent intent = new Intent(nameFragment);
         SimiEventFragmentEntity entity = new SimiEventFragmentEntity();
         entity.setFragmetn(fragment);

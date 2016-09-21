@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 
-import com.paypal.android.sdk.fr;
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.checkout.controller.ConfigCheckout;
 import com.simicart.core.config.Rconfig;

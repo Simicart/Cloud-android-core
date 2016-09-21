@@ -20,7 +20,7 @@ public class ZTheme {
 
     public ZTheme() {
         Context context = SimiManager.getIntance().getCurrentContext();
-        IntentFilter intentFilter = new IntentFilter("com.simicart.core.home.fragment.HomeFragment");
+        IntentFilter intentFilter = new IntentFilter("com.simicart.core.home.fragment.HomeFragment.zara");
         BroadcastReceiver receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -28,9 +28,10 @@ public class ZTheme {
                 SimiEventFragmentEntity entity = (SimiEventFragmentEntity) bundle.getSerializable(Constants.ENTITY);
                 HomeZThemeFragment fragment = HomeZThemeFragment.newInstance();
                 entity.setFragmetn(fragment);
+
             }
         };
-
         LocalBroadcastManager.getInstance(context).registerReceiver(receiver, intentFilter);
     }
+
 }

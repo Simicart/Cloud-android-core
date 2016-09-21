@@ -56,6 +56,8 @@ public class DataLocal {
     private static String EMAIL_CARD_CREDIT_CARD = "EmailCardCreditCard";
     private static String SIMI_CREDIT_CARD = "SimiCreditCard";
 
+    public static String THEME = "";
+
     public static void init(Context context) {
         mContext = context;
         mSharedPre = mContext.getSharedPreferences(NAME_REFERENCE,

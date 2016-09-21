@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
@@ -14,6 +15,8 @@ import android.view.MenuItem;
 
 import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.common.FontsOverride;
+import com.simicart.core.common.SCDialog;
+import com.simicart.core.common.Utils;
 import com.simicart.core.common.entity.IntentEntity;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.Constants;
@@ -24,7 +27,10 @@ import com.simicart.core.customer.controller.AutoSignInController;
 import com.simicart.core.menutop.fragment.FragmentMenuTop;
 import com.simicart.core.notification.NotificationActivity;
 import com.simicart.core.notification.controller.NotificationController;
+import com.simicart.core.searchvoice.SearchVoice;
 import com.simicart.core.slidemenu.fragment.SlideMenuFragment;
+
+import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity {
 
@@ -76,6 +82,7 @@ public class MainActivity extends FragmentActivity {
                 .newInstance(mNavigationDrawerFragment);
         ft.replace(Rconfig.getInstance().id("menu_top"), fragment);
         ft.commit();
+
 
     }
 
@@ -209,6 +216,15 @@ public class MainActivity extends FragmentActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
+            ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+            String text = result.get(0);
+            if (Utils.validateString(text)) {
+                new SearchVoice(text);
+            }
+
+        }
 
         IntentEntity entity = new IntentEntity(data, requestCode, resultCode);
 

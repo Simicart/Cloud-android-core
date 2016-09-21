@@ -64,6 +64,7 @@ import com.simicart.core.common.Utils;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
+import com.simicart.core.searchvoice.SearchVoice;
 
 public class CategoryDetailBlock extends SimiBlock implements CategoryDetailDelegate,
         OnItemClickListener {
@@ -300,6 +301,26 @@ public class CategoryDetailBlock extends SimiBlock implements CategoryDetailDele
                 }
             }
         });
+
+//        EventBlock block = new EventBlock();
+//        CacheBlock  cacheBlock = new CacheBlock();
+//        cacheBlock.setView(mView);
+//        SimiEntity entity = new SimiEntity();
+
+//        entity.setJSONObject(object);
+//        cacheBlock.setSimiEntity(entity);
+
+        try {
+            JSONObject object = new JSONObject();
+            object.put("cateId", cate_id);
+            object.put("cateName", cate_name);
+            object.put("tagSearch", tag_search);
+
+            new SearchVoice("addIconSearchVoice", object, mView);
+
+        } catch (Exception e) {
+
+        }
 
     }
 
@@ -639,7 +660,6 @@ public class CategoryDetailBlock extends SimiBlock implements CategoryDetailDele
     public ArrayList<ProductEntity> getListProduct() {
         return listProduct;
     }
-
 
 
 //    @Override

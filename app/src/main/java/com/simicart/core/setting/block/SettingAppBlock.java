@@ -8,20 +8,25 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
 import com.simicart.core.base.block.SimiBlock;
+import com.simicart.core.base.manager.SimiManager;
 import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.material.LayoutRipple;
 import com.simicart.core.setting.delegate.SettingAppDelegate;
+import com.simicart.core.setting.fragment.ThemeFragment;
+
 import android.view.View.OnClickListener;
 
 /**
  * Created by Sony on 3/10/2016..
  */
-public class SettingAppBlock extends SimiBlock implements SettingAppDelegate{
+public class SettingAppBlock extends SimiBlock implements SettingAppDelegate {
     protected TextView tv_language;
     protected LayoutRipple rl_language;
+
     protected TextView tv_language_selected;
     protected TextView tv_currency;
     protected LayoutRipple rl_currency;
@@ -31,25 +36,26 @@ public class SettingAppBlock extends SimiBlock implements SettingAppDelegate{
     protected TextView tv_locator;
     protected LayoutRipple rl_locator;
     protected ToggleButton tb_notification;
+    protected LayoutRipple rl_select_theme;
     protected View v_under;
 
     public SettingAppBlock(View view, Context context) {
         super(view, context);
     }
 
-    public void setOnClickLanguage(OnClickListener listener){
+    public void setOnClickLanguage(OnClickListener listener) {
         rl_language.setOnClickListener(listener);
     }
 
-    public void setOnClickCurrency(OnClickListener listener){
+    public void setOnClickCurrency(OnClickListener listener) {
         rl_currency.setOnClickListener(listener);
     }
 
-    public void setOnClickNotification(OnClickListener listener){
+    public void setOnClickNotification(OnClickListener listener) {
         rl_notification.setOnClickListener(listener);
     }
 
-    public void setOnClickLocator(OnClickListener listener){
+    public void setOnClickLocator(OnClickListener listener) {
         rl_locator.setOnClickListener(listener);
     }
 
@@ -108,6 +114,8 @@ public class SettingAppBlock extends SimiBlock implements SettingAppDelegate{
         v_under = (View) mView.findViewById(Rconfig.getInstance().id(
                 "v_under"));
         v_under.setBackgroundColor(Config.getInstance().getApp_backrground());
+
+
 
         setColor(mView);
     }

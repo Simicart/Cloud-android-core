@@ -1,6 +1,7 @@
 package com.simicart.core.menutop.block;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.view.KeyEvent;
@@ -25,6 +26,7 @@ import com.simicart.core.config.Config;
 import com.simicart.core.config.DataLocal;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.menutop.delegate.MenuTopDelegate;
+import com.simicart.core.zopimchat.SimiChatActivity;
 
 public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 
@@ -33,6 +35,7 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 	protected Drawable iconCart;
 	protected ImageView imv_menu;
 	protected ImageView img_logo;
+	protected ImageView imgLiveChat;
 	// protected int heightDevice;
 	protected Context context;
 	protected LinearLayout ll_search_land;
@@ -53,6 +56,16 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 	public void initView() {
 		initButtonMenu();
 		initCartView();
+
+		imgLiveChat = (ImageView) mView.findViewById(Rconfig.getInstance().id("img_live_chat"));
+		imgLiveChat.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(SimiManager.getIntance().getCurrentActivity(), SimiChatActivity.class);
+				SimiManager.getIntance().getCurrentActivity().startActivity(intent);
+			}
+		});
+
 		if (DataLocal.isTablet) {
 			initSearch();
 		}
