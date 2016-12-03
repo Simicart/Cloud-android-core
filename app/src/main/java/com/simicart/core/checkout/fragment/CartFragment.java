@@ -25,12 +25,12 @@ public class CartFragment extends SimiFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		SimiManager.getIntance().showCartLayout(false);
+//		SimiManager.getIntance().showCartLayout(false);
 	}
 
 	@Override
 	public void onStart() {
-		SimiManager.getIntance().showCartLayout(false);
+		//SimiManager.getIntance().showCartLayout(false);
 		super.onStart();
 	}
 
@@ -61,19 +61,19 @@ public class CartFragment extends SimiFragment {
 
 	@Override
 	public void onDestroy() {
-		SimiManager.getIntance().showCartLayout(true);
+//		SimiManager.getIntance().showCartLayout(true);
 		super.onDestroy();
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		SimiManager.getIntance().showCartLayout(true);
+//		SimiManager.getIntance().showCartLayout(true);
 	}
 
 	@Override
 	public void onResume() {
-		SimiManager.getIntance().showCartLayout(false);
+//		SimiManager.getIntance().showCartLayout(false);
 		super.onResume();
 	}
 }

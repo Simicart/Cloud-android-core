@@ -73,7 +73,7 @@ public class ReviewOrderFragment extends SimiFragment {
 		View view = inflater.inflate(
 				Rconfig.getInstance().layout("core_review_order_layout"),
 				container, false);
-		if(DataLocal.isLanguageRTL){
+		if (DataLocal.isLanguageRTL) {
 			view = inflater.inflate(
 					Rconfig.getInstance().layout("rtl_review_order_layout"),
 					container, false);

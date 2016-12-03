@@ -14,6 +14,7 @@ import com.simicart.core.config.Config;
 import com.simicart.core.config.Rconfig;
 import com.simicart.core.material.Button;
 import com.simicart.core.material.ButtonRectangle;
+import com.simicart.core.zopimchat.SimiChatActivity;
 
 /**
  * Created by frank on 9/20/16.
@@ -95,7 +96,8 @@ public class SCDialog {
         if (null != mCallBack) {
             mCallBack.onChatWithSimiCart();
         } else {
-
+            Intent intent = new Intent(SimiManager.getIntance().getCurrentActivity(), SimiChatActivity.class);
+            SimiManager.getIntance().getCurrentActivity().startActivity(intent);
             dismiss();
         }
 

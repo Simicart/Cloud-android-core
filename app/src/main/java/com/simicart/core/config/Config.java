@@ -33,7 +33,7 @@ public class Config {
 
     private String mBaseUrl = "https://api.jajahub.com/rest/";
     // Android account
-    private String mSecretKey = "6cb39477c46ed96c2671df7222aeaf3a28e2b861";
+    private String mSecretKey = "2310b3e2110500a5baa4904f3f9b09ca2d4921b6";
 
     private String mDemoEnable = "DEMO_ENABLE11";
     private String mColorSplashScreen = "#FFFFFF";

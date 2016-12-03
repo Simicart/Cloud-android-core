@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -99,7 +100,13 @@ public class InformationFragment extends SimiFragment {
                 public void onClick(View v) {
                     FacebookConnectFragment fragment = new FacebookConnectFragment();
                     fragment.setUrlProduct("https://www.simicart.com/");
-                    SimiManager.getIntance().addFragment(fragment);
+
+                    FragmentTransaction ft = SimiManager.getIntance().getManager()
+                            .beginTransaction();
+                    ft.add(Rconfig.getInstance().id("container"), fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+
                 }
             });
             mListButton.add(bt_facebook);

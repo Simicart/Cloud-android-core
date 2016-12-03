@@ -287,7 +287,7 @@ public class ReviewOrderBlock extends SimiBlock implements ReviewOrderDelegate {
         tvMin.setTextColor(Config.getInstance().getSearch_text_color());
         tvMin.setText(0 + "");
 
-     final   TextView tvSpending = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_spending"));
+        final TextView tvSpending = (TextView) mView.findViewById(Rconfig.getInstance().id("tv_spending"));
         tvSpending.setTextColor(Config.getInstance().getSearch_text_color());
         tvSpending.setText(("Spending: 0"));
 

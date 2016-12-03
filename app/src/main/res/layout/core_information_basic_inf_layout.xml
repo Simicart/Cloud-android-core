@@ -65,6 +65,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_toRightOf="@id/img_reward"
                     android:gravity="left"
+                    android:textColor="#f60707"
                     android:text="You can receive 10 Points for purchasing this product."
                     />
 

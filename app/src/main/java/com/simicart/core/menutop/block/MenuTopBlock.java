@@ -58,6 +58,11 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 		initCartView();
 
 		imgLiveChat = (ImageView) mView.findViewById(Rconfig.getInstance().id("img_live_chat"));
+		Drawable ic_menu = mContext.getResources().getDrawable(
+				Rconfig.getInstance().drawable("ic_livechat"));
+		ic_menu.setColorFilter(Config.getInstance().getTop_menu_icon_color(),
+				PorterDuff.Mode.SRC_ATOP);
+		imgLiveChat.setImageDrawable(ic_menu);
 		imgLiveChat.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -243,38 +248,38 @@ public class MenuTopBlock extends SimiBlock implements MenuTopDelegate {
 
 	@Override
 	public void showCartLayout(boolean show) {
-		if (show) {
-			rltCart.setVisibility(View.VISIBLE);
-			if (DataLocal.isTablet) {
-				RelativeLayout layout_right = (RelativeLayout) mView
-						.findViewById(Rconfig.getInstance().id("layout_right"));
-				layout_right.setVisibility(View.VISIBLE);
-				// if (ll_search_land.getLayoutParams() == param_search_cancel)
-				// {
-				// ll_logo_land.setLayoutParams(param_logo_cancel);
-				// } else {
-				if (ll_search.getVisibility() == LinearLayout.VISIBLE) {
-					ll_logo_land.setLayoutParams(param_logo);
-					ll_search_land.setLayoutParams(param_search);
-				} else {
-					ll_logo_land.setLayoutParams(param_logo_cancel);
-					ll_search_land.setLayoutParams(param_search_cancel);
-				}
-			}
-		} else {
-			rltCart.setVisibility(View.GONE);
-			if (DataLocal.isTablet) {
-				RelativeLayout layout_right = (RelativeLayout) mView
-						.findViewById(Rconfig.getInstance().id("layout_right"));
-				if (ll_search_land.getVisibility() == LinearLayout.VISIBLE) {
-					layout_right.setVisibility(View.INVISIBLE);
-					ll_logo_land.setLayoutParams(param_logo_cancel);
-				} else {
-					layout_right.setVisibility(View.VISIBLE);
-					ll_logo_land.setLayoutParams(param_logo_cancel);
-				}
-			}
-		}
+//		if (show) {
+//			rltCart.setVisibility(View.VISIBLE);
+//			if (DataLocal.isTablet) {
+//				RelativeLayout layout_right = (RelativeLayout) mView
+//						.findViewById(Rconfig.getInstance().id("layout_right"));
+//				layout_right.setVisibility(View.VISIBLE);
+//				// if (ll_search_land.getLayoutParams() == param_search_cancel)
+//				// {
+//				// ll_logo_land.setLayoutParams(param_logo_cancel);
+//				// } else {
+//				if (ll_search.getVisibility() == LinearLayout.VISIBLE) {
+//					ll_logo_land.setLayoutParams(param_logo);
+//					ll_search_land.setLayoutParams(param_search);
+//				} else {
+//					ll_logo_land.setLayoutParams(param_logo_cancel);
+//					ll_search_land.setLayoutParams(param_search_cancel);
+//				}
+//			}
+//		} else {
+//			rltCart.setVisibility(View.GONE);
+//			if (DataLocal.isTablet) {
+//				RelativeLayout layout_right = (RelativeLayout) mView
+//						.findViewById(Rconfig.getInstance().id("layout_right"));
+//				if (ll_search_land.getVisibility() == LinearLayout.VISIBLE) {
+//					layout_right.setVisibility(View.INVISIBLE);
+//					ll_logo_land.setLayoutParams(param_logo_cancel);
+//				} else {
+//					layout_right.setVisibility(View.VISIBLE);
+//					ll_logo_land.setLayoutParams(param_logo_cancel);
+//				}
+//			}
+//		}
 	}
 
 	@Override
